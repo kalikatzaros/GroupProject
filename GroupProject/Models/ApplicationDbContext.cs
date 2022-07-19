@@ -11,6 +11,8 @@ namespace GroupProject.Models
         public DbSet<WallPost> WallPosts { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Following> Followings { get; set; }
+
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
