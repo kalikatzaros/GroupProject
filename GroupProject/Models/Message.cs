@@ -10,14 +10,12 @@ namespace GroupProject.Models
     public class Message
     {
         [Key]
-        [Column(Order=1)]
+        [Column(Order = 1)]
         public string SenderId { get; set; }
+        public ApplicationUser Sender { get; set; }
         [Key]
         [Column(Order = 2)]
-        public string ReceiverId { get; set; }
-        [Required]
-        public ApplicationUser Sender { get; set; }
-        [Required]
+        public string ReceiverId { get; set; }       
         public ApplicationUser Receiver { get; set; }
         [DataType(DataType.MultilineText)]
         public string Body { get; set; }

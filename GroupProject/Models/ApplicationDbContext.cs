@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using GroupProject.Configurations;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
 namespace GroupProject.Models
@@ -23,5 +24,13 @@ namespace GroupProject.Models
         {
             return new ApplicationDbContext();
         }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            
+            modelBuilder.Configurations.Add(new ApplicationUserConfiguration());
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }
