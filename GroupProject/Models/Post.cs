@@ -10,7 +10,7 @@ namespace GroupProject.Models
     {
         public int Id { get; set; }
         [Required]
-        public User Sender { get; set; }
+        public ApplicationUser Sender { get; set; }
         [Required]
         [DataType(DataType.MultilineText)]
         public string Body { get; set; }

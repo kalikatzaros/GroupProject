@@ -10,9 +10,9 @@ namespace GroupProject.Models
     {
         public int Id { get; set; }
         [Required]
-        public User Sender { get; set; }
+        public ApplicationUser Sender { get; set; }
         [Required]
-        public User Receiver { get; set; }
+        public ApplicationUser Receiver { get; set; }
         [DataType(DataType.MultilineText)]
         public string Body { get; set; }
         [DataType(DataType.DateTime)]
