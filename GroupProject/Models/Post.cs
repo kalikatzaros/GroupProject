@@ -9,7 +9,9 @@ namespace GroupProject.Models
     public class Post
     {
         public int Id { get; set; }
-        [Required]
+        
+        public int SenderId { get; set; }
+        
         public ApplicationUser Sender { get; set; }
         [Required]
         [DataType(DataType.MultilineText)]

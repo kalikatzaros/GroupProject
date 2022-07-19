@@ -19,11 +19,15 @@ public class ApplicationUser : IdentityUser
     public string LastName { get; set; }
     public ICollection<Following> Followers { get; set; }
     public ICollection<Following> Followees { get; set; }
+    public ICollection<Message> SentMessages { get; set; }
+    public ICollection<Message> ReceivedMessages { get; set; }
 
     public ApplicationUser()
     {
         Followees = new Collection<Following>();
         Followers = new Collection<Following>();
+        SentMessages = new Collection<Message>();
+        ReceivedMessages = new Collection<Message>();
     }
     public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
     {
