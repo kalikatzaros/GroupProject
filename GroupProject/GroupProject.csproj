@@ -178,6 +178,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Configurations\ApplicationUserConfiguration.cs" />
+    <Compile Include="Configurations\TopicPostConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -191,6 +192,10 @@
     <Compile Include="Migrations\202207192108573_Test.cs" />
     <Compile Include="Migrations\202207192108573_Test.Designer.cs">
       <DependentUpon>202207192108573_Test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207200950069_SeedUsers.cs" />
+    <Compile Include="Migrations\202207200950069_SeedUsers.Designer.cs">
+      <DependentUpon>202207200950069_SeedUsers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -458,6 +463,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207192108573_Test.resx">
       <DependentUpon>202207192108573_Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207200950069_SeedUsers.resx">
+      <DependentUpon>202207200950069_SeedUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

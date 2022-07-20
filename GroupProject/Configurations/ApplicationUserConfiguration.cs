@@ -26,6 +26,8 @@ namespace GroupProject.Configurations
                 .WithRequired(m => m.Sender)
                 .WillCascadeOnDelete(false);
 
+            
+
         }
     }
 }
