@@ -12,6 +12,7 @@ namespace GroupProject.Controllers
     {
         private readonly ApplicationDbContext _context;
 
+<<<<<<< HEAD
         public FolloweesController()
         {
             _context = new ApplicationDbContext();
@@ -26,5 +27,28 @@ namespace GroupProject.Controllers
                 .ToList();
             return View(followers);
         }
+=======
+
+        public FolloweesController()
+        {
+            _context = new ApplicationDbContext();
+        }    
+
+        public ActionResult GetPeopleIFollow()
+        {
+            string userId = User.Identity.GetUserId();
+            var followees = _context.Followings
+                                .Where(f => f.FollowerId == userId)
+                                .Select(f => f.Followee)
+                                .ToList();
+
+            return View(followees);
+        }
+
+        
+
+
+
+>>>>>>> ec39783e1852e10eeab651b6d2170c6fb7c025c9
     }
 }
