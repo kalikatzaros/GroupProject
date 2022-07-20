@@ -13,6 +13,7 @@ using Microsoft.Owin.Security;
 using GroupProject.Models;
 using System.Collections.ObjectModel;
 
+
 public class ApplicationUser : IdentityUser
 {
     public string Name { get; set; }
