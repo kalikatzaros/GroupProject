@@ -11,7 +11,7 @@ namespace GroupProject.Models
     {
         [Key]
         [Column(Order = 1)]
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         public ApplicationUser User { get; set; }
         [Key]
         [Column(Order = 2)]
