@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -8,10 +9,13 @@ namespace GroupProject.Models
 {
     public class Message
     {
-        public int Id { get; set; }
-        [Required]
+        [Key]
+        [Column(Order = 1)]
+        public string SenderId { get; set; }
         public ApplicationUser Sender { get; set; }
-        [Required]
+        [Key]
+        [Column(Order = 2)]
+        public string ReceiverId { get; set; }       
         public ApplicationUser Receiver { get; set; }
         [DataType(DataType.MultilineText)]
         public string Body { get; set; }

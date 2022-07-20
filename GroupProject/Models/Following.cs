@@ -7,16 +7,16 @@ using System.Web;
 
 namespace GroupProject.Models
 {
-    public class WallPost
+    public class Following
     {
         [Key]
-        [Column(Order = 1)]
-        public string UserId { get; set; }
-        public ApplicationUser User { get; set; }
+        [Column(Order=1)]
+        public string FollowerId { get; set; }
         [Key]
         [Column(Order = 2)]
-        public int PostId { get; set; }
-        public Post Post { get; set; }
+        public string FolloweeId { get; set; }
+        public ApplicationUser Follower { get; set; }
+        public ApplicationUser Followee { get; set; }
 
     }
 }
