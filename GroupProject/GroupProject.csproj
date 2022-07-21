@@ -183,12 +183,12 @@
     <Compile Include="Configurations\ApplicationUserConfiguration.cs" />
     <Compile Include="Configurations\TopicPostConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-<<<<<<< HEAD
+
     <Compile Include="Controllers\ApplicationUserController.cs" />
-=======
+
     <Compile Include="Controllers\API\FollowingsController.cs" />
     <Compile Include="Controllers\FollowersController.cs" />
->>>>>>> ec39783e1852e10eeab651b6d2170c6fb7c025c9
+
     <Compile Include="Controllers\FolloweesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -451,12 +451,9 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Followees\Index.cshtml" />
-=======
     <Content Include="Views\Shared\_Navbar.cshtml" />
     <Content Include="Views\Followees\GetPeopleIFollow.cshtml" />
->>>>>>> ec39783e1852e10eeab651b6d2170c6fb7c025c9
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
