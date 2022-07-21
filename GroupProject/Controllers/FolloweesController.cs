@@ -26,12 +26,9 @@ namespace GroupProject.Controllers
                 .ToList();
             return View(followers);
         }
-=======
 
-        public FolloweesController()
-        {
-            _context = new ApplicationDbContext();
-        }    
+
+ 
 
         public ActionResult GetPeopleIFollow()
         {
@@ -48,6 +45,6 @@ namespace GroupProject.Controllers
 
 
 
->>>>>>> ec39783e1852e10eeab651b6d2170c6fb7c025c9
+
     }
 }
