@@ -20,7 +20,7 @@
             <div class="col-md-10">
                 @Html.DropDownListFor(m => m.Message.ReceiverId,new SelectList(Model.Users, "Id", "Email"),"Select Receiver", new { @class = "form-control" })
                 @*@Html.DropDownList("ReceiverId", null, htmlAttributes: new { @class = "form-control" })*@
-                @Html.ValidationMessageFor(model => model.Message.ReceiverId, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Message.ReceiverId, "", new { @class = "text-danger" }, null)
             </div>
         </div>
 
