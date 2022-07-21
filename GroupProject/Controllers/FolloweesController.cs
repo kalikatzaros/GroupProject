@@ -17,16 +17,6 @@ namespace GroupProject.Controllers
             _context = new ApplicationDbContext();
         }
 
-        public ActionResult Index()
-        {
-            var userId = User.Identity.GetUserId();
-            var followers = _context.Followings
-                .Where(f => f.FolloweeId == userId)
-                .Select(f => f.Follower)
-                .ToList();
-            return View(followers);
-        }
-
         public ActionResult GetPeopleIFollow()
         {
             string userId = User.Identity.GetUserId();
