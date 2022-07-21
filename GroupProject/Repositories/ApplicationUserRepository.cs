@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace GroupProject.Repositories
-{
-    public class ApplicationUserRepository
-    {
-    }
-}
-=======
 ﻿using GroupProject.Models;
 using System;
 using System.Collections.Generic;
@@ -33,10 +20,8 @@ namespace GroupProject.Repositories
         public void Dispose()
         {
             throw new NotImplementedException();
-        }
-
-        
+        }        
 
     }
 }
->>>>>>> ec39783e1852e10eeab651b6d2170c6fb7c025c9
+
