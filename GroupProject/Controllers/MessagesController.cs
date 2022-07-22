@@ -46,25 +46,16 @@ namespace GroupProject.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult ReadIncomingMessages()
+        {
+            var id = User.Identity.GetUserId();
 
-        //public ActionResult ReadMessage()
-        //{
-        //    var Id = User.Identity.GetUserId();
-        //    var messages 
-
-        //    try
-        //    {
-
-        //    }
-        //    catch (SystemException ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-
-
-
-        //    return
-        //}
+            var messages = _context.Messages
+                            .Include("Sender")
+                            .Include("Receiver")
+                            .Where(m => m.ReceiverId == id);
+            return View(messages);
+        }
 
     }
 }
