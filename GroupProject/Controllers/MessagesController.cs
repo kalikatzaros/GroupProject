@@ -47,5 +47,24 @@ namespace GroupProject.Controllers
         }
 
 
+        //public ActionResult ReadMessage()
+        //{
+        //    var Id = User.Identity.GetUserId();
+        //    var messages 
+
+        //    try
+        //    {
+
+        //    }
+        //    catch (SystemException ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
+
+
+
+        //    return
+        //}
+
     }
 }
