@@ -26,7 +26,10 @@ namespace GroupProject.Controllers
                 .ToList();
             return View(followers);
         }
-  
+
+
+ 
+
         public ActionResult GetPeopleIFollow()
         {
             string userId = User.Identity.GetUserId();
