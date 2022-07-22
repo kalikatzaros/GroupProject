@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
+using System.Net;
 
 namespace GroupProject.Controllers
 {
@@ -56,6 +58,36 @@ namespace GroupProject.Controllers
                             .Where(m => m.ReceiverId == id);
             return View(messages);
         }
+               
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var message = _context.Messages
+                            .Include("Receiver")
+                            .Include("Sender")
+                            .SingleOrDefault(m => m.Id == id);
+            
+            if (message == null)
+            {
+                return HttpNotFound();
+            }
+            
+            return View(message);
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int? id)
+        {
+            var message = _context.Messages.SingleOrDefault(m => m.Id == id);
+
+            _context.Messages.Remove(message);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+
 
     }
 }
