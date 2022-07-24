@@ -7,6 +7,9 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <link href="@Url.Content("~/Style/StyleSheet.css")" rel="stylesheet" type="text/css" />
+    @RenderSection("Styles", false)
+
 </head>
 <body>
     
