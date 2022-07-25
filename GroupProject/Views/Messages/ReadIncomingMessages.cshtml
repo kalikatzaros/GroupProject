@@ -9,75 +9,39 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Receiver.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Sender.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Body)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Datetime)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table class="table" id="messages">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Receiver.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sender.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Body)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Datetime)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Body)
+            </th>
+            <th>Actions</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.ActionLink(item.Body, "Edit", "Messages", new { id = item.Id }, null)
+    </td>
+    <td>
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+        <button class="btn-link js-delete" data-message-id="@item.Id">Delete</button>
+    </td>
+</tr>            }
+    </tbody>
 
-</table>
-@section scripts{
-    <script>
-        $(document).ready(function () {
-            var table = $("#messages").DataTable({
-                ajax: {
-                    url: "/api/messages",
-                    dataSrc: ""
-                },
-                columns: [
-                    {
-                        data: "email",
-                        render: function (data, type, message) {
-                            return "<a href ='/messages/readIncomingMessages/" + message.id + "'>" + message.email + "</a>";
-                        }
-                    }
-                ]
-            });
-        });
-    </script>
+</table>*@
 
     }
 
-<!--<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
-<!--<div class="container">
+<div class="container">
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
     <div class="mail-box">
         <aside class="sm-side">
@@ -96,9 +60,9 @@
             <div class="inbox-body">
                 <a href="#myModal" data-toggle="modal" title="Compose" class="btn btn-compose">
                     Compose
-                </a>-->
+                </a>
                 <!-- Modal -->
-                <!--<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade" style="display: none;">
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade" style="display: none;">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -144,10 +108,10 @@
                                     </div>
                                 </form>
                             </div>
-                        </div>--><!-- /.modal-content -->
-                    <!--</div>--><!-- /.modal-dialog -->
-                <!--</div>--><!-- /.modal -->
-            <!--</div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+            </div>
             <ul class="inbox-nav inbox-divider">
                 <li class="active">
                     <a href="#"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
@@ -260,4 +224,4 @@
             </div>
         </aside>
     </div>
-</div>-->
+</div>
