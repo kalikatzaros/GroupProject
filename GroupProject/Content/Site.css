@@ -199,8 +199,8 @@ label #cancel {
 
 .sidebar-footer li{
     display:inline;
-    margin-right:2em;
-    position:relative;
+    margin-right:5em;
+    position:fixed;
 }
 /*
 .sidebar-footer > a {
