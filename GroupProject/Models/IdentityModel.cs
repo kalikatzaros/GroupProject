@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using GroupProject.Configurations;
 
 
+
 namespace GroupProject.Models
 {
     public class ApplicationUser : IdentityUser

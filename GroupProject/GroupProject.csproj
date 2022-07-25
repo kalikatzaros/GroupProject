@@ -184,6 +184,7 @@
     <Compile Include="Configurations\TopicPostConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\FollowingsController.cs" />
+    <Compile Include="Controllers\API\MessagesController.cs" />
     <Compile Include="Controllers\FollowersController.cs" />
     <Compile Include="Controllers\FolloweesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -220,7 +221,7 @@
     <Compile Include="Models\TopicPost.cs" />
     <Compile Include="Models\WallPost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ApplicationUserRepository.cs" />
+    <Compile Include="Repositories\MessageRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\UserMessagesViewModel.cs" />
   </ItemGroup>

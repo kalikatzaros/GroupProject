@@ -41,7 +41,7 @@ namespace GroupProject.Controllers
                 SenderId = userId,
                 ReceiverId = viewModel.Message.ReceiverId,
                 Body = viewModel.Message.Body,
-                Datetime = viewModel.Message.Datetime  
+                Datetime = DateTime.Now
             };
             _context.Messages.Add(message);
             _context.SaveChanges();
