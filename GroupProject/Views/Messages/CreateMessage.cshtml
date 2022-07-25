@@ -8,18 +8,15 @@
 
 @using (Html.BeginForm()) 
 {
-    @Html.AntiForgeryToken()
-    
+    @Html.AntiForgeryToken()    
     <div class="form-horizontal">
         <h4>Message</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })        
         <div class="form-group">
             @Html.LabelFor(model => model.Message.ReceiverId, "ReceiverId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(m => m.Message.ReceiverId,new SelectList(Model.Users, "Id", "Email"),"Select Receiver", new { @class = "form-control" })
-                @*@Html.DropDownList("ReceiverId", null, htmlAttributes: new { @class = "form-control" })*@
                 @Html.ValidationMessageFor(model => model.Message.ReceiverId, "", new { @class = "text-danger" }, null)
             </div>
         </div>
