@@ -190,7 +190,7 @@
                     </ul>
                 </div>
                 <p>
-                    @Html.ActionLink("Create New", "Create")
+                    @Html.ActionLink("Create New", "CreateMessage")
                 </p>
                 <table class="table" id="messages">
                     <thead>
@@ -213,13 +213,43 @@
                                     <button class="btn-link js-delete" data-message-id="@item.Id">Delete</button>
                                 </td>
                             </tr>
-       }
+                        }
                     </tbody>
 
                 </table>
 
-                
+
             </div>
         </aside>
     </div>
 </div>
+
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            $("#messages").DataTable();
+
+            $("#messages").on("click", ".js-delete", function () {
+                var button = $(this);
+                console.log(button);
+
+                bootbox.confirm("Are you sure to delete this message?", function (result) {
+
+                    if (result) {
+                        $.ajax({
+                            url: "/api/messages/readIncomingMessages" + button.attr("data-message-id"),
+                            method: "DELETE"
+                        }).done(function (response) {
+                            console.log(response);
+                            button.parents("tr").fadeOut();
+                        }).fail(function (error) {
+                            console.log(error);
+                        });
+                    }
+
+                });
+            });
+        });
+    </script>
+}
