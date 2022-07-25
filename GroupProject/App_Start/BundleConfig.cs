@@ -20,7 +20,7 @@ namespace GroupProject
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
+                       "~/Scripts/bootstrap.js",
                       "~/Scripts/bootbox.js",
                       "~/Scripts/Datatables/jquery.dataTables.js",
                       "~/Scripts/Datatables/dataTables.bootstrap.js"));
