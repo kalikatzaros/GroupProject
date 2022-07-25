@@ -58,13 +58,13 @@ body {*/
      line-height: 70px;
 }
 
-    .sidebar ul li {
+.sidebar ul li {
         padding: 15px;
         border-bottom: 1px solid rgba(0,0,0,0.05);
         border-top: 1px solid rgba(225,225,225,0.05);
         transition: .5s;
        
-    }
+}
 
 .sidebar ul li a {
 color: #063146;
@@ -175,6 +175,7 @@ label #cancel {
     margin: 0;
     padding: 0;
     text-align: center;
+    background-color:red;
 }
 
 .navbar li {
@@ -190,18 +191,22 @@ label #cancel {
 }
 
 /*--------------------------------------------------------------------FOOTER BAR---------------------------------------------------------------*/
-.sidebar-footer  {
-    position:fixed;
+.sidebar-footer {
+    position: fixed;
     width: 100%;
     top: 5px;
-    background-color:lightblue;
+    background-color: lightblue;
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.sidebar-footer li{
-    display:inline;
-    margin-right:2em;
-    position:relative;
-}
+    .sidebar-footer li {
+        display: inline-flex;
+        font-display:auto;
+        margin-right: 2em;
+        position: center;
+    }
 /*
 .sidebar-footer > a {
         flex-grow: 1;
