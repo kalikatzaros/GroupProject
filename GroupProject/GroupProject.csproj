@@ -460,6 +460,7 @@
     <Content Include="Views\Messages\CreateMessage.cshtml" />
     <Content Include="Views\Messages\ReadIncomingMessages.cshtml" />
     <Content Include="Views\Messages\Delete.cshtml" />
+    <Content Include="Views\Messages\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

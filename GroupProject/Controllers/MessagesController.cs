@@ -22,7 +22,7 @@ namespace GroupProject.Controllers
         // GET: Messages
         public ActionResult Index()
         {
-            return View();
+            return View(_context.Messages.ToList());
         }
 
         public ActionResult CreateMessage()

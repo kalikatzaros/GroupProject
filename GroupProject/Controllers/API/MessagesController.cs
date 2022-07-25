@@ -18,12 +18,11 @@ namespace GroupProject.Controllers.API
     public class MessagesController : ApiController
     {
         private ApplicationDbContext _context = new ApplicationDbContext();       
-        private string UserId {get;set;}
+        
 
         public MessagesController()
         {
             _context = new ApplicationDbContext();
-            UserId = User.Identity.GetUserId();
 
         }
         // GET: api/Messages
@@ -31,16 +30,18 @@ namespace GroupProject.Controllers.API
 
         // GET: api/Messages/5
         
-        [Authorize]
+        //[Authorize]
         public IHttpActionResult GetIncomingMessages()
         {
             var id = User.Identity.GetUserId();
 
+            
 
             var incomingMessages = _context.Messages
-                            .Include("Sender")
-                            .Include("Receiver")
-                            .Where(m => m.ReceiverId == id);
+                            //.Include("Sender")
+                            //.Include("Receiver")
+                            .Where(m => m.ReceiverId == id)
+                            .OrderByDescending(m => m.Datetime);
             return Ok(incomingMessages.ToList());
         }
 

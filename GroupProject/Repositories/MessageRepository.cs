@@ -8,7 +8,7 @@ using Owin;
 
 namespace GroupProject.Repositories
 {
-    public class MessageRepository
+    public class MessageRepository : IDisposable
     {
         private readonly ApplicationDbContext _context;
 
@@ -17,15 +17,24 @@ namespace GroupProject.Repositories
             _context = new ApplicationDbContext();
         }
 
+        
+
         public IEnumerable<Message> GetIncomingMessages()
         {
             var id = HttpContext.Current.User.Identity.GetUserId();
             var messages = _context.Messages
-                            .Include("Sender")
-                            .Include("Receiver")
+                            .Include("SenderId")
+                            .Include("ReceiverId")
                             .Where(m => m.ReceiverId == id);
             return messages;
 
         }
+
+        public void Dispose()
+        {
+            _context.Dispose();
+        }
+
+
     }
 }

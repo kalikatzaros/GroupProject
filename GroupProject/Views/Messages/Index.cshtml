@@ -1,0 +1,68 @@
+﻿@model IEnumerable<GroupProject.Models.Message>
+
+@{ ViewBag.Title = "Index"; }
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+
+<table class="table" id="messages">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Body)
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.Body, "Edit", "Messages", new { id = item.Id}, null)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.Id}) |
+                        <button class="btn-link js-delete" data-message-id="@item.Id">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+
+    @section scripts{
+
+        <script>
+            $(document).ready(function () {
+                $("#messages").DataTable();
+
+                $("#messages").on("click", ".js-delete", function () {
+                    var button = $(this);
+                    console.log(button);
+
+                    bootbox.confirm("Are you sure to delete this message?", function (result) {
+
+                        if (result) {
+                            $.ajax({
+                                url: "/api/messages/readIncomingMessages" + button.attr("data-message-id"),
+                                method: "DELETE"
+                            }).done(function (response) {
+                                console.log(response);
+                                button.parents("tr").fadeOut();
+                            }).fail(function (error) {
+                                console.log(error);
+                            });
+                        }
+
+                    });
+                });
+            });
+        </script>
+    }
