@@ -8,13 +8,6 @@
 
 
 
-
-
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
 <div class="container">
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
     <div class="mail-box">
@@ -197,6 +190,10 @@
                 <table class="table" id="messages">
                     <thead>
                         <tr>
+                            <th>@Html.DisplayName("Sender email")</th>
+                            <th>
+                                @Html.DisplayName("Receiver email")
+                            </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Body)
                             </th>
@@ -207,6 +204,13 @@
                         @foreach (var item in Model)
                         {
                             <tr>
+                                <td>
+                                    @Html.ActionLink(item.Sender.Email, "Home", "Home", new { item.Id }, null)
+                                </td>
+
+                                <td>
+                                    @Html.ActionLink(item.Receiver.Email, "Home", "Home", new { item.Id }, null)
+                                </td>
                                 <td>
                                     @Html.ActionLink(item.Body, "Edit", "Messages", new { id = item.Id }, null)
                                 </td>
@@ -241,7 +245,7 @@
 
                     if (result) {
                         $.ajax({
-                            url: "/api/messages/readIncomingMessages" + button.attr("data-message-id"),
+                            url: "/api/messages/" + button.attr("data-message-id"),
                             method: "DELETE"
                         }).done(function (response) {
                             console.log(response);

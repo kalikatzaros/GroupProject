@@ -44,6 +44,7 @@ namespace GroupProject.Controllers.API
                             .OrderByDescending(m => m.Datetime);
             return Ok(incomingMessages.ToList());
         }
+        
 
         protected override void Dispose(bool disposing)
         {

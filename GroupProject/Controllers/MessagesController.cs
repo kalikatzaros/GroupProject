@@ -47,7 +47,7 @@ namespace GroupProject.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
-
+        [Authorize]
         public ActionResult ReadIncomingMessages()
         {
             var id = User.Identity.GetUserId();
