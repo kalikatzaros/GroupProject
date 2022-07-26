@@ -8,68 +8,84 @@
     @Scripts.Render("~/bundles/modernizr")
     <script src="https://kit.fontawesome.com/5af4ed0118.js" crossorigin="anonymous"></script>
 
-   
+
 </head>
 
 <body>
+    <div class="container">
+        <input type="checkbox" id="check" />
+        <label for="check">
+            <i class="fas fa-bars" id="btn"></i>
+            <i class="fas fa-times" id="cancel"></i>
+        </label>
 
-    <input type="checkbox" id="check" />
-    <label for="check">
-        <i class="fas fa-bars" id="btn"></i>
-        <i class="fas fa-times" id="cancel"></i>
-    </label>
+
+        <div class="sidebar">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i></a>@Html.ActionLink("Homepage", "Index", "Home")</li>
+                <li><a href="#"><i class="fas fa-user"></i></a><span> @Html.ActionLink("Profile", "About", "Home")</span></li>
+                <li><a href="#"><i class="fas fa-envelope"></i></a>@Html.ActionLink("Inbox", "ReadIncomingMessages", "Messages")</li>
+                <li><a href="#"><i class="fas fa-book"></i></a>@Html.ActionLink("About", "Home", "Home")</li>
+                <li><a href="#"><i class="fas fa-address-card"></i></a>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+            </ul>
+        </div>
 
 
-    <div class="sidebar">
-        <h2>Menu</h2>
-        <ul>
-            <li><a href="#"><i class="fas fa-home"></i></a>@Html.ActionLink("Homepage", "Index", "Home")</li>
-            <li><a href="#"><i class="fas fa-user"></i></a><span> @Html.ActionLink("Profile", "About", "Home")</span></li>
-            <li><a href="#"><i class="fas fa-envelope"></i></a>@Html.ActionLink("Inbox", "CreateMessage", "Messages")</li>
-            <li><a href="#"><i class="fas fa-book"></i></a>@Html.ActionLink("About", "Home", "Home")</li>
-            <li><a href="#"><i class="fas fa-address-card"></i></a>@Html.ActionLink("Contact", "Contact", "Home")</li>
 
-        </ul>
+        <div class="sidebar-footer">
+            <ul>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-bell fa-2xl"></i>
+                        <span class="badge badge-pill badge-warning notification "></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://localhost:44310/Messages/ReadIncomingMessages">
+                        <i class="fa fa-envelope  fa-2xl"></i>
+                        <span class="badge badge-pill badge-success notification">2</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-cog fa-2xl"></i>
+                        <span class="badge-sonar"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-circle-user fa-2xl"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-right-to-bracket fa-2xl"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div class="navbar">
+            <ul>
+                <li><a></a>@Html.ActionLink("Alexi", "Index", "Home")</li>
+                <li><a></a>@Html.ActionLink("Vale", "Index", "Home")</li>
+                <li><a></a>@Html.ActionLink("Oti Thes", "Index", "Home")</li>
+            </ul>
+        </div>
+
+        @Html.Partial("_LoginPartial")
+
+        <div class="container body-content">
+
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+
     </div>
-
-    <div class="sidebar-footer">
-        <a href="#">
-            <i class="fa fa-bell"></i>
-            <span class="badge badge-pill badge-warning notification"></span>
-        </a>
-        <a href="https://localhost:44310/Messages/ReadIncomingMessages">
-            <i class="fa fa-envelope"></i>
-            <span class="badge badge-pill badge-success notification">2</span>
-        </a>
-        <a href="#">
-            <i class="fa fa-cog"></i>
-            <span class="badge-sonar"></span>
-        </a>
-        <a href="#">
-            <i class="fa-solid fa-circle-user"></i>
-        </a>
-        <a href="#">
-            <i class="fa fa-right-to-bracket"></i>
-        </a>
-    </div>
-    
-    <div class="navbar">
-        <ul>
-            <li><a></a>@Html.ActionLink("Alexi", "Index", "Home")</li>
-            <li><a></a>@Html.ActionLink("Vale", "Index", "Home")</li>
-            <li><a></a>@Html.ActionLink("Oti Thes", "Index", "Home")</li>
-        </ul>
-    </div>
-        
-    @Html.Partial("_LoginPartial")
-
-    <div class="container body-content">
-
-    </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-
-
 </body>
 </html>

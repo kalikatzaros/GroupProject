@@ -33,8 +33,8 @@ textarea {
 }
 
 body {*/
-    /* background: #5c2404;*/
-    /*font-family: 'Pinyon Script', cursive;
+/* background: #5c2404;*/
+/*font-family: 'Pinyon Script', cursive;
 }*/
 
 /*---------------------------------------------------------------------------SIDE BAR-----------------------------------------------------------*/
@@ -48,41 +48,40 @@ body {*/
     transition: all .5s ease;
 }
 
-.sidebar h2 {
-     color: dodgerblue;
-     text-transform: uppercase;
-     text-align: center;
-     user-select: none;
-     font-size: 22px;
-     background: #063146;
-     line-height: 70px;
-}
+    .sidebar h2 {
+        color: dodgerblue;
+        text-transform: uppercase;
+        text-align: center;
+        user-select: none;
+        font-size: 22px;
+        background: #063146;
+        line-height: 70px;
+    }
 
     .sidebar ul li {
         padding: 15px;
         border-bottom: 1px solid rgba(0,0,0,0.05);
         border-top: 1px solid rgba(225,225,225,0.05);
         transition: .5s;
-       
     }
 
-.sidebar ul li a {
-color: #063146;
-display: block;
-}
+        .sidebar ul li a {
+            color: #063146;
+            display: block;
+        }
 
-.sidebar ul li a {
-width: 25px;
- }
+        .sidebar ul li a {
+            width: 25px;
+        }
 
-    .sidebar ul li:hover { /*change the block color when hover*/
-     background: #063146;
-    }
+        .sidebar ul li:hover { /*change the block color when hover*/
+            background: #063146;
+        }
 
-.sidebar ul li:hover a { /*change the item color when hover*/
-color: #fff;
- padding-left: 30px;
- }
+            .sidebar ul li:hover a { /*change the item color when hover*/
+                color: #fff;
+                padding-left: 30px;
+            }
 
 
 .main_content {
@@ -90,12 +89,12 @@ color: #fff;
     margin-left: 200px;
 }
 
- .main_content .header {
+    .main_content .header {
         padding: 20px;
         background: #fff;
         color: #717171;
         border-bottom: 1px solid #e0e4e8;
- }
+    }
 
 #check {
     display: none;
@@ -142,94 +141,83 @@ label #cancel {
     text-align: center;
     right: 0px;
     top: 0px;
-    position:absolute;
+    position: absolute;
 }
 
 
-.meme li {
-        position:absolute;
-        
+    .meme li {
+        position: absolute;
         border: 2px solid blue;
         border-radius: 50px;
         display: inline;
         right: 0px;
         top: 0px
- }
-
-    .meme  li:hover {
-        -moz-border-radius-topleft: 50px;
-        -moz-border-radius-topright: 50px;
-        -moz-border-radius-bottomright: 50px;
-        -moz-border-radius-bottomleft: 50px;
-        -webkit-border-radius: 50px 50px 50px 50px;
-        border-radius: 50px 50px 50px 50px;
-        background-color: #000;
     }
 
-    
+        .meme li:hover {
+            -moz-border-radius-topleft: 50px;
+            -moz-border-radius-topright: 50px;
+            -moz-border-radius-bottomright: 50px;
+            -moz-border-radius-bottomleft: 50px;
+            -webkit-border-radius: 50px 50px 50px 50px;
+            border-radius: 50px 50px 50px 50px;
+            background-color: #000;
+        }
+
+
 /*-------------------------------------------------------------------------TOP BAR-------------------------------------------------------------------------*/
 .navbar { /*adjust side bar*/
-  /*  border: 1px solid #ccc;
+    /*  border: 1px solid #ccc;
     border-width: 1px 0;*/
     list-style: none;
     margin: 0;
     padding: 0;
     text-align: center;
+    background-color: green;
 }
 
-.navbar li {
-    display: inline;
-}
+    .navbar li {
+        display: inline;
+    }
 
-.navbar li a{
-    /*display:inline-block;*/
-    padding:10px;
-   /* background-color:aqua;*/
-    
- 
-}
+        .navbar li a {
+            /*display:inline-block;*/
+            padding: 10px;
+            /* background-color:aqua;*/
+        }
 
 /*--------------------------------------------------------------------FOOTER BAR---------------------------------------------------------------*/
 .sidebar-footer {
-    position:fixed;
-    width: 75%;
-    bottom: 0;
-    display:inline-flex;
+    position: fixed;
+    width: 100%;
+    top: 5px;
+    background-color: lightblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+    .sidebar-footer li {
+        display: inline-flex;
+        font-display: auto;
+        margin-right: 2em;
+        position: center;
+    }
+/*
 .sidebar-footer > a {
         flex-grow: 1;
         text-align: center;
         height: 20px;
         line-height: 20px;
         position: relative;
-}
+}*/
 
- .sidebar-footer > a .notification {
+/* .sidebar-footer > a .notification {
             position: absolute;
             top: 0;
-}
+}*/
 
-.sonar {
-    display: inline-block;
-    background: #980303;
-    border-radius: 50%;
-    height: 8px;
-    width: 8px;
-    position: absolute;
-    top: 0;
-}
 
-    .sonar:after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        border: 2px solid #980303;
-        opacity: 0;
-        border-radius: 50%;
-        width: 100%;
-        height: 100%;
-        animation: sonar 1.5s infinite;
-    }
+
+
 
