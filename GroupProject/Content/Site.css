@@ -49,40 +49,39 @@ body {*/
 }
 
 .sidebar h2 {
-     color: dodgerblue;
-     text-transform: uppercase;
-     text-align: center;
-     user-select: none;
-     font-size: 22px;
-     background: #063146;
-     line-height: 70px;
+    color: dodgerblue;
+    text-transform: uppercase;
+    text-align: center;
+    user-select: none;
+    font-size: 22px;
+    background: #063146;
+    line-height: 70px;
 }
 
 .sidebar ul li {
-        padding: 15px;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-        border-top: 1px solid rgba(225,225,225,0.05);
-        transition: .5s;
-       
+    padding: 15px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    border-top: 1px solid rgba(225,225,225,0.05);
+    transition: .5s;
 }
 
 .sidebar ul li a {
-color: #063146;
-display: block;
+    color: #063146;
+    display: block;
 }
 
-.sidebar ul li a {
-width: 25px;
- }
+.navbar-fixed-top > sidebar ul li a {
+    width: 25px;
+}
 
-    .sidebar ul li:hover { /*change the block color when hover*/
-     background: #063146;
-    }
+.navbar-fixed-top sidebar ul li:hover { /*change the block color when hover*/
+    background: #063146;
+}
 
-.sidebar ul li:hover a { /*change the item color when hover*/
-color: #fff;
- padding-left: 30px;
- }
+.navbar-fixed-top sidebar ul li:hover a { /*change the item color when hover*/
+    color: #fff;
+    padding-left: 30px;
+}
 
 
 .main_content {
@@ -101,7 +100,7 @@ color: #fff;
     display: none;
 }
 
-label #btn, label #cancel {
+navbar-fixed-top label #btn, label #cancel {
     position: absolute;
     cursor: pointer;
     border-radius: 3px;
@@ -109,7 +108,7 @@ label #btn, label #cancel {
 
 label #btn {
     left: 40px;
-    top: 25px;
+    top: 45px;
     font-size: 35px;
     color: dodgerblue;
     padding: 6px 12px;
@@ -169,13 +168,14 @@ label #cancel {
     
 /*-------------------------------------------------------------------------TOP BAR-------------------------------------------------------------------------*/
 .navbar { /*adjust side bar*/
-  /*  border: 1px solid #ccc;
+    /*  border: 1px solid #ccc;
     border-width: 1px 0;*/
     list-style: none;
     margin: 0;
     padding: 0;
     text-align: center;
-    background-color:green;
+    background-color: #1c1e21;
+    
 }
 
 .navbar li {
@@ -190,23 +190,21 @@ label #cancel {
  
 }
 
-/*--------------------------------------------------------------------FOOTER BAR---------------------------------------------------------------*/
-.sidebar-footer {
-    position: fixed;
-    width: 100%;
-    top: 5px;
-    background-color: lightblue;
-    display:flex;
+/*--------------------------------------------------------------------TOP NAVBAR BAR---------------------------------------------------------------*/
+.navbar-fixed-top { 
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
-    .sidebar-footer li {
-        display: inline-flex;
-        font-display:auto;
-        margin-right: 2em;
-        position: center;
-    }
+.navbar-fixed-top ul li {
+
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
 /*
 .sidebar-footer > a {
         flex-grow: 1;
