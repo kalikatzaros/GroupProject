@@ -26,25 +26,33 @@ namespace GroupProject.Controllers.API
 
         }
         // GET: api/Messages
-        
+
 
         // GET: api/Messages/5
-        
-        //[Authorize]
+
+        [Authorize]
         public IHttpActionResult GetIncomingMessages()
         {
             var id = User.Identity.GetUserId();
 
-            
+
 
             var incomingMessages = _context.Messages
-                            //.Include("Sender")
-                            //.Include("Receiver")
+                            .Include("Sender")
+                            .Include("Receiver")
                             .Where(m => m.ReceiverId == id)
                             .OrderByDescending(m => m.Datetime);
             return Ok(incomingMessages.ToList());
         }
-        
+        [HttpDelete]
+        public IHttpActionResult Delete(int? id)
+        {
+            var messageToBeDeleted = _context.Messages
+                                        .SingleOrDefault(m => m.Id == id);
+            _context.Messages.Remove(messageToBeDeleted);
+
+            return Ok(messageToBeDeleted);
+        }
 
         protected override void Dispose(bool disposing)
         {
