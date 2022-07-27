@@ -70,18 +70,18 @@ body {*/
             display: block;
         }
 
-        .sidebar ul li a {
-            width: 25px;
-        }
+.navbar-fixed-top > sidebar ul li a {
+    width: 25px;
+}
 
-        .sidebar ul li:hover { /*change the block color when hover*/
-            background: #063146;
-        }
+.navbar-fixed-top sidebar ul li:hover { /*change the block color when hover*/
+    background: #063146;
+}
 
-            .sidebar ul li:hover a { /*change the item color when hover*/
-                color: #fff;
-                padding-left: 30px;
-            }
+    .navbar-fixed-top sidebar ul li:hover a { /*change the item color when hover*/
+        color: #fff;
+        padding-left: 30px;
+    }
 
 
 .main_content {
@@ -100,7 +100,7 @@ body {*/
     display: none;
 }
 
-label #btn, label #cancel {
+navbar-fixed-top label #btn, label #cancel {
     position: absolute;
     cursor: pointer;
     border-radius: 3px;
@@ -108,7 +108,7 @@ label #btn, label #cancel {
 
 label #btn {
     left: 40px;
-    top: 25px;
+    top: 45px;
     font-size: 35px;
     color: dodgerblue;
     padding: 6px 12px;
@@ -145,24 +145,9 @@ label #cancel {
 }
 
 
-    .meme li {
-        position: absolute;
-        border: 2px solid blue;
-        border-radius: 50px;
-        display: inline;
-        right: 0px;
-        top: 0px
-    }
+    
 
-        .meme li:hover {
-            -moz-border-radius-topleft: 50px;
-            -moz-border-radius-topright: 50px;
-            -moz-border-radius-bottomright: 50px;
-            -moz-border-radius-bottomleft: 50px;
-            -webkit-border-radius: 50px 50px 50px 50px;
-            border-radius: 50px 50px 50px 50px;
-            background-color: #000;
-        }
+        
 
 
 /*-------------------------------------------------------------------------TOP BAR-------------------------------------------------------------------------*/
@@ -173,7 +158,7 @@ label #cancel {
     margin: 0;
     padding: 0;
     text-align: center;
-    background-color: green;
+    background-color: #1c1e21;
 }
 
     .navbar li {
@@ -186,23 +171,29 @@ label #cancel {
             /* background-color:aqua;*/
         }
 
-/*--------------------------------------------------------------------FOOTER BAR---------------------------------------------------------------*/
-.sidebar-footer {
-    position: fixed;
-    width: 100%;
-    top: 5px;
-    background-color: lightblue;
+/*--------------------------------------------------------------------TOP NAVBAR BAR---------------------------------------------------------------*/
+.navbar-fixed-top {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-    .sidebar-footer li {
-        display: inline-flex;
-        font-display: auto;
-        margin-right: 2em;
-        position: center;
+    .navbar-fixed-top ul li {
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
     }
+
+.bar-alexis {
+    margin-top:40px;
+    vertical-align:central;
+    align-items:center;
+    text-align:center;
+    line-height:60px;
+    
+}
 /*
 .sidebar-footer > a {
         flex-grow: 1;
