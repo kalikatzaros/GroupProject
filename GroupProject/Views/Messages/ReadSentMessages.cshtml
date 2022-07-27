@@ -86,17 +86,18 @@
             </div>
             <ul class="inbox-nav inbox-divider">
                 <li class="active">
-                    @*<a href="#"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>*@                                                                        
-                    @Html.ActionLink(" Inbox", "ReadIncomingMessages", "Messages", null, new {@class = "fa fa-inbox" })
-                        
-                    
+                    @*<a href="#"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>*@
+                    <a href="@Url.Action("Inbox", "ReadIncomingMessages", "Messages")"><i class="fa fa-inbox"></i>
+                    @Html.ActionLink("Inbox", "ReadIncomingMessages", "Messages", null, new { })
+                    </a>
+
 
                 </li>
                 <li>
                     @*<a href="#"><i class="fa fa-envelope-o"></i> Sent Mail</a>*@
-
-                    @Html.ActionLink(" Sent", "ReadSentMessages", "Messages", null, new { @class = "fa fa-envelope" })
-
+                    <a href="@Url.Action("Sent", "ReadSentMessages", "Messages")"><i class="fa fa-envelope-o"></i>
+                        @Html.ActionLink("Sent", "ReadSentMessages", "Messages", null, new { })
+                    </a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-bookmark-o"></i> Important</a>

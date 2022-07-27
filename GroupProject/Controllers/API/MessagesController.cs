@@ -50,7 +50,7 @@ namespace GroupProject.Controllers.API
             var messageToBeDeleted = _context.Messages
                                         .SingleOrDefault(m => m.Id == id);
             _context.Messages.Remove(messageToBeDeleted);
-
+            _context.SaveChanges();
             return Ok(messageToBeDeleted);
         }
 
