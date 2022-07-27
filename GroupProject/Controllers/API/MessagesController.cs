@@ -51,6 +51,7 @@ namespace GroupProject.Controllers.API
                                         .SingleOrDefault(m => m.Id == id);
             _context.Messages.Remove(messageToBeDeleted);
             _context.SaveChanges();
+
             return Ok(messageToBeDeleted);
         }
 
