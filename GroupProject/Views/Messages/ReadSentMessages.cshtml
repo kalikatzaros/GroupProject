@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<GroupProject.Models.Message>
 
 @{
-    ViewBag.Title = "ReadIncomingMessages";
+    ViewBag.Title = "ReadSentMessages";
 }
 
 <h2>Inbox</h2>
@@ -20,11 +20,10 @@
                 <div class="user-name">
                     @foreach (var item in Model)
                     {
-                        <h5><a href="#">@Html.DisplayFor(ModelItem => item.Receiver.Email)</a></h5>
+                        <h5><a href="#">@Html.DisplayFor(ModelItem => item.Sender.Email)</a></h5>
                         break;
                         <span><a href="#">Swsws@Gmail.com</a></span>
                     }
-
                 </div>
                 <a class="mail-dropdown pull-right" href="javascript:;">
                     <i class="fa fa-chevron-down"></i>
@@ -87,10 +86,10 @@
             </div>
             <ul class="inbox-nav inbox-divider">
                 <li class="active">
-                    @*<a href="#"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>*@
-                    @Html.ActionLink(" Inbox", "ReadIncomingMessages", "Messages", null, new { @class = "fa fa-inbox" })
-
-
+                    @*<a href="#"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>*@                                                                        
+                    @Html.ActionLink(" Inbox", "ReadIncomingMessages", "Messages", null, new {@class = "fa fa-inbox" })
+                        
+                    
 
                 </li>
                 <li>
@@ -246,7 +245,7 @@
 @section scripts{
     @*<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js">
 
-    </script>*@
+        </script>*@
 
 
     <script>
