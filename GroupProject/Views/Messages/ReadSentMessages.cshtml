@@ -10,7 +10,7 @@
 
 
 <div class="container">
-    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
     <div class="mail-box">
         <aside class="sm-side">
             <div class="user-head">
@@ -33,7 +33,7 @@
                 @Html.ActionLink("Compose", "CreateMessage", "Messages", null, new { @class = "btn btn-compose" })
                 
             </div>
-            <ul class="inbox-nav inbox-divider">
+            <ul class="inbox-nav inbox-divider inboxCustomNavbar">
                 <li>
 
                     @Html.ActionLink(" Inbox", "ReadIncomingMessages", "Messages", null, new { @class = "fa fa-folder-o" })
@@ -44,34 +44,10 @@
                     @Html.ActionLink(" Sent", "ReadSentMessages", "Messages", null, new { @class = "fa fa-envelope-o" })
 
                 </li>
-                <li>
-                    <a href="#"><i class="fa fa-bookmark-o"></i> Important</a>
-                </li>
-                <li>
-                    <a href="#"><i class=" fa fa-external-link"></i> Drafts <span class="label label-info pull-right">30</span></a>
-                </li>
-                <li>
-                    <a href="#"><i class=" fa fa-trash-o"></i> Trash</a>
-                </li>
+                
             </ul>
 
-            <div class="inbox-body text-center">
-                <div class="btn-group">
-                    <a class="btn mini btn-primary" href="javascript:;">
-                        <i class="fa fa-plus"></i>
-                    </a>
-                </div>
-                <div class="btn-group">
-                    <a class="btn mini btn-success" href="javascript:;">
-                        <i class="fa fa-phone"></i>
-                    </a>
-                </div>
-                <div class="btn-group">
-                    <a class="btn mini btn-info" href="javascript:;">
-                        <i class="fa fa-cog"></i>
-                    </a>
-                </div>
-            </div>
+           
 
         </aside>
         <aside class="lg-side">
@@ -141,9 +117,7 @@
                         </li>
                     </ul>
                 </div>
-                @*<p>
-                    @Html.ActionLink("Create New", "CreateMessage")
-                </p>*@
+                
                 <table class="table" id="messages">
                     <thead>
                         <tr>
@@ -189,9 +163,7 @@
 
 
 @section scripts{
-    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js">
-
-        </script>*@
+   
 
 
     <script>

@@ -212,4 +212,10 @@ label #cancel {
     display: inline;
 }
 
-
+.inboxCustomNavbar li {
+    
+    
+    font-weight:bolder;
+    font-size:20px;
+    
+}
