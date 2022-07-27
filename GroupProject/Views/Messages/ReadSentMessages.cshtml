@@ -30,11 +30,12 @@
                 </a>
             </div>
             <div class="inbox-body">
-                <a href="#myModal" data-toggle="modal" title="Compose" class="btn btn-compose">
+                @Html.ActionLink("Compose", "CreateMessage", "Messages", null, new { @class = "btn btn-compose" })
+                <!--<a href="#myModal" data-toggle="modal" title="Compose" class="btn btn-compose">
                     Compose
-                </a>
+                </a>-->
                 <!-- Modal -->
-                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade" style="display: none;">
+                <!--<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade" style="display: none;">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -80,9 +81,9 @@
                                     </div>
                                 </form>
                             </div>
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
+                        </div>--><!-- /.modal-content -->
+                    <!--</div>--><!-- /.modal-dialog -->
+                <!--</div>--><!-- /.modal -->
             </div>
             <ul class="inbox-nav inbox-divider">
                 <li class="active">
@@ -195,9 +196,9 @@
                         </li>
                     </ul>
                 </div>
-                <p>
+                @*<p>
                     @Html.ActionLink("Create New", "CreateMessage")
-                </p>
+                </p>*@
                 <table class="table" id="messages">
                     <thead>
                         <tr>
