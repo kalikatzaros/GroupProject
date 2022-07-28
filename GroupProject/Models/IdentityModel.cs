@@ -13,8 +13,7 @@ using Microsoft.Owin.Security;
 using GroupProject.Models;
 using System.Collections.ObjectModel;
 using GroupProject.Configurations;
-
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GroupProject.Models
 {
@@ -22,6 +21,11 @@ namespace GroupProject.Models
     {
         public string Name { get; set; }
         public string LastName { get; set; }
+        public string Thumbnail { get; set; }
+
+        [NotMapped]
+        public HttpPostedFileBase ImageFile { get; set; }
+
         public ICollection<Following> Followers { get; set; }
         public ICollection<Following> Followees { get; set; }
         public ICollection<Message> Senders { get; set; }

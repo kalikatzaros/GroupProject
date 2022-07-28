@@ -15,11 +15,12 @@
         <aside class="sm-side">
             <div class="user-head">
                 <a class="inbox-avatar" href="javascript:;">
-                    <img width="64" height="60" style="border-radius:30px" src="~/img/img1.jfif">
+                    <img width="64" height="60" style="border-radius:30px" src="~/img/Screenshot_4.png">
                 </a>
                 <div class="user-name">
                     @foreach (var item in Model)
                     {
+                        @*<img width="64" height="60" style="border-radius:30px" src="~/img/@Url.Content(ModelItem => item.Sender.Thumbnail)" />*@
                         <h5><a href="#">@Html.DisplayFor(ModelItem => item.Sender.Email)</a></h5>
                         break;
                         <span><a href="#">Swsws@Gmail.com</a></span>
