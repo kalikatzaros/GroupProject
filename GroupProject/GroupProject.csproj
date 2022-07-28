@@ -210,6 +210,10 @@
     <Compile Include="Migrations\202207212241452_FixingPrimaryKeyForMessageModel.Designer.cs">
       <DependentUpon>202207212241452_FixingPrimaryKeyForMessageModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202207280952242_Thumbnail.cs" />
+    <Compile Include="Migrations\202207280952242_Thumbnail.Designer.cs">
+      <DependentUpon>202207280952242_Thumbnail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Following.cs" />
@@ -341,6 +345,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\img1.jfif" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -462,6 +467,7 @@
     <Content Include="Views\Messages\ReadIncomingMessages.cshtml" />
     <Content Include="Views\Messages\Delete.cshtml" />
     <Content Include="Views\Messages\Index.cshtml" />
+    <Content Include="Views\Messages\ReadSentMessages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -493,6 +499,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207212241452_FixingPrimaryKeyForMessageModel.resx">
       <DependentUpon>202207212241452_FixingPrimaryKeyForMessageModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207280952242_Thumbnail.resx">
+      <DependentUpon>202207280952242_Thumbnail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

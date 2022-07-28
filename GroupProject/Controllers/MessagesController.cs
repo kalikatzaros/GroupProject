@@ -58,7 +58,20 @@ namespace GroupProject.Controllers
                             .Where(m => m.ReceiverId == id);
             return View(messages);
         }
-               
+
+        public ActionResult ReadSentMessages()
+        {
+            var id = User.Identity.GetUserId();
+
+            var messages = _context.Messages
+                            .Include("Sender")
+                            .Include("Receiver")
+                            .Where(m => m.SenderId == id);
+            return View(messages);
+        }
+
+
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -77,6 +90,8 @@ namespace GroupProject.Controllers
             
             return View(message);
         }
+
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int? id)

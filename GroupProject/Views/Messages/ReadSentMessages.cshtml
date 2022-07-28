@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<GroupProject.Models.Message>
 
 @{
-    ViewBag.Title = "ReadIncomingMessages";
+    ViewBag.Title = "ReadSentMessages";
 }
 
 <h2>Inbox</h2>
@@ -11,7 +11,6 @@
 
 <div class="container">
     @*<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>*@
-    
     <div class="mail-box">
         <aside class="sm-side">
             <div class="user-head">
@@ -21,11 +20,10 @@
                 <div class="user-name">
                     @foreach (var item in Model)
                     {
-                    <h5><a href="#">@Html.DisplayFor(ModelItem => item.Receiver.Email)</a></h5>
+                        <h5><a href="#">@Html.DisplayFor(ModelItem => item.Sender.Email)</a></h5>
                         break;
-                    <span><a href="#">Swsws@Gmail.com</a></span>
+                        <span><a href="#">Swsws@Gmail.com</a></span>
                     }
-
                 </div>
                 <a class="mail-dropdown pull-right" href="javascript:;">
                     <i class="fa fa-chevron-down"></i>
@@ -33,23 +31,24 @@
             </div>
             <div class="inbox-body">
                 @Html.ActionLink("Compose", "CreateMessage", "Messages", null, new { @class = "btn btn-compose" })
-
+                
             </div>
             <ul class="inbox-nav inbox-divider inboxCustomNavbar">
                 <li>
 
-                    @Html.ActionLink(" Inbox", "ReadIncomingMessages", "Messages", null, new {@class="fa fa-folder-o" })
+                    @Html.ActionLink(" Inbox", "ReadIncomingMessages", "Messages", null, new { @class = "fa fa-folder-o" })
 
                 </li>
                 <li class="arrow">
 
-                    @Html.ActionLink(" Sent", "ReadSentMessages", "Messages", null, new {@class="fa fa-envelope-o" })
+                    @Html.ActionLink(" Sent", "ReadSentMessages", "Messages", null, new { @class = "fa fa-envelope-o" })
 
                 </li>
-
+                
             </ul>
 
            
+
         </aside>
         <aside class="lg-side">
             <div class="inbox-head">
@@ -118,7 +117,7 @@
                         </li>
                     </ul>
                 </div>
-               
+                
                 <table class="table" id="messages">
                     <thead>
                         <tr>
@@ -135,22 +134,22 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr>
-                            <td>
-                                @Html.ActionLink(item.Sender.Email, "Home", "Home", new { item.Id }, null)
-                            </td>
+                            <tr>
+                                <td>
+                                    @Html.ActionLink(item.Sender.Email, "Home", "Home", new { item.Id }, null)
+                                </td>
 
-                            <td>
-                                @Html.ActionLink(item.Receiver.Email, "Home", "Home", new { item.Id }, null)
-                            </td>
-                            <td>
-                                @Html.ActionLink(item.Body, "Edit", "Messages", new { id = item.Id }, null)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                <button class="btn-link js-delete" data-message-id="@item.Id">Delete</button>
-                            </td>
-                        </tr>
+                                <td>
+                                    @Html.ActionLink(item.Receiver.Email, "Home", "Home", new { item.Id }, null)
+                                </td>
+                                <td>
+                                    @Html.ActionLink(item.Body, "Edit", "Messages", new { id = item.Id }, null)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                    <button class="btn-link js-delete" data-message-id="@item.Id">Delete</button>
+                                </td>
+                            </tr>
                         }
                     </tbody>
 
@@ -163,6 +162,8 @@
 </div>
 
 
+@section scripts{
+   
 
 
     <script>
@@ -191,4 +192,4 @@
             });
         });
     </script>
-
+}
