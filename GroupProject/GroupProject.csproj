@@ -210,6 +210,10 @@
     <Compile Include="Migrations\202207212241452_FixingPrimaryKeyForMessageModel.Designer.cs">
       <DependentUpon>202207212241452_FixingPrimaryKeyForMessageModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202207280952242_Thumbnail.cs" />
+    <Compile Include="Migrations\202207280952242_Thumbnail.Designer.cs">
+      <DependentUpon>202207280952242_Thumbnail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Following.cs" />
@@ -495,6 +499,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207212241452_FixingPrimaryKeyForMessageModel.resx">
       <DependentUpon>202207212241452_FixingPrimaryKeyForMessageModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207280952242_Thumbnail.resx">
+      <DependentUpon>202207280952242_Thumbnail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
