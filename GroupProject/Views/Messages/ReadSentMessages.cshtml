@@ -2,39 +2,24 @@
 
 @{
     ViewBag.Title = "ReadSentMessages";
+    
 }
 
-<h2>Inbox</h2>
+
 
 
 
 
 <div class="container">
-    @*<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>*@
+    
     <div class="mail-box">
         <aside class="sm-side">
             <div class="user-head">
-                <a class="inbox-avatar" href="javascript:;">
-                    <img width="64" height="60" style="border-radius:30px" src="~/img/Screenshot_4.png">
-                </a>
-                <div class="user-name">
-                    @foreach (var item in Model)
-                    {
-                        @*<img width="64" height="60" style="border-radius:30px" src="~/img/@Url.Content(ModelItem => item.Sender.Thumbnail)" />*@
-                        <h5><a href="#">@Html.DisplayFor(ModelItem => item.Sender.Email)</a></h5>
-                        break;
-                        <span><a href="#">Swsws@Gmail.com</a></span>
-                    }
-                </div>
-                <a class="mail-dropdown pull-right" href="javascript:;">
-                    <i class="fa fa-chevron-down"></i>
-                </a>
-            </div>
-            <div class="inbox-body">
+
                 @Html.ActionLink("Compose", "CreateMessage", "Messages", null, new { @class = "btn btn-compose" })
                 
-            </div>
-            <ul class="inbox-nav inbox-divider inboxCustomNavbar">
+            </div>           
+            <ul class="inbox-nav inboxCustomNavbar">
                 <li>
 
                     @Html.ActionLink(" Inbox", "ReadIncomingMessages", "Messages", null, new { @class = "fa fa-folder-o" })
@@ -54,15 +39,10 @@
         <aside class="lg-side">
             <div class="inbox-head">
                 <h3>Inbox</h3>
-                <form action="#" class="pull-right position">
-                    <div class="input-append">
-                        <input type="text" class="sr-input" placeholder="Search Mail">
-                        <button class="btn sr-btn" type="button"><i class="fa fa-search"></i></button>
-                    </div>
-                </form>
+                
             </div>
             <div class="inbox-body">
-                <div class="mail-option">
+                @*<div class="mail-option">
                     <div class="chk-all">
                         <input type="checkbox" class="mail-checkbox mail-group-checkbox">
                         <div class="btn-group">
@@ -117,41 +97,43 @@
                             <a class="np-btn" href="#"><i class="fa fa-angle-right pagination-right"></i></a>
                         </li>
                     </ul>
-                </div>
+                </div>*@
                 
                 <table class="table" id="messages">
                     <thead>
                         <tr>
-                            <th>@Html.DisplayName("Sender email")</th>
+                            @*<th>@Html.DisplayName("Sender email")</th>*@
+
                             <th>
-                                @Html.DisplayName("Receiver email")
+                                @Html.DisplayName("Message")
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Body)
+                                @Html.DisplayName("Receiver email")
                             </th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.ActionLink(item.Sender.Email, "Home", "Home", new { item.Id }, null)
-                                </td>
+                         {
+                         <tr>
+                            @*<td>
+                            @Html.ActionLink(item.Sender.Email, "Home", "Home", new { item.Id }, null)
+                            </td>*@
 
-                                <td>
-                                    @Html.ActionLink(item.Receiver.Email, "Home", "Home", new { item.Id }, null)
-                                </td>
-                                <td>
-                                    @Html.ActionLink(item.Body, "Edit", "Messages", new { id = item.Id }, null)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                    <button class="btn-link js-delete" data-message-id="@item.Id">Delete</button>
-                                </td>
-                            </tr>
-                        }
+
+                            <td>
+                                @Html.ActionLink(item.ShorterBody, "Details", "Messages", new { id = item.Id }, null)
+                            </td>
+
+                            <td>
+                                @Html.ActionLink(item.Receiver.Email, "Home", "Home", new { item.Id }, null)
+                            </td>
+                            <td>
+                                <button class="btn-link js-delete" data-message-id="@item.Id">Delete</button>
+                            </td>
+                         </tr>
+                         }
                     </tbody>
 
                 </table>
