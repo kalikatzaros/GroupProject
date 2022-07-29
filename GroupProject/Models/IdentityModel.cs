@@ -83,9 +83,6 @@ namespace GroupProject.Models
 
         }
 
-        //public System.Data.Entity.DbSet<GroupProject.ViewModels.WallPostViewModel> WallPostViewModels { get; set; }
-
-        
+    }
     }
 
-}

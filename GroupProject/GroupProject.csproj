@@ -191,6 +191,8 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\TopicPostsController.cs" />
+    <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Controllers\WallPostsController.cs" />
     <Compile Include="Dtos\FollowingDto.cs" />
     <Compile Include="Global.asax.cs">
@@ -232,6 +234,14 @@
     <Compile Include="Migrations\202207291327056_RemovedExtraColumnFromATable.Designer.cs">
       <DependentUpon>202207291327056_RemovedExtraColumnFromATable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202207291621333_UpdatedTopicTable.cs" />
+    <Compile Include="Migrations\202207291621333_UpdatedTopicTable.Designer.cs">
+      <DependentUpon>202207291621333_UpdatedTopicTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207291802234_test.cs" />
+    <Compile Include="Migrations\202207291802234_test.Designer.cs">
+      <DependentUpon>202207291802234_test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Following.cs" />
@@ -245,6 +255,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\MessageRepository.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\TopicPostViewModel.cs" />
+    <Compile Include="ViewModels\TopicViewModel.cs" />
     <Compile Include="ViewModels\UserMessagesViewModel.cs" />
     <Compile Include="ViewModels\UserPostsViewModel.cs" />
     <Compile Include="ViewModels\WallPostViewModel.cs" />
@@ -492,6 +504,10 @@
     <Content Include="Views\Messages\Details.cshtml" />
     <Content Include="Views\WallPosts\Create.cshtml" />
     <Content Include="Views\WallPosts\Wall.cshtml" />
+    <Content Include="Views\Topics\Index.cshtml" />
+    <Content Include="Views\Topics\Create.cshtml" />
+    <Content Include="Views\Topics\Details.cshtml" />
+    <Content Include="Views\TopicPosts\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -539,6 +555,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207291327056_RemovedExtraColumnFromATable.resx">
       <DependentUpon>202207291327056_RemovedExtraColumnFromATable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207291621333_UpdatedTopicTable.resx">
+      <DependentUpon>202207291621333_UpdatedTopicTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207291802234_test.resx">
+      <DependentUpon>202207291802234_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

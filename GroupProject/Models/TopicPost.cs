@@ -11,22 +11,15 @@ namespace GroupProject.Models
     public class TopicPost
     {
         public int Id { get; set; }
+        [Required]
         public int TopicId { get; set; }
         public Topic Topic { get; set; }
+        [Required]
         public string SenderId { get; set; }
         public ApplicationUser Sender { get; set; }
-
+        [Required]
         public int PostId { get; set; }
         public Post Post { get; set; }
 
-        //public ICollection<TopicPost> Topics { get; set; }
-        //public ICollection<TopicPost> Posts { get; set; }
-
-
-        //public TopicPost()
-        //{
-        //    Topics = new Collection<TopicPost>();
-        //    Posts = new Collection<TopicPost>();
-        //}
     }
 }
