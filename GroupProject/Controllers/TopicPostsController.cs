@@ -23,7 +23,8 @@ namespace GroupProject.Controllers
             var topicPosts = db.TopicPosts.Include(t => t.Post)
                 .Include(t => t.Sender)
                 .Include(t => t.Topic)
-                .Where(t=>t.TopicId==id);
+                .Where(t=>t.TopicId==id)
+                .OrderByDescending(t=>t.Post.Datetime);
             return View(topicPosts.ToList());
         }
 
@@ -47,7 +48,7 @@ namespace GroupProject.Controllers
         {
             var viewModel = new TopicPostViewModel();
           
-            viewModel.TopicId = id;
+            
 
             return View(viewModel);
         }
@@ -57,7 +58,7 @@ namespace GroupProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(TopicPostViewModel viewModel)
+        public ActionResult Create(TopicPostViewModel viewModel,int id)
         {
             var post = new Post()
             {
@@ -69,20 +70,17 @@ namespace GroupProject.Controllers
 
             var userId = User.Identity.GetUserId();
 
-            var topicPost = new TopicPost()
-            {
-                TopicId=viewModel.TopicId,
-                SenderId=userId,
-                PostId=post.Id
-            };
-            if (ModelState.IsValid)
-            {
+                var topicPost = new TopicPost()
+                {
+                    TopicId = id,
+                    SenderId = userId,
+                    PostId = post.Id
+                };
+
                 db.TopicPosts.Add(topicPost);
                 db.SaveChanges();
-                return RedirectToAction("Index","Topics");
-            }
-
-            return View(topicPost);
+            return RedirectToAction("Index", "TopicPosts",new {id=id });
+       
         }
 
         // GET: TopicPosts/Edit/5

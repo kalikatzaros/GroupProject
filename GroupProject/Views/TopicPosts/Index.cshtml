@@ -1,0 +1,55 @@
+﻿@model IEnumerable<GroupProject.Models.TopicPost>
+
+@{
+    ViewBag.Title = "Index";
+
+
+}
+
+
+
+
+
+    @foreach (var item in Model)
+    {
+<h4>
+    @Html.ActionLink("Create New", "Create", new { id = item.TopicId })
+</h4>
+<h2>@Html.DisplayFor(modelItem => item.Topic.Title)</h2>
+        break;
+    }
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("body")
+        </th>
+        <th>
+            @Html.DisplayName("sender")
+        </th>
+        <th>
+            @Html.DisplayName("title")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post.Body)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sender.Email)
+            </td>
+            
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
