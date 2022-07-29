@@ -191,6 +191,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\WallPostsController.cs" />
     <Compile Include="Dtos\FollowingDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -219,6 +220,18 @@
     <Compile Include="Migrations\202207281053477_ThumbnailtoApplicationUser.Designer.cs">
       <DependentUpon>202207281053477_ThumbnailtoApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202207291303230_ChangeKeysToWallPostTable.cs" />
+    <Compile Include="Migrations\202207291303230_ChangeKeysToWallPostTable.Designer.cs">
+      <DependentUpon>202207291303230_ChangeKeysToWallPostTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207291316081_RefiguringKeysToOurTables.cs" />
+    <Compile Include="Migrations\202207291316081_RefiguringKeysToOurTables.Designer.cs">
+      <DependentUpon>202207291316081_RefiguringKeysToOurTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207291327056_RemovedExtraColumnFromATable.cs" />
+    <Compile Include="Migrations\202207291327056_RemovedExtraColumnFromATable.Designer.cs">
+      <DependentUpon>202207291327056_RemovedExtraColumnFromATable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Following.cs" />
@@ -234,6 +247,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\UserMessagesViewModel.cs" />
     <Compile Include="ViewModels\UserPostsViewModel.cs" />
+    <Compile Include="ViewModels\WallPostViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -476,12 +490,14 @@
     <Content Include="Views\Messages\Index.cshtml" />
     <Content Include="Views\Messages\ReadSentMessages.cshtml" />
     <Content Include="Views\Messages\Details.cshtml" />
-    <Content Include="Views\Posts\Index.cshtml" />
+    <Content Include="Views\WallPosts\Create.cshtml" />
+    <Content Include="Views\WallPosts\Wall.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="DLL\" />
     <Folder Include="Views\Followers\" />
+    <Folder Include="Views\Posts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -514,6 +530,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207281053477_ThumbnailtoApplicationUser.resx">
       <DependentUpon>202207281053477_ThumbnailtoApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207291303230_ChangeKeysToWallPostTable.resx">
+      <DependentUpon>202207291303230_ChangeKeysToWallPostTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207291316081_RefiguringKeysToOurTables.resx">
+      <DependentUpon>202207291316081_RefiguringKeysToOurTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207291327056_RemovedExtraColumnFromATable.resx">
+      <DependentUpon>202207291327056_RemovedExtraColumnFromATable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

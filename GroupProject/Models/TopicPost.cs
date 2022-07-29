@@ -10,12 +10,12 @@ namespace GroupProject.Models
 {
     public class TopicPost
     {
-        [Key]
-        [Column(Order =1)]
+        public int Id { get; set; }
         public int TopicId { get; set; }
         public Topic Topic { get; set; }
-        [Key]
-        [Column(Order = 2)]
+        public string SenderId { get; set; }
+        public ApplicationUser Sender { get; set; }
+
         public int PostId { get; set; }
         public Post Post { get; set; }
 

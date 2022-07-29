@@ -13,41 +13,41 @@ namespace GroupProject.Controllers
 {
     public class PostsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        //private readonly ApplicationDbContext _context;
 
-        public PostsController()
-        {
-            _context = new ApplicationDbContext();
-        }
+        //public PostsController()
+        //{
+        //    _context = new ApplicationDbContext();
+        //}
 
-        // GET: Posts
-        public ActionResult Index()
-        {             
-            return View(_context.Posts.ToList());
-        }
+        //// GET: Posts
+        //public ActionResult Index()
+        //{             
+        //    return View(_context.Posts.ToList());
+        //}
 
-        public ActionResult CreatePost()
-        {
-            var viewModel = new UserPostsViewModel();
-            return View(viewModel);
-        }
+        //public ActionResult CreatePost()
+        //{
+        //    var viewModel = new UserPostsViewModel();
+        //    return View(viewModel);
+        //}
 
-        [HttpPost]
-        [Authorize]
-        public ActionResult CreatePost(UserPostsViewModel viewModel)
-        {
-            var userId = User.Identity.GetUserId();
-            var post = new Post()
-            {               
-                SenderId = userId,
-                Body = viewModel.Post.Body,
-                Datetime = DateTime.Now
-            };
-            _context.Posts.Add(post);
-            _context.SaveChanges();
+        //[HttpPost]
+        //[Authorize]
+        //public ActionResult CreatePost(UserPostsViewModel viewModel)
+        //{
+        //    var userId = User.Identity.GetUserId();
+        //    var post = new Post()
+        //    {               
+        //        SenderId = userId,
+        //        Body = viewModel.Post.Body,
+        //        Datetime = DateTime.Now
+        //    };
+        //    _context.Posts.Add(post);
+        //    _context.SaveChanges();
 
-            return RedirectToAction("Index","Home");
-        }
+        //    return RedirectToAction("Index","Home");
+        //}
 
     }
 }

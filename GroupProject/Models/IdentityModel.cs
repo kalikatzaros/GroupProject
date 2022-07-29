@@ -30,6 +30,9 @@ namespace GroupProject.Models
         public ICollection<Following> Followees { get; set; }
         public ICollection<Message> Senders { get; set; }
         public ICollection<Message> Receivers { get; set; }
+        public ICollection<WallPost> WallPosts  { get; set; }
+        public ICollection<TopicPost> TopicPosts { get; set; }
+
 
 
         public ApplicationUser()
@@ -38,6 +41,8 @@ namespace GroupProject.Models
             Followers = new Collection<Following>();
             Senders = new Collection<Message>();
             Receivers = new Collection<Message>();
+            WallPosts = new Collection<WallPost>();
+            TopicPosts = new Collection<TopicPost>();
         }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -77,6 +82,8 @@ namespace GroupProject.Models
 
 
         }
+
+        //public System.Data.Entity.DbSet<GroupProject.ViewModels.WallPostViewModel> WallPostViewModels { get; set; }
 
         
     }
