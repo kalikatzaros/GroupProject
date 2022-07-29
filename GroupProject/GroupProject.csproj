@@ -190,6 +190,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Dtos\FollowingDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -232,6 +233,7 @@
     <Compile Include="Repositories\MessageRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\UserMessagesViewModel.cs" />
+    <Compile Include="ViewModels\UserPostsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -474,6 +476,7 @@
     <Content Include="Views\Messages\Index.cshtml" />
     <Content Include="Views\Messages\ReadSentMessages.cshtml" />
     <Content Include="Views\Messages\Details.cshtml" />
+    <Content Include="Views\Posts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
