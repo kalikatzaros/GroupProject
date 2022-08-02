@@ -219,3 +219,13 @@ label #cancel {
     font-size:20px;
     
 }
+
+.TextBody{
+    display:block;
+    max-height:150px;
+    max-width:200px;
+    border:1.5px solid;
+    border-radius:7px;
+    padding:3px;
+    /*background-color:blue;*/
+}

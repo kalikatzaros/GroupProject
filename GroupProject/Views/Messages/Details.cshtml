@@ -11,7 +11,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayName("Sender Email")
+            @Html.DisplayName("Sender Email:")
         </dt>
 
         <dd>
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayName("Receiver Email")
+            @Html.DisplayName("Receiver Email:")
         </dt>
 
         <dd>
@@ -30,8 +30,8 @@
             @Html.DisplayNameFor(model => model.Body)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Body)
+        <dd class="TextBody">
+            @Html.DisplayTextFor(model => model.Body)
         </dd>
 
         <dt>
