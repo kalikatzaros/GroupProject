@@ -1,0 +1,57 @@
+﻿@model GroupProject.ViewModels.ProfileViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Profile</h2>
+
+<div>
+   
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Email")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Profile Image")
+        </dt>
+
+        <dd>
+            
+            <img src="~/img/@Url.Content(Model.ProfileImage)" width="150" height="150" style="border-radius: 5px"  />
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Body)
+        </dt>
+
+        <dd class="TextBody">
+            @Html.DisplayTextFor(model => model.Body)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Datetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Datetime)
+        </dd>*@
+
+    </dl>
+</div>
+@*<p>
+    @if (ViewBag.userId == Model.SenderId)
+    {
+        @Html.ActionLink("Back to List", "ReadSentMessages")
+    }
+    @if (ViewBag.userId == Model.ReceiverId)
+    {
+        @Html.ActionLink("Back to List", "ReadIncomingMessages")
+    }
+
+</p>*@

@@ -57,9 +57,11 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fa-solid fa-circle-user fa-xl"></i>
+                        <a href="https://localhost:44310/Profile/Index#">
+                            @*<i class="fa-solid fa-circle-user fa-xl"></i>*@
+                            <img src="~/img/@Url.Action("GetProfileImage","Profile")" width="23" height="23" style="border-radius:10px" />
                         </a>
+
                     </li>
                     <li>
                         <a href="#">
@@ -72,7 +74,7 @@
                         {
                             @Html.AntiForgeryToken()
 
-                        <li class="meme"><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fas fa-power-off"></i></a></li>
+                            <li class="meme"><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fas fa-power-off"></i></a></li>
 
                         }
                     }
@@ -83,9 +85,9 @@
                     }
 
 
-                    
 
-                    </ul>
+
+                </ul>
 
             </div>
 
