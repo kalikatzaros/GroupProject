@@ -243,6 +243,10 @@
     <Compile Include="Migrations\202207291818236_test2.Designer.cs">
       <DependentUpon>202207291818236_test2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202208032139546_AddingPropsToRegisterViewModel.cs" />
+    <Compile Include="Migrations\202208032139546_AddingPropsToRegisterViewModel.Designer.cs">
+      <DependentUpon>202208032139546_AddingPropsToRegisterViewModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Following.cs" />
@@ -564,6 +568,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207291818236_test2.resx">
       <DependentUpon>202207291818236_test2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208032139546_AddingPropsToRegisterViewModel.resx">
+      <DependentUpon>202208032139546_AddingPropsToRegisterViewModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

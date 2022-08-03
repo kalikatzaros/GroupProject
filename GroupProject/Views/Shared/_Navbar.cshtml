@@ -28,7 +28,7 @@
                 <h2>Menu</h2>
                 <ul>
                     <li><a href="#"><i class="fas fa-home"></i></a>@Html.ActionLink("Homepage", "Index", "Home")</li>
-                    <li><a href="#"><i class="fas fa-user"></i></a><span> @Html.ActionLink("Profile", "About", "Home")</span></li>
+                    <li><a href="#"><i class="fas fa-user"></i></a><span> @Html.ActionLink("Profile", "Index", "Profile")</span></li>
                     <li><a href="#"><i class="fas fa-envelope"></i></a>@Html.ActionLink("Inbox", "ReadIncomingMessages", "Messages")</li>
                     <li><a href="#"><i class="fas fa-book"></i></a>@Html.ActionLink("About", "Home", "Home")</li>
                     <li><a href="#"><i class="fas fa-address-card"></i></a>@Html.ActionLink("Contact", "Contact", "Home")</li>
@@ -94,13 +94,13 @@
 
         </nav>
 
-        <div class="navbar bar-alexis">
+        @*<div class="navbar bar-alexis">
             <ul>
                 <li><a></a>@Html.ActionLink("My wall", "Wall", "WallPosts")</li>
                 <li><a></a>@Html.ActionLink("Vale", "Index", "Home")</li>
                 <li><a></a>@Html.ActionLink("Oti Thes", "Index", "Home")</li>
             </ul>
-        </div>
+        </div>*@
 
 
 

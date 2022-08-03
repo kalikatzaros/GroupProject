@@ -35,7 +35,8 @@ namespace GroupProject.Controllers
                 ProfileImage =user.Thumbnail,
                 FirstName = user.Name,
                 LastName = user.LastName,
-                WallPosts = wallPosts.ToList()
+                WallPosts = wallPosts.ToList(),
+                DateOfBirth = user.DateOfBirth
                 
             };
             return View(viewModel);
