@@ -73,21 +73,21 @@ namespace GroupProject.Controllers
                 };
                 db.WallPosts.Add(wallPost);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Profile");
             }           
             return View();
         }
 
-        public ActionResult Wall()
-        {
-            var userId = User.Identity.GetUserId();
+        //public ActionResult Wall()
+        //{
+        //    var userId = User.Identity.GetUserId();
 
-            var wallPosts = db.WallPosts
-                .Include(w => w.Post)
-                .Where(w => w.UserId == userId);
+        //    var wallPosts = db.WallPosts
+        //        .Include(w => w.Post)
+        //        .Where(w => w.UserId == userId);
 
-            return View(wallPosts);
-        }
+        //    return View(wallPosts);
+        //}
 
         // GET: WallPosts/Edit/5
         //public ActionResult Edit(int? id)

@@ -1,14 +1,99 @@
 ﻿@model GroupProject.ViewModels.ProfileViewModel
-@{
+@*@{
     ViewBag.Title = "Index";
-}
+}*@
 
 <h2>Profile</h2>
 
 <div>
-   
+
     <hr />
-    <dl class="dl-horizontal">
+
+
+    <div class="PersonalInfo">
+
+        <h4>Personal Info</h4>
+        <img src="~/img/@Url.Content(Model.ProfileImage)" width="150" height="150" style="border-radius: 5px" />
+        <p><span>First Name : @Model.FirstName</span></p>
+        <p><span>Last Name : @Model.LastName</span></p>
+        <p><span>E-mail : @Model.Email</span></p>
+        <p><span>Date of Birth : @Model.DateOfBirth</span></p>
+
+
+       
+
+        
+
+
+
+
+    </div>
+
+
+
+    <p>
+        @Html.ActionLink("Create New Post", "Create", "WallPosts", new { @class = "btn btn-primary" }, null)
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("My Posts")
+            </th>
+            <th></th>
+
+        </tr>
+        @if (Model.WallPosts.ToList().Count() < 1)
+        {
+            <tbody>
+                <tr>
+                    <td>
+                        No Posts yet....
+                    </td>
+                </tr>
+                
+            </tbody>
+        }
+
+        @foreach (var item in Model.WallPosts)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Post.Body)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Post.Datetime)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "WallPosts", new { id = item.Id },null) |
+                    @Html.ActionLink("Delete", "Delete","WallPosts", new { id = item.Id }, null)
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*<dl class="dl-horizontal">
         <dt>
             @Html.DisplayName("Email")
         </dt>
@@ -22,11 +107,11 @@
         </dt>
 
         <dd>
-            
-            <img src="~/img/@Url.Content(Model.ProfileImage)" width="150" height="150" style="border-radius: 5px"  />
-        </dd>
 
-        @*<dt>
+            <img src="~/img/@Url.Content(Model.ProfileImage)" width="150" height="150" style="border-radius: 5px"  />
+        </dd>*@
+
+    @*<dt>
             @Html.DisplayNameFor(model => model.Body)
         </dt>
 
