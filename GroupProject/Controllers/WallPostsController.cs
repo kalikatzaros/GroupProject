@@ -90,65 +90,67 @@ namespace GroupProject.Controllers
         //}
 
         // GET: WallPosts/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    WallPost wallPost = db.WallPosts.Find(id);
-        //    if (wallPost == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    ViewBag.PostId = new SelectList(db.Posts, "Id", "Body", wallPost.PostId);
-        //    ViewBag.UserId = new SelectList(db.Users, "Id", "Name", wallPost.UserId);
-        //    return View(wallPost);
-        //}
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            WallPost wallPost = db.WallPosts.Find(id);
+            if (wallPost == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.PostId = new SelectList(db.Posts, "Id", "Body", wallPost.PostId);
+            var userId = User.Identity.GetUserId();
+            ViewBag.UserId = User.Identity.GetUserId();
+            ViewBag.User = db.Users.SingleOrDefault(u => u.Id == userId);
+            return View(wallPost);
+        }
 
-        //// POST: WallPosts/Edit/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "Id,UserId,PostId")] WallPost wallPost)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(wallPost).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.PostId = new SelectList(db.Posts, "Id", "Body", wallPost.PostId);
-        //    ViewBag.UserId = new SelectList(db.Users, "Id", "Name", wallPost.UserId);
-        //    return View(wallPost);
-        //}
+        // POST: WallPosts/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,UserId,PostId")] WallPost wallPost)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(wallPost).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.PostId = new SelectList(db.Posts, "Id", "Body", wallPost.PostId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Name", wallPost.UserId);
+            return View(wallPost);
+        }
 
-        //// GET: WallPosts/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    WallPost wallPost = db.WallPosts.Find(id);
-        //    if (wallPost == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(wallPost);
-        //}
+        // GET: WallPosts/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            WallPost wallPost = db.WallPosts.Find(id);
+            if (wallPost == null)
+            {
+                return HttpNotFound();
+            }
+            return View(wallPost);
+        }
 
-        //// POST: WallPosts/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    WallPost wallPost = db.WallPosts.Find(id);
-        //    db.WallPosts.Remove(wallPost);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        // POST: WallPosts/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            WallPost wallPost = db.WallPosts.Find(id);
+            db.WallPosts.Remove(wallPost);
+            db.SaveChanges();
+            return RedirectToAction("Index","Profile");
+        }
 
         protected override void Dispose(bool disposing)
         {

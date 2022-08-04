@@ -515,6 +515,8 @@
     <Content Include="Views\TopicPosts\Create.cshtml" />
     <Content Include="Views\TopicPosts\Index.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\WallPosts\Delete.cshtml" />
+    <Content Include="Views\WallPosts\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
