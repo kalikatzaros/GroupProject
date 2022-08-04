@@ -19,16 +19,13 @@
         <p><span>E-mail : @Model.Email</span></p>
         <p><span>Date of Birth : @Model.DateOfBirth.ToString("dd/MM/yyyy")</span></p>
 
-
-       
-
-        
-
-
-
-
     </div>
 
+    <div>
+        @Html.ActionLink("Followees", "Index", "Followees", new { @class = "btn btn-primary" }, null)
+    </div>
+
+    <button type="button" class="btn btn-info">Follow</button>
 
 
     <p>
@@ -50,7 +47,7 @@
                         No Posts yet....
                     </td>
                 </tr>
-                
+
             </tbody>
         }
 
@@ -65,14 +62,14 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink("Edit", "Edit", "WallPosts", new { id = item.Id },null) |
-                    @Html.ActionLink("Delete", "Delete","WallPosts", new { id = item.Id }, null)
+                    @Html.ActionLink("Edit", "Edit", "WallPosts", new { id = item.Id }, null) |
+                    @Html.ActionLink("Delete", "Delete", "WallPosts", new { id = item.Id }, null)
                 </td>
             </tr>
         }
 
     </table>
-
+</div>
 
 
 
@@ -127,8 +124,8 @@
             @Html.DisplayFor(model => model.Datetime)
         </dd>*@
 
-    </dl>
-</div>
+    @*</dl>*@
+
 @*<p>
     @if (ViewBag.userId == Model.SenderId)
     {

@@ -247,6 +247,10 @@
     <Compile Include="Migrations\202208032139546_AddingPropsToRegisterViewModel.Designer.cs">
       <DependentUpon>202208032139546_AddingPropsToRegisterViewModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202208042226525_AddSomeFollowers.cs" />
+    <Compile Include="Migrations\202208042226525_AddSomeFollowers.Designer.cs">
+      <DependentUpon>202208042226525_AddSomeFollowers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Following.cs" />
@@ -501,7 +505,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_Navbar.cshtml" />
-    <Content Include="Views\Followees\GetPeopleIFollow.cshtml" />
     <Content Include="Views\Messages\CreateMessage.cshtml" />
     <Content Include="Views\Messages\ReadIncomingMessages.cshtml" />
     <Content Include="Views\Messages\Delete.cshtml" />
@@ -517,11 +520,12 @@
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\WallPosts\Delete.cshtml" />
     <Content Include="Views\WallPosts\Edit.cshtml" />
+    <Content Include="Views\Followers\GetPeopleThatFollowMe.cshtml" />
+    <Content Include="Views\Followees\GetPeopleIFollow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="DLL\" />
-    <Folder Include="Views\Followers\" />
     <Folder Include="Views\Posts\" />
   </ItemGroup>
   <ItemGroup>
@@ -573,6 +577,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202208032139546_AddingPropsToRegisterViewModel.resx">
       <DependentUpon>202208032139546_AddingPropsToRegisterViewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208042226525_AddSomeFollowers.resx">
+      <DependentUpon>202208042226525_AddSomeFollowers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
