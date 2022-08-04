@@ -22,7 +22,10 @@
     </div>
 
     <div>
-        @Html.ActionLink("Followees", "Index", "Followees", new { @class = "btn btn-primary" }, null)
+        @Html.ActionLink("Followees", "GetPeopleIFollow", "Followees", new { @class = "btn btn-primary" }, null)
+    </div>
+    <div>
+        @Html.ActionLink("Followers", "GetPeopleThatFollowMe", "Followers", new { @class = "btn btn-primary" }, null)
     </div>
 
     <button type="button" class="btn btn-info">Follow</button>

@@ -8,8 +8,13 @@
 <ul>
     @foreach (var user in Model)
     {
-        <li>
-            @user.Email
-        </li>
+    <li>
+        <img src="~/img/@Url.Content(user.Thumbnail)" class="userImage" />
+        <div>
+            @user.Name
+            @user.LastName
+        </div>
+    </li>
     }
 </ul>
+

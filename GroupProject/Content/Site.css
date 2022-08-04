@@ -229,3 +229,11 @@ label #cancel {
     padding:3px;
     /*background-color:blue;*/
 }
+
+.userImage {
+    display: block;
+    object-fit:fill;
+    width :70px ;
+    height:70px ;
+    border-radius: 35px;
+}
