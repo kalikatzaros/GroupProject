@@ -21,9 +21,9 @@
                 <div class="user-name">
                     @foreach (var item in Model)
                     {
-                    <h5><a href="#">@Html.DisplayFor(ModelItem => item.Receiver.Email)</a></h5>
+                    <h5>@Html.ActionLink(item.Receiver.Email, "Index", "Profile")</h5>
                         break;
-                    <span><a href="#">Swsws@Gmail.com</a></span>
+                    
                     }
 
                 </div>
@@ -83,7 +83,7 @@
                                 </td>
 
                                 <td>
-                                    @Html.ActionLink(item.Receiver.Email, "Home", "Home", new { item.Id }, null)
+                                    @Html.ActionLink(item.Receiver.Email, "VisitProfile", "Profile", new { id = item.ReceiverId }, null)
                                 </td>
                                 <td>
                                     <button class="btn-link js-delete" data-message-id="@item.Id">Delete</button>

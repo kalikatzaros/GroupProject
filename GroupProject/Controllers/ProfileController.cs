@@ -20,10 +20,9 @@ namespace GroupProject.Controllers
             _context = new ApplicationDbContext();
         }
         // GET: Profile
-        public ActionResult Index(string Id)
+        public ActionResult Index()
         {
-            if (Id == null)
-            {
+            
                 var userId = User.Identity.GetUserId();
                 var user = _context.Users.Include(u => u.WallPosts)
                     .SingleOrDefault(u => u.Id == userId);
@@ -42,10 +41,10 @@ namespace GroupProject.Controllers
 
                 };
                 return View(viewModel);
-            }
+        }
 
-            else
-            {
+        public ActionResult VisitProfile(string Id)
+        {            
                 var otherUserId = Id;
                 var user = _context.Users.Include(u => u.WallPosts)
                         .SingleOrDefault(u => u.Id == otherUserId);
@@ -63,13 +62,7 @@ namespace GroupProject.Controllers
                     DateOfBirth = user.DateOfBirth
 
                 };
-                return View(viewModel);
-
-            }
-            
-
-
-
+                return View(viewModel);           
         }
 
         

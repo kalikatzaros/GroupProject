@@ -14,25 +14,25 @@
 
         <h4>Personal Info</h4>
         <img src="~/img/@Url.Content(Model.ProfileImage)" width="150" height="150" style="border-radius: 5px" />
-        <p><span>First Name : @Model.FirstName</span></p>
-        <p><span>Last Name : @Model.LastName</span></p>
-        <p><span>E-mail : @Model.Email</span></p>
-        <p><span>Date of Birth : @Model.DateOfBirth.ToString("dd/MM/yyyy")</span></p>
+        <p>First Name : @Model.FirstName</p>
+        <p>Last Name : @Model.LastName</p>
+        <p>E-mail : @Model.Email</p>
+        <p>Date of Birth : @Model.DateOfBirth.ToString("dd/MM/yyyy")</p>
 
     </div>
 
     <div>
-        @Html.ActionLink("Followees", "GetPeopleIFollow", "Followees", new { @class = "btn btn-primary" }, null)
+        @Html.ActionLink("Followees", "GetPeopleIFollow", "Followees", new { @class = "btn btn-danger" })
     </div>
     <div>
-        @Html.ActionLink("Followers", "GetPeopleThatFollowMe", "Followers", new { @class = "btn btn-primary" }, null)
+        @Html.ActionLink("Followers", "GetPeopleThatFollowMe", "Followers", new { @class = "btn btn-danger" })
     </div>
 
     <button type="button" class="btn btn-info">Follow</button>
 
 
     <p>
-        @Html.ActionLink("Create New Post", "Create", "WallPosts", new { @class = "btn btn-primary" }, null)
+        @Html.ActionLink("Create New Post", "Create", "WallPosts", new { @class = "btn btn-default" })
     </p>
     <table class="table">
         <tr>

@@ -518,6 +518,7 @@
     <Content Include="Views\WallPosts\Edit.cshtml" />
     <Content Include="Views\Followers\GetPeopleThatFollowMe.cshtml" />
     <Content Include="Views\Followees\GetPeopleIFollow.cshtml" />
+    <Content Include="Views\Profile\VisitProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
