@@ -247,18 +247,6 @@
     <Compile Include="Migrations\202208032139546_AddingPropsToRegisterViewModel.Designer.cs">
       <DependentUpon>202208032139546_AddingPropsToRegisterViewModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202208042226525_AddSomeFollowers.cs" />
-    <Compile Include="Migrations\202208042226525_AddSomeFollowers.Designer.cs">
-      <DependentUpon>202208042226525_AddSomeFollowers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202208042243244_ClearDummyData.cs" />
-    <Compile Include="Migrations\202208042243244_ClearDummyData.Designer.cs">
-      <DependentUpon>202208042243244_ClearDummyData.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202208042257035_Followers2.cs" />
-    <Compile Include="Migrations\202208042257035_Followers2.Designer.cs">
-      <DependentUpon>202208042257035_Followers2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Following.cs" />
@@ -585,15 +573,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202208032139546_AddingPropsToRegisterViewModel.resx">
       <DependentUpon>202208032139546_AddingPropsToRegisterViewModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202208042226525_AddSomeFollowers.resx">
-      <DependentUpon>202208042226525_AddSomeFollowers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202208042243244_ClearDummyData.resx">
-      <DependentUpon>202208042243244_ClearDummyData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202208042257035_Followers2.resx">
-      <DependentUpon>202208042257035_Followers2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

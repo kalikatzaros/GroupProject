@@ -11,8 +11,7 @@
     <li>
         <img src="~/img/@Url.Content(user.Thumbnail)" class="userImage" />
         <div>
-            @user.Name
-            @user.LastName
+            @Html.ActionLink(@user.FullName, "Index", "Profile", new { id = user.Id }, null)
         </div>
     </li>
  }

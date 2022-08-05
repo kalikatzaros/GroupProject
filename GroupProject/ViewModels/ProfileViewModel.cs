@@ -12,6 +12,14 @@ namespace GroupProject.ViewModels
         public ApplicationUser User { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        
+
+        public string FullName
+        {
+            get { return $"{FirstName} {LastName}"; }
+            
+        }
+
 
         public string ProfileImage { get; set; }
         public string Email { get; set; }

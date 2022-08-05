@@ -20,45 +20,60 @@ namespace GroupProject.Controllers
             _context = new ApplicationDbContext();
         }
         // GET: Profile
-        public ActionResult Index()
+        public ActionResult Index(string Id)
         {
-            var userId = User.Identity.GetUserId();
-            var user = _context.Users.Include(u => u.WallPosts)
-                .SingleOrDefault(u => u.Id == userId);
-            var wallPosts = _context.WallPosts
-                .Include(w => w.Post)
-                .Where(w => w.UserId == userId);
-            var viewModel = new ProfileViewModel()
+            if (Id == null)
             {
-                User = user,
-                Email = user.Email,
-                ProfileImage =user.Thumbnail,
-                FirstName = user.Name,
-                LastName = user.LastName,
-                WallPosts = wallPosts.ToList(),
-                DateOfBirth = user.DateOfBirth
-                
-            };
-            return View(viewModel);
+                var userId = User.Identity.GetUserId();
+                var user = _context.Users.Include(u => u.WallPosts)
+                    .SingleOrDefault(u => u.Id == userId);
+                var wallPosts = _context.WallPosts
+                    .Include(w => w.Post)
+                    .Where(w => w.UserId == userId);
+                var viewModel = new ProfileViewModel()
+                {
+                    User = user,
+                    Email = user.Email,
+                    ProfileImage = user.Thumbnail,
+                    FirstName = user.Name,
+                    LastName = user.LastName,
+                    WallPosts = wallPosts.ToList(),
+                    DateOfBirth = user.DateOfBirth
+
+                };
+                return View(viewModel);
+            }
+
+            else
+            {
+                var otherUserId = Id;
+                var user = _context.Users.Include(u => u.WallPosts)
+                        .SingleOrDefault(u => u.Id == otherUserId);
+                var wallPosts = _context.WallPosts
+                    .Include(w => w.Post)
+                    .Where(w => w.UserId == otherUserId);
+                var viewModel = new ProfileViewModel()
+                {
+                    User = user,
+                    Email = user.Email,
+                    ProfileImage = user.Thumbnail,
+                    FirstName = user.Name,
+                    LastName = user.LastName,
+                    WallPosts = wallPosts.ToList(),
+                    DateOfBirth = user.DateOfBirth
+
+                };
+                return View(viewModel);
+
+            }
+            
+
+
+
         }
 
-        //public ActionResult GetProfileImage()
-        //{
-        //    var userId = User.Identity.GetUserId();
-        //    var user = _context.Users.SingleOrDefault(u => u.Id == userId);
-        //    return View(user);
-        //}
-
-        //public FilePathResult ProfileImage()
-        //{
-        //    var userId = User.Identity.GetUserId();
-        //    var user = _context.Users
-        //        .Where(u => u.Id == userId)
-        //        .FirstOrDefault();
-
-        //    return new FilePathResult(user.Thumbnail,"image/jfif");
-        //}
-
+        
+        
 
     }
 }
