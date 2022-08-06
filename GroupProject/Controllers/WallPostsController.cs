@@ -78,34 +78,28 @@ namespace GroupProject.Controllers
             return View();
         }
 
-        //public ActionResult Wall()
-        //{
-        //    var userId = User.Identity.GetUserId();
-
-        //    var wallPosts = db.WallPosts
-        //        .Include(w => w.Post)
-        //        .Where(w => w.UserId == userId);
-
-        //    return View(wallPosts);
-        //}
-
         // GET: WallPosts/Edit/5
         public ActionResult Edit(int? id)
         {
+            
+            var post = db.Posts.SingleOrDefault(p => p.Id == id);
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            WallPost wallPost = db.WallPosts.Find(id);
-            if (wallPost == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.PostId = new SelectList(db.Posts, "Id", "Body", wallPost.PostId);
-            var userId = User.Identity.GetUserId();
-            ViewBag.UserId = User.Identity.GetUserId();
-            ViewBag.User = db.Users.SingleOrDefault(u => u.Id == userId);
-            return View(wallPost);
+            //WallPost wallPost = db.WallPosts
+            //    .Include(w => w.Post)
+            //    .SingleOrDefault(w => w.UserId == userId);
+            //if (wallPost == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //ViewBag.PostId = new SelectList(db.Posts, "Id", "Body", wallPost.PostId);
+            ////var userId = User.Identity.GetUserId();
+            //ViewBag.UserId = User.Identity.GetUserId();
+            //ViewBag.User = db.Users.SingleOrDefault(u => u.Id == userId);
+            return View(post);
         }
 
         // POST: WallPosts/Edit/5
@@ -113,17 +107,16 @@ namespace GroupProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserId,PostId")] WallPost wallPost)
+        public ActionResult Edit(Post post)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(wallPost).State = EntityState.Modified;
+                db.Entry(post).State = EntityState.Modified;
+                post.Datetime = DateTime.Now;
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.PostId = new SelectList(db.Posts, "Id", "Body", wallPost.PostId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Name", wallPost.UserId);
-            return View(wallPost);
+                return RedirectToAction("Index","Profile");
+            }      
+            return View(post);
         }
 
         // GET: WallPosts/Delete/5
