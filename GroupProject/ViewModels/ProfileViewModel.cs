@@ -25,7 +25,7 @@ namespace GroupProject.ViewModels
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
         public ICollection<WallPost> WallPosts { get; set; }
-        public Post Post { get; set; }
+        
         [DataType(DataType.MultilineText)]
         public string Body { get; set; }
         [DataType(DataType.DateTime)]

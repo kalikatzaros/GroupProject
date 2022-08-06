@@ -12,6 +12,7 @@ namespace GroupProject.Models
         public string Title { get; set; }
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
+        
         [DataType(DataType.DateTime)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Created { get; set; }

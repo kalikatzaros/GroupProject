@@ -24,7 +24,7 @@ namespace GroupProject.Controllers
                 .Include(t => t.Sender)
                 .Include(t => t.Topic)
                 .Where(t=>t.TopicId==id)
-                .OrderByDescending(t=>t.Post.Datetime);
+                .OrderBy(t=>t.Post.Datetime);
             return View(topicPosts.ToList());
         }
 

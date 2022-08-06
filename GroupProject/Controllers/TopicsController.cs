@@ -62,6 +62,21 @@ namespace GroupProject.Controllers
             {
                 db.Topics.Add(topic);
                 db.SaveChanges();
+                var post = new Post()
+                {
+                    Body = viewModel.Post.Body,
+                    Datetime = DateTime.Now
+                };
+                db.Posts.Add(post);
+                db.SaveChanges();
+                var topicPost = new TopicPost()
+                {
+                    PostId = post.Id,
+                    SenderId = userId,
+                    TopicId = topic.Id
+                };
+                db.TopicPosts.Add(topicPost);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
