@@ -83,7 +83,7 @@
                                 </td>
 
                                 <td>
-                                    @Html.ActionLink(item.Receiver.Email, "VisitProfile", "Profile", new { id = item.ReceiverId }, null)
+                                    @Html.ActionLink(item.Sender.Email, "VisitProfile", "Profile", new { id = item.SenderId }, null)
                                 </td>
                                 <td>
                                     <button class="btn-link js-delete" data-message-id="@item.Id">Delete</button>

@@ -22,17 +22,17 @@
     </div>
 
     <div>
-        @Html.ActionLink("Followees", "GetPeopleIFollow", "Followees", new { @class = "btn btn-danger" })
+        @Html.ActionLink("Followees", "GetPeopleIFollow", "Followees", new { @class = "btn btn-danger" },null)
     </div>
     <div>
-        @Html.ActionLink("Followers", "GetPeopleThatFollowMe", "Followers", new { @class = "btn btn-danger" })
+        @Html.ActionLink("Followers", "GetPeopleThatFollowMe", "Followers", new { @class = "btn btn-danger" },null)
     </div>
 
     <button type="button" class="btn btn-info">Follow</button>
 
 
     <p>
-        @Html.ActionLink("Create New Post", "Create", "WallPosts", new { @class = "btn btn-default" })
+        @Html.ActionLink("Create New Post", "Create", "WallPosts", new { @class = "btn btn-default" }, null)
     </p>
     <table class="table">
         <tr>
