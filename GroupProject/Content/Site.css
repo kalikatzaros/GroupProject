@@ -194,23 +194,6 @@ label #cancel {
     line-height:60px;
     
 }
-/*
-.sidebar-footer > a {
-        flex-grow: 1;
-        text-align: center;
-        height: 20px;
-        line-height: 20px;
-        position: relative;
-}*/
-
-/* .sidebar-footer > a .notification {
-            position: absolute;
-            top: 0;
-}*/
-
-/*.inbox-divider  li a {
-    display: inline;
-}*/
 
 .inboxCustomNavbar li {
     
