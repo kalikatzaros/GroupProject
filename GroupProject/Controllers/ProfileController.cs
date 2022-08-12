@@ -8,22 +8,31 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using GroupProject.Repositories;
+
 
 namespace GroupProject.Controllers
 {
     public class ProfileController : Controller
     {
         private ApplicationDbContext _context;
+        private readonly FollowingRepository _followingRepository;
 
         public ProfileController()
         {
             _context = new ApplicationDbContext();
+            _followingRepository = new FollowingRepository(_context);
         }
         // GET: Profile
         public ActionResult Index()
         {
             
                 var userId = User.Identity.GetUserId();
+                var pr = _followingRepository.GetFollowings(userId);
+
+            if (pr == null)
+                return HttpNotFound();
+
                 var user = _context.Users.Include(u => u.WallPosts)
                     .SingleOrDefault(u => u.Id == userId);
                 var wallPosts = _context.WallPosts
@@ -37,10 +46,17 @@ namespace GroupProject.Controllers
                     FirstName = user.Name,
                     LastName = user.LastName,
                     WallPosts = wallPosts.ToList(),
-                    DateOfBirth = user.DateOfBirth
-
+                    DateOfBirth = user.DateOfBirth                                      
                 };
-                return View(viewModel);
+
+
+            if (User.Identity.IsAuthenticated)
+            {
+
+                viewModel.IsFollowing = _followingRepository.GetFollowing(userId, user.Id) != null;
+
+            }
+            return View("Index", viewModel);
         }
 
         public ActionResult VisitProfile(string Id)

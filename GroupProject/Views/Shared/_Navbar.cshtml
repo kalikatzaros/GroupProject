@@ -37,58 +37,59 @@
             </div>
 
             <div class="container-fluid">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-bell fa-xl"></i>
-                            <span class="badge badge-pill badge-warning notification "></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://localhost:44310/Messages/ReadIncomingMessages">
-                            <i class="fa fa-envelope  fa-xl"></i>
-                            <span class="badge badge-pill badge-success notification">2</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://localhost:44310/Topics">
-                            <i class="fa fa-pencil fa-xl"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://localhost:44310/Profile/Index">
-                            <i class="fa-solid fa-circle-user fa-xl"></i>
-                            @*<img src="@Url.Action("Index","Profile")" width="23" height="23" style="border-radius:10px" />*@
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav navbar-nav"></button>
+                    <ul class="nav navbar-nav" id="nav navbar-nav">
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-bell fa-xl"></i>
+                                <span class="badge badge-pill badge-warning notification "></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://localhost:44310/Messages/ReadIncomingMessages">
+                                <i class="fa fa-envelope  fa-xl"></i>
+                                <span class="badge badge-pill badge-success notification">2</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://localhost:44310/Topics">
+                                <i class="fa fa-pencil fa-xl"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://localhost:44310/Profile/Index">
+                                <i class="fa-solid fa-circle-user fa-xl"></i>
+                                @*<img src="@Url.Action("Index","Profile")" width="23" height="23" style="border-radius:10px" />*@
 
-                        </a>
+                            </a>
 
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-right-to-bracket fa-xl"></i>
-                        </a>
-                    </li>
-                    @if (Request.IsAuthenticated)
-                    {
-                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-right-to-bracket fa-xl"></i>
+                            </a>
+                        </li>
+                        @if (Request.IsAuthenticated)
                         {
-                            @Html.AntiForgeryToken()
+                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                            {
+                                @Html.AntiForgeryToken()
 
-                            <li class="meme"><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fas fa-power-off"></i></a></li>
+                                <li class="meme"><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fas fa-power-off"></i></a></li>
 
+                            }
                         }
-                    }
-                    else
-                    {
-                        <li class="meme">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                        <li class="meme">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>
-                    }
+                        else
+                        {
+                            <li class="meme">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                            <li class="meme">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>
+                        }
 
 
 
 
-                </ul>
-
+                    </ul>
+                
             </div>
 
         </nav>

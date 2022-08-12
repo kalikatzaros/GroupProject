@@ -7,6 +7,7 @@
     <div>
         <hr />
         <div class=" container">
+        
             <section>
                 <div class="profile">
                     <img align="left" class="fb-image-profile thumbnail" src="~/img/@Url.Content(Model.ProfileImage)" width="200" height="200" style="border-radius: 100px" alt="Profile image example" />
@@ -26,11 +27,22 @@
                     <div>
                         @Html.ActionLink("Followers", "GetPeopleThatFollowMe", "Followers", null, new { @class = "btn btn-danger" })
                     </div>
-                    <button type="button" class="btn btn-info">Follow</button>
+
                 </div>
-                <p>
-                    @Html.ActionLink("Create New Post", "Create", "WallPosts", null, new { @class = "btn btn-default" })
-                </p>
+                <h2>
+                    @Model.User.FullName
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (Model.IsFollowing)
+                        {
+                            <button class="btn btn-info ">Following</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-default">Follow</button>
+                        }
+                    }
+                </h2>
                 <table class="table">
                     <tr>
                         <th class="table-name">
