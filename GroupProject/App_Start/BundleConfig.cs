@@ -28,6 +28,7 @@ namespace GroupProject
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
+                      
                       "~/Content/Datatables/css/dataTables.bootstrap.css"));
         }
     }

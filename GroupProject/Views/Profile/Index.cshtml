@@ -30,7 +30,7 @@
 
                 </div>
                 <h2>
-                    @Model.User.FullName
+                    @Model.FullName
                     @if (User.Identity.IsAuthenticated)
                     {
                         if (Model.IsFollowing)
@@ -94,8 +94,9 @@
         padding-right: 50px;
     }
 
-    body{
-        background-color:floralwhite;
+    body {
+        background-color: #97c5cf;
+        
     }
 
     .table{

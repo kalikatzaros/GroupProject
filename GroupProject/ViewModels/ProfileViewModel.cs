@@ -13,6 +13,8 @@ namespace GroupProject.ViewModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        public ILookup<string, Following> Followings { get; set;  } 
+        public bool ShowActions { get; set; }
         public bool IsFollowing { get; set; }
 
         public string FullName

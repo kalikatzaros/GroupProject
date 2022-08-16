@@ -251,6 +251,10 @@
     <Compile Include="Migrations\202208120804509_IsFollowingAdded.Designer.cs">
       <DependentUpon>202208120804509_IsFollowingAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202208131351577_test1.cs" />
+    <Compile Include="Migrations\202208131351577_test1.Designer.cs">
+      <DependentUpon>202208131351577_test1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Following.cs" />
@@ -273,6 +277,8 @@
     <Compile Include="ViewModels\WallPostViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-darkly.css" />
+    <Content Include="Content\bootstrap-superhero.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -523,7 +529,7 @@
     <Content Include="Views\WallPosts\Edit.cshtml" />
     <Content Include="Views\Followers\GetPeopleThatFollowMe.cshtml" />
     <Content Include="Views\Followees\GetPeopleIFollow.cshtml" />
-    <Content Include="Views\Profile\VisitProfile.cshtml" />
+    <Content Include="Views\Shared\VisitProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -582,6 +588,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202208120804509_IsFollowingAdded.resx">
       <DependentUpon>202208120804509_IsFollowingAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208131351577_test1.resx">
+      <DependentUpon>202208131351577_test1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

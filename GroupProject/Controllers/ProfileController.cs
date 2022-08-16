@@ -27,11 +27,7 @@ namespace GroupProject.Controllers
         public ActionResult Index()
         {
             
-                var userId = User.Identity.GetUserId();
-                var pr = _followingRepository.GetFollowings(userId);
-
-            if (pr == null)
-                return HttpNotFound();
+                var userId = User.Identity.GetUserId();    
 
                 var user = _context.Users.Include(u => u.WallPosts)
                     .SingleOrDefault(u => u.Id == userId);
@@ -46,13 +42,15 @@ namespace GroupProject.Controllers
                     FirstName = user.Name,
                     LastName = user.LastName,
                     WallPosts = wallPosts.ToList(),
-                    DateOfBirth = user.DateOfBirth                                      
+                    DateOfBirth = user.DateOfBirth,
+                    Followings = _followingRepository.GetFollowings(userId).ToLookup(a => a.FolloweeId),
+                    ShowActions = User.Identity.IsAuthenticated
                 };
 
 
             if (User.Identity.IsAuthenticated)
             {
-
+                
                 viewModel.IsFollowing = _followingRepository.GetFollowing(userId, user.Id) != null;
 
             }
@@ -75,8 +73,9 @@ namespace GroupProject.Controllers
                     FirstName = user.Name,
                     LastName = user.LastName,
                     WallPosts = wallPosts.ToList(),
-                    DateOfBirth = user.DateOfBirth
-
+                    DateOfBirth = user.DateOfBirth,
+                    Followings = _followingRepository.GetFollowings(otherUserId).ToLookup(a => a.FolloweeId),
+                    ShowActions = User.Identity.IsAuthenticated
                 };
                 return View(viewModel);           
         }
