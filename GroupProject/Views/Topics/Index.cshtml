@@ -1,4 +1,16 @@
-﻿@model IEnumerable<GroupProject.Models.Topic>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital@1&display=swap" rel="stylesheet">
+</head>
+
+@model IEnumerable<GroupProject.Models.Topic>
 
 @{
     ViewBag.Title = "Index";
@@ -6,57 +18,325 @@
 
 <h2>Forum</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Created By")
-        </th>
-        <th>
-            @Html.DisplayName("Topic")
-        </th>
-        <th>
-            @Html.DisplayName("Date")
-        </th>
-        <th></th>
-    </tr>
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Created By")
+            </th>
+            <th>
+                @Html.DisplayName("Topic")
+            </th>
+            <th>
+                @Html.DisplayName("Date")
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(model => item.User.Email)
-        </td>
-        <td>
-            @Html.ActionLink(item.Title, "Index","TopicPosts", new { id = item.Id },null) 
-        </td>
-        <td>
-            @Html.DisplayFor(model => item.Created)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Create Post", "Create", "TopicPosts", new { id = item.Id }, null)
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.User.Email)
+            </td>
+            <td>
+                @Html.ActionLink(item.Title, "Index","TopicPosts", new { id = item.Id },null)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Created)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Create Post", "Create", "TopicPosts", new { id = item.Id }, null)
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
-</table>
+    </table>
 
-<div class="list-group">
-    <ul>
-        <li>News</li>
-        <li>Timelines</li>
-        <li>Zodiacs</li>
-    </ul>
-</div>
+    <div class="list-group">
+        <ul>
+            <li>News</li>
+            <li>Timelines</li>
+            <li>Zodiacs</li>
+        </ul>
+    </div>
 
+    <style>
+        .list-group ul li {
+
+            padding:15px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-top: 1px solid rgba(225,225,225,0.05);
+        }
+    </style>*@
+
+<body>
+    <div class="container">
+        <div class="subforum">
+            <div class="subforum-title">
+                <h1>General Information</h1>
+            </div>
+            <div class="subforum-row">
+                <div class="subforum-icon subforum-column center">
+                    <i class="fa fa-book"></i>
+                </div>
+                <div class="subforum-description subforum-column">
+                    <h1><a href="">Description Title:</a></h1>
+                    <p>Description Content: just type anything here like one family one punch</p>
+                </div>
+                <div class="subforum-stats subforum-column center">
+                    <span>24 Posts | 15 Topics </span>
+                </div>
+                <div class="subforum-info subforum-column">
+                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                    <br />
+                    on<small> 22 Dec 2022</small>
+                </div>
+            </div>
+        </div>
+        <div class="subforum">
+            <div class="subforum-title">
+                <h1>General Information</h1>
+            </div>
+            <div class="subforum-row">
+                <div class="subforum-icon subforum-column center">
+                    <i class="fa fa-book"></i>
+                </div>
+                <div class="subforum-description subforum-column">
+                    <h1><a href="">Description Title:</a></h1>
+                    <p>Description Content: just type anything here like one family one punch</p>
+                </div>
+                <div class="subforum-stats subforum-column center">
+                    <span>24 Posts | 15 Topics </span>
+                </div>
+                <div class="subforum-info subforum-column">
+                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                    <br />
+                    on<small> 22 Dec 2022</small>
+                </div>
+            </div>
+            <div class="subforum-row">
+                <div class="subforum-icon subforum-column center">
+                    <i class="fa fa-book"></i>
+                </div>
+                <div class="subforum-description subforum-column">
+                    <h1><a href="">Description Title:</a></h1>
+                    <p>Description Content: just type anything here like one family one punch</p>
+                </div>
+                <div class="subforum-stats subforum-column center">
+                    <span>24 Posts | 15 Topics </span>
+                </div>
+                <div class="subforum-info subforum-column">
+                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                    <br />
+                    on<small> 22 Dec 2022</small>
+                </div>
+            </div>
+            <div class="subforum-row">
+                <div class="subforum-icon subforum-column center">
+                    <i class="fa fa-book"></i>
+                </div>
+                <div class="subforum-description subforum-column">
+                    <h1><a href="">Description Title:</a></h1>
+                    <p>Description Content: just type anything here like one family one punch</p>
+                </div>
+                <div class="subforum-stats subforum-column center">
+                    <span>24 Posts | 15 Topics </span>
+                </div>
+                <div class="subforum-info subforum-column">
+                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                    <br />
+                    on<small> 22 Dec 2022</small>
+                </div>
+            </div>
+            <div class="subforum-row">
+                <div class="subforum-icon subforum-column center">
+                    <i class="fa fa-book"></i>
+                </div>
+                <div class="subforum-description subforum-column">
+                    <h1><a href="">Description Title:</a></h1>
+                    <p>Description Content: just type anything here like one family one punch</p>
+                </div>
+                <div class="subforum-stats subforum-column center">
+                    <span>24 Posts | 15 Topics </span>
+                </div>
+                <div class="subforum-info subforum-column">
+                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                    <br />
+                    on<small> 22 Dec 2022</small>
+                </div>
+            </div>
+            <div class="subforum-row">
+                <div class="subforum-icon subforum-column center">
+                    <i class="fa fa-book"></i>
+                </div>
+                <div class="subforum-description subforum-column">
+                    <h1><a href="">Description Title:</a></h1>
+                    <p>Description Content: just type anything here like one family one punch</p>
+                </div>
+                <div class="subforum-stats subforum-column center">
+                    <span>24 Posts | 15 Topics </span>
+                </div>
+                <div class="subforum-info subforum-column">
+                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                    <br />
+                    on<small> 22 Dec 2022</small>
+                </div>
+            </div>
+            <div class="subforum-row">
+                <div class="subforum-icon subforum-column center">
+                    <i class="fa fa-book"></i>
+                </div>
+                <div class="subforum-description subforum-column">
+                    <h1><a href="">Description Title:</a></h1>
+                    <p>Description Content: just type anything here like one family one punch</p>
+                </div>
+                <div class="subforum-stats subforum-column center">
+                    <span>24 Posts | 15 Topics </span>
+                </div>
+                <div class="subforum-info subforum-column">
+                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                    <br />
+                    on<small> 22 Dec 2022</small>
+                </div>
+            </div>
+        </div>
+        <div class="subforum">
+            <div class="subforum-title">
+                <h1>General Information</h1>
+            </div>
+            <div class="subforum-row">
+                <div class="subforum-icon subforum-column center">
+                    <i class="fa fa-book"></i>
+                </div>
+                <div class="subforum-description subforum-column">
+                    <h1><a href="">Description Title:</a></h1>
+                    <p>Description Content: just type anything here like one family one punch</p>
+                </div>
+                <div class="subforum-stats subforum-column center">
+                    <span>24 Posts | 15 Topics </span>
+                </div>
+                <div class="subforum-info subforum-column">
+                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                    <br />
+                    on<small> 22 Dec 2022</small>
+                </div>
+            </div>
+            <div class="subforum-row">
+                <div class="subforum-icon subforum-column center">
+                    <i class="fa fa-book"></i>
+                </div>
+                <div class="subforum-description subforum-column">
+                    <h1><a href="">Description Title:</a></h1>
+                    <p>Description Content: just type anything here like one family one punch</p>
+                </div>
+                <div class="subforum-stats subforum-column center">
+                    <span>24 Posts | 15 Topics </span>
+                </div>
+                <div class="subforum-info subforum-column">
+                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                    <br />
+                    on<small> 22 Dec 2022</small>
+                </div>
+            </div>
+            <div class="subforum-row">
+                <div class="subforum-icon subforum-column center">
+                    <i class="fa fa-book"></i>
+                </div>
+                <div class="subforum-description subforum-column">
+                    <h1><a href="">Description Title:</a></h1>
+                    <p>Description Content: just type anything here like one family one punch</p>
+                </div>
+                <div class="subforum-stats subforum-column center">
+                    <span>24 Posts | 15 Topics </span>
+                </div>
+                <div class="subforum-info subforum-column">
+                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                    <br />
+                    on<small> 22 Dec 2022</small>
+                </div>
+            </div>
+            <div class="subforum-row">
+                <div class="subforum-icon subforum-column center">
+                    <i class="fa fa-book"></i>
+                </div>
+                <div class="subforum-description subforum-column">
+                    <h1><a href="">Description Title:</a></h1>
+                    <p>Description Content: just type anything here like one family one punch</p>
+                </div>
+                <div class="subforum-stats subforum-column center">
+                    <span>24 Posts | 15 Topics </span>
+                </div>
+                <div class="subforum-info subforum-column">
+                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                    <br />
+                    on<small> 22 Dec 2022</small>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
 <style>
-    .list-group ul li {
-        
-        padding:15px;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-        border-top: 1px solid rgba(225,225,225,0.05);
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        font-size: 14px;
+        font-family: 'Titilium Web', sans-serif;
+        /*background-color: black;*/
+    }
+
+    a {
+        font-weight: bolder;
+    }
+
+    h1 {
+        font-size: 16px;
+        font-weight: bolder;
+    }
+
+    /* home.html*/
+
+    .container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .subforum {
+        margin-top: 20px;
+    }
+
+    .subforum-title {
+        background-color: #292B2E;
+        color: antiquewhite;
+        padding: 5px;
+        border-radius: 5px;
+        margin:4px;
+    }
+
+    .subforum-row{
+        display: grid;
+        grid-template-columns: 7% 60% 13% 20%;
+    }
+
+    .subforum-column{
+        padding: 10px;
+        margin: 4px;
+        border-radius: 5px;
+        background-color: #111314;
+    }
+
+    .center{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .subforum-icon{
+        font-size: 36px;
     }
 </style>
