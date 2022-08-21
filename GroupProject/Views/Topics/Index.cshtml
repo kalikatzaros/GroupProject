@@ -16,264 +16,278 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Forum</h2>
 
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayName("Created By")
-            </th>
-            <th>
-                @Html.DisplayName("Topic")
-            </th>
-            <th>
-                @Html.DisplayName("Date")
-            </th>
-            <th></th>
-        </tr>
+    @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayName("Created By")
+                </th>
+                <th>
+                    @Html.DisplayName("Topic")
+                </th>
+                <th>
+                    @Html.DisplayName("Date")
+                </th>
+                <th></th>
+            </tr>
 
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(model => item.User.Email)
-            </td>
-            <td>
-                @Html.ActionLink(item.Title, "Index","TopicPosts", new { id = item.Id },null)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Created)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Create Post", "Create", "TopicPosts", new { id = item.Id }, null)
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
-
-    </table>
-
-    <div class="list-group">
-        <ul>
-            <li>News</li>
-            <li>Timelines</li>
-            <li>Zodiacs</li>
-        </ul>
-    </div>
-
-    <style>
-        .list-group ul li {
-
-            padding:15px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            border-top: 1px solid rgba(225,225,225,0.05);
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.User.Email)
+                </td>
+                <td>
+                    @Html.ActionLink(item.Title, "Index","TopicPosts", new { id = item.Id },null)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Created)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Create Post", "Create", "TopicPosts", new { id = item.Id }, null)
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
         }
-    </style>*@
+
+        </table>
+
+        <div class="list-group">
+            <ul>
+                <li>News</li>
+                <li>Timelines</li>
+                <li>Zodiacs</li>
+            </ul>
+        </div>
+
+        <style>
+            .list-group ul li {
+
+                padding:15px;
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+                border-top: 1px solid rgba(225,225,225,0.05);
+            }
+        </style>*@
 
 <body>
-    <div class="container">
-        <div class="subforum">
-            <div class="subforum-title">
-                <h1>General Information</h1>
-            </div>
-            <div class="subforum-row">
-                <div class="subforum-icon subforum-column center">
-                    <i class="fa fa-book"></i>
-                </div>
-                <div class="subforum-description subforum-column">
-                    <h1><a href="">Description Title:</a></h1>
-                    <p>Description Content: just type anything here like one family one punch</p>
-                </div>
-                <div class="subforum-stats subforum-column center">
-                    <span>24 Posts | 15 Topics </span>
-                </div>
-                <div class="subforum-info subforum-column">
-                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
-                    <br />
-                    on<small> 22 Dec 2022</small>
-                </div>
+    <header>
+        <h2>Forum</h2>   
+        <div class=" search-box">
+            <div>
+                <select name="" id="">
+                    <option value="everything">Everything</option>
+                    <option value="titles">Titles</option>
+                    <option value="descriptions">Descriptions</option>
+                </select>
+                <input type="text" name="q" id="" placeholder="search..." />
+                <button><i class="fa fa-search"></i></button>
             </div>
         </div>
-        <div class="subforum">
-            <div class="subforum-title">
-                <h1>General Information</h1>
-            </div>
-            <div class="subforum-row">
-                <div class="subforum-icon subforum-column center">
-                    <i class="fa fa-book"></i>
+    </header>
+        <div class="container">
+            <div class="subforum">
+                <div class="subforum-title">
+                    <h1>General Information</h1>
                 </div>
-                <div class="subforum-description subforum-column">
-                    <h1><a href="">Description Title:</a></h1>
-                    <p>Description Content: just type anything here like one family one punch</p>
-                </div>
-                <div class="subforum-stats subforum-column center">
-                    <span>24 Posts | 15 Topics </span>
-                </div>
-                <div class="subforum-info subforum-column">
-                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
-                    <br />
-                    on<small> 22 Dec 2022</small>
-                </div>
-            </div>
-            <div class="subforum-row">
-                <div class="subforum-icon subforum-column center">
-                    <i class="fa fa-book"></i>
-                </div>
-                <div class="subforum-description subforum-column">
-                    <h1><a href="">Description Title:</a></h1>
-                    <p>Description Content: just type anything here like one family one punch</p>
-                </div>
-                <div class="subforum-stats subforum-column center">
-                    <span>24 Posts | 15 Topics </span>
-                </div>
-                <div class="subforum-info subforum-column">
-                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
-                    <br />
-                    on<small> 22 Dec 2022</small>
+                <div class="subforum-row">
+                    <div class="subforum-icon subforum-column center">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <div class="subforum-description subforum-column">
+                        <h1><a href="">Description Title:</a></h1>
+                        <p>Description Content: just type anything here like one family one punch</p>
+                    </div>
+                    <div class="subforum-stats subforum-column center">
+                        <span>24 Posts | 15 Topics </span>
+                    </div>
+                    <div class="subforum-info subforum-column">
+                        <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                        <br />
+                        on<small> 22 Dec 2022</small>
+                    </div>
                 </div>
             </div>
-            <div class="subforum-row">
-                <div class="subforum-icon subforum-column center">
-                    <i class="fa fa-book"></i>
+            <div class="subforum">
+                <div class="subforum-title">
+                    <h1>News</h1>
                 </div>
-                <div class="subforum-description subforum-column">
-                    <h1><a href="">Description Title:</a></h1>
-                    <p>Description Content: just type anything here like one family one punch</p>
+                <div class="subforum-row">
+                    <div class="subforum-icon subforum-column center">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <div class="subforum-description subforum-column">
+                        <h1><a href="">Description Title:</a></h1>
+                        <p>Description Content: just type anything here like one family one punch</p>
+                    </div>
+                    <div class="subforum-stats subforum-column center">
+                        <span>24 Posts | 15 Topics </span>
+                    </div>
+                    <div class="subforum-info subforum-column">
+                        <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                        <br />
+                        on<small> 22 Dec 2022</small>
+                    </div>
                 </div>
-                <div class="subforum-stats subforum-column center">
-                    <span>24 Posts | 15 Topics </span>
+                <div class="subforum-row">
+                    <div class="subforum-icon subforum-column center">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <div class="subforum-description subforum-column">
+                        <h1><a href="">Description Title:</a></h1>
+                        <p>Description Content: just type anything here like one family one punch</p>
+                    </div>
+                    <div class="subforum-stats subforum-column center">
+                        <span>24 Posts | 15 Topics </span>
+                    </div>
+                    <div class="subforum-info subforum-column">
+                        <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                        <br />
+                        on<small> 22 Dec 2022</small>
+                    </div>
                 </div>
-                <div class="subforum-info subforum-column">
-                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
-                    <br />
-                    on<small> 22 Dec 2022</small>
+                <div class="subforum-row">
+                    <div class="subforum-icon subforum-column center">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <div class="subforum-description subforum-column">
+                        <h1><a href="">Description Title:</a></h1>
+                        <p>Description Content: just type anything here like one family one punch</p>
+                    </div>
+                    <div class="subforum-stats subforum-column center">
+                        <span>24 Posts | 15 Topics </span>
+                    </div>
+                    <div class="subforum-info subforum-column">
+                        <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                        <br />
+                        on<small> 22 Dec 2022</small>
+                    </div>
                 </div>
-            </div>
-            <div class="subforum-row">
-                <div class="subforum-icon subforum-column center">
-                    <i class="fa fa-book"></i>
+                <div class="subforum-row">
+                    <div class="subforum-icon subforum-column center">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <div class="subforum-description subforum-column">
+                        <h1><a href="">Description Title:</a></h1>
+                        <p>Description Content: just type anything here like one family one punch</p>
+                    </div>
+                    <div class="subforum-stats subforum-column center">
+                        <span>24 Posts | 15 Topics </span>
+                    </div>
+                    <div class="subforum-info subforum-column">
+                        <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                        <br />
+                        on<small> 22 Dec 2022</small>
+                    </div>
                 </div>
-                <div class="subforum-description subforum-column">
-                    <h1><a href="">Description Title:</a></h1>
-                    <p>Description Content: just type anything here like one family one punch</p>
+                <div class="subforum-row">
+                    <div class="subforum-icon subforum-column center">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <div class="subforum-description subforum-column">
+                        <h1><a href="">Description Title:</a></h1>
+                        <p>Description Content: just type anything here like one family one punch</p>
+                    </div>
+                    <div class="subforum-stats subforum-column center">
+                        <span>24 Posts | 15 Topics </span>
+                    </div>
+                    <div class="subforum-info subforum-column">
+                        <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                        <br />
+                        on<small> 22 Dec 2022</small>
+                    </div>
                 </div>
-                <div class="subforum-stats subforum-column center">
-                    <span>24 Posts | 15 Topics </span>
-                </div>
-                <div class="subforum-info subforum-column">
-                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
-                    <br />
-                    on<small> 22 Dec 2022</small>
-                </div>
-            </div>
-            <div class="subforum-row">
-                <div class="subforum-icon subforum-column center">
-                    <i class="fa fa-book"></i>
-                </div>
-                <div class="subforum-description subforum-column">
-                    <h1><a href="">Description Title:</a></h1>
-                    <p>Description Content: just type anything here like one family one punch</p>
-                </div>
-                <div class="subforum-stats subforum-column center">
-                    <span>24 Posts | 15 Topics </span>
-                </div>
-                <div class="subforum-info subforum-column">
-                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
-                    <br />
-                    on<small> 22 Dec 2022</small>
-                </div>
-            </div>
-            <div class="subforum-row">
-                <div class="subforum-icon subforum-column center">
-                    <i class="fa fa-book"></i>
-                </div>
-                <div class="subforum-description subforum-column">
-                    <h1><a href="">Description Title:</a></h1>
-                    <p>Description Content: just type anything here like one family one punch</p>
-                </div>
-                <div class="subforum-stats subforum-column center">
-                    <span>24 Posts | 15 Topics </span>
-                </div>
-                <div class="subforum-info subforum-column">
-                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
-                    <br />
-                    on<small> 22 Dec 2022</small>
-                </div>
-            </div>
-        </div>
-        <div class="subforum">
-            <div class="subforum-title">
-                <h1>General Information</h1>
-            </div>
-            <div class="subforum-row">
-                <div class="subforum-icon subforum-column center">
-                    <i class="fa fa-book"></i>
-                </div>
-                <div class="subforum-description subforum-column">
-                    <h1><a href="">Description Title:</a></h1>
-                    <p>Description Content: just type anything here like one family one punch</p>
-                </div>
-                <div class="subforum-stats subforum-column center">
-                    <span>24 Posts | 15 Topics </span>
-                </div>
-                <div class="subforum-info subforum-column">
-                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
-                    <br />
-                    on<small> 22 Dec 2022</small>
-                </div>
-            </div>
-            <div class="subforum-row">
-                <div class="subforum-icon subforum-column center">
-                    <i class="fa fa-book"></i>
-                </div>
-                <div class="subforum-description subforum-column">
-                    <h1><a href="">Description Title:</a></h1>
-                    <p>Description Content: just type anything here like one family one punch</p>
-                </div>
-                <div class="subforum-stats subforum-column center">
-                    <span>24 Posts | 15 Topics </span>
-                </div>
-                <div class="subforum-info subforum-column">
-                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
-                    <br />
-                    on<small> 22 Dec 2022</small>
-                </div>
-            </div>
-            <div class="subforum-row">
-                <div class="subforum-icon subforum-column center">
-                    <i class="fa fa-book"></i>
-                </div>
-                <div class="subforum-description subforum-column">
-                    <h1><a href="">Description Title:</a></h1>
-                    <p>Description Content: just type anything here like one family one punch</p>
-                </div>
-                <div class="subforum-stats subforum-column center">
-                    <span>24 Posts | 15 Topics </span>
-                </div>
-                <div class="subforum-info subforum-column">
-                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
-                    <br />
-                    on<small> 22 Dec 2022</small>
+                <div class="subforum-row">
+                    <div class="subforum-icon subforum-column center">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <div class="subforum-description subforum-column">
+                        <h1><a href="">Description Title:</a></h1>
+                        <p>Description Content: just type anything here like one family one punch</p>
+                    </div>
+                    <div class="subforum-stats subforum-column center">
+                        <span>24 Posts | 15 Topics </span>
+                    </div>
+                    <div class="subforum-info subforum-column">
+                        <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                        <br />
+                        on<small> 22 Dec 2022</small>
+                    </div>
                 </div>
             </div>
-            <div class="subforum-row">
-                <div class="subforum-icon subforum-column center">
-                    <i class="fa fa-book"></i>
+            <div class="subforum">
+                <div class="subforum-title">
+                    <h1>FAQs</h1>
                 </div>
-                <div class="subforum-description subforum-column">
-                    <h1><a href="">Description Title:</a></h1>
-                    <p>Description Content: just type anything here like one family one punch</p>
+                <div class="subforum-row">
+                    <div class="subforum-icon subforum-column center">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <div class="subforum-description subforum-column">
+                        <h1><a href="">Description Title:</a></h1>
+                        <p>Description Content: just type anything here like one family one punch</p>
+                    </div>
+                    <div class="subforum-stats subforum-column center">
+                        <span>24 Posts | 15 Topics </span>
+                    </div>
+                    <div class="subforum-info subforum-column">
+                        <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                        <br />
+                        on<small> 22 Dec 2022</small>
+                    </div>
                 </div>
-                <div class="subforum-stats subforum-column center">
-                    <span>24 Posts | 15 Topics </span>
+                <div class="subforum-row">
+                    <div class="subforum-icon subforum-column center">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <div class="subforum-description subforum-column">
+                        <h1><a href="">Description Title:</a></h1>
+                        <p>Description Content: just type anything here like one family one punch</p>
+                    </div>
+                    <div class="subforum-stats subforum-column center">
+                        <span>24 Posts | 15 Topics </span>
+                    </div>
+                    <div class="subforum-info subforum-column">
+                        <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                        <br />
+                        on<small> 22 Dec 2022</small>
+                    </div>
                 </div>
-                <div class="subforum-info subforum-column">
-                    <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
-                    <br />
-                    on<small> 22 Dec 2022</small>
+                <div class="subforum-row">
+                    <div class="subforum-icon subforum-column center">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <div class="subforum-description subforum-column">
+                        <h1><a href="">Description Title:</a></h1>
+                        <p>Description Content: just type anything here like one family one punch</p>
+                    </div>
+                    <div class="subforum-stats subforum-column center">
+                        <span>24 Posts | 15 Topics </span>
+                    </div>
+                    <div class="subforum-info subforum-column">
+                        <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                        <br />
+                        on<small> 22 Dec 2022</small>
+                    </div>
+                </div>
+                <div class="subforum-row">
+                    <div class="subforum-icon subforum-column center">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <div class="subforum-description subforum-column">
+                        <h1><a href="">Description Title:</a></h1>
+                        <p>Description Content: just type anything here like one family one punch</p>
+                    </div>
+                    <div class="subforum-stats subforum-column center">
+                        <span>24 Posts | 15 Topics </span>
+                    </div>
+                    <div class="subforum-info subforum-column">
+                        <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                        <br />
+                        on<small> 22 Dec 2022</small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -318,16 +332,29 @@
         margin:4px;
     }
 
+    .subforum-description *{
+        margin-block: 0;
+        
+    }
+
+    .subforum-description p {       
+        color: aqua;
+    }
+
     .subforum-row{
         display: grid;
         grid-template-columns: 7% 60% 13% 20%;
     }
 
+    .subforum-stats {
+        font-size: 12px;
+        color: aqua;
+    }
     .subforum-column{
         padding: 10px;
         margin: 4px;
         border-radius: 5px;
-        background-color: #111314;
+        background-color: #0e1125;
     }
 
     .center{
@@ -338,5 +365,30 @@
 
     .subforum-icon{
         font-size: 36px;
+        color:aqua;
     }
+
+    /*Search box*/
+    .search-box{
+        border: solid 1px #52057b;
+        margin-top: 20px;
+        padding: 40px;
+        display: flex;
+        justify-content: center;
+        box-shadow: 1px 2px 3px #52075b;
+    }
+
+    .search-box select{
+        padding: 10px;       
+    }
+
+   .search-box input {
+   padding: 10px;
+   }
+
+   .search-box button{
+       padding: 10px;
+       background-color: #fff;
+       color: #000000;
+   }
 </style>
