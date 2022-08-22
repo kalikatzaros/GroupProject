@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿@*<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital@1&display=swap" rel="stylesheet">
-</head>
+</head>*@
 
 @model IEnumerable<GroupProject.Models.Topic>
 
@@ -17,43 +17,7 @@
 }
 
 
-    @*<p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayName("Created By")
-                </th>
-                <th>
-                    @Html.DisplayName("Topic")
-                </th>
-                <th>
-                    @Html.DisplayName("Date")
-                </th>
-                <th></th>
-            </tr>
-
-        @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => item.User.Email)
-                </td>
-                <td>
-                    @Html.ActionLink(item.Title, "Index","TopicPosts", new { id = item.Id },null)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Created)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Create Post", "Create", "TopicPosts", new { id = item.Id }, null)
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
-            </tr>
-        }
-
-        </table>
+    
 
         <div class="list-group">
             <ul>
@@ -70,7 +34,7 @@
                 border-bottom: 1px solid rgba(0,0,0,0.05);
                 border-top: 1px solid rgba(225,225,225,0.05);
             }
-        </style>*@
+        </style>
 
 <body>
     <header>
@@ -92,23 +56,74 @@
                 <div class="subforum-title">
                     <h1>General Information</h1>
                 </div>
-                <div class="subforum-row">
-                    <div class="subforum-icon subforum-column center">
-                        <i class="fa fa-book"></i>
+
+                <p>
+                    @Html.ActionLink("Create New", "Create")
+                </p>
+                @*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Created By")
+            </th>
+            <th>
+                @Html.DisplayName("Topic")
+            </th>
+            <th>
+                @Html.DisplayName("Date")
+            </th>
+            <th></th>
+        </tr>*@
+
+                @foreach (var item in Model)
+                {
+
+                    <div class="subforum-row">
+                        <div class="subforum-icon subforum-column center">
+                            <i class="fa fa-book"></i>
+                        </div>
+                        <div class="subforum-description subforum-column">
+                            @Html.ActionLink(item.Title, "Index", "TopicPosts", new { id = item.Id }, null)
+
+                            <p>By @item.User.FullName <small> on @item.Created.ToString("dd/MM/yyyy")</small></p>
+                        </div>
+                        <div class="subforum-stats subforum-column center">
+                            <span>@Html.ActionLink("Add Post", "Create", "TopicPosts", new { id = item.Id }, null)</span>
+                        </div>
+                        <div class="subforum-info subforum-column">
+                            <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                            <br />
+                            on<small> 22 Dec 2022</small>
+                        </div>
                     </div>
-                    <div class="subforum-description subforum-column">
-                        <h1><a href="">Description Title:</a></h1>
-                        <p>Description Content: just type anything here like one family one punch</p>
-                    </div>
-                    <div class="subforum-stats subforum-column center">
-                        <span>24 Posts | 15 Topics </span>
-                    </div>
-                    <div class="subforum-info subforum-column">
-                        <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
-                        <br />
-                        on<small> 22 Dec 2022</small>
-                    </div>
-                </div>
+
+
+
+
+
+
+                    @*<tr>
+            <td>*@
+                    @Html.DisplayFor(model => item.User.Email)
+                    @*</td>*@
+                    @*<td>*@
+                    @Html.ActionLink(item.Title, "Index", "TopicPosts", new { id = item.Id }, null)
+                    @*</td>*@
+                    @*<td>*@
+                    @Html.DisplayFor(model => item.Created)
+                    @*</td>*@
+                    @*<td>*@
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    @Html.ActionLink("Create Post", "Create", "TopicPosts", new { id = item.Id }, null)
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @*</td>*@
+                    @*</tr>*@
+                }
+
+                @*</table>*@
+
+
+
+
             </div>
             <div class="subforum">
                 <div class="subforum-title">
@@ -131,6 +146,11 @@
                         on<small> 22 Dec 2022</small>
                     </div>
                 </div>
+
+
+
+
+
                 <div class="subforum-row">
                     <div class="subforum-icon subforum-column center">
                         <i class="fa fa-book"></i>
@@ -292,7 +312,7 @@
             </div>
         </div>
 </body>
-</html>
+@*</html>*@
 <style>
     * {
         box-sizing: border-box;
@@ -338,7 +358,7 @@
     }
 
     .subforum-description p {       
-        color: aqua;
+       color:grey;
     }
 
     .subforum-row{

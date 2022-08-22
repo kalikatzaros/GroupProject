@@ -24,6 +24,7 @@ namespace GroupProject.Controllers
             _followingRepository = new FollowingRepository(_context);
         }
         // GET: Profile
+        [Authorize]
         public ActionResult Index()
         {
             
