@@ -58,8 +58,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -67,11 +67,11 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Http, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.0.0\lib\net45\System.Web.Http.dll</HintPath>
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.0.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.9\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
@@ -190,6 +190,11 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\TopicPostsController.cs" />
+    <Compile Include="Controllers\TopicsController.cs" />
+    <Compile Include="Controllers\WallPostsController.cs" />
     <Compile Include="Dtos\FollowingDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -198,10 +203,6 @@
     <Compile Include="Migrations\202207190749017_Initial.Designer.cs">
       <DependentUpon>202207190749017_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202207192108573_Test.cs" />
-    <Compile Include="Migrations\202207192108573_Test.Designer.cs">
-      <DependentUpon>202207192108573_Test.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\202207200950069_SeedUsers.cs" />
     <Compile Include="Migrations\202207200950069_SeedUsers.Designer.cs">
       <DependentUpon>202207200950069_SeedUsers.cs</DependentUpon>
@@ -209,6 +210,50 @@
     <Compile Include="Migrations\202207212241452_FixingPrimaryKeyForMessageModel.cs" />
     <Compile Include="Migrations\202207212241452_FixingPrimaryKeyForMessageModel.Designer.cs">
       <DependentUpon>202207212241452_FixingPrimaryKeyForMessageModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207280952242_Thumbnail.cs" />
+    <Compile Include="Migrations\202207280952242_Thumbnail.Designer.cs">
+      <DependentUpon>202207280952242_Thumbnail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207281053477_ThumbnailtoApplicationUser.cs" />
+    <Compile Include="Migrations\202207281053477_ThumbnailtoApplicationUser.Designer.cs">
+      <DependentUpon>202207281053477_ThumbnailtoApplicationUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207291303230_ChangeKeysToWallPostTable.cs" />
+    <Compile Include="Migrations\202207291303230_ChangeKeysToWallPostTable.Designer.cs">
+      <DependentUpon>202207291303230_ChangeKeysToWallPostTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207291316081_RefiguringKeysToOurTables.cs" />
+    <Compile Include="Migrations\202207291316081_RefiguringKeysToOurTables.Designer.cs">
+      <DependentUpon>202207291316081_RefiguringKeysToOurTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207291327056_RemovedExtraColumnFromATable.cs" />
+    <Compile Include="Migrations\202207291327056_RemovedExtraColumnFromATable.Designer.cs">
+      <DependentUpon>202207291327056_RemovedExtraColumnFromATable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207291621333_UpdatedTopicTable.cs" />
+    <Compile Include="Migrations\202207291621333_UpdatedTopicTable.Designer.cs">
+      <DependentUpon>202207291621333_UpdatedTopicTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207291802234_test.cs" />
+    <Compile Include="Migrations\202207291802234_test.Designer.cs">
+      <DependentUpon>202207291802234_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207291818236_test2.cs" />
+    <Compile Include="Migrations\202207291818236_test2.Designer.cs">
+      <DependentUpon>202207291818236_test2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208032139546_AddingPropsToRegisterViewModel.cs" />
+    <Compile Include="Migrations\202208032139546_AddingPropsToRegisterViewModel.Designer.cs">
+      <DependentUpon>202208032139546_AddingPropsToRegisterViewModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208120804509_IsFollowingAdded.cs" />
+    <Compile Include="Migrations\202208120804509_IsFollowingAdded.Designer.cs">
+      <DependentUpon>202208120804509_IsFollowingAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208131351577_test1.cs" />
+    <Compile Include="Migrations\202208131351577_test1.Designer.cs">
+      <DependentUpon>202208131351577_test1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -221,11 +266,19 @@
     <Compile Include="Models\TopicPost.cs" />
     <Compile Include="Models\WallPost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\FollowingRepository.cs" />
     <Compile Include="Repositories\MessageRepository.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ProfileViewModel.cs" />
+    <Compile Include="ViewModels\TopicPostViewModel.cs" />
+    <Compile Include="ViewModels\TopicViewModel.cs" />
     <Compile Include="ViewModels\UserMessagesViewModel.cs" />
+    <Compile Include="ViewModels\UserPostsViewModel.cs" />
+    <Compile Include="ViewModels\WallPostViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-darkly.css" />
+    <Content Include="Content\bootstrap-superhero.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -341,6 +394,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\img1.jfif" />
+    <Content Include="img\Screenshot_4.png" />
+    <Content Include="Scripts\bootbox.js" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\DataTables\css\mixins.scss" />
@@ -454,18 +511,33 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Navbar.cshtml" />
-    <Content Include="Views\Followees\GetPeopleIFollow.cshtml" />
     <Content Include="Views\Messages\CreateMessage.cshtml" />
     <Content Include="Views\Messages\ReadIncomingMessages.cshtml" />
     <Content Include="Views\Messages\Delete.cshtml" />
     <Content Include="Views\Messages\Index.cshtml" />
+    <Content Include="Views\Messages\ReadSentMessages.cshtml" />
+    <Content Include="Views\Messages\Details.cshtml" />
+    <Content Include="Views\WallPosts\Create.cshtml" />
+    <Content Include="Views\Topics\Index.cshtml" />
+    <Content Include="Views\Topics\Create.cshtml" />
+    <Content Include="Views\Topics\Details.cshtml" />
+    <Content Include="Views\TopicPosts\Create.cshtml" />
+    <Content Include="Views\TopicPosts\Index.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\WallPosts\Delete.cshtml" />
+    <Content Include="Views\WallPosts\Edit.cshtml" />
+    <Content Include="Views\Followers\GetPeopleThatFollowMe.cshtml" />
+    <Content Include="Views\Followees\GetPeopleIFollow.cshtml" />
+    <Content Include="Views\Shared\VisitProfile.cshtml" />
+    <Content Include="Views\TopicPosts\Details.cshtml" />
+    <Content Include="Views\TopicPosts\Delete.cshtml" />
+    <Content Include="Views\TopicPosts\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="DLL\" />
-    <Folder Include="Views\Followers\" />
+    <Folder Include="Views\Posts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -484,14 +556,44 @@
     <EmbeddedResource Include="Migrations\202207190749017_Initial.resx">
       <DependentUpon>202207190749017_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202207192108573_Test.resx">
-      <DependentUpon>202207192108573_Test.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207200950069_SeedUsers.resx">
       <DependentUpon>202207200950069_SeedUsers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207212241452_FixingPrimaryKeyForMessageModel.resx">
       <DependentUpon>202207212241452_FixingPrimaryKeyForMessageModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207280952242_Thumbnail.resx">
+      <DependentUpon>202207280952242_Thumbnail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207281053477_ThumbnailtoApplicationUser.resx">
+      <DependentUpon>202207281053477_ThumbnailtoApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207291303230_ChangeKeysToWallPostTable.resx">
+      <DependentUpon>202207291303230_ChangeKeysToWallPostTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207291316081_RefiguringKeysToOurTables.resx">
+      <DependentUpon>202207291316081_RefiguringKeysToOurTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207291327056_RemovedExtraColumnFromATable.resx">
+      <DependentUpon>202207291327056_RemovedExtraColumnFromATable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207291621333_UpdatedTopicTable.resx">
+      <DependentUpon>202207291621333_UpdatedTopicTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207291802234_test.resx">
+      <DependentUpon>202207291802234_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207291818236_test2.resx">
+      <DependentUpon>202207291818236_test2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208032139546_AddingPropsToRegisterViewModel.resx">
+      <DependentUpon>202208032139546_AddingPropsToRegisterViewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208120804509_IsFollowingAdded.resx">
+      <DependentUpon>202208120804509_IsFollowingAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208131351577_test1.resx">
+      <DependentUpon>202208131351577_test1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

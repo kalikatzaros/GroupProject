@@ -1,0 +1,135 @@
+﻿@model IEnumerable<GroupProject.Models.Message>
+
+@{
+    ViewBag.Title = "ReadSentMessages";
+    
+}
+
+
+
+
+
+
+<div class="container">
+    
+    <div class="mail-box">
+        <aside class="sm-side">
+            <div class="user-head">
+                <a class="inbox-avatar" href="javascript:;">
+                    <img width="64" height="60" style="border-radius:30px" src="~/img/img1.jfif">
+                </a>
+                <div class="user-name">
+                    @foreach (var item in Model)
+                    {
+                        @*<h5><a href="#">@Html.DisplayFor(ModelItem => item.Sender.Email)</a></h5>*@
+                    <h5>@Html.ActionLink(item.Sender.Email, "Index", "Profile")</h5>
+                        break;
+                        
+                    }
+
+                </div>
+                
+            </div>
+            <div class="inbox-body">
+
+                @Html.ActionLink("Compose", "CreateMessage", "Messages", null, new { @class = "btn btn-compose" })
+
+            </div>
+            <ul class="inbox-nav inboxCustomNavbar">
+                <li>
+
+                    @Html.ActionLink(" Inbox", "ReadIncomingMessages", "Messages", null, new { @class = "fa fa-folder-o" })
+
+                </li>
+                <li class="arrow">
+
+                    @Html.ActionLink(" Sent", "ReadSentMessages", "Messages", null, new { @class = "fa fa-envelope-o" })
+
+                </li>
+
+            </ul>
+
+
+
+        </aside>
+        <aside class="lg-side">
+            <div class="inbox-head">
+                <h3>Sent</h3>
+                
+            </div>
+            <div class="inbox-body">
+               
+                
+                <table class="table" id="messages">
+                    <thead>
+                        <tr>
+                            @*<th>@Html.DisplayName("Sender email")</th>*@
+
+                            <th>
+                                @Html.DisplayName("Message")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Receiver email")
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                         {
+                         <tr>
+                       
+                            <td>
+                                @Html.ActionLink(item.ShorterBody, "Details", "Messages", new { id = item.Id }, null)
+                            </td>
+
+                            <td>
+                                @Html.ActionLink(item.Receiver.Email, "VisitProfile", "Profile", new { id = item.ReceiverId }, null)
+                            </td>
+                            <td>
+                                <button class="btn-link js-delete" data-message-id="@item.Id">Delete</button>
+                            </td>
+                         </tr>
+                         }
+                    </tbody>
+
+                </table>
+
+
+            </div>
+        </aside>
+    </div>
+</div>
+
+
+@section scripts{
+   
+
+
+    <script>
+        $(document).ready(function () {
+            $("#messages").DataTable();
+
+            $("#messages").on("click", ".js-delete", function () {
+                var button = $(this);
+                console.log(button);
+
+                bootbox.confirm("Are you sure to delete this message?", function (result) {
+
+                    if (result) {
+                        $.ajax({
+                            url: "/api/messages/" + button.attr("data-message-id"),
+                            method: "DELETE"
+                        }).done(function (response) {
+                            console.log(response);
+                            button.parents("tr").fadeOut();
+                        }).fail(function (error) {
+                            console.log(error);
+                        });
+                    }
+
+                });
+            });
+        });
+    </script>
+}

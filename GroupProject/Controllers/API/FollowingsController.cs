@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace GroupProject.Controllers.API
 {
+    [Authorize]
     public class FollowingsController : ApiController
     {
         private readonly ApplicationDbContext _context;
@@ -24,6 +25,7 @@ namespace GroupProject.Controllers.API
         public IHttpActionResult Follow(FollowingDto dto)
         {
             var userId = User.Identity.GetUserId();
+
             if (_context.Followings.Any(f => f.FollowerId == userId && f.FollowerId == dto.FolloweeId))
             {
                 return BadRequest("Following already exists you son of a bitch!!");

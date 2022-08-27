@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using GroupProject.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.IO;
+using GroupProject.Migrations;
 
 namespace GroupProject.Controllers
 {
@@ -18,6 +20,7 @@ namespace GroupProject.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        
 
         public AccountController()
         {
@@ -152,12 +155,25 @@ namespace GroupProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Thumbnail = model.Thumbnail, DateOfBirth = model.DateOfBirth, Name = model.Name, LastName = model.LastName };
+                if (model.ImageFile == null)
+                {
+                    model.Thumbnail = "na_image.jpg";
+                }
+                else
+                {
+                    model.Thumbnail = Path.GetFileName(model.ImageFile.FileName);
+                    string fullPath = Path.Combine(Server.MapPath("~/img"), model.Thumbnail);
+                    model.ImageFile.SaveAs(fullPath);
+                }
+                user.Thumbnail = model.Thumbnail;
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
-                {
-
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                {   
+                    
+                 
+                        await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

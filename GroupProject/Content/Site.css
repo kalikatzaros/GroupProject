@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #97c5cf;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -30,195 +31,16 @@ textarea {
     padding: 0;
     list-style: none;
     text-decoration: none;
-}
-
-body {*/
-    /* background: #5c2404;*/
-    /*font-family: 'Pinyon Script', cursive;
 }*/
 
-/*---------------------------------------------------------------------------SIDE BAR-----------------------------------------------------------*/
-.sidebar { /*adjust side bar*/
-    position: absolute;
-    width: 250px;
-    height: 100%;
-    background: dodgerblue;
-    padding: 30px 0;
-    left: -250px;
-    transition: all .5s ease;
-}
-
-.sidebar h2 {
-    color: dodgerblue;
-    text-transform: uppercase;
-    text-align: center;
-    user-select: none;
-    font-size: 22px;
-    background: #063146;
-    line-height: 70px;
-}
-
-.sidebar ul li {
-    padding: 15px;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    border-top: 1px solid rgba(225,225,225,0.05);
-    transition: .5s;
-}
-
-.sidebar ul li a {
-    color: #063146;
-    display: block;
-}
-
-.navbar-fixed-top > sidebar ul li a {
-    width: 25px;
-}
-
-.navbar-fixed-top sidebar ul li:hover { /*change the block color when hover*/
-    background: #063146;
-}
-
-.navbar-fixed-top sidebar ul li:hover a { /*change the item color when hover*/
-    color: #fff;
-    padding-left: 30px;
-}
-
-
-.main_content {
-    width: 100%;
-    margin-left: 200px;
-}
-
- .main_content .header {
-        padding: 20px;
-        background: #fff;
-        color: #717171;
-        border-bottom: 1px solid #e0e4e8;
- }
-
-#check {
-    display: none;
-}
-
-navbar-fixed-top label #btn, label #cancel {
-    position: absolute;
-    cursor: pointer;
-    border-radius: 3px;
-}
-
-label #btn {
-    left: 40px;
-    top: 45px;
-    font-size: 35px;
-    color: dodgerblue;
-    padding: 6px 12px;
-    transition: all .5s;
-}
-
-label #cancel {
-    z-index: 1111;
-    left: -195px;
-    top: 17px;
-    font-size: 30px;
-    color: #0a5257;
-    padding: 4px 9px;
-    transition: all .5s ease;
-}
-
-#check:checked ~ .sidebar {
-    left: 0;
-}
-
-#check:checked ~ label #cancel {
-    left: 195px;
-}
-
-/*----------------------------------------------------------------Right TOP BAR----------------------------------------------------------------------*/
-.meme {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    right: 0px;
-    top: 0px;
-    position:absolute;
-}
-
-
-.meme li {
-        position:absolute;
-        
-        border: 2px solid blue;
-        border-radius: 50px;
-        display: inline;
-        right: 0px;
-        top: 0px
- }
-
-    .meme  li:hover {
-        -moz-border-radius-topleft: 50px;
-        -moz-border-radius-topright: 50px;
-        -moz-border-radius-bottomright: 50px;
-        -moz-border-radius-bottomleft: 50px;
-        -webkit-border-radius: 50px 50px 50px 50px;
-        border-radius: 50px 50px 50px 50px;
-        background-color: #000;
-    }
-
-    
-/*-------------------------------------------------------------------------TOP BAR-------------------------------------------------------------------------*/
-.navbar { /*adjust side bar*/
-    /*  border: 1px solid #ccc;
-    border-width: 1px 0;*/
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    background-color: #1c1e21;
-    
-}
-
-.navbar li {
-    display: inline;
-}
-
-.navbar li a{
-    /*display:inline-block;*/
-    padding:10px;
-   /* background-color:aqua;*/
-    
- 
-}
-
-/*--------------------------------------------------------------------TOP NAVBAR BAR---------------------------------------------------------------*/
-.navbar-fixed-top { 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.navbar-fixed-top ul li {
-
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 40px;
-}
-/*
-.sidebar-footer > a {
-        flex-grow: 1;
-        text-align: center;
-        height: 20px;
-        line-height: 20px;
-        position: relative;
-}*/
-
-/* .sidebar-footer > a .notification {
+/*body {
+ background: #5c2404;
+font-family: 'Pinyon Script', cursive;
+            position: absolute;
+            top: 0;
             position: absolute;
             top: 0;
 }*/
-
 
 
 

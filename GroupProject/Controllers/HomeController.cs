@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GroupProject.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +10,10 @@ namespace GroupProject.Controllers
 {
     public class HomeController : Controller
     {
+        
         public ActionResult Index()
         {
+
             return View();
         }
 
@@ -26,5 +30,7 @@ namespace GroupProject.Controllers
 
             return View();
         }
+
+        
     }
 }

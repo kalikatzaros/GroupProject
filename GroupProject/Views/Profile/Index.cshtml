@@ -1,0 +1,105 @@
+﻿@model GroupProject.ViewModels.ProfileViewModel
+@*@{
+    ViewBag.Title = "Index";
+}*@
+
+<body>
+    <div>
+        <hr />
+        <div class=" container">
+        
+            <section>
+                <div class="profile">
+                    <img align="left" class="fb-image-profile thumbnail" src="~/img/@Url.Content(Model.ProfileImage)" width="200" height="200" style="border-radius: 100px" alt="Profile image example" />
+                    <div class="center-block">
+                        <h2>@Model.FullName</h2>
+                        <div><strong>First Name :</strong> @Model.FirstName</div>
+                        <div><strong>Last Name :</strong> @Model.LastName</div>
+                        <div><strong>E-mail :</strong> @Model.Email</div>
+                        <div><strong>Date of Birth :</strong> @Model.DateOfBirth.ToString("dd/MM/yyyy")</div>
+                    </div>
+                </div>
+
+                <div class="follow-group">
+                    <div>
+                        @Html.ActionLink("Followees", "GetPeopleIFollow", "Followees", null, new { @class = "btn btn-danger" })
+                    </div>
+                    <div>
+                        @Html.ActionLink("Followers", "GetPeopleThatFollowMe", "Followers", null, new { @class = "btn btn-danger" })
+                    </div>
+
+                </div>
+                <h2>
+                    @Model.FullName
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (Model.IsFollowing)
+                        {
+                            <button class="btn btn-info ">Following</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-default">Follow</button>
+                        }
+                    }
+                </h2>
+                <table class="table">
+                    <tr>
+                        <th class="table-name">
+                            @Html.DisplayName("My Posts")
+                        </th>
+                        <th></th>
+
+                    </tr>
+                    @if (Model.WallPosts.ToList().Count() < 1)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>
+                                    No Posts yet....
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    }
+
+                    @foreach (var item in Model.WallPosts)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Post.Body)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Post.Datetime)
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", "WallPosts", new { id = item.Post.Id }, null) |
+                                @Html.ActionLink("Delete", "Delete", "WallPosts", new { id = item.Id }, null)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </section>
+        </div>
+    </div>
+</body>
+
+
+<style>
+
+    .follow-group{
+        display:flex;
+        padding-right: 50px;
+    }
+
+    body {
+        background-color: #97c5cf;
+        
+    }
+
+    .table{
+        margin-right:300px;
+    }
+</style>

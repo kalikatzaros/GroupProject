@@ -9,12 +9,10 @@ namespace GroupProject.Models
 {
     public class WallPost
     {
-        [Key]
-        [Column(Order = 1)]
+        public int Id { get; set; }
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
-        [Key]
-        [Column(Order = 2)]
+        
         public int PostId { get; set; }
         public Post Post { get; set; }
 

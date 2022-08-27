@@ -13,8 +13,7 @@ using Microsoft.Owin.Security;
 using GroupProject.Models;
 using System.Collections.ObjectModel;
 using GroupProject.Configurations;
-
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GroupProject.Models
 {
@@ -22,10 +21,26 @@ namespace GroupProject.Models
     {
         public string Name { get; set; }
         public string LastName { get; set; }
+        [NotMapped]
+        public string FullName
+        {
+            get { return $"{Name} {LastName}"; }
+
+        }
+
+        public DateTime DateOfBirth { get; set; }
+        public string Thumbnail { get; set; }
+
+        [NotMapped]
+        public HttpPostedFileBase ImageFile { get; set; }
+
         public ICollection<Following> Followers { get; set; }
         public ICollection<Following> Followees { get; set; }
         public ICollection<Message> Senders { get; set; }
         public ICollection<Message> Receivers { get; set; }
+        public ICollection<WallPost> WallPosts  { get; set; }
+        public ICollection<TopicPost> TopicPosts { get; set; }
+
 
 
         public ApplicationUser()
@@ -34,6 +49,8 @@ namespace GroupProject.Models
             Followers = new Collection<Following>();
             Senders = new Collection<Message>();
             Receivers = new Collection<Message>();
+            WallPosts = new Collection<WallPost>();
+            TopicPosts = new Collection<TopicPost>();
         }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -74,7 +91,6 @@ namespace GroupProject.Models
 
         }
 
-        
+    }
     }
 
-}

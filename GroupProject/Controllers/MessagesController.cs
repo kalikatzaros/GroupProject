@@ -28,7 +28,9 @@ namespace GroupProject.Controllers
         public ActionResult CreateMessage()
         {
             var viewModel = new UserMessagesViewModel();
-            viewModel.Users = _context.Users;
+            var userId = User.Identity.GetUserId();
+
+            viewModel.Users = _context.Users.Where(u => u.Id != userId);
             return View(viewModel);
         }
         [HttpPost]
@@ -36,6 +38,7 @@ namespace GroupProject.Controllers
         public ActionResult CreateMessage(UserMessagesViewModel viewModel)
         {
             var userId = User.Identity.GetUserId();
+            
             var message = new Message()
             {
                 SenderId = userId,
@@ -47,7 +50,7 @@ namespace GroupProject.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
-
+        [Authorize]
         public ActionResult ReadIncomingMessages()
         {
             var id = User.Identity.GetUserId();
@@ -58,7 +61,39 @@ namespace GroupProject.Controllers
                             .Where(m => m.ReceiverId == id);
             return View(messages);
         }
-               
+
+        public ActionResult ReadSentMessages()
+        {
+            var id = User.Identity.GetUserId();
+
+            var messages = _context.Messages
+                            .Include("Sender")
+                            .Include("Receiver")
+                            .Where(m => m.SenderId == id);
+            return View(messages);
+        }
+
+        public ActionResult Details(int? id)
+        {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var message = _context.Messages
+                .Include(m => m.Sender)
+                .Include(m => m.Receiver)
+                .SingleOrDefault(m => m.Id == id);
+            if(message == null)
+            {
+                return HttpNotFound();
+            }
+            var userId = User.Identity.GetUserId();
+            ViewBag.userId = userId;
+            return View(message);
+        }
+
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -77,6 +112,8 @@ namespace GroupProject.Controllers
             
             return View(message);
         }
+
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int? id)

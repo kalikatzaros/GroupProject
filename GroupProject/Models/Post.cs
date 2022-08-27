@@ -9,10 +9,7 @@ namespace GroupProject.Models
     public class Post
     {
         public int Id { get; set; }
-
-        public string SenderId { get; set; }
-        
-        public ApplicationUser Sender { get; set; }
+   
         [Required]
         [DataType(DataType.MultilineText)]
         public string Body { get; set; }
@@ -20,5 +17,6 @@ namespace GroupProject.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Datetime { get; set; }
         public ICollection<TopicPost> TopicPosts { get; set; }
+        public ICollection<WallPost> WallPosts { get; set; }
     }
 }

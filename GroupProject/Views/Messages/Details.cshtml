@@ -1,0 +1,57 @@
+﻿@model GroupProject.Models.Message
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Message</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Sender Email:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Receiver.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Receiver Email:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sender.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Body)
+        </dt>
+
+        <dd class="TextBody">
+            @Html.DisplayTextFor(model => model.Body)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Datetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Datetime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @if (ViewBag.userId == Model.SenderId)
+    {
+        @Html.ActionLink("Back to List", "ReadSentMessages")
+    }
+    @if (ViewBag.userId == Model.ReceiverId)
+    {
+        @Html.ActionLink("Back to List", "ReadIncomingMessages")
+    }
+
+</p>
