@@ -530,6 +530,9 @@
     <Content Include="Views\Followers\GetPeopleThatFollowMe.cshtml" />
     <Content Include="Views\Followees\GetPeopleIFollow.cshtml" />
     <Content Include="Views\Shared\VisitProfile.cshtml" />
+    <Content Include="Views\TopicPosts\Details.cshtml" />
+    <Content Include="Views\TopicPosts\Delete.cshtml" />
+    <Content Include="Views\TopicPosts\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

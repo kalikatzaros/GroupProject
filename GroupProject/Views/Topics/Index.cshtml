@@ -16,27 +16,6 @@
     ViewBag.Title = "Index";
 }
 
-
-    
-
-        <div class="list-group">
-            <ul>
-                <li>News</li>
-                <li>Timelines</li>
-                <li>Zodiacs</li>
-            </ul>
-        </div>
-
-        <style>
-            .list-group ul li {
-
-                padding:15px;
-                border-bottom: 1px solid rgba(0,0,0,0.05);
-                border-top: 1px solid rgba(225,225,225,0.05);
-            }
-        </style>
-
-<body>
     <header>
         <h2>Forum</h2>   
         <div class=" search-box">
@@ -90,7 +69,7 @@
                             <span>@Html.ActionLink("Add Post", "Create", "TopicPosts", new { id = item.Id }, null)</span>
                         </div>
                         <div class="subforum-info subforum-column">
-                            <b><a href="">Last post</a></b> <a href="">by DumyUser</a>
+                            <b><a href="">Last post by</a></b> <a href="">@item.User.FullName </a>
                             <br />
                             on<small> 22 Dec 2022</small>
                         </div>
@@ -103,18 +82,18 @@
 
                     @*<tr>
             <td>*@
-                    @Html.DisplayFor(model => item.User.Email)
+                    <!--@Html.DisplayFor(model => item.User.Email)-->
                     @*</td>*@
                     @*<td>*@
-                    @Html.ActionLink(item.Title, "Index", "TopicPosts", new { id = item.Id }, null)
+                    <!--@Html.ActionLink(item.Title, "Index", "TopicPosts", new { id = item.Id }, null)-->
                     @*</td>*@
                     @*<td>*@
-                    @Html.DisplayFor(model => item.Created)
+                    <!--@Html.DisplayFor(model => item.Created)-->
                     @*</td>*@
                     @*<td>*@
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    <!--@Html.ActionLink("Edit", "Edit", new { id = item.Id })
                     @Html.ActionLink("Create Post", "Create", "TopicPosts", new { id = item.Id }, null)
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })-->
                     @*</td>*@
                     @*</tr>*@
                 }
