@@ -43,7 +43,15 @@
                         }
                     }
                 </h2>
+
+                
+                    @Html.ActionLink("Create a new post", "Create", "WallPosts")
+                
+
+
                 <table class="table">
+
+
                     <tr>
                         <th class="table-name">
                             @Html.DisplayName("My Posts")
@@ -53,6 +61,7 @@
                     </tr>
                     @if (Model.WallPosts.ToList().Count() < 1)
                     {
+
                         <tbody>
                             <tr>
                                 <td>
@@ -65,6 +74,7 @@
 
                     @foreach (var item in Model.WallPosts)
                     {
+                        
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Post.Body)
@@ -78,6 +88,7 @@
                                 @Html.ActionLink("Delete", "Delete", "WallPosts", new { id = item.Id }, null)
                             </td>
                         </tr>
+
                     }
 
                 </table>
