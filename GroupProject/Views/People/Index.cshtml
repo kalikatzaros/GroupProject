@@ -1,0 +1,37 @@
+﻿@model IEnumerable<GroupProject.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>People</h2>
+
+
+
+@using (Html.BeginForm("Index", "People", FormMethod.Get))
+{
+    //the following are search options
+    @Html.TextBox("search")
+    <input type="submit" name="submit" value="Search" placeholder="Search by name, lastname or email"/>
+}
+@if (Model.ToList().Count()<1)
+{
+    <h1>No results Found</h1>
+}
+
+@foreach (var item in Model)
+{<div>
+      <img src ="~/img/@Url.Content(item.Thumbnail)" width="200" height="200" style="border-radius: 100px" >
+      <div>
+          @Html.DisplayFor(modelItem => item.Name)
+          @Html.DisplayFor(modelItem => item.LastName)
+          @Html.DisplayFor(modelItem => item.LastName)
+          @Html.DisplayFor(modelItem => item.Email)
+          @Html.DisplayFor(modelItem => item.Thumbnail)
+      </div>
+            @Html.ActionLink("Profile", "VisitProfile", "Profile", new { id = item.Id }, null)
+
+        </div >
+                }
+
+

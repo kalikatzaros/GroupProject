@@ -8,8 +8,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <script src="https://kit.fontawesome.com/5af4ed0118.js" crossorigin="anonymous"></script>
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 
@@ -20,8 +19,8 @@
 
             <input type="checkbox" id="check" />
             <label for="check">
-                <i class="fas fa-bars" id="btn"></i>
-                <i class="fas fa-times" id="cancel"></i>
+                <i class="material-icons" id="btn">hamburger-menu</i>
+                <i class="material-icons" id="cancel">cancel-circle</i>
             </label>
 
             <div class="sidebar">
@@ -38,54 +37,48 @@
 
             <div class="container-fluid">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav navbar-nav"></button>
-                    <ul class="nav navbar-nav" id="nav navbar-nav">
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-bell fa-xl"></i>
-                                <span class="badge badge-pill badge-warning notification "></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://localhost:44310/Messages/ReadIncomingMessages">
-                                <i class="fa fa-envelope  fa-xl"></i>
-                                <span class="badge badge-pill badge-success notification">2</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://localhost:44310/Topics">
-                                <i class="fa fa-pencil fa-xl"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://localhost:44310/Profile/Index">
-                                <i class="fa-solid fa-circle-user fa-xl"></i>
-                                @*<img src="@Url.Action("Index","Profile")" width="23" height="23" style="border-radius:10px" />*@
+                <ul class="nav navbar-nav" id="nav navbar-nav">
+                    <li>
+                        <a href=@Url.Action("Index", "People") class="material-icons">
+                            people
+                        </a>
 
-                            </a>
 
-                        </li>
-                        <li>
-                            @*<a href="#">
-                                <i class="fa fa-right-to-bracket fa-xl"></i>
-                            </a>*@
-                        </li>
-                        @if (Request.IsAuthenticated)
+                    </li>
+
+                    <li>
+                        <a href=@Url.Action("ReadIncomingMessages", "Messages") class="material-icons">
+                            mail
+                        </a>
+                    </li>
+                    <li>
+                        <a href=@Url.Action("Index", "Topics") class="material-icons">
+                            forum
+                        </a>
+                    </li>
+                    <li>
+                        <a href=@Url.Action("Index", "Profile") class="material-icons">
+                            person
+                        </a>
+                    </li>
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                         {
-                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-                            {
-                                @Html.AntiForgeryToken()
+                            @Html.AntiForgeryToken()
 
-                                <li class="meme"><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-right-to-bracket fa-xl"></i></a></li>
-
-                            }
+                            <li class="meme"><a href="javascript:document.getElementById('logoutForm').submit()" class="material-icons">logout</a></li>
+                           
                         }
-                        else
-                        {
-                            <li class="meme">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                            <li class="meme">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>
-                        }
+                    }
+                    else
+                    {
+                        <li class="meme">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                        <li class="meme">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>
+                    }
 
-                    </ul>
+                </ul>
                 
             </div>
 
