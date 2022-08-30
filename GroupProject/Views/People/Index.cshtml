@@ -22,11 +22,11 @@
 @foreach (var item in Model)
 {<div>
    
-    <img src="~/img/@Url.Content(item.Thumbnail)" width="100" height="100" style="border-radius: 100px">
+    <img src="~/img/@Url.Content(item.Thumbnail)" width="100" height="100" style="border-radius: 50px">
     <div>
         @Html.DisplayFor(modelItem => item.Name)
         @Html.DisplayFor(modelItem => item.LastName)
-        @Html.DisplayFor(modelItem => item.Email)
+        
        
     </div>
     @Html.ActionLink("Profile", "VisitProfile", "Profile", new { id = item.Id }, null)

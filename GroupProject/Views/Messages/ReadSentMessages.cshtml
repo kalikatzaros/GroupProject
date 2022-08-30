@@ -15,9 +15,9 @@
     <div class="mail-box">
         <aside class="sm-side">
             <div class="user-head">
-                <a class="inbox-avatar" href="javascript:;">
+                @*<a class="inbox-avatar" href="javascript:;">
                     <img width="64" height="60" style="border-radius:30px" src="~/img/img1.jfif">
-                </a>
+                </a>*@
                 <div class="user-name">
                     @foreach (var item in Model)
                     {
@@ -38,12 +38,12 @@
             <ul class="inbox-nav inboxCustomNavbar">
                 <li>
 
-                    @Html.ActionLink(" Inbox", "ReadIncomingMessages", "Messages", null, new { @class = "fa fa-folder-o" })
+                    @Html.ActionLink(" Inbox", "ReadIncomingMessages", "Messages", null, new { @class = "glyphicon glyphicon-envelope" })
 
                 </li>
                 <li class="arrow">
 
-                    @Html.ActionLink(" Sent", "ReadSentMessages", "Messages", null, new { @class = "fa fa-envelope-o" })
+                    @Html.ActionLink(" Sent", "ReadSentMessages", "Messages", null, new { @class = "glyphicon glyphicon-envelope" })
 
                 </li>
 
