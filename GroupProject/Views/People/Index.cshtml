@@ -21,17 +21,17 @@
 
 @foreach (var item in Model)
 {<div>
-      <img src ="~/img/@Url.Content(item.Thumbnail)" width="200" height="200" style="border-radius: 100px" >
-      <div>
-          @Html.DisplayFor(modelItem => item.Name)
-          @Html.DisplayFor(modelItem => item.LastName)
-          @Html.DisplayFor(modelItem => item.LastName)
-          @Html.DisplayFor(modelItem => item.Email)
-          @Html.DisplayFor(modelItem => item.Thumbnail)
-      </div>
-            @Html.ActionLink("Profile", "VisitProfile", "Profile", new { id = item.Id }, null)
-
-        </div >
+   
+    <img src="~/img/@Url.Content(item.Thumbnail)" width="100" height="100" style="border-radius: 100px">
+    <div>
+        @Html.DisplayFor(modelItem => item.Name)
+        @Html.DisplayFor(modelItem => item.LastName)
+        @Html.DisplayFor(modelItem => item.Email)
+       
+    </div>
+    @Html.ActionLink("Profile", "VisitProfile", "Profile", new { id = item.Id }, null)
+   <button class="btn">follow</button>
+</div>
                 }
 
 

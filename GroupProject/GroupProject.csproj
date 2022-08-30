@@ -214,6 +214,7 @@
     <Compile Include="Configurations\TopicPostConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\FollowingsController.cs" />
+    <Compile Include="Controllers\API\FriendsController.cs" />
     <Compile Include="Controllers\API\MessagesController.cs" />
     <Compile Include="Controllers\FollowersController.cs" />
     <Compile Include="Controllers\FolloweesController.cs" />
