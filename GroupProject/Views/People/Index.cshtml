@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
-
+    <h2>LoggedUserId: @ViewBag.userId</h2>
 <h2>People</h2>
 
 
@@ -12,26 +12,76 @@
 {
     //the following are search options
     @Html.TextBox("search")
-    <input type="submit" name="submit" value="Search" placeholder="Search by name, lastname or email"/>
+    <input type="submit" name="submit" value="Search" placeholder="Search by name, lastname or email" />
 }
-@if (Model.ToList().Count()<1)
+@if (Model.ToList().Count() < 1)
 {
     <h1>No results Found</h1>
 }
 
 @foreach (var item in Model)
 {<div>
-   
-    <img src="~/img/@Url.Content(item.Thumbnail)" width="100" height="100" style="border-radius: 50px">
-    <div>
-        @Html.DisplayFor(modelItem => item.Name)
-        @Html.DisplayFor(modelItem => item.LastName)
-        
-       
+
+        <img src="~/img/@Url.Content(item.Thumbnail)" width="100" height="100" style="border-radius: 50px">
+        <div>
+            @Html.DisplayFor(modelItem => item.Name)
+            @Html.DisplayFor(modelItem => item.LastName)
+            @Html.DisplayFor(modelItem => item.Id)
+
+        </div>
+        @Html.ActionLink("Profile", "VisitProfile", "Profile", new { id = item.Id }, null)
+        <button class="btn btn-default js-toggle-follow" data-user-id="@item.Id">follow</button>
     </div>
-    @Html.ActionLink("Profile", "VisitProfile", "Profile", new { id = item.Id }, null)
-   <button class="btn">follow</button>
-</div>
+}
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".js-toggle-follow").click(function (e) {
+                @*console.log(e.target);*@
+                var button = e.target;
+                var data = button.getAttribute("data-user-id");
+                console.log(button.getAttribute("data-user-id"));
+                if (button.classList.contains('btn-default')) {
+                    $.post(
+                        "/api/followings", { followeeId: data }
+                    ).done(function () {
+                        button.classList.remove("btn-default");
+                        button.classList.add("btn-success");
+                        button.innerText = "Following";
+                        console.log(data);
+                        console.log(button);
+                        @*location.reload();*@
+                    }
+                    )
+                        .fail(function () {
+                            alert("shit!");
+                            console.log(button);
+                        }
+                        );
+                } else {
+                    $.ajax({
+                        url: "/api/followings/" + data,
+                        method:"DELETE"
+                    })
+                        .done(function () {
+                            button.classList.remove('btn-success');
+                            button.classList.add('btn-default');
+                            button.innerText="Follow";
+                            console.log(button);
+                        })
+                        .fail(function () {
+                            alert("shit!");
+                        });
+
                 }
+
+            });
+        }
+        );
+    </script>
+}
+
 
 
