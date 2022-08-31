@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -23,7 +24,8 @@ namespace GroupProject.Controllers
 
             if (search == null)
             {
-                var users = _context.Users.Where(u => u.Id != userId).ToList();
+                var users = _context.Users.Include(u=>u.Followees)
+                    .Where(u => u.Id != userId).ToList();
                 ViewBag.userId = userId;
                 return View(users);
             }

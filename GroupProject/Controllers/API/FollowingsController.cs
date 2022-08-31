@@ -33,6 +33,7 @@ namespace GroupProject.Controllers.API
             
             return Ok(myFollowings);
         }
+
         [HttpPost]
         public IHttpActionResult Follow(FollowingDto dto)
         {
