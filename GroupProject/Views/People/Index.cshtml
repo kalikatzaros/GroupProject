@@ -1,179 +1,190 @@
-﻿@model IEnumerable<GroupProject.Models.ApplicationUser>
+﻿@*@model IEnumerable<GroupProject.Models.ApplicationUser>*@
+@model GroupProject.ViewModels.PeopleViewModel
 
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
-<h2>LoggedUserId: @ViewBag.userId</h2>
+@*<h2>LoggedUserId: @ViewBag.userId</h2>*@
 <h2>People</h2>
 
 
 
-@using (Html.BeginForm("Index", "People", FormMethod.Get))
+@*@using (Html.BeginForm("Index", "People", FormMethod.Get))
 {
-    //the following are search options
-    @Html.TextBox("search")
-    <input type="submit" name="submit" value="Search" placeholder="Search by name, lastname or email" />
+	//the following are search options
+	@Html.TextBox("search")
+	<input type="submit" name="submit" value="Search" placeholder="Search by name, lastname or email" />
 }
 @if (Model.ToList().Count() < 1)
 {
-    <h1>No results Found</h1>
-}
+	<h1>No results Found</h1>
+}*@
 
 <div id="followingThem" style="border:1px solid black;">
-    <h3>People I follow</h3>
+	<h3>People I follow</h3>
 </div>
 
-@foreach (var item in Model)
+@foreach (var item in Model.AllUsers)
 {<div>
 
-        <img src="~/img/@Url.Content(item.Thumbnail)" width="100" height="100" style="border-radius: 50px">
-        <div>
-            @Html.DisplayFor(modelItem => item.Name)
-            @Html.DisplayFor(modelItem => item.LastName)
-            @Html.DisplayFor(modelItem => item.Id)
-         
-        </div>
-    
-        @Html.ActionLink("Profile", "VisitProfile", "Profile", new { id = item.Id }, null)
-        <button class="btn btn-default js-toggle-follow" data-user-id="@item.Id">follow</button>
-    </div>
+	<img src="~/img/@Url.Content(item.Thumbnail)" width="100" height="100" style="border-radius: 50px">
+	<div>
+		@Html.DisplayFor(modelItem => item.Name)
+		@Html.DisplayFor(modelItem => item.LastName)
+
+	</div>
+
+	@Html.ActionLink(item.FullName, "VisitProfile", "Profile", new { id = item.Id }, null)
+
+	@if (Model.Followees.Contains(item))
+	{
+		<button class="btn btn-success js-toggle-follow" data-user-id="@item.Id">following</button>
+	}
+
+	else
+	{
+		<button class="btn btn-default js-toggle-follow" data-user-id="@item.Id">follow</button>
+	}
+
+
+</div>
 }
 
 
 @section scripts {
-    <script>
-        $(document).ready(function () {
-            $.getJSON("/api/followings")
-                .done(function (data) {
-                    $.each(data, function (key, item) {
-                        $('<h5>', { text: item.followee.name }).appendTo($('#followingThem'));   
-                    });
+	<script>
+		$(document).ready(function () {
+			$.getJSON("/api/followings")
+				.done(function (data) {
+					$.each(data, function (key, item) {
+						$('<h5>', { text: item.followee.name }).appendTo($('#followingThem'));   
+					});
 
-                    var buttonList = $('.js-toggle-follow');
-                    buttonList.each(function () {
-                        for (let i = 0; i < data.length; i++) {
-                            if (this.getAttribute("data-user-id") === data[i].followeeId) {
+					@*var buttonList = $('.js-toggle-follow');
+					buttonList.each(function () {
+						for (let i = 0; i < data.length; i++) {
+							if (this.getAttribute("data-user-id") === data[i].followeeId) {
 
-                                this.classList.add('btn-success');
-                                this.classList.remove('btn-default');
-                                this.innerHTML = 'Following';
-                                console.log('hi');
-                            }
-                            if (this.getAttribute("data-user-id") !== data[i].followeeId) {
-                                console.log('hey');
-                                this.classList.remove('btn-success');
-                                this.classList.add('btn-default');
-                                this.innerHTML = 'Follow';
-                            }
-                        }
-                    });
+								this.classList.add('btn-success');
+								this.classList.remove('btn-default');
+								this.innerHTML = 'Following';
+								console.log('hi');
+							}
+							if (this.getAttribute("data-user-id") !== data[i].followeeId) {
+								console.log('hey');
+								this.classList.remove('btn-success');
+								this.classList.add('btn-default');
+								this.innerHTML = 'Follow';
+							}
+						}
+					});*@
 
-            
+			
 
-                    $(".js-toggle-follow").click(function (e) {
-                        @* console.log(e.target);*@
-                        
-                     var button = e.target;
-                        var data2 = button.getAttribute("data-user-id");
-                        console.log(button.getAttribute("data-user-id"));
-                    
-                        if (button.classList.contains('btn-default')) {
-                            $.post(
-                                "/api/followings", { followeeId: data2 }
-                            ).done(function () {
-                                button.classList.remove("btn-default");
-                                button.classList.add("btn-success");
-                                button.innerText = "Following";
-                                console.log(data);
-                                console.log(button);
-                                location.reload();
-                    }
-                            )
-                                .fail(function () {
-                                    alert("shit!");
-                                    console.log(button);
-                                }
-                                );
-                        } else {
-                            $.ajax({
-                                url: "/api/followings/" + data2,
-                                method: "DELETE"
-                            })
-                                .done(function () {
-                                    button.classList.remove('btn-success');
-                                    button.classList.add('btn-default');
-                                    button.innerText = "Follow";
-                                    location.reload();
-                                    console.log(data);
-                                    console.log(button);
-                                })
-                                .fail(function () {
-                                    alert("shit!");
-                                });
+					$(".js-toggle-follow").click(function (e) {
+						@* console.log(e.target);*@
+						
+					 var button = e.target;
+						var data2 = button.getAttribute("data-user-id");
+						console.log(button.getAttribute("data-user-id"));
+					
+						if (button.classList.contains('btn-default')) {
+							$.post(
+								"/api/followings", { followeeId: data2 }
+							).done(function () {
+								button.classList.remove("btn-default");
+								button.classList.add("btn-success");
+								button.innerText = "Following";
+								console.log(data);
+								console.log(button);
+								location.reload();
+					}
+							)
+								.fail(function () {
+									alert("shit!");
+									console.log(button);
+								}
+								);
+						} else {
+							$.ajax({
+								url: "/api/followings/" + data2,
+								method: "DELETE"
+							})
+								.done(function () {
+									button.classList.remove('btn-success');
+									button.classList.add('btn-default');
+									button.innerText = "Follow";
+									location.reload();
+									console.log(data);
+									console.log(button);
+								})
+								.fail(function () {
+									alert("shit!");
+								});
 
-                        }
+						}
 
-                    });
-                }
-                );
-            
-        }
-        );
-    </script>
+					});
+				}
+				);
+			
+		}
+		);
+	</script>
 
-    <!--<script>
-        $(document).ready(function () {
-            $.getJSON("/api/followings")
-                .done(function (data) {
-                    $.each(data, function (key, item) {
-                        $('<h5>', {text:item.followee.name }).appendTo($('#followingThem'));
-                    });
+	<!--<script>
+		$(document).ready(function () {
+			$.getJSON("/api/followings")
+				.done(function (data) {
+					$.each(data, function (key, item) {
+						$('<h5>', {text:item.followee.name }).appendTo($('#followingThem'));
+					});
 
-                }
-                );
-            $(".js-toggle-follow").click(function (e) {-->
-                @*console.log(e.target);*@
-                <!--var button = e.target;
-                var data = button.getAttribute("data-user-id");
-                console.log(button.getAttribute("data-user-id"));
-                if (button.classList.contains('btn-default')) {
-                    $.post(
-                        "/api/followings", { followeeId: data }
-                    ).done(function () {
-                        button.classList.remove("btn-default");
-                        button.classList.add("btn-success");
-                        button.innerText = "Following";
-                        console.log(data);
-                        console.log(button);-->
-                        @*location.reload();*@
-                    <!--}
-                    )
-                        .fail(function () {
-                            alert("shit!");
-                            console.log(button);
-                        }
-                        );
-                } else {
-                    $.ajax({
-                        url: "/api/followings/" + data,
-                        method:"DELETE"
-                    })
-                        .done(function () {
-                            button.classList.remove('btn-success');
-                            button.classList.add('btn-default');
-                            button.innerText="Follow";
-                            console.log(button);
-                        })
-                        .fail(function () {
-                            alert("shit!");
-                        });
+				}
+				);
+			$(".js-toggle-follow").click(function (e) {-->
+				@*console.log(e.target);*@
+				<!--var button = e.target;
+				var data = button.getAttribute("data-user-id");
+				console.log(button.getAttribute("data-user-id"));
+				if (button.classList.contains('btn-default')) {
+					$.post(
+						"/api/followings", { followeeId: data }
+					).done(function () {
+						button.classList.remove("btn-default");
+						button.classList.add("btn-success");
+						button.innerText = "Following";
+						console.log(data);
+						console.log(button);-->
+						@*location.reload();*@
+					<!--}
+					)
+						.fail(function () {
+							alert("shit!");
+							console.log(button);
+						}
+						);
+				} else {
+					$.ajax({
+						url: "/api/followings/" + data,
+						method:"DELETE"
+					})
+						.done(function () {
+							button.classList.remove('btn-success');
+							button.classList.add('btn-default');
+							button.innerText="Follow";
+							console.log(button);
+						})
+						.fail(function () {
+							alert("shit!");
+						});
 
-                }
+				}
 
-            });
-        }
-        );
-    </script>-->
+			});
+		}
+		);
+	</script>-->
 }
 
 

@@ -300,6 +300,7 @@
     <Compile Include="Repositories\FollowingRepository.cs" />
     <Compile Include="Repositories\MessageRepository.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\PeopleViewModel.cs" />
     <Compile Include="ViewModels\ProfileViewModel.cs" />
     <Compile Include="ViewModels\TopicPostViewModel.cs" />
     <Compile Include="ViewModels\TopicViewModel.cs" />
