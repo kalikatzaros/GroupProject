@@ -26,7 +26,8 @@ namespace GroupProject.Controllers
                 .Where(f => f.FollowerId == loggedUserId)
                 .Select(f => f.FolloweeId).ToList();
             var newsfeedViewModel = new NewsFeedViewModel() {
-                Wallposts = new List<WallPost>()
+                Wallposts = new List<WallPost>(),
+                TopicPosts=new List<TopicPost>()
             };
            foreach(var id in peopleIFollow)
             {
@@ -35,9 +36,20 @@ namespace GroupProject.Controllers
                     .Include(w => w.User)
                     .Where(w => w.UserId == id).ToList().LastOrDefault();
 
+                var lastTopicPost = _context.TopicPosts
+                   .Include(w => w.Topic)
+                   .Include(w => w.Post)
+                   .Include(w => w.Sender)
+                   .Where(w => w.Sender.Id == id).ToList().LastOrDefault();
+
                 if (lastWallPost != null) 
                 {
                     newsfeedViewModel.Wallposts.Add(lastWallPost); 
+                }
+
+                if(lastTopicPost!=null)
+                {
+                    newsfeedViewModel.TopicPosts.Add(lastTopicPost);
                 }
 
             }

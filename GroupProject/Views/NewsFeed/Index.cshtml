@@ -6,18 +6,27 @@
 
 <div class="container">
     <h2>NewsFeed</h2>
-    <h3>Recent WallPosts</h3>
+    <h3>Recent Wall Posts</h3>
     @foreach (var item in Model.Wallposts)
     {
         <div>
-            <h4>@item.User.Name</h4>
+            <h4> @Html.ActionLink(item.User.FullName, "VisitProfile", "Profile", new { id = item.User.Id }, null)</h4>
             <strong>@item.Post.Datetime</strong>
             <p>@item.Post.Body</p>
         </div>
         <hr />
     }
 
-    <h3>Recent TopicPosts</h3>
+    <h3>Recent Topic Posts</h3>
 
-
+    @foreach (var item in Model.TopicPosts)
+    {
+<div>
+    <h4> @Html.ActionLink(item.Sender.FullName, "VisitProfile", "Profile", new { id = item.Sender.Id }, null)</h4>
+    <h4>@Html.ActionLink(item.Topic.Title, "Index", "TopicPosts", new { id = item.Topic.Id }, null)</h4>
+    <strong>@item.Post.Datetime</strong>
+    <p>@item.Post.Body</p>
+</div>
+        <hr />
+    }
 </div>

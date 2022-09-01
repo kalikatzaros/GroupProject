@@ -9,5 +9,6 @@ namespace GroupProject.ViewModels
     public class NewsFeedViewModel
     {
         public List<WallPost> Wallposts { get; set; }
+        public List<TopicPost> TopicPosts { get; set; }
     }
 }
