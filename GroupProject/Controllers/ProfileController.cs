@@ -28,8 +28,8 @@ namespace GroupProject.Controllers
         public ActionResult Index()
         {
             
-                var userId = User.Identity.GetUserId();    
-
+                var userId = User.Identity.GetUserId();
+                ViewBag.loggedUser = userId;
                 var user = _context.Users.Include(u => u.WallPosts)
                     .SingleOrDefault(u => u.Id == userId);
                 var wallPosts = _context.WallPosts
@@ -59,8 +59,10 @@ namespace GroupProject.Controllers
         }
 
         public ActionResult VisitProfile(string Id)
-        {            
-                var otherUserId = Id;
+        {
+            var userId = User.Identity.GetUserId();
+            ViewBag.loggedUser = userId;
+            var otherUserId = Id;
                 var user = _context.Users.Include(u => u.WallPosts)
                         .SingleOrDefault(u => u.Id == otherUserId);
                 var wallPosts = _context.WallPosts

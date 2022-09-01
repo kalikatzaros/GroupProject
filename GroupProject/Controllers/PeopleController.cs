@@ -48,7 +48,7 @@ namespace GroupProject.Controllers
 
 
 
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
             var userId = User.Identity.GetUserId();
             var followees = _context.Followings
@@ -61,21 +61,36 @@ namespace GroupProject.Controllers
                 .Select(f => f.Follower)
                 .ToList();
 
-            var users = _context.Users
-                    .Where(u => u.Id != userId).ToList();
-            //ViewBag.userId = userId;
-
-            //var unknownUsers = _context.Users
-            //        .Where(u => u.Followees.Contains(userId)).ToList();
-
-            var peopleViewModel = new PeopleViewModel()
+            if (search == null)
             {
-                AllUsers = users,
-                Followees = followees,
-                Followers = followers,
-                UserId = userId
-            };
-            return View(peopleViewModel);
+                var users = _context.Users
+                    .Where(u => u.Id != userId).ToList();
+                var peopleViewModel = new PeopleViewModel()
+                {
+                    AllUsers = users,
+                    Followees = followees,
+                    Followers = followers,
+                    UserId = userId
+                };
+                return View(peopleViewModel);
+            }
+            else
+            {
+                var users = _context.Users
+                         .Where(u => u.Id != userId && (u.Name.ToLower() == search.ToLower()
+                         || u.LastName.ToLower() == search.ToLower()
+                         || u.Email.ToLower() == search.ToLower()))
+                         .ToList();
+                var peopleViewModel = new PeopleViewModel()
+                {
+                    AllUsers = users,
+                    Followees = followees,
+                    Followers = followers,
+                    UserId = userId
+                };
+                return View(peopleViewModel);
+            }
+           
         }
     }
 }
