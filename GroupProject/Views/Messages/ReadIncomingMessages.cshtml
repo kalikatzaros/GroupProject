@@ -30,13 +30,20 @@
             </div>
             <ul class="inbox-nav inbox-divider inboxCustomNavbar">
                 <li>
+                    <a href=@Url.Action("ReadIncomingMessages", "Messages")>
+                        <i class="material-icons">mail</i>
+                        Inbox
+                    </a>
                     
-                    @Html.ActionLink(" Inbox", "ReadIncomingMessages", "Messages", null, new {@class= "glyphicon glyphicon-envelope" })
+                    @*@Html.ActionLink("mail", "ReadIncomingMessages", "Messages", null, new {@class= "material-icons" })*@
 
                 </li>
                 <li class="arrow">
-
-                    @Html.ActionLink(" Sent", "ReadSentMessages", "Messages", null, new {@class= "glyphicon glyphicon-envelope" })
+                    <a href=@Url.Action("ReadSentMessages", "Messages")>
+                        <i class="material-icons">send</i>
+                       Send
+                    </a>
+                    @*@Html.ActionLink("send", "ReadSentMessages", "Messages", null, new {@class= "material-icons" })*@
 
                 </li>
 
