@@ -64,21 +64,25 @@
                             person
                         </a>
                     </li>
-
+                    <li>
+                        <a href=@Url.Action("Index", "Profile") class="material-icons">
+                            favorite
+                        </a>
+                    </li>
                     @if (Request.IsAuthenticated)
                     {
                         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                         {
-                    @Html.AntiForgeryToken()
+                            @Html.AntiForgeryToken()
 
-                    <li class="meme"><a href="javascript:document.getElementById('logoutForm').submit()" class="material-icons">logout</a></li>
+                            <li class="meme"><a href="javascript:document.getElementById('logoutForm').submit()" class="material-icons">logout</a></li>
 
                         }
                     }
                     else
                     {
-                    <li class="meme">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                    <li class="meme">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>
+                        <li class="meme">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                        <li class="meme">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>
                     }
 
                 </ul>
