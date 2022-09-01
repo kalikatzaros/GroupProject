@@ -1,4 +1,5 @@
-﻿@model GroupProject.ViewModels.NewsFeedViewModel
+﻿
+@model GroupProject.ViewModels.NewsFeedViewModel
 @{
     ViewBag.Title = "NewsFeed";
 }
@@ -6,9 +7,11 @@
 <h2>NewsFeed</h2>
 
 @foreach (var item in Model.Wallposts)
-            {
-    <div><h2>@item.User.Name</h2>
-    <strong>@item.Post.Datetime</strong>
-    <p>@item.Post.Body</p>
+{
+    <div>
+        <h2>@item.User.Name</h2>
+        <strong>@item.Post.Datetime</strong>
+        <p>@item.Post.Body</p>
     </div>
-            }
+}
+
