@@ -220,6 +220,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Controllers\NewsFeedController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -300,6 +301,7 @@
     <Compile Include="Repositories\FollowingRepository.cs" />
     <Compile Include="Repositories\MessageRepository.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\NewsFeedViewModel.cs" />
     <Compile Include="ViewModels\PeopleViewModel.cs" />
     <Compile Include="ViewModels\ProfileViewModel.cs" />
     <Compile Include="ViewModels\TopicPostViewModel.cs" />
@@ -566,6 +568,7 @@
     <Content Include="Views\TopicPosts\Delete.cshtml" />
     <Content Include="Views\TopicPosts\Edit.cshtml" />
     <Content Include="Views\People\Index.cshtml" />
+    <Content Include="Views\NewsFeed\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
