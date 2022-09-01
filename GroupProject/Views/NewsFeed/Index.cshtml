@@ -4,14 +4,20 @@
     ViewBag.Title = "NewsFeed";
 }
 
-<h2>NewsFeed</h2>
+<div class="container">
+    <h2>NewsFeed</h2>
+    <h3>Recent WallPosts</h3>
+    @foreach (var item in Model.Wallposts)
+    {
+        <div>
+            <h4>@item.User.Name</h4>
+            <strong>@item.Post.Datetime</strong>
+            <p>@item.Post.Body</p>
+        </div>
+        <hr />
+    }
 
-@foreach (var item in Model.Wallposts)
-{
-    <div>
-        <h2>@item.User.Name</h2>
-        <strong>@item.Post.Datetime</strong>
-        <p>@item.Post.Body</p>
-    </div>
-}
+    <h3>Recent TopicPosts</h3>
 
+
+</div>
