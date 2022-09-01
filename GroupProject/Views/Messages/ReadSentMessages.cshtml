@@ -15,19 +15,17 @@
     <div class="mail-box">
         <aside class="sm-side">
             <div class="user-head">
-                @*<a class="inbox-avatar" href="javascript:;">
-                    <img width="64" height="60" style="border-radius:30px" src="~/img/img1.jfif">
-                </a>*@
-                <div class="user-name">
-                    @foreach (var item in Model)
-                    {
-                        @*<h5><a href="#">@Html.DisplayFor(ModelItem => item.Sender.Email)</a></h5>*@
-                    <h5>@Html.ActionLink(item.Sender.Email, "Index", "Profile")</h5>
-                        break;
-                        
-                    }
+                <a class="inbox-avatar">
+                    <img width="64" height="60" style="border-radius:30px" src="~/img/@Url.Content(ViewBag.Thumbnail)">
+                </a>
+         
+                    <div class="user-name">
+                        <a href=@Url.Action("Index", "Profile")>
+                            <h5>@ViewBag.Email</h5>
+                        </a>
+                    </div>
 
-                </div>
+               
                 
             </div>
             <div class="inbox-body">

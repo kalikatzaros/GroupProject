@@ -54,7 +54,9 @@ namespace GroupProject.Controllers
         public ActionResult ReadIncomingMessages()
         {
             var id = User.Identity.GetUserId();
-
+            var loggedUser = _context.Users.SingleOrDefault(u => u.Id == id);
+            ViewBag.Thumbnail = loggedUser.Thumbnail;
+            ViewBag.Email = loggedUser.Email;
             var messages = _context.Messages
                             .Include("Sender")
                             .Include("Receiver")
@@ -65,7 +67,9 @@ namespace GroupProject.Controllers
         public ActionResult ReadSentMessages()
         {
             var id = User.Identity.GetUserId();
-
+            var loggedUser = _context.Users.SingleOrDefault(u => u.Id == id);
+            ViewBag.Thumbnail = loggedUser.Thumbnail;
+            ViewBag.Email = loggedUser.Email;
             var messages = _context.Messages
                             .Include("Sender")
                             .Include("Receiver")

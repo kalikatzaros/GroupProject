@@ -15,21 +15,14 @@
     <div class="mail-box">
         <aside class="sm-side">
             <div class="user-head">
-                @*<a class="inbox-avatar" href="javascript:;">
-                    <img width="64" height="60" style="border-radius:30px" src="~/img/img1.jfif">
-                </a>*@
+                <a class="inbox-avatar" href="#">
+                    <img width="64" height="60" style="border-radius:30px" src="~/img/@Url.Content(ViewBag.Thumbnail)">
+               </a>
                 <div class="user-name">
-                    @foreach (var item in Model)
-                    {
-                    <h5>@Html.ActionLink(item.Receiver.Email, "Index", "Profile")</h5>
-                        break;
-                    
-                    }
-
+                   <a href=@Url.Action("Index", "Profile")>
+                    <h5>@ViewBag.Email</h5>
+                   </a>   
                 </div>
-                @*<a class="mail-dropdown pull-right" href="javascript:;">
-                    <i class="fa fa-chevron-down"></i>
-                </a>*@
             </div>
             <div class="inbox-body">
                 @Html.ActionLink("Compose", "CreateMessage", "Messages", null, new { @class = "btn btn-compose" })
