@@ -50,11 +50,19 @@
 
 
                         </li>
-
+                       
                         <li>
-                            <a href=@Url.Action("ReadIncomingMessages", "Messages") class="material-icons" data-toggle="tooltip" title="Inbox">
-                                mail
-                            </a>
+
+                            <div class="inbox">
+                                <a href=@Url.Action("ReadIncomingMessages", "Messages") class="material-icons" data-toggle="tooltip" title="Inbox">
+                                    mail
+                                </a>
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <span class="count badge" style="color:white;"></span>
+                                }
+                            </div>
+                           
                         </li>
 
                         <li>
@@ -89,10 +97,11 @@
                             <li class="meme">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>
                         }
 
+
                     </ul>
 
                 </div>
-
+           
        </nav>
 
     
@@ -103,7 +112,7 @@
     $(document).ready(function () {
         $.getJSON("/api/messages/getUnreadMessageCount")
             .done(function (data) {
-
+              
                 $(".count").html(data);
             });
      $('[data-toggle="tooltip"]').tooltip();
@@ -121,7 +130,11 @@
 
 <style>
     /*---------------------------------------------------------------------------SIDE BAR-----------------------------------------------------------*/
- 
+ .inbox{
+     display:flex;
+     align-items:center;
+    
+ }
     .sidebar { /*adjust side bar*/
         position: absolute;
         width: 250px;
@@ -263,6 +276,12 @@
         align-items: center;
         justify-content: center;
     }
+
+        .navbar-fixed-top ul{
+            display:flex;
+            justify-content:space-evenly;
+
+        }
 
         .navbar-fixed-top ul li {
             margin-block-start: 1em;

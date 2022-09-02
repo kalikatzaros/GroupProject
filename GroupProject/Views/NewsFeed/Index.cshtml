@@ -18,15 +18,27 @@
     }
 
     <h3>Recent Topic Posts</h3>
-
     @foreach (var item in Model.TopicPosts)
     {
-<div>
-    <h4> @Html.ActionLink(item.Sender.FullName, "VisitProfile", "Profile", new { id = item.Sender.Id }, null)</h4>
-    <h4>@Html.ActionLink(item.Topic.Title, "Index", "TopicPosts", new { id = item.Topic.Id }, null)</h4>
-    <strong>@item.Post.Datetime</strong>
-    <p>@item.Post.Body</p>
-</div>
+        <div>
+            <h4> @Html.ActionLink(item.Sender.FullName, "VisitProfile", "Profile", new { id = item.Sender.Id }, null)</h4>
+            <h4>@Html.ActionLink(item.Topic.Title, "Index", "TopicPosts", new { id = item.Topic.Id }, null)</h4>
+            <strong>@item.Post.Datetime</strong>
+            <p>@item.Post.Body</p>
+        </div>
         <hr />
     }
 </div>
+
+<script>
+
+    $(document).ready(function () {
+        $.getJSON("/api/messages/getUnreadMessageCount")
+            .done(function (data) {
+
+                $(".count").html(data);
+            });
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+</script>
