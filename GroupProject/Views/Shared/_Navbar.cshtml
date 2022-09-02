@@ -104,28 +104,8 @@
            
        </nav>
 
-    
-
-        @section scripts{
-            <script>
-
-    $(document).ready(function () {
-        $.getJSON("/api/messages/getUnreadMessageCount")
-            .done(function (data) {
-              
-                $(".count").html(data);
-            });
-     $('[data-toggle="tooltip"]').tooltip();
-    });
-
-            </script>
-            }
-     
-
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
-
-
 </html>
 
 <style>

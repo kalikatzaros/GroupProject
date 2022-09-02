@@ -13,19 +13,19 @@
 </head>
 
 <body>
-    
+
     <header>
         @Html.Partial("_Navbar")
     </header>
     <div class="container body-content">
-      
+
         <br />
         <br />
         <br />
         <br />
         @RenderBody()
         <hr />
-        <footer>
+        <footer class="navbar-fixed-bottom navbar-center">
             <p>&copy; @DateTime.Now.Year - The Nocturnals and the Goblin</p>
         </footer>
     </div>
@@ -33,5 +33,17 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+
+    $(document).ready(function () {
+        $.getJSON("/api/messages/getUnreadMessageCount")
+            .done(function (data) {
+
+                $(".count").html(data);
+            });
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    </script>
 </body>
 </html>
