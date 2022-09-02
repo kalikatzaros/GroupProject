@@ -12,12 +12,11 @@
 
 </head>
 
-<body>
-    <div class="container">
 
-        <nav class="navbar navbar-fixed-top">
 
-            <input type="checkbox" id="check" />
+        <nav class="navbar nav-bar-default navbar-fixed-top">
+
+            @*<input type="checkbox" id="check" />
             <label for="check">
                 <i class="material-icons" id="btn">menu</i>
                 <i class="material-icons" id="cancel">cancel</i>
@@ -33,96 +32,96 @@
                     <li><a href="#"><i class="fas fa-address-card"></i></a>@Html.ActionLink("Contact", "Contact", "Home")</li>
 
                 </ul>
-            </div>
+            </div>*@
 
             <div class="container-fluid">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav navbar-nav"></button>
-                <ul class="nav navbar-nav" id="nav navbar-nav">
-                    <li>
-                        <a href=@Url.Action("Index", "NewsFeed") class="material-icons" data-toggle="tooltip" title="Newsfeed">
-                            newspaper
-                        </a>
+              
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav navbar-nav"></button>
+                    <ul class="nav navbar-nav" id="nav navbar-nav">
+                        <li>
+                            <a href=@Url.Action("Index", "NewsFeed") class="material-icons" data-toggle="tooltip" title="Newsfeed">
+                                newspaper
+                            </a>
+                        </li>
+                        <li>
+                            <a href=@Url.Action("Index", "People") class="material-icons" data-toggle="tooltip" title="Authors">
+                                people
+                            </a>
 
 
-                    </li>
-                    <li>
-                        <a href=@Url.Action("Index", "People") class="material-icons" data-toggle="tooltip" title="Authors">
-                            people
-                        </a>
+                        </li>
 
+                        <li>
+                            <a href=@Url.Action("ReadIncomingMessages", "Messages") class="material-icons" data-toggle="tooltip" title="Inbox">
+                                mail
+                            </a>
+                        </li>
 
-                    </li>
+                        <li>
+                            <a href=@Url.Action("Index", "Topics") class="material-icons" data-toggle="tooltip" title="Forum">
+                                forum
+                            </a>
+                        </li>
+                        <li>
+                            <a href=@Url.Action("Index", "Profile") class="material-icons" data-toggle="tooltip" title="Profile">
+                                person
+                            </a>
+                        </li>
+                        <li>
+                            <a href=@Url.Action("Index", "Profile") class="material-icons" data-toggle="tooltip" title="Be Cool and Donate!">
+                                favorite
+                            </a>
+                        </li>
 
-                    <li>
-                        <a href=@Url.Action("ReadIncomingMessages", "Messages") class="material-icons" data-toggle="tooltip" title="Inbox">
-                            mail
-                        </a>
-                    </li>
-                    <li>
-                        <a href=@Url.Action("Index", "Topics") class="material-icons" data-toggle="tooltip" title="Forum">
-                            forum
-                        </a>
-                    </li>
-                    <li>
-                        <a href=@Url.Action("Index", "Profile") class="material-icons" data-toggle="tooltip" title="Profile">
-                            person
-                        </a>
-                    </li>
-                    <li>
-                        <a href=@Url.Action("Index", "Profile") class="material-icons" data-toggle="tooltip" title="Be Cool and Donate!">
-                            favorite
-                        </a>
-                    </li>
-                    @if (Request.IsAuthenticated)
-                    {
-                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                        @if (Request.IsAuthenticated)
                         {
-                            @Html.AntiForgeryToken()
+                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                            {
+                                @Html.AntiForgeryToken()
 
-                            <li class="meme"><a href="javascript:document.getElementById('logoutForm').submit()" class="material-icons" data-toggle="tooltip" title="Log Out">logout</a></li>
+                                <li class="meme signout"><a href="javascript:document.getElementById('logoutForm').submit()" class="material-icons" data-toggle="tooltip" title="Log Out">logout</a></li>
 
+                            }
                         }
-                    }
-                    else
-                    {
-                        <li class="meme">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                        <li class="meme">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>
-                    }
+                        else
+                        {
+                            <li class="meme">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                            <li class="meme">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>
+                        }
 
-                </ul>
+                    </ul>
 
-            </div>
+                </div>
 
-        </nav>
+       </nav>
 
-        @*<div class="navbar bar-alexis">
-            <ul>
-                <li><a></a>@Html.ActionLink("My wall", "Wall", "WallPosts")</li>
-                <li><a></a>@Html.ActionLink("Vale", "Index", "Home")</li>
-                <li><a></a>@Html.ActionLink("Oti Thes", "Index", "Home")</li>
-            </ul>
-        </div>*@
+    
 
         @section scripts{
             <script>
-                $(function () {
-                    $('[data-toggle="tooltip"]').tooltip()
-                })
+
+    $(document).ready(function () {
+        $.getJSON("/api/messages/getUnreadMessageCount")
+            .done(function (data) {
+
+                $(".count").html(data);
+            });
+     $('[data-toggle="tooltip"]').tooltip();
+    });
+
             </script>
             }
-        @*<div class="container body-content">
-
-        </div>*@
+     
 
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
 
-    </div>
-</body>
+
 </html>
 
 <style>
     /*---------------------------------------------------------------------------SIDE BAR-----------------------------------------------------------*/
+ 
     .sidebar { /*adjust side bar*/
         position: absolute;
         width: 250px;
@@ -155,8 +154,10 @@
                 display: block;
             }
 
+         
     .navbar-fixed-top > sidebar ul li a {
         width: 25px;
+       
     }
 
     .navbar-fixed-top sidebar ul li:hover { /*change the block color when hover*/
@@ -165,7 +166,7 @@
 
         .navbar-fixed-top sidebar ul li:hover a { /*change the item color when hover*/
             color: #fff;
-            padding-left: 30px;
+            @*padding-left: 30px;*@
         }
 
 
@@ -300,6 +301,9 @@
         width: 70px;
         height: 70px;
         border-radius: 35px;
+    }
+    .signout{
+        padding:0 6rem;
     }
 </style>
 
