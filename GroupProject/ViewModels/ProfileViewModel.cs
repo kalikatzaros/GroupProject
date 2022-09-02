@@ -23,10 +23,11 @@ namespace GroupProject.ViewModels
             
         }
 
-
+        public string LoggedUserId { get; set; }
         public string ProfileImage { get; set; }
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public List<string> LoggedUserFollowingIds { get; set; }
         public ICollection<WallPost> WallPosts { get; set; }
         
         [DataType(DataType.MultilineText)]

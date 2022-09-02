@@ -49,7 +49,6 @@
             <button class="btn btn-default js-toggle-follow" data-user-id="@item.Id">follow</button>
         }
 
-
     </div>
 }
 
@@ -62,27 +61,7 @@
                     $.each(data, function (key, item) {
                         $('<h5>', { text: item.followee.name }).appendTo($('#followingThem'));
                     });
-
-					@*var buttonList = $('.js-toggle-follow');
-					buttonList.each(function () {
-						for (let i = 0; i < data.length; i++) {
-							if (this.getAttribute("data-user-id") === data[i].followeeId) {
-
-								this.classList.add('btn-success');
-								this.classList.remove('btn-default');
-								this.innerHTML = 'Following';
-								console.log('hi');
-							}
-							if (this.getAttribute("data-user-id") !== data[i].followeeId) {
-								console.log('hey');
-								this.classList.remove('btn-success');
-								this.classList.add('btn-default');
-								this.innerHTML = 'Follow';
-							}
-						}
-					});*@
-
-                   
+         
 					$(".js-toggle-follow").click(function (e) {
 						@* console.log(e.target);*@
 
