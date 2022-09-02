@@ -13,12 +13,12 @@
 </head>
 
 <body>
-    
+
     <header>
         @Html.Partial("_Navbar")
     </header>
     <div class="container body-content">
-      
+
         <br />
         <br />
         <br />
@@ -29,6 +29,21 @@
             <p>&copy; @DateTime.Now.Year - The Nocturnals and the Goblin</p>
         </footer>
     </div>
+
+    @section scripts{
+        <script>
+
+    $(document).ready(function () {
+        $.getJSON("/api/messages/getUnreadMessageCount")
+            .done(function (data) {
+
+                $(".count").html(data);
+            });
+     $('[data-toggle="tooltip"]').tooltip();
+    });
+
+        </script>
+    }
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

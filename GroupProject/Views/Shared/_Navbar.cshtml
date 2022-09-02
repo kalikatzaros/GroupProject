@@ -76,7 +76,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href=@Url.Action("Index", "Profile") class="material-icons" data-toggle="tooltip" title="Be Cool and Donate!">
+                            <a href=@Url.Action("Index", "Checkout") class="material-icons" data-toggle="tooltip" title="Be Cool and Donate!">
                                 favorite
                             </a>
                         </li>
@@ -106,20 +106,7 @@
 
     
 
-        @section scripts{
-            <script>
-
-    $(document).ready(function () {
-        $.getJSON("/api/messages/getUnreadMessageCount")
-            .done(function (data) {
-              
-                $(".count").html(data);
-            });
-     $('[data-toggle="tooltip"]').tooltip();
-    });
-
-            </script>
-            }
+       
      
 
         @Scripts.Render("~/bundles/jquery")
