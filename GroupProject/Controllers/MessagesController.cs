@@ -48,7 +48,7 @@ namespace GroupProject.Controllers
             };
             _context.Messages.Add(message);
             _context.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "NewsFeed");
         }
         [Authorize]
         public ActionResult ReadIncomingMessages()
