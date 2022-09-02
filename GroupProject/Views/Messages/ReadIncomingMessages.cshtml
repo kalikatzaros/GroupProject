@@ -68,7 +68,7 @@
                                 @Html.DisplayName("Message")
                             </th>
                             <th>
-                                @Html.DisplayName("Sender email")
+                                @Html.DisplayName("From")
                             </th>
                             <th>Actions</th>
                         </tr>
@@ -79,11 +79,12 @@
                             <tr>
 
                                 <td>
-                                    @Html.ActionLink(item.ShorterBody, "Details", "Messages", new { id = item.Id }, null)
+                                    <a href="@Url.Action("Details","Messages",new {id=item.Id })"data-message-id="@item.Id">@item.ShorterBody</a>
+                                    @*@Html.ActionLink(item.ShorterBody, "Details", "Messages", new { id = item.Id }, null)*@
                                 </td>
 
                                 <td>
-                                    @Html.ActionLink(item.Sender.Email, "VisitProfile", "Profile", new { id = item.SenderId }, null)
+                                    @Html.ActionLink(item.Sender.FullName, "VisitProfile", "Profile", new { id = item.SenderId }, null)
                                 </td>
                                 <td>
                                     <button class="btn-link js-delete" data-message-id="@item.Id">Delete</button>
@@ -102,7 +103,7 @@
 
 
 
-
+@section scripts{
     <script>
         $(document).ready(function () {
             $("#messages").DataTable();
@@ -127,6 +128,26 @@
 
                 });
             });
+
+            $(".change-status").click(function (e) {
+                var button = e.target;
+                var messageId = button.getAttribute("data-message-id");
+                console.log(messageId);
+                $.post(
+                    "/api/messages/", { id: messageId }
+                ).done(function () {
+
+                    console.log(button);
+                    location.reload();
+                }
+                )
+                    .fail(function () {
+                        alert("shit!");
+                        console.log(button);
+                    }
+                    );
+            });
         });
     </script>
 
+}

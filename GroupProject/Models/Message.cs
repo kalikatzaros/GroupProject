@@ -31,7 +31,7 @@ namespace GroupProject.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Datetime { get; set; }
 
-
+        public bool IsRead { get; set; } = false;
 
         private string GetShorterBody()
         {

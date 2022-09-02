@@ -36,7 +36,5 @@ namespace GroupProject.ViewModels
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Datetime { get; set; }
 
-
-
     }
 }

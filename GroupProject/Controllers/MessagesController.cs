@@ -74,6 +74,7 @@ namespace GroupProject.Controllers
                             .Include("Sender")
                             .Include("Receiver")
                             .Where(m => m.SenderId == id);
+                           
             return View(messages);
         }
 
@@ -94,6 +95,12 @@ namespace GroupProject.Controllers
             }
             var userId = User.Identity.GetUserId();
             ViewBag.userId = userId;
+            if (message.IsRead == false)
+            {
+                message.IsRead = true;
+                _context.Entry(message).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
             return View(message);
         }
 
