@@ -1,23 +1,351 @@
 ﻿@model GroupProject.ViewModels.ProfileViewModel
 
-<h2>Profile</h2>
+<div class="container">
+    <div class="wrapper">
+        <div class="profile-card js-profile-card">
+            <div class="profile-card__img">
+                <img align="left" class="fb-image-profile thumbnail" src="~/img/@Url.Content(Model.ProfileImage)" width="200" height="200" style="border-radius: 100px" alt="Profile image example" />
+            </div>
+            <div class="profile-card__cnt js-profile-cnt">
+                <div class="profile-card__name">@Model.FullName</div>
+                <div class="profile-card__txt">
+                    Son of Arathorn II and Gilraen,
+                    also known as Elessar and Strider, was the 16th and last Chieftain of the Dúnedain of the North; later crowned King Elessar Telcontar , the 26th King of Arnor,
+                    35th King of Gondor and first High King of Gondor and Arnor since the short reign of Isildur.<strong>True story</strong>
+                </div>
+                <div class="profile-card-loc">
+                </div>
+                <div class="profile-card-inf">
+                    <div class="profile-card-inf__item">
+                        <div class="profile-card-inf__title">2</div>
+                        <div class="profile-card-inf__txt">Followers</div>
+                    </div>
+                    <div class="profile-card-inf__item">
+                        <div class="profile-card-inf__title">2</div>
+                        <div class="profile-card-inf__txt">Following</div>
+                    </div>
+                </div>
+                <div class="profile-card-social">
+                    <a href="" class="profile-card-social__item facebook" target="_blank">
+                        <span class="icon-font">
+                            <svg class="icon"><use xlink:href="#icon-facebook"></use></svg>
+                        </span>
+                    </a>
+                    <a href="" class="profile-card-social__item instagram" target="_blank">
+                        <span class="icon-font">
+                            <svg class="icon"><use xlink:href="#icon-instagram"></use></svg>
+                        </span>
+                    </a>
+                    <a href="" class="profile-card-social__item github" target="_blank">
+                        <span class="icon-font">
+                            <svg class="icon"><use xlink:href="#icon-github"></use></svg>
+                        </span>
+                    </a>
+                </div>
+                <div class="profile-card-ctr">
+                    <button class="profile-card__button button--blue js-message-btn">Message</button>
+                    <button class="profile-card__button button--orange">Follow</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<svg hidden="hidden">
+    <defs>
+        <symbol id="icon-github" viewBox="0 0 32 32">
+            <title>github</title>
+            <path d="M16.192 0.512c-8.832 0-16 7.168-16 16 0 7.072 4.576 13.056 10.944 15.168 0.8 0.16 1.088-0.352 1.088-0.768 0-0.384 0-1.632-0.032-2.976-4.448 0.96-5.376-1.888-5.376-1.888-0.736-1.856-1.792-2.336-1.792-2.336-1.44-0.992 0.096-0.96 0.096-0.96 1.6 0.128 2.464 1.664 2.464 1.664 1.44 2.432 3.744 1.728 4.672 1.344 0.128-1.024 0.544-1.728 1.024-2.144-3.552-0.448-7.296-1.824-7.296-7.936 0-1.76 0.64-3.168 1.664-4.288-0.16-0.416-0.704-2.016 0.16-4.224 0 0 1.344-0.416 4.416 1.632 1.28-0.352 2.656-0.544 4-0.544s2.72 0.192 4 0.544c3.040-2.080 4.384-1.632 4.384-1.632 0.864 2.208 0.32 3.84 0.16 4.224 1.024 1.12 1.632 2.56 1.632 4.288 0 6.144-3.744 7.488-7.296 7.904 0.576 0.512 1.088 1.472 1.088 2.976 0 2.144-0.032 3.872-0.032 4.384 0 0.416 0.288 0.928 1.088 0.768 6.368-2.112 10.944-8.128 10.944-15.168 0-8.896-7.168-16.032-16-16.032z"></path>
+        </symbol>
+        <symbol id="icon-facebook" viewBox="0 0 32 32">
+            <title>facebook</title>
+            <path d="M19 6h5v-6h-5c-3.86 0-7 3.14-7 7v3h-4v6h4v16h6v-16h5l1-6h-6v-3c0-0.542 0.458-1 1-1z"></path>
+        </symbol>
+        <symbol id="icon-instagram" viewBox="0 0 32 32">
+            <title>instagram</title>
+            <path d="M16 2.881c4.275 0 4.781 0.019 6.462 0.094 1.563 0.069 2.406 0.331 2.969 0.55 0.744 0.288 1.281 0.638 1.837 1.194 0.563 0.563 0.906 1.094 1.2 1.838 0.219 0.563 0.481 1.412 0.55 2.969 0.075 1.688 0.094 2.194 0.094 6.463s-0.019 4.781-0.094 6.463c-0.069 1.563-0.331 2.406-0.55 2.969-0.288 0.744-0.637 1.281-1.194 1.837-0.563 0.563-1.094 0.906-1.837 1.2-0.563 0.219-1.413 0.481-2.969 0.55-1.688 0.075-2.194 0.094-6.463 0.094s-4.781-0.019-6.463-0.094c-1.563-0.069-2.406-0.331-2.969-0.55-0.744-0.288-1.281-0.637-1.838-1.194-0.563-0.563-0.906-1.094-1.2-1.837-0.219-0.563-0.481-1.413-0.55-2.969-0.075-1.688-0.094-2.194-0.094-6.463s0.019-4.781 0.094-6.463c0.069-1.563 0.331-2.406 0.55-2.969 0.288-0.744 0.638-1.281 1.194-1.838 0.563-0.563 1.094-0.906 1.838-1.2 0.563-0.219 1.412-0.481 2.969-0.55 1.681-0.075 2.188-0.094 6.463-0.094zM16 0c-4.344 0-4.887 0.019-6.594 0.094-1.7 0.075-2.869 0.35-3.881 0.744-1.056 0.412-1.95 0.956-2.837 1.85-0.894 0.888-1.438 1.781-1.85 2.831-0.394 1.019-0.669 2.181-0.744 3.881-0.075 1.713-0.094 2.256-0.094 6.6s0.019 4.887 0.094 6.594c0.075 1.7 0.35 2.869 0.744 3.881 0.413 1.056 0.956 1.95 1.85 2.837 0.887 0.887 1.781 1.438 2.831 1.844 1.019 0.394 2.181 0.669 3.881 0.744 1.706 0.075 2.25 0.094 6.594 0.094s4.888-0.019 6.594-0.094c1.7-0.075 2.869-0.35 3.881-0.744 1.050-0.406 1.944-0.956 2.831-1.844s1.438-1.781 1.844-2.831c0.394-1.019 0.669-2.181 0.744-3.881 0.075-1.706 0.094-2.25 0.094-6.594s-0.019-4.887-0.094-6.594c-0.075-1.7-0.35-2.869-0.744-3.881-0.394-1.063-0.938-1.956-1.831-2.844-0.887-0.887-1.781-1.438-2.831-1.844-1.019-0.394-2.181-0.669-3.881-0.744-1.712-0.081-2.256-0.1-6.6-0.1v0z"></path>
+            <path d="M16 7.781c-4.537 0-8.219 3.681-8.219 8.219s3.681 8.219 8.219 8.219 8.219-3.681 8.219-8.219c0-4.537-3.681-8.219-8.219-8.219zM16 21.331c-2.944 0-5.331-2.387-5.331-5.331s2.387-5.331 5.331-5.331c2.944 0 5.331 2.387 5.331 5.331s-2.387 5.331-5.331 5.331z"></path>
+            <path d="M26.462 7.456c0 1.060-0.859 1.919-1.919 1.919s-1.919-0.859-1.919-1.919c0-1.060 0.859-1.919 1.919-1.919s1.919 0.859 1.919 1.919z"></path>
+        </symbol>
+    </defs>
+</svg>
+<style>
+    @@import url(' https://fonts.googleapis.com/css?family=Quicksand:400,500,700& subset=latin-ext' );
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .icon {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        stroke-width: 0;
+        stroke: currentColor;
+        fill: currentColor;
+    }
+
+    .wrapper {
+        width: 100%;
+        height: 30%;
+        min-height: 100vh;
+        padding: 50px 20px;
+        padding-top: 100px;
+        display: flex;
+    }
+
+    @@media screen and (max-width: 768px) {
+        .wrapper {
+            height: auto;
+            min-height: 100vh;
+            padding-top: 100px;
+        }
+    }
+
+    .profile-card {
+        width: 100%;
+        min-height: 460px;
+        margin: auto;
+        box-shadow: 0px 8px 30px -10px rgba(28, 30, 33, 0.6);
+        background: #fff;
+        border-radius: 12px;
+        max-width: 1400px;
+        position: relative;
+    }
+
+    .profile-card__img {
+        width: 210px;
+        height: 210px;
+        @*margin-top: 15px;*@
+        margin-left: auto;
+        margin-right: auto;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+        @*z-index: 4;*@
+        box-shadow: 0px 5px 20px 0px #337ab7
+        , 0px 0px 0px 7px rgba(107, 74, 255, 0.1);
+    }
+
+        .profile-card__img img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+    .profile-card__cnt {
+        margin-top: -35px;
+        text-align: center;
+        padding: 0 20px;
+        padding-bottom: 40px;
+        transition: all 0.3s;
+    }
+
+    .profile-card__name {
+        font-weight: 700;
+        font-size: 24px;
+        color: #6944ff;
+        margin-bottom: 15px;
+    }
+
+    .profile-card__txt {
+        font-size: 18px;
+        font-weight: 500;
+        color: #324e63;
+        margin-bottom: 15px;
+    }
+
+    .profile-card-inf {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        margin-top: 35px;
+    }
+
+    .profile-card-inf__item {
+        padding: 10px 35px;
+        min-width: 150px;
+    }
+
+    .profile-card-inf__title {
+        font-weight: 700;
+        font-size: 27px;
+        color: #324e63;
+    }
+
+    .profile-card-inf__txt {
+        font-weight: 500;
+        margin-top: 7px;
+    }
+
+    .profile-card-social {
+        margin-top: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .profile-card-social__item {
+        display: inline-flex;
+        width: 55px;
+        height: 55px;
+        margin: 15px;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        background: #405de6;
+        box-shadow: 0px 7px 30px rgba(43, 98, 169, 0.5);
+        position: relative;
+        font-size: 21px;
+        flex-shrink: 0;
+        transition: all 0.3s;
+    }
+
+    @@media screen and (max-width: 768px) {
+        .profile-card-social__item {
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+        }
+    }
+
+    @@media screen and (min-width: 768px) {
+        .profile-card-social__item:hover {
+            transform: scale(1.2);
+        }
+    }
+
+    .profile-card-social__item.facebook {
+        background: linear-gradient(45deg, #3b5998, #0078d7);
+        box-shadow: 0px 4px 30px rgba(43, 98, 169, 0.5);
+    }
+
+    .profile-card-social__item.instagram {
+        background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+        box-shadow: 0px 4px 30px rgba(120, 64, 190, 0.6);
+    }
+
+    .profile-card-social__item.github {
+        background: linear-gradient(45deg, #333, #626b73);
+        box-shadow: 0px 4px 30px rgba(63, 65, 67, 0.6);
+    }
+
+    .profile-card-social .icon-font {
+        display: inline-flex;
+    }
+
+    .profile-card-ctr {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
+    }
+
+    @@media screen and (max-width: 576px) {
+        .profile-card-ctr {
+            flex-wrap: wrap;
+        }
+    }
+
+    .profile-card__button {
+        background: none;
+        border: none;
+        font-family: ' Quicksand', sans-serif;
+        font-weight: 700;
+        font-size: 19px;
+        margin: 15px 35px;
+        padding: 15px 40px;
+        min-width: 201px;
+        border-radius: 50px;
+        min-height: 55px;
+        color: #fff;
+        cursor: pointer;
+        backface-visibility: hidden;
+        transition: all 0.3s;
+    }
+
+    @@media screen and (max-width: 768px) {
+        .profile-card__button {
+            min-width: 170px;
+            margin: 15px 25px;
+        }
+    }
+
+    .profile-card__button:focus {
+        outline: none !important;
+    }
+
+    @@media screen and (min-width: 768px) {
+        .profile-card__button:hover {
+            transform: translateY(-5px);
+        }
+    }
+
+    .profile-card__button.button--blue {
+        background: linear-gradient(45deg, #1da1f2, #0e71c8);
+        box-shadow: 0px 4px 30px rgba(19, 127, 212, 0.4);
+    }
+
+        .profile-card__button.button--blue:hover {
+            box-shadow: 0px 7px 30px rgba(19, 127, 212, 0.75);
+        }
+
+    .profile-card__button.button--orange {
+        background: linear-gradient(45deg, #d5135a, #f05924);
+        box-shadow: 0px 4px 30px rgba(223, 45, 70, 0.35);
+    }
+
+        .profile-card__button.button--orange:hover {
+            box-shadow: 0px 7px 30px rgba(223, 45, 70, 0.75);
+        }
+
+    .profile-card-form__bottom {
+        justify-content: space-between;
+        display: flex;
+    }
+
+    @@media screen and (max-width: 576px) {
+        .profile-card-form__bottom {
+            flex-wrap: wrap;
+        }
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+<!--<h2>Profile</h2>
 
 <div>
 
     <hr />
     <div class="PersonalInfo">
 
-        <h4>Personal Info</h4>
-        <img src="~/img/@Url.Content(Model.ProfileImage)" width="150" height="150" style="border-radius: 75px" />
-        <p>First Name : @Model.FirstName</p>
-        <p>Last Name : @Model.LastName</p>
-        <p>E-mail : @Model.Email</p>
-        <p>Date of Birth : @Model.DateOfBirth.ToString("dd/MM/yyyy")</p>
+        <h4>Personal Info</h4>-->
+@*<img src="~/img/@Url.Content(Model.ProfileImage)" width="150" height="150" style="border-radius: 75px" />
+    <p>First Name : @Model.FirstName</p>
+    <p>Last Name : @Model.LastName</p>
+    <p>E-mail : @Model.Email</p>
+    <p>Date of Birth : @Model.DateOfBirth.ToString("dd/MM/yyyy")</p>*@
 
-    </div>
-    <h2>
-
-        @if (User.Identity.IsAuthenticated)
+<!--</div>
+<h2>-->
+@*@if (User.Identity.IsAuthenticated)
         {
             if (Model.LoggedUserFollowingIds.Contains(Model.User.Id))
             {
@@ -27,10 +355,10 @@
             {
     <button class="btn btn-default js-toggle-follow"data-user-id="@Model.User.Id">Follow</button>
             }
-        }
-    </h2>
-    <ul>
-        @*@foreach (var follower in Model.User.Followers)
+        }*@
+<!--</h2>
+<ul>-->
+@*@foreach (var follower in Model.User.Followers)
         {
             <li>
 
@@ -51,44 +379,44 @@
             </li>
         }
     </ul>*@
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayName("My Posts")
-            </th>
-            <th></th>
+<!--<table class="table">
+    <tr>
+        <th>-->
+@*@Html.DisplayName("My Posts")*@
+<!--</th>
+    <th></th>
 
-        </tr>
-        @if (Model.WallPosts.ToList().Count() < 1)
-        {
-            <tbody>
-                <tr>
-                    <td>
-                        No Posts yet....
-                    </td>
-                </tr>
-
-            </tbody>
-        }
-
-        @foreach (var item in Model.WallPosts)
-        {
+</tr>-->
+@*@if (Model.WallPosts.ToList().Count() < 1)
+    {
+        <tbody>
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Post.Body)
+                    No Posts yet....
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Post.Datetime)
-                </td>
-
             </tr>
-        }
-    </table>
+
+        </tbody>
+    }
+
+    @foreach (var item in Model.WallPosts)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post.Body)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post.Datetime)
+            </td>
+
+        </tr>
+    }*@
+<!--</table>
 </div>
 
 @section scripts {
     <script>
-		$(document).ready(function () {
+        $(document).ready(function () {
 
             $(".js-toggle-follow").click(function (e) {
                 var button = e.target;
@@ -102,7 +430,7 @@
                         button.classList.remove("btn-default");
                         button.classList.add("btn-success");
                         button.innerText = "Following";
-                     
+
                         location.reload();
                     }
                     )
@@ -121,7 +449,7 @@
                             button.classList.add('btn-default');
                             button.innerText = "Follow";
                             location.reload();
-                          
+
                         })
                         .fail(function () {
                             alert("shit!");
@@ -131,8 +459,8 @@
 
             });
 
-		}
-		);
+        }
+        );
     </script>
 }
 
@@ -141,14 +469,4 @@
             color: white;
             background-color: blue;
         }
-    </style>
-
-
-
-
-
-
-
-
-
-
+    </style>-->
