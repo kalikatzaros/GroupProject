@@ -227,6 +227,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Administrator\AdministratorAreaRegistration.cs" />
     <Compile Include="Configurations\ApplicationUserConfiguration.cs" />
     <Compile Include="Configurations\TopicPostConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -459,6 +460,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="Areas\Administrator\Views\web.config" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
@@ -597,6 +599,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Administrator\Controllers\" />
+    <Folder Include="Areas\Administrator\Data\" />
+    <Folder Include="Areas\Administrator\Views\Shared\" />
     <Folder Include="DLL\" />
     <Folder Include="Views\Donations\" />
     <Folder Include="Views\Posts\" />
