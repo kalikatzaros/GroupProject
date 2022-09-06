@@ -80,7 +80,11 @@
                     favorite
                 </a>
             </li>
-
+            <li>
+                <a href=@Url.Action("SignalRChat", "ChatRoom") class="material-icons" data-toggle="tooltip" title="Chat">
+                    chat
+                </a>
+            </li>
             @if (Request.IsAuthenticated)
                         {
                             using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
