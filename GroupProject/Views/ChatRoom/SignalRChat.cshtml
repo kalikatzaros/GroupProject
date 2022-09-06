@@ -7,7 +7,7 @@
 <h2>SignalRChat</h2>
 
 <div id="container">
-    <input type="hidden" id="nickname" />
+    <input type="hidden" id="nickname" value="@ViewBag.UserName" />
     <div id="chatlog"></div>
     <div id="onlineusers">
         <b>Online Users</b>
@@ -26,47 +26,21 @@
             </select>
         </div>
     </div>
-    <div id="dialog" title="Enter your name to start a chat.">
+    @*<div id="dialog" title="Enter your name to start a chat.">
         <input type="text" value="@ViewBag.UserName" id="nick" />
-    </div>
+    </div>*@
 </div>
 
 @section scripts{
-    @Scripts.Render("~/Scripts/jquery-ui.min.js")
+    @*@Scripts.Render("~/Scripts/jquery-ui.min.js")*@
     @Scripts.Render("~/Scripts/jquery.signalR-2.4.3.min.js")
     @Scripts.Render("/signalr/hubs")
 
     <script type="text/javascript">
 
-
-        $(function () {
-            showModalUserNickName();
-        });
-
-        function showModalUserNickName() {
-            $("#dialog").dialog({
-                modal: true,
-                buttons: {
-                    Ok: function () {
-                        $(this).dialog("close");
-                        startChatHub();
-                    }
-                }
-            });
-        }
-
+        startChatHub();
         function startChatHub() {
             var chat = $.connection.chatHub;
-
-            // Get the user name.
-            $('#nickname').val($('#nick').val());
-            chat.client.differentName = function (name) {
-                showModalUserNickName();
-                return false;
-                // Prompts for different user name
-                $('#nickname').val($('#nick').val());
-                chat.server.notify($('#nickname').val(), $.connection.hub.id);
-            };
 
             chat.client.online = function (name) {
                 // Update list of users
@@ -92,7 +66,7 @@
 
                 //display the message
                 if (message != "") {
-                    $('#chatlog').append('<div class="border"><span style="color:orange">' + name + '</span>: ' + message + '</div>');
+                    $('#chatlog').append('<div class="border"><span style="color:purple">' + name + '</span>: ' + message + '</div>');
                 }
 
             };

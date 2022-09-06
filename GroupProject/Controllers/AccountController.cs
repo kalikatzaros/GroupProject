@@ -139,7 +139,7 @@ namespace GroupProject.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("index", "NewsFeed");
+                    return RedirectToAction("Index", "NewsFeed");
                     //return RedirectToLocal(model.ReturnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
