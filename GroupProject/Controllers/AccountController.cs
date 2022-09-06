@@ -87,7 +87,7 @@ namespace GroupProject.Controllers
             var user = context.Users.SingleOrDefault(u => u.Email == model.Email);
             switch (result)
             {
-                
+               
                 case SignInStatus.Success:
                     //edw
                     if (userManager.GetRoles(user.Id).Contains("Admin")) {

@@ -63,8 +63,7 @@
                     });
          
 					$(".js-toggle-follow").click(function (e) {
-						@* console.log(e.target);*@
-
+					
 					 var button = e.target;
 						var data2 = button.getAttribute("data-user-id");
 						console.log(button.getAttribute("data-user-id"));
@@ -113,59 +112,7 @@
 		);
     </script>
 
-    <!--<script>
-        $(document).ready(function () {
-            $.getJSON("/api/followings")
-                .done(function (data) {
-                    $.each(data, function (key, item) {
-                        $('<h5>', {text:item.followee.name }).appendTo($('#followingThem'));
-                    });
-
-                }
-                );
-            $(".js-toggle-follow").click(function (e) {-->
-    @*console.log(e.target);*@
-    <!--var button = e.target;
-    var data = button.getAttribute("data-user-id");
-    console.log(button.getAttribute("data-user-id"));
-    if (button.classList.contains('btn-default')) {
-        $.post(
-            "/api/followings", { followeeId: data }
-        ).done(function () {
-            button.classList.remove("btn-default");
-            button.classList.add("btn-success");
-            button.innerText = "Following";
-            console.log(data);
-            console.log(button);-->
-    @*location.reload();*@
-    <!--}
-                    )
-                        .fail(function () {
-                            alert("shit!");
-                            console.log(button);
-                        }
-                        );
-                } else {
-                    $.ajax({
-                        url: "/api/followings/" + data,
-                        method:"DELETE"
-                    })
-                        .done(function () {
-                            button.classList.remove('btn-success');
-                            button.classList.add('btn-default');
-                            button.innerText="Follow";
-                            console.log(button);
-                        })
-                        .fail(function () {
-                            alert("shit!");
-                        });
-
-                }
-
-            });
-        }
-        );
-    </script>-->
+    
 }
 
 
