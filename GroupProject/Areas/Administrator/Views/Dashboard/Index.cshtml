@@ -1,0 +1,15 @@
+﻿@model IEnumerable<GroupProject.Models.ApplicationUser>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Admin Users</h2>
+
+@foreach (var user in Model) { 
+
+    <div>@user.FullName</div>
+
+
+
+}
+

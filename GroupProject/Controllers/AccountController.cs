@@ -80,10 +80,21 @@ namespace GroupProject.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            //edw
+            var context = new ApplicationDbContext();
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+            var user = context.Users.SingleOrDefault(u => u.Email == model.Email);
             switch (result)
             {
+               
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    //edw
+                    if (userManager.GetRoles(user.Id).Contains("Admin")) {
+                        return RedirectToAction("index", "Dashboard",new { area = "Administrator" });
+                    }
+                    return RedirectToAction("index", "NewsFeed");
+                    //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -128,7 +139,8 @@ namespace GroupProject.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(model.ReturnUrl);
+                    return RedirectToAction("index", "NewsFeed");
+                    //return RedirectToLocal(model.ReturnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.Failure:
@@ -170,10 +182,15 @@ namespace GroupProject.Controllers
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
-                {   
-                    
-                 
-                        await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                {
+                    //temp code
+                    //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    //var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    //await roleManager.CreateAsync(new IdentityRole("Admin"));
+                    //await UserManager.AddToRoleAsync(user.Id, "Admin");
+
+
+                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -181,7 +198,7 @@ namespace GroupProject.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "NewsFeed");
                 }
                 AddErrors(result);
             }
@@ -410,7 +427,7 @@ namespace GroupProject.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("LogIn", "Account");
         }
 
         //
