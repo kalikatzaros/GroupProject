@@ -80,10 +80,20 @@ namespace GroupProject.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            //edw
+            var context = new ApplicationDbContext();
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+            var user = context.Users.SingleOrDefault(u => u.Email == model.Email);
             switch (result)
             {
+                
                 case SignInStatus.Success:
-                    return RedirectToAction("index","NewsFeed");
+                    //edw
+                    if (userManager.GetRoles(user.Id).Contains("Admin")) {
+                        return RedirectToAction("index", "Dashboard",new { area = "Administrator" });
+                    }
+                    return RedirectToAction("index", "NewsFeed");
                     //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
