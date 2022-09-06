@@ -172,10 +172,15 @@ namespace GroupProject.Controllers
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
-                {   
-                    
-                 
-                        await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                {
+                    //temp code
+                    //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    //var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    //await roleManager.CreateAsync(new IdentityRole("Admin"));
+                    //await UserManager.AddToRoleAsync(user.Id, "Admin");
+
+
+                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
