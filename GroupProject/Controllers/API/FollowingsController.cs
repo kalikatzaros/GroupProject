@@ -3,6 +3,7 @@ using GroupProject.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -19,6 +20,18 @@ namespace GroupProject.Controllers.API
         public FollowingsController()
         {
             _context = new ApplicationDbContext();
+        }
+
+       [HttpGet]
+        public IHttpActionResult MyFollowings()
+        {
+            var userId = User.Identity.GetUserId();
+            var myFollowings = _context.Followings
+                .Include(f=>f.Followee)
+                .Where(f => f.FollowerId == userId)
+                .ToList();
+            
+            return Ok(myFollowings);
         }
 
         [HttpPost]

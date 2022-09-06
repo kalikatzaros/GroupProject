@@ -15,20 +15,15 @@
     <div class="mail-box">
         <aside class="sm-side">
             <div class="user-head">
-                <a class="inbox-avatar" href="javascript:;">
-                    <img width="64" height="60" style="border-radius:30px" src="~/img/img1.jfif">
+                <a class="inbox-avatar">
+                    <img width="64" height="60" style="border-radius:30px" src="~/img/@Url.Content(ViewBag.Thumbnail)">
                 </a>
-                <div class="user-name">
-                    @foreach (var item in Model)
-                    {
-                        @*<h5><a href="#">@Html.DisplayFor(ModelItem => item.Sender.Email)</a></h5>*@
-                    <h5>@Html.ActionLink(item.Sender.Email, "Index", "Profile")</h5>
-                        break;
-                        
-                    }
-
-                </div>
-                
+         
+                    <div class="user-name">
+                        <a href=@Url.Action("Index", "Profile")>
+                            <h5>@ViewBag.Email</h5>
+                        </a>
+                    </div>
             </div>
             <div class="inbox-body">
 
@@ -37,13 +32,20 @@
             </div>
             <ul class="inbox-nav inboxCustomNavbar">
                 <li>
+                    <a href=@Url.Action("ReadIncomingMessages", "Messages")>
+                        <i class="material-icons">mail</i>
+                        Inbox
+                    </a>
 
-                    @Html.ActionLink(" Inbox", "ReadIncomingMessages", "Messages", null, new { @class = "fa fa-folder-o" })
+                    @*@Html.ActionLink("mail", "ReadIncomingMessages", "Messages", null, new {@class= "material-icons" })*@
 
                 </li>
                 <li class="arrow">
-
-                    @Html.ActionLink(" Sent", "ReadSentMessages", "Messages", null, new { @class = "fa fa-envelope-o" })
+                    <a href=@Url.Action("ReadSentMessages", "Messages")>
+                        <i class="material-icons">send</i>
+                        Sent
+                    </a>
+                    @*@Html.ActionLink("send", "ReadSentMessages", "Messages", null, new {@class= "material-icons" })*@
 
                 </li>
 

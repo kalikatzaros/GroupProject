@@ -8,20 +8,18 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <script src="https://kit.fontawesome.com/5af4ed0118.js" crossorigin="anonymous"></script>
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 
-<body>
-    <div class="container">
 
-        <nav class="navbar navbar-fixed-top">
 
-            <input type="checkbox" id="check" />
+        <nav class="navbar nav-bar-default navbar-fixed-top">
+
+            @*<input type="checkbox" id="check" />
             <label for="check">
-                <i class="fas fa-bars" id="btn"></i>
-                <i class="fas fa-times" id="cancel"></i>
+                <i class="material-icons" id="btn">menu</i>
+                <i class="material-icons" id="cancel">cancel</i>
             </label>
 
             <div class="sidebar">
@@ -34,48 +32,62 @@
                     <li><a href="#"><i class="fas fa-address-card"></i></a>@Html.ActionLink("Contact", "Contact", "Home")</li>
 
                 </ul>
-            </div>
+            </div>*@
 
             <div class="container-fluid">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav navbar-nav"></button>
+              
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav navbar-nav"></button>
                     <ul class="nav navbar-nav" id="nav navbar-nav">
                         <li>
-                            <a href="#">
-                                <i class="fa fa-bell fa-xl"></i>
-                                <span class="badge badge-pill badge-warning notification "></span>
+                            <a href=@Url.Action("Index", "NewsFeed") class="material-icons" data-toggle="tooltip" title="Newsfeed">
+                                newspaper
                             </a>
                         </li>
                         <li>
-                            <a href="https://localhost:44310/Messages/ReadIncomingMessages">
-                                <i class="fa fa-envelope  fa-xl"></i>
-                                <span class="badge badge-pill badge-success notification">2</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://localhost:44310/Topics">
-                                <i class="fa fa-pencil fa-xl"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://localhost:44310/Profile/Index">
-                                <i class="fa-solid fa-circle-user fa-xl"></i>
-                                @*<img src="@Url.Action("Index","Profile")" width="23" height="23" style="border-radius:10px" />*@
-
+                            <a href=@Url.Action("Index", "People") class="material-icons" data-toggle="tooltip" title="Authors">
+                                people
                             </a>
 
+
+                        </li>
+                       
+                        <li>
+
+                            <div class="inbox">
+                                <a href=@Url.Action("ReadIncomingMessages", "Messages") class="material-icons" data-toggle="tooltip" title="Inbox">
+                                    mail
+                                </a>
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <span class="count badge" style="color:white;"></span>
+                                }
+                            </div>
+                           
+                        </li>
+
+                        <li>
+                            <a href=@Url.Action("Index", "Topics") class="material-icons" data-toggle="tooltip" title="Forum">
+                                forum
+                            </a>
                         </li>
                         <li>
-                            @*<a href="#">
-                                <i class="fa fa-right-to-bracket fa-xl"></i>
-                            </a>*@
+                            <a href=@Url.Action("Index", "Profile") class="material-icons" data-toggle="tooltip" title="Profile">
+                                person
+                            </a>
                         </li>
+                        <li>
+                            <a href=@Url.Action("Index", "Checkout") class="material-icons" data-toggle="tooltip" title="Be Cool and Donate!">
+                                favorite
+                            </a>
+                        </li>
+
                         @if (Request.IsAuthenticated)
                         {
                             using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                             {
                                 @Html.AntiForgeryToken()
 
-                                <li class="meme"><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-right-to-bracket fa-xl"></i></a></li>
+                                <li class="meme signout"><a href="javascript:document.getElementById('logoutForm').submit()" class="material-icons" data-toggle="tooltip" title="Log Out">logout</a></li>
 
                             }
                         }
@@ -85,35 +97,29 @@
                             <li class="meme">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>
                         }
 
+
                     </ul>
-                
-            </div>
 
-        </nav>
+                </div>
+           
+       </nav>
 
-        @*<div class="navbar bar-alexis">
-            <ul>
-                <li><a></a>@Html.ActionLink("My wall", "Wall", "WallPosts")</li>
-                <li><a></a>@Html.ActionLink("Vale", "Index", "Home")</li>
-                <li><a></a>@Html.ActionLink("Oti Thes", "Index", "Home")</li>
-            </ul>
-        </div>*@
+    
 
-
-
-        <div class="container body-content">
-
-        </div>
+       
+     
 
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
-
-    </div>
-</body>
 </html>
 
 <style>
     /*---------------------------------------------------------------------------SIDE BAR-----------------------------------------------------------*/
+ .inbox{
+     display:flex;
+     align-items:center;
+    
+ }
     .sidebar { /*adjust side bar*/
         position: absolute;
         width: 250px;
@@ -146,8 +152,10 @@
                 display: block;
             }
 
+         
     .navbar-fixed-top > sidebar ul li a {
         width: 25px;
+       
     }
 
     .navbar-fixed-top sidebar ul li:hover { /*change the block color when hover*/
@@ -156,7 +164,7 @@
 
         .navbar-fixed-top sidebar ul li:hover a { /*change the item color when hover*/
             color: #fff;
-            padding-left: 30px;
+            @*padding-left: 30px;*@
         }
 
 
@@ -254,6 +262,12 @@
         justify-content: center;
     }
 
+        .navbar-fixed-top ul{
+            display:flex;
+            justify-content:space-evenly;
+
+        }
+
         .navbar-fixed-top ul li {
             margin-block-start: 1em;
             margin-block-end: 1em;
@@ -291,6 +305,9 @@
         width: 70px;
         height: 70px;
         border-radius: 35px;
+    }
+    .signout{
+        padding:0 6rem;
     }
 </style>
 

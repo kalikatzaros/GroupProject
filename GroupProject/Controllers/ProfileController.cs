@@ -28,8 +28,8 @@ namespace GroupProject.Controllers
         public ActionResult Index()
         {
             
-                var userId = User.Identity.GetUserId();    
-
+                var userId = User.Identity.GetUserId();
+                ViewBag.loggedUser = userId;
                 var user = _context.Users.Include(u => u.WallPosts)
                     .SingleOrDefault(u => u.Id == userId);
                 var wallPosts = _context.WallPosts
@@ -59,8 +59,14 @@ namespace GroupProject.Controllers
         }
 
         public ActionResult VisitProfile(string Id)
-        {            
-                var otherUserId = Id;
+        {
+            var userId = User.Identity.GetUserId();
+            //ViewBag.loggedUser = userId;
+           var followeesIds= _context.Followings
+                                 .Where(f => f.FollowerId == userId)
+                                 .Select(f => f.FolloweeId)
+                                 .ToList();
+            var otherUserId = Id;
                 var user = _context.Users.Include(u => u.WallPosts)
                         .SingleOrDefault(u => u.Id == otherUserId);
                 var wallPosts = _context.WallPosts
@@ -68,6 +74,8 @@ namespace GroupProject.Controllers
                     .Where(w => w.UserId == otherUserId);
                 var viewModel = new ProfileViewModel()
                 {
+                    LoggedUserFollowingIds=followeesIds,
+                    LoggedUserId=userId,
                     User = user,
                     Email = user.Email,
                     ProfileImage = user.Thumbnail,

@@ -15,10 +15,12 @@ using Microsoft.AspNet.Identity;
 
 namespace GroupProject.Controllers.API
 {
+    [Authorize]
+    [RoutePrefix("api/messages")]
     public class MessagesController : ApiController
     {
-        private ApplicationDbContext _context = new ApplicationDbContext();       
-        
+        private ApplicationDbContext _context = new ApplicationDbContext();
+
 
         public MessagesController()
         {
@@ -30,19 +32,46 @@ namespace GroupProject.Controllers.API
 
         // GET: api/Messages/5
 
-        [Authorize]
+        
+        [Route("")]
         public IHttpActionResult GetIncomingMessages()
         {
             var id = User.Identity.GetUserId();
-
-
 
             var incomingMessages = _context.Messages
                             .Include("Sender")
                             .Include("Receiver")
                             .Where(m => m.ReceiverId == id)
                             .OrderByDescending(m => m.Datetime);
+
             return Ok(incomingMessages.ToList());
+        }
+
+        [HttpGet]
+        [Route("getUnreadMessageCount")]
+        public IHttpActionResult GetUnreadMessageCount()
+        {
+            var id = User.Identity.GetUserId();
+            var count = _context.Messages
+                .Where(m => m.ReceiverId == id && m.IsRead==false)
+                .ToList().Count();
+
+            return Ok(count);
+        }
+        [HttpPost]
+        [Route("changeStatus")]
+        public IHttpActionResult ChangeStatus(int? id)
+        {
+            var message = _context.Messages
+                .SingleOrDefault(m => m.Id == id);
+            if (message.IsRead == false)
+            {
+                message.IsRead = true;
+               _context.Entry(message).State = EntityState.Modified;
+               _context.SaveChanges();
+            }
+                                         
+            return Ok();
         }
         [HttpDelete]
         public IHttpActionResult Delete(int? id)

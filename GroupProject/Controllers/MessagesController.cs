@@ -48,13 +48,15 @@ namespace GroupProject.Controllers
             };
             _context.Messages.Add(message);
             _context.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "NewsFeed");
         }
         [Authorize]
         public ActionResult ReadIncomingMessages()
         {
             var id = User.Identity.GetUserId();
-
+            var loggedUser = _context.Users.SingleOrDefault(u => u.Id == id);
+            ViewBag.Thumbnail = loggedUser.Thumbnail;
+            ViewBag.Email = loggedUser.Email;
             var messages = _context.Messages
                             .Include("Sender")
                             .Include("Receiver")
@@ -65,11 +67,14 @@ namespace GroupProject.Controllers
         public ActionResult ReadSentMessages()
         {
             var id = User.Identity.GetUserId();
-
+            var loggedUser = _context.Users.SingleOrDefault(u => u.Id == id);
+            ViewBag.Thumbnail = loggedUser.Thumbnail;
+            ViewBag.Email = loggedUser.Email;
             var messages = _context.Messages
                             .Include("Sender")
                             .Include("Receiver")
                             .Where(m => m.SenderId == id);
+                           
             return View(messages);
         }
 
@@ -90,6 +95,12 @@ namespace GroupProject.Controllers
             }
             var userId = User.Identity.GetUserId();
             ViewBag.userId = userId;
+            if (message.IsRead == false)
+            {
+                message.IsRead = true;
+                _context.Entry(message).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
             return View(message);
         }
 
