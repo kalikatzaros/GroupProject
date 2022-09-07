@@ -8,7 +8,7 @@
 
 <div id="container">
     <input type="hidden" id="nickname" value="@ViewBag.UserName" />
-    <div id="chatlog" class=".cb__list"></div>
+    <div id="chatlog"></div>
     <div id="onlineusers">
         <b>Online Users</b>
     </div>
@@ -67,14 +67,14 @@
                 message = message.replace(":D", "<img src=\"/images/laugh.gif\" class=\"smileys\" />");
                 message = message.replace(":o", "<img src=\"/images/cool.gif\" class=\"smileys\" />");
                 messages.push(message);
-                $('#messages').chatBubble({
+                @*$('#messages').chatBubble({
                     messages: messages,
                     typingSpeed: 5000
-                });
+                });*@
                 //display the message
                 if (message != "") {
-                    $('#messages').append('<li class="bubble"><span style="color:purple">' + name + '</span>: ' + message + '</li>');
-                    @*$('#chatlog').append('<div class="border"><span style="color:purple">' + name + '</span>: ' + message + '</div>');*@
+                    @*$('#messages').append('<li class="bubble"><span style="color:purple">' + name + '</span>: ' + message + '</li>');*@
+                    $('#chatlog').append('<div class="border"><span style="color:purple">' + name + '</span>: ' + message + '</div>');
                     console.log(messages);
                    
                 }
