@@ -321,6 +321,10 @@
     <Compile Include="Migrations\202209021210398_MessageModelUpdated.Designer.cs">
       <DependentUpon>202209021210398_MessageModelUpdated.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202209071135486_IsDeactivatedPropertyAddedToApplicationUser.cs" />
+    <Compile Include="Migrations\202209071135486_IsDeactivatedPropertyAddedToApplicationUser.Designer.cs">
+      <DependentUpon>202209071135486_IsDeactivatedPropertyAddedToApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Following.cs" />
@@ -474,6 +478,7 @@
     <Content Include="Areas\Administrator\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Administrator\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Administrator\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Administrator\Views\Dashboard\DeleteUser.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
@@ -545,6 +550,8 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.chatbubble.js" />
+    <Content Include="Scripts\jquery.chatbubble.min.js" />
     <Content Include="Scripts\jquery.signalR-2.4.3.js" />
     <Content Include="Scripts\jquery.signalR-2.4.3.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -679,6 +686,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202209021210398_MessageModelUpdated.resx">
       <DependentUpon>202209021210398_MessageModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209071135486_IsDeactivatedPropertyAddedToApplicationUser.resx">
+      <DependentUpon>202209071135486_IsDeactivatedPropertyAddedToApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -84,7 +84,9 @@
                                 </td>
 
                                 <td>
+                                    @if(item.Sender.IsDeactivated){<h5>DeactivatedAccount</h5>}else{
                                     @Html.ActionLink(item.Sender.FullName, "VisitProfile", "Profile", new { id = item.SenderId }, null)
+                                }
                                 </td>
                                 <td>
                                     <button class="btn-link js-delete" data-message-id="@item.Id">Delete</button>

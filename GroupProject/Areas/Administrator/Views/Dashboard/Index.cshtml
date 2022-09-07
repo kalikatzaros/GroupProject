@@ -8,7 +8,7 @@
 @foreach (var user in Model) { 
 
     <div>@user.FullName</div>
-
+    <a href="@Url.Action("DeleteUser", "Dashboard",new { id=user.Id})">Deactivate</a>
 
 
 }

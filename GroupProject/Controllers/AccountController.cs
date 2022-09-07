@@ -90,8 +90,13 @@ namespace GroupProject.Controllers
                
                 case SignInStatus.Success:
                     //edw
-                    if (userManager.GetRoles(user.Id).Contains("Admin")) {
+                    if (userManager.GetRoles(user.Id).Contains("Admin")) 
+                    {
                         return RedirectToAction("index", "Dashboard",new { area = "Administrator" });
+                    }
+                    if (user.IsDeactivated == true)
+                    {
+                        return View("Lockout");
                     }
                     return RedirectToAction("index", "NewsFeed");
                     //return RedirectToLocal(returnUrl);

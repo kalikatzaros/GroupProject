@@ -22,7 +22,7 @@ namespace GroupProject.Controllers
         {
             var userId = User.Identity.GetUserId();
             var followers = _context.Followings
-                .Where(f => f.FolloweeId == userId)
+                .Where(f => f.FolloweeId == userId&&f.Follower.IsDeactivated==false)
                 .Select(f => f.Follower)
                 .ToList();
             return View(followers);

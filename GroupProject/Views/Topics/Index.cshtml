@@ -40,8 +40,9 @@
                     </div>
                     <div class="subforum-description subforum-column">
                         @Html.ActionLink(item.Title, "Index", "TopicPosts", new { id = item.Id }, null)
-
+                        @if(item.User.IsDeactivated){<h5>DeactivatedAccount</h5>}else{
                         <p>By @item.User.FullName <small> on @item.Created.ToString("dd/MM/yyyy")</small></p>
+                   }
                     </div>
                     <div class="subforum-stats subforum-column center">
                         <span>@Html.ActionLink("Add Post", "Create", "TopicPosts", new { id = item.Id }, null)</span>

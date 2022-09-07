@@ -1,14 +1,14 @@
 ﻿
 @{
     ViewBag.Title = "SignalRChat";
-    
+
 }
 
 <h2>SignalRChat</h2>
 
 <div id="container">
     <input type="hidden" id="nickname" value="@ViewBag.UserName" />
-    <div id="chatlog"></div>
+    <div id="chatlog" class=".cb__list"></div>
     <div id="onlineusers">
         <b>Online Users</b>
     </div>
@@ -26,18 +26,21 @@
             </select>
         </div>
     </div>
+    <ul id="messages" class=".cb__list">
+    </ul>
     @*<div id="dialog" title="Enter your name to start a chat.">
-        <input type="text" value="@ViewBag.UserName" id="nick" />
-    </div>*@
+            <input type="text" value="@ViewBag.UserName" id="nick" />
+        </div>*@
 </div>
 
 @section scripts{
     @*@Scripts.Render("~/Scripts/jquery-ui.min.js")*@
+    @Scripts.Render("~/Scripts/jquery.chatbubble.js")
     @Scripts.Render("~/Scripts/jquery.signalR-2.4.3.min.js")
     @Scripts.Render("/signalr/hubs")
-
+    @*<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>*@
     <script type="text/javascript">
-
+        let messages = [];
         startChatHub();
         function startChatHub() {
             var chat = $.connection.chatHub;
@@ -63,11 +66,20 @@
                 message = message.replace(":)", "<img src=\"/images/smile.gif\" class=\"smileys\" />");
                 message = message.replace(":D", "<img src=\"/images/laugh.gif\" class=\"smileys\" />");
                 message = message.replace(":o", "<img src=\"/images/cool.gif\" class=\"smileys\" />");
-
+                messages.push(message);
+                $('#messages').chatBubble({
+                    messages: messages,
+                    typingSpeed: 5000
+                });
                 //display the message
                 if (message != "") {
-                    $('#chatlog').append('<div class="border"><span style="color:purple">' + name + '</span>: ' + message + '</div>');
+                    $('#messages').append('<li class="bubble"><span style="color:purple">' + name + '</span>: ' + message + '</li>');
+                    @*$('#chatlog').append('<div class="border"><span style="color:purple">' + name + '</span>: ' + message + '</div>');*@
+                    console.log(messages);
+                   
                 }
+
+
 
             };
 
@@ -99,4 +111,46 @@
         }
 
     </script>
-}  
+}
+
+<style>
+    .cb__list {
+        padding: 0;
+        list-style-type: none;
+        font-family: sans-serif;
+        width: 320px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+        .cb__list .bubble {
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+            display: inline-block;
+            line-height: 1.45em;
+            border-radius: 3px;
+            margin: 0 0 1em 0;
+            text-align: left;
+            position: relative;
+            padding: 6px 12px;
+            background: #fff;
+            font-size: 19px;
+            border: none;
+            max-width: 90%;
+            min-width: 44px;
+            min-height: 12px;
+        }
+
+            .cb__list .bubble.typing {
+                animation: cb-font-fade 1.2s ease-in-out infinite;
+            }
+
+    @@keyframes cb-font-fade {
+        50% {
+            color: transparent;
+        }
+
+        100% {
+            color: inherit;
+        }
+    }
+</style>

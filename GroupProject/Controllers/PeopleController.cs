@@ -52,19 +52,19 @@ namespace GroupProject.Controllers
         {
             var userId = User.Identity.GetUserId();
             var followees = _context.Followings
-                                .Where(f => f.FollowerId == userId)
+                                .Where(f => f.FollowerId == userId&&f.Followee.IsDeactivated==false)
                                 .Select(f => f.Followee)
                                 .ToList();
 
             var followers = _context.Followings
-                .Where(f => f.FolloweeId == userId)
+                .Where(f => f.FolloweeId == userId&&f.Follower.IsDeactivated==false)
                 .Select(f => f.Follower)
                 .ToList();
 
             if (search == null)
             {
                 var users = _context.Users
-                    .Where(u => u.Id != userId).ToList();
+                    .Where(u => u.Id != userId&&u.IsDeactivated==false).ToList();
                 var peopleViewModel = new PeopleViewModel()
                 {
                     AllUsers = users,
@@ -79,7 +79,7 @@ namespace GroupProject.Controllers
                 var users = _context.Users
                          .Where(u => u.Id != userId && (u.Name.ToLower() == search.ToLower()
                          || u.LastName.ToLower() == search.ToLower()
-                         || u.Email.ToLower() == search.ToLower()))
+                         || u.Email.ToLower() == search.ToLower())&&u.IsDeactivated==false)
                          .ToList();
                 var peopleViewModel = new PeopleViewModel()
                 {
