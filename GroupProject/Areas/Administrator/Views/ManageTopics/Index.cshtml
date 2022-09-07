@@ -1,0 +1,79 @@
+﻿@model IEnumerable<GroupProject.Models.Topic>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Manage Topics</h2>
+
+<table class="table" id="topics">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Author")
+            </th>
+            <th>
+                @Html.DisplayName("Title")
+            </th>
+            <th>
+                @Html.DisplayName("Date Created")
+            </th>
+            <th>
+                @Html.DisplayName("Actions")
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    <button class="btn btn-link js-edit" data-topic-id="@item.Id"><i class="material-icons">edit</i></button>
+
+                    <button class="btn btn-link js-delete" data-topic-id="@item.Id"><i class="material-icons">delete</i></button>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+@section scripts{
+    <script>
+    $(document).ready(function () {
+
+        $("#topics").DataTable();
+
+        $("#topics").on("click", ".js-delete", function () {
+            var button = $(this);
+            console.log(button);
+
+            bootbox.confirm("Are you sure to delete this message?", function (result) {
+
+                if (result) {
+                    $.ajax({
+                        url: "/api/topics/" + button.attr("data-topic-id"),
+                        method: "DELETE"
+                    }).done(function (response) {
+                        console.log(response);
+                        button.parents("tr").fadeOut();
+                    }).fail(function (error) {
+                        console.log(error);
+                    });
+                }
+
+            });
+        });
+    });
+    </script>
+
+    }
