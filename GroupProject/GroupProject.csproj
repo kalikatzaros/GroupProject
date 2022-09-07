@@ -237,11 +237,13 @@
     <Compile Include="Areas\Administrator\AdministratorAreaRegistration.cs" />
     <Compile Include="Areas\Administrator\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Administrator\Controllers\ManageTopicsController.cs" />
+    <Compile Include="Areas\Administrator\ViewModels\TopicsViewModel.cs" />
     <Compile Include="Configurations\ApplicationUserConfiguration.cs" />
     <Compile Include="Configurations\TopicPostConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\FollowingsController.cs" />
     <Compile Include="Controllers\API\MessagesController.cs" />
+    <Compile Include="Controllers\API\TopicPostsController.cs" />
     <Compile Include="Controllers\API\TopicsController.cs" />
     <Compile Include="Controllers\ChatRoomController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />

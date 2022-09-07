@@ -1,79 +1,172 @@
-﻿@model IEnumerable<GroupProject.Models.Topic>
-
+﻿@model GroupProject.Areas.Administrator.ViewModels.TopicsViewModel
 @{
     ViewBag.Title = "Index";
 }
+<div class="container">
+    <h2>Manage Topics</h2>
 
-<h2>Manage Topics</h2>
-
-<table class="table" id="topics">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayName("Author")
-            </th>
-            <th>
-                @Html.DisplayName("Title")
-            </th>
-            <th>
-                @Html.DisplayName("Date Created")
-            </th>
-            <th>
-                @Html.DisplayName("Actions")
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <table class="table" id="topics">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.FullName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Created)
-                </td>
-                <td>
-                    <button class="btn btn-link js-edit" data-topic-id="@item.Id"><i class="material-icons">edit</i></button>
-
-                    <button class="btn btn-link js-delete" data-topic-id="@item.Id"><i class="material-icons">delete</i></button>
-
-                </td>
+                <th>
+                    @Html.DisplayName("Id")
+                </th>
+                <th>
+                    @Html.DisplayName("Author")
+                </th>
+                <th>
+                    @Html.DisplayName("Title")
+                </th>
+                <th>
+                    @Html.DisplayName("Date Created")
+                </th>
+                <th>
+                    @Html.DisplayName("Actions")
+                </th>
             </tr>
-        }
-    </tbody>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Topics)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        <button class="btn btn-link js-topic-edit" data-topic-id="@item.Id"><i class="material-icons">edit</i></button>
 
-</table>
+                        <button class="btn btn-link js-topic-delete" data-topic-id="@item.Id"><i class="material-icons">delete</i></button>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+    <h2>Manage Topic Posts</h2>
+
+    <table class="table" id="topicPosts">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("Id")
+                </th>
+                <th>
+                    @Html.DisplayName("Topic")
+                </th>
+                <th>
+                    @Html.DisplayName("Author")
+                </th>
+                <th>
+                    @Html.DisplayName("Date Created")
+                </th>
+                <th>
+                    @Html.DisplayName("Message")
+                </th>
+                <th>
+                    @Html.DisplayName("Actions")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.TopicPosts)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Topic.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sender.FullName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Post.Datetime)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Post.ShorterBody)
+                        <button class="btn btn-link js-post-see" data-topicPost-id="@item.Id"><i class="material-icons">visibility</i></button>
+                    </td>
+                    <td>
+                        <button class="btn btn-link js-post-delete" data-topicPost-id="@item.Id"><i class="material-icons">delete</i></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
 @section scripts{
     <script>
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        $("#topics").DataTable();
+            $("#topics").DataTable();
 
-        $("#topics").on("click", ".js-delete", function () {
-            var button = $(this);
-            console.log(button);
+            $("#topics").on("click", ".js-topic-delete", function () {
+                var button = $(this);
+                console.log(button);
 
-            bootbox.confirm("Are you sure to delete this message?", function (result) {
+                bootbox.confirm("Are you sure to delete this topic?", function (result) {
 
-                if (result) {
-                    $.ajax({
-                        url: "/api/topics/" + button.attr("data-topic-id"),
-                        method: "DELETE"
-                    }).done(function (response) {
-                        console.log(response);
-                        button.parents("tr").fadeOut();
-                    }).fail(function (error) {
-                        console.log(error);
-                    });
-                }
+                    if (result) {
+                        $.ajax({
+                            url: "/api/topics/" + button.attr("data-topic-id"),
+                            method: "DELETE"
+                        }).done(function (response) {
+                            console.log(response);
+                            button.parents("tr").fadeOut();
+                        }).fail(function (error) {
+                            console.log(error);
+                        });
+                    }
+
+                });
+
+
+
+            });
+
+            $("#topicPosts").DataTable();
+
+            $("#topicPosts").on("click", ".js-post-delete", function () {
+                var button = $(this);
+                console.log(button);
+
+                bootbox.confirm("Are you sure to delete this post?", function (result) {
+
+                    if (result) {
+                        $.ajax({
+                            url: "/api/topicPosts/" + button.attr("data-topicPost-id"),
+                            method: "DELETE"
+                        }).done(function (response) {
+                            console.log(button.attr("data-topicPost-id"));
+                            console.log(response);
+                            button.parents("tr").fadeOut();
+                        }).fail(function (error) {
+                            console.log(button.attr("data-topicPost-id"));
+                            console.log(error);
+                        });
+                    }
+
+                });
+
+
 
             });
         });
-    });
     </script>
 
-    }
+}

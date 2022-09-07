@@ -7,36 +7,42 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+
 namespace GroupProject.Controllers.API
 {
     [Authorize]
-    [RoutePrefix("api/topics")]
-    public class TopicsController : ApiController
+    [RoutePrefix("api/topicPosts")]
+    public class TopicPostsController : ApiController
     {
         private readonly ApplicationDbContext _context;
-        public TopicsController()
+
+        public TopicPostsController()
         {
             _context = new ApplicationDbContext();
         }
+
         [Route("")]
-        public IHttpActionResult GetTopics()
+        public IHttpActionResult GetTopicPosts()
         {
-            var topics = _context.Topics
-                             .Include(t => t.User)
+            var topicPosts = _context.TopicPosts
+                             .Include(tp=>tp.Post)
+                             .Include(tp=>tp.Sender)
+                             .Include(tp=>tp.Topic)
                              .ToList();
-      
-            return Ok(topics);
+
+            return Ok(topicPosts);
         }
-  
+
         [HttpDelete]
-        public IHttpActionResult DeleteTopic(int? id)
+        //[Route("deletePost")]
+        public IHttpActionResult DeleteTopicPost(int? id)
         {
-            var topicToBeDeleted = _context.Topics
-                                        .SingleOrDefault(t => t.Id == id);
-            _context.Topics.Remove(topicToBeDeleted);
+            var topicPostToBeDeleted = _context.TopicPosts
+                                        .SingleOrDefault(tp => tp.Id == id);
+            _context.TopicPosts.Remove(topicPostToBeDeleted);
             _context.SaveChanges();
 
-            return Ok(topicToBeDeleted);
+            return Ok(topicPostToBeDeleted);
         }
 
         protected override void Dispose(bool disposing)
@@ -47,6 +53,5 @@ namespace GroupProject.Controllers.API
             }
             base.Dispose(disposing);
         }
-
     }
 }
