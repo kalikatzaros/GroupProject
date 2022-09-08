@@ -33,33 +33,13 @@ namespace GroupProject.Areas.Administrator.Controllers
                        .Where(u => u.Id != userId).ToList();
             return View(users);
         }
-        public ActionResult DeleteUser(string id)
+        public ActionResult GetWallPosts()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var user = _context.Users  
-                               .SingleOrDefault(u => u.Id == id);
-
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(user);
-        }
-
-
-        [HttpPost, ActionName("DeleteUser")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            var user = _context.Users.SingleOrDefault(u=> u.Id == id);
-            user.IsDeactivated = true;
-            _context.Entry(user).State = EntityState.Modified;
-            _context.SaveChanges();
-            return RedirectToAction("Index", "Dashboard");
+            var wallPosts = _context.WallPosts
+                .Include(w=>w.User)
+                .Include(w=>w.Post)
+                .ToList();
+            return View(wallPosts);
         }
     }
 }

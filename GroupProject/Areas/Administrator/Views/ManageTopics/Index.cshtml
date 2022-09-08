@@ -125,10 +125,10 @@
 
                     <td>
                         @Html.DisplayFor(modelItem => item.Post.ShorterBody)
-                        <button class="btn btn-link js-post-see" data-toggle="modal" data-target="#@item.Id" data-topicPost-id="@item.Id"><i class="material-icons">visibility</i></button>
+                        <button class="btn btn-link js-post-see" data-toggle="modal" data-target="#@item.Id-tp" data-topicPost-id="@item.Id"><i class="material-icons">visibility</i></button>
        
                         <!-- Modal -->
-                        <div class="modal fade" id="@item.Id" tabindex="-1" role="dialog" aria-labelledby="viewFullmessage" aria-hidden="true">
+                        <div class="modal fade" id="@item.Id-tp" tabindex="-1" role="dialog" aria-labelledby="viewFullmessage" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
