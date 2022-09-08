@@ -1,119 +1,239 @@
 ﻿@*@model IEnumerable<GroupProject.Models.ApplicationUser>*@
 @model GroupProject.ViewModels.PeopleViewModel
 
-@{
-    ViewBag.Title = "Index";
-}
-@*<h2>LoggedUserId: @ViewBag.userId</h2>*@
+
 <h2>People</h2>
 
 
 
 @using (Html.BeginForm("Index", "People", FormMethod.Get))
-{
-    //the following are search options
-    @Html.TextBox("search")
-    <input type="submit" name="submit" value="Search" placeholder="Search by name, lastname or email" />
-    <button><a href=@Url.Action("Index", "People") style="text-decoration:none;color:black;"> Clear</a></button>
-}
+    {
+        //the following are search options
+@Html.TextBox("search")
+<input type="submit" name="submit" value="Search" placeholder="Search by name, lastname or email" />
+<button><a href=@Url.Action("Index", "People") style="text-decoration:none;color:black;"> Clear</a></button>
+    }
 
 @if (Model.AllUsers.Count == 0)
-{
-    <h2>No results Found..</h2>
-}
+    {
+<h2>No results Found..</h2>
+    }
 
 
 <div id="followingThem" style="border:1px solid black;">
     <h3>People I follow</h3>
 </div>
 
-@foreach (var item in Model.AllUsers)
-{<div>
+@*<figure class="snip0045 red">
+        <figcaption>
+            <h2>Tiffany <span>Case</span></h2>
+            <p>Some things don't need the thought people give them.</p>
+            <div class="icons">
+                <a href="#"><i class="ion-ios-home"></i></a>
+                <a href="#"><i class="ion-ios-email"></i></a>
+                <a href="#"><i class="ion-ios-telephone"></i></a>
+            </div>
+        </figcaption>
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sq-sample7.jpg" alt="sample7" />
+        <div class="position">Photographer</div>
+    </figure>*@
 
-        <img src="~/img/@Url.Content(item.Thumbnail)" width="100" height="100" style="border-radius: 50px">
+
+@foreach (var item in Model.AllUsers)
+    {
+<figure class="snip0045 ">
+    <figcaption>
         <div>
-            @Html.DisplayFor(modelItem => item.Name)
-            @Html.DisplayFor(modelItem => item.LastName)
+
+            <h2>@Html.ActionLink(item.FullName, "VisitProfile", "Profile", new { id = item.Id }, null)</h2>
+
+            @if (Model.Followees.Contains(item))
+            {
+            <button class="btn btn-success js-toggle-follow" data-user-id="@item.Id">following</button>
+            }
+
+            else
+            {
+            <button class="btn btn-default js-toggle-follow" data-user-id="@item.Id">follow</button>
+            }
 
         </div>
+    </figcaption>
+    <img src="~/img/@Url.Content(item.Thumbnail)" alt="sample7" />
 
-        @Html.ActionLink(item.FullName, "VisitProfile", "Profile", new { id = item.Id }, null)
-
-        @if (Model.Followees.Contains(item))
-        {
-            <button class="btn btn-success js-toggle-follow" data-user-id="@item.Id">following</button>
-        }
-
-        else
-        {
-            <button class="btn btn-default js-toggle-follow" data-user-id="@item.Id">follow</button>
-        }
-
-    </div>
-}
+</figure>
+    }
 
 
 @section scripts {
     <script>
-		$(document).ready(function () {
-			$.getJSON("/api/followings")
+        $(document).ready(function () {
+            $.getJSON("/api/followings")
                 .done(function (data) {
                     $.each(data, function (key, item) {
                         $('<h5>', { text: item.followee.name }).appendTo($('#followingThem'));
                     });
-         
-					$(".js-toggle-follow").click(function (e) {
-					
-					 var button = e.target;
-						var data2 = button.getAttribute("data-user-id");
-						console.log(button.getAttribute("data-user-id"));
 
-						if (button.classList.contains('btn-default')) {
-							$.post(
-								"/api/followings", { followeeId: data2 }
-							).done(function () {
-								button.classList.remove("btn-default");
-								button.classList.add("btn-success");
-								button.innerText = "Following";
-								console.log(data);
-								console.log(button);
-								location.reload();
-					}
-							)
-								.fail(function () {
-									alert("shit!");
-									console.log(button);
-								}
-								);
-						} else {
-							$.ajax({
-								url: "/api/followings/" + data2,
-								method: "DELETE"
-							})
-								.done(function () {
-									button.classList.remove('btn-success');
-									button.classList.add('btn-default');
-									button.innerText = "Follow";
-									location.reload();
-									console.log(data);
-									console.log(button);
-								})
-								.fail(function () {
-									alert("shit!");
-								});
+                    $(".js-toggle-follow").click(function (e) {
+                        console.log(e.target);
 
-						}
+                        var button = e.target;
+                        var data2 = button.getAttribute("data-user-id");
+                        console.log(button.getAttribute("data-user-id"));
 
-					});
-				}
-				);
+                        if (button.classList.contains('btn-default')) {
+                            $.post(
+                                "/api/followings", { followeeId: data2 }
+                            ).done(function () {
+                                button.classList.remove("btn-default");
+                                button.classList.add("btn-success");
+                                button.innerText = "Following";
+                                console.log(data);
+                                console.log(button);
+                                location.reload();
+                            }
+                            )
+                                .fail(function () {
+                                    alert("shit!");
+                                    console.log(button);
+                                }
+                                );
+                        } else {
+                            $.ajax({
+                                url: "/api/followings/" + data2,
+                                method: "DELETE"
+                            })
+                                .done(function () {
+                                    button.classList.remove('btn-success');
+                                    button.classList.add('btn-default');
+                                    button.innerText = "Follow";
+                                    location.reload();
+                                    console.log(data);
+                                    console.log(button);
+                                })
+                                .fail(function () {
+                                    alert("shit!");
+                                });
 
-		}
-		);
+                        }
+
+                    });
+                }
+                );
+
+        }
+        );
     </script>
 
-    
+
+
+
+
+    <style>
+    @@import url(https://fonts.googleapis.com/css?family=Raleway:400,300,800);
+    @@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
+
+            figure.snip0045 {
+                font-family: 'Raleway', Arial, sans-serif;
+                position: relative;
+                overflow: hidden;
+                margin: 10px;
+                min-width: 380px;
+                max-width: 480px;
+                width: 100%;
+                background: #ffffff;
+                color: #000000;
+            }
+
+               /* figure.snip0045 * {
+                    -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+                }*/
+
+                figure.snip0045 > img {
+                    width: 50%;
+                    border-radius: 50%;
+                    border: 4px solid #ffffff;
+                    -webkit-transition: all 0.35s ease-in-out;
+                    transition: all 0.35s ease-in-out;
+                    -webkit-transform: scale(1.6);
+                    transform: scale(1.6);
+                    position: relative;
+                    left: -15%;
+                    z-index: 1;
+                    width:200px;
+                    height:200px;
+                    Border-radius: 100px;
+                }
+
+                figure.snip0045 figcaption {
+                    padding: 20px 30px 20px 20px;
+                    position: absolute;
+                    right: 0;
+                    width: 50%;
+                }
+
+                    figure.snip0045 figcaption h2
+                     {
+                        margin: 0;
+                        text-align: right;
+                        padding: 10px 0;
+                        width: 100%;
+                    }
+
+                    figure.snip0045 figcaption h2 {
+                        font-size: 1.3em;
+                        font-weight: 300;
+                        text-transform: uppercase;
+                        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+                    }
+
+                        figure.snip0045 figcaption h2 span {
+                            font-weight: 800;
+                        }
+
+
+
+                        figure.snip0045 figcaption a:hover {
+                            opacity: 0.8;
+                        }
+
+                figure.snip0045 .position {
+                    width: 100%;
+                    text-align: right;
+                    padding: 15px 30px;
+                    font-size: 0.9em;
+                    opacity: 1;
+                    font-style: italic;
+                    color: #ffffff;
+                    background: #000000;
+                }
+
+
+
+                figure.snip0045:hover > img,
+                figure.snip0045.hover > img {
+                    left: -12%;
+                }
+
+
+            /* Demo purposes only */
+            html {
+                height: 100%;
+            }
+
+            body {
+                background-color: #212121;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-flow: wrap;
+                margin: 0;
+                height: 100%;
+            }
+
+
+
 }
-
-
+    </style>
 
