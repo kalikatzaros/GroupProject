@@ -16,7 +16,7 @@ namespace GroupProject
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Index", action = "NewsFeed", id = UrlParameter.Optional }
+                defaults: new { controller = "NewsFeed", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
