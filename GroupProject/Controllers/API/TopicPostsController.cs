@@ -33,8 +33,20 @@ namespace GroupProject.Controllers.API
             return Ok(topicPosts);
         }
 
+        [HttpGet]
+        [Route("viewPost/{id}")]
+        public IHttpActionResult ViewPost(int? id)
+        {
+            var postBody = _context.TopicPosts
+                .Include(tp => tp.Post)
+                .SingleOrDefault(tp => tp.Id == id).Post.Body;
+         
+            return Ok(postBody);
+        }
+
+
         [HttpDelete]
-        //[Route("deletePost")]
+        [Route("deletePost/{id}")]
         public IHttpActionResult DeleteTopicPost(int? id)
         {
             var topicPostToBeDeleted = _context.TopicPosts

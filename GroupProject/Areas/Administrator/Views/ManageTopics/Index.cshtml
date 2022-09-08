@@ -98,10 +98,31 @@
 
                     <td>
                         @Html.DisplayFor(modelItem => item.Post.ShorterBody)
-                        <button class="btn btn-link js-post-see" data-topicPost-id="@item.Id"><i class="material-icons">visibility</i></button>
+                        <button class="btn btn-link js-post-see" data-toggle="modal" data-target="#@item.Id" data-topicPost-id="@item.Id"><i class="material-icons">visibility</i></button>
+       
+                        <!-- Modal -->
+                        <div class="modal fade" id="@item.Id" tabindex="-1" role="dialog" aria-labelledby="viewFullmessage" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLongTitle">Full Message</h3>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>@item.Post.Body</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                     <td>
-                        <button class="btn btn-link js-post-delete" data-topicPost-id="@item.Id"><i class="material-icons">delete</i></button>
+                        <button class="btn btn-link js-post-delete" data-topicPost-id="@item.Post.Id"><i class="material-icons">delete</i></button>
                     </td>
                 </tr>
             }
@@ -110,6 +131,7 @@
     </table>
 </div>
 @section scripts{
+    <a href="~/Areas/Administrator/Views/ManageTopics/Index.cshtml">~/Areas/Administrator/Views/ManageTopics/Index.cshtml</a>
     <script>
         $(document).ready(function () {
 
@@ -149,7 +171,7 @@
 
                     if (result) {
                         $.ajax({
-                            url: "/api/topicPosts/" + button.attr("data-topicPost-id"),
+                            url: "/api/topicPosts/deletePost/" + button.attr("data-topicPost-id"),
                             method: "DELETE"
                         }).done(function (response) {
                             console.log(button.attr("data-topicPost-id"));
@@ -163,9 +185,28 @@
 
                 });
 
-
-
             });
+
+           
+
+            @*$("#topicPosts").on("click", ".js-post-see", function () {
+                var button = $(this);
+                var id = button.attr("data-topicPost-id");
+               // console.log(text);
+                let text = "";
+                $.getJSON("/api/topicPosts/viewPost/"+id)
+                    .done(function (data) {
+                        //console.log(data);
+                       text = data;
+                        console.log(text);
+                    }).fail(function () {
+                        //console.log(text);
+                        console.log(id);
+                    });
+                
+               
+            });*@
+
         });
     </script>
 
