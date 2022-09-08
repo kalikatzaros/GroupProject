@@ -27,7 +27,7 @@ namespace GroupProject.Models
             get { return $"{Name} {LastName}"; }
 
         }
-
+        public bool IsDeactivated { get; set; } = false;
         public DateTime DateOfBirth { get; set; }
         public string Thumbnail { get; set; }
 

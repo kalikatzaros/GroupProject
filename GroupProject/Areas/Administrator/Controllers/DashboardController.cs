@@ -1,7 +1,9 @@
 ﻿using GroupProject.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -15,15 +17,17 @@ namespace GroupProject.Areas.Administrator.Controllers
     {
         private readonly ApplicationDbContext _context;
        
-        //private readonly UserManager<ApplicationUser> _userManager;
+
         // GET: Administrator/Dashboard
         public DashboardController()
         {
             _context = new ApplicationDbContext();
-            //_userManager = new UserManager<ApplicationUser>();
+           
+
         }
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
+            //{
+           
             var userId = User.Identity.GetUserId();
             var users = _context.Users
                        .Where(u => u.Id != userId).ToList();
@@ -35,9 +39,8 @@ namespace GroupProject.Areas.Administrator.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var user = _context.Users
-                           
-                            .SingleOrDefault(m => m.Id == id);
+            var user = _context.Users  
+                               .SingleOrDefault(u => u.Id == id);
 
             if (user == null)
             {
@@ -52,9 +55,9 @@ namespace GroupProject.Areas.Administrator.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            var user = _context.Users.SingleOrDefault(m => m.Id == id);
-
-            _context.Users.Remove(user);
+            var user = _context.Users.SingleOrDefault(u=> u.Id == id);
+            user.IsDeactivated = true;
+            _context.Entry(user).State = EntityState.Modified;
             _context.SaveChanges();
             return RedirectToAction("Index", "Dashboard");
         }

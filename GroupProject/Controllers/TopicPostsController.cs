@@ -20,6 +20,7 @@ namespace GroupProject.Controllers
      
         public ActionResult Index(int? id)
         {
+            ViewBag.UserId = User.Identity.GetUserId();
             var topicPosts = db.TopicPosts.Include(t => t.Post)
                 .Include(t => t.Sender)
                 .Include(t => t.Topic)

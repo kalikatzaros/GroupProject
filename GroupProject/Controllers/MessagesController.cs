@@ -30,7 +30,7 @@ namespace GroupProject.Controllers
             var viewModel = new UserMessagesViewModel();
             var userId = User.Identity.GetUserId();
 
-            viewModel.Users = _context.Users.Where(u => u.Id != userId);
+            viewModel.Users = _context.Users.Where(u => u.Id != userId&&u.IsDeactivated==false);
             return View(viewModel);
         }
         [HttpPost]

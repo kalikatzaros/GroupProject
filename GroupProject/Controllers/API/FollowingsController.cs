@@ -28,7 +28,7 @@ namespace GroupProject.Controllers.API
             var userId = User.Identity.GetUserId();
             var myFollowings = _context.Followings
                 .Include(f=>f.Followee)
-                .Where(f => f.FollowerId == userId)
+                .Where(f => f.FollowerId == userId&&f.Followee.IsDeactivated==false)
                 .ToList();
             
             return Ok(myFollowings);

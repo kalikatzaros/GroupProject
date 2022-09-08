@@ -8,24 +8,28 @@ using System.Web.Mvc;
 
 namespace GroupProject.Controllers
 {
-    public class FollowersController : Controller
+    public class ChatRoomController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-
-        public FollowersController()
+        public ChatRoomController()
         {
             _context = new ApplicationDbContext();
         }
-              
-        public ActionResult GetPeopleThatFollowMe()
+        // GET: ChatRoom
+        public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult SignalRChat()
+        {
+
             var userId = User.Identity.GetUserId();
-            var followers = _context.Followings
-                .Where(f => f.FolloweeId == userId&&f.Follower.IsDeactivated==false)
-                .Select(f => f.Follower)
-                .ToList();
-            return View(followers);
+            var user = _context.Users.SingleOrDefault(u => u.Id == userId);
+            ViewBag.UserName = user.FullName;
+
+            return View();
         }
     }
 }

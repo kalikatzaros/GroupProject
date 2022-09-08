@@ -8,109 +8,120 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 
 
 
-        <nav class="navbar nav-bar-default navbar-fixed-top">
+<nav class="navbar nav-bar-default navbar-fixed-top">
 
-            @*<input type="checkbox" id="check" />
-            <label for="check">
-                <i class="material-icons" id="btn">menu</i>
-                <i class="material-icons" id="cancel">cancel</i>
-            </label>
+    @*<input type="checkbox" id="check" />
+        <label for="check">
+            <i class="material-icons" id="btn">menu</i>
+            <i class="material-icons" id="cancel">cancel</i>
+        </label>
 
-            <div class="sidebar">
-                <h2>Menu</h2>
-                <ul>
-                    <li><a href="#"><i class="fas fa-home"></i></a>@Html.ActionLink("Homepage", "Index", "Home")</li>
-                    <li><a href="#"><i class="fas fa-user"></i></a><span> @Html.ActionLink("Profile", "Index", "Profile")</span></li>
-                    <li><a href="#"><i class="fas fa-envelope"></i></a>@Html.ActionLink("Inbox", "ReadIncomingMessages", "Messages")</li>
-                    <li><a href="#"><i class="fas fa-book"></i></a>@Html.ActionLink("About", "Home", "Home")</li>
-                    <li><a href="#"><i class="fas fa-address-card"></i></a>@Html.ActionLink("Contact", "Contact", "Home")</li>
+        <div class="sidebar">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i></a>@Html.ActionLink("Homepage", "Index", "Home")</li>
+                <li><a href="#"><i class="fas fa-user"></i></a><span> @Html.ActionLink("Profile", "Index", "Profile")</span></li>
+                <li><a href="#"><i class="fas fa-envelope"></i></a>@Html.ActionLink("Inbox", "ReadIncomingMessages", "Messages")</li>
+                <li><a href="#"><i class="fas fa-book"></i></a>@Html.ActionLink("About", "Home", "Home")</li>
+                <li><a href="#"><i class="fas fa-address-card"></i></a>@Html.ActionLink("Contact", "Contact", "Home")</li>
 
-                </ul>
-            </div>*@
+            </ul>
+        </div>*@
 
-            <div class="container-fluid">
-              
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav navbar-nav"></button>
-                    <ul class="nav navbar-nav" id="nav navbar-nav">
-                        <li>
-                            <a href=@Url.Action("Index", "NewsFeed") class="material-icons" data-toggle="tooltip" title="Newsfeed">
-                                newspaper
-                            </a>
-                        </li>
-                        <li>
-                            <a href=@Url.Action("Index", "People") class="material-icons" data-toggle="tooltip" title="Authors">
-                                people
-                            </a>
+    <div class="container-fluid">
+
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav navbar-nav"></button>
+        <ul class="nav navbar-nav" id="nav navbar-nav">
+            <li>
+                <a href=@Url.Action("Index", "NewsFeed") class="material-icons" data-toggle="tooltip" title="Newsfeed">
+                    newspaper
+                </a>
+            </li>
+            <li>
+                <a href=@Url.Action("Index", "People") class="material-icons" data-toggle="tooltip" title="Authors">
+                    people
+                </a>
 
 
-                        </li>
-                       
-                        <li>
+            </li>
 
-                            <div class="inbox">
-                                <a href=@Url.Action("ReadIncomingMessages", "Messages") class="material-icons" data-toggle="tooltip" title="Inbox">
-                                    mail
-                                </a>
-                                @if (Request.IsAuthenticated)
+            <li>
+
+                <div class="inbox">
+                    <a href=@Url.Action("ReadIncomingMessages", "Messages") class="material-icons" data-toggle="tooltip" title="Inbox">
+                        mail
+                    </a>
+                    @if (Request.IsAuthenticated)
                                 {
-                                    <span class="count badge" style="color:white;"></span>
+                    <span class="count badge" style="color:white;"></span>
                                 }
-                            </div>
-                           
-                        </li>
+                </div>
 
-                        <li>
-                            <a href=@Url.Action("Index", "Topics") class="material-icons" data-toggle="tooltip" title="Forum">
-                                forum
-                            </a>
-                        </li>
-                        <li>
-                            <a href=@Url.Action("Index", "Profile") class="material-icons" data-toggle="tooltip" title="Profile">
-                                person
-                            </a>
-                        </li>
-                        <li>
-                            <a href=@Url.Action("Index", "Checkout") class="material-icons" data-toggle="tooltip" title="Be Cool and Donate!">
-                                favorite
-                            </a>
-                        </li>
+            </li>
 
-                        @if (Request.IsAuthenticated)
+            <li>
+                <a href=@Url.Action("Index", "Topics") class="material-icons" data-toggle="tooltip" title="Forum">
+                    forum
+                </a>
+            </li>
+            <li>
+                <a href=@Url.Action("Index", "Profile") class="material-icons" data-toggle="tooltip" title="Profile">
+                    person
+                </a>
+            </li>
+            <li>
+                <a href=@Url.Action("Index", "Checkout") class="material-icons" data-toggle="tooltip" title="Be Cool and Donate!">
+                    favorite
+                </a>
+            </li>
+            <li>
+                <a href=@Url.Action("SignalRChat", "ChatRoom") class="material-icons" data-toggle="tooltip" title="Chat">
+                    chat
+                </a>
+            </li>
+            @if (Request.IsAuthenticated)
                         {
                             using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                             {
-                                @Html.AntiForgeryToken()
+            @Html.AntiForgeryToken()
 
-                                <li class="meme signout"><a href="javascript:document.getElementById('logoutForm').submit()" class="material-icons" data-toggle="tooltip" title="Log Out">logout</a></li>
+            <li class="meme signout"><a href="javascript:document.getElementById('logoutForm').submit()" class="material-icons" data-toggle="tooltip" title="Log Out">logout</a></li>
 
                             }
                         }
                         else
                         {
-                            <li class="meme">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                            <li class="meme">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>
+            <li class="meme">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+            <li class="meme">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>
                         }
 
 
-                    </ul>
+        </ul>
 
-                </div>
-           
-       </nav>
+    </div>
 
-    
+</nav>
 
-       
-     
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
+@section scripts{
+    $(function(){
+
+    $('[data-toggle="tooltip"]').tooltip();
+
+    });
+   
+}
+
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
 </html>
 
 <style>
