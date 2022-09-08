@@ -242,6 +242,7 @@
     <Compile Include="Configurations\TopicPostConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\FollowingsController.cs" />
+    <Compile Include="Controllers\API\ManageUsersController.cs" />
     <Compile Include="Controllers\API\MessagesController.cs" />
     <Compile Include="Controllers\API\TopicPostsController.cs" />
     <Compile Include="Controllers\API\TopicsController.cs" />
@@ -483,7 +484,6 @@
     <Content Include="Areas\Administrator\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Administrator\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Administrator\Views\Dashboard\Index.cshtml" />
-    <Content Include="Areas\Administrator\Views\Dashboard\DeleteUser.cshtml" />
     <Content Include="Areas\Administrator\Views\ManageTopics\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />

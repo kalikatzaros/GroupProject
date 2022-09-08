@@ -30,7 +30,7 @@ namespace GroupProject.Areas.Administrator.Controllers
            
             var userId = User.Identity.GetUserId();
             var users = _context.Users
-                       .Where(u => u.Id != userId&&u.IsDeactivated==false).ToList();
+                       .Where(u => u.Id != userId).ToList();
             return View(users);
         }
         public ActionResult DeleteUser(string id)

@@ -1,15 +1,127 @@
 ﻿@model IEnumerable<GroupProject.Models.ApplicationUser>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Manage Users";
 }
 
-<h2>Admin Users</h2>
+<h2>Manage Users</h2>
 
-@foreach (var user in Model) { 
+@*@foreach (var user in Model)
+{
 
     <div>@user.FullName</div>
     <a href="@Url.Action("DeleteUser", "Dashboard",new { id=user.Id})">Deactivate</a>
 
 
-}
+}*@
 
+<table class="table" id="users">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Name")
+            </th>
+            <th>
+                @Html.DisplayName("Last Name")
+            </th>
+            <th>
+                @Html.DisplayName("Email")
+            </th>
+            <th>
+                @Html.DisplayName("Date of Birth")
+            </th>
+            <th>
+                @Html.DisplayName("Profile Active")
+            </th>
+            <th>
+                @Html.DisplayName("Actions")
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            <td>
+                @if (item.IsDeactivated) {
+                <span class="badge badge-danger">Deactivated</span>
+                    }else{
+            <span class="badge badge-success">Active</span>
+                }
+            </td>
+           
+            <td>
+                <button class="btn btn-link js-toggle-activate" data-user-id="@item.Id" data-profile="@item.IsDeactivated">
+                    @if (item.IsDeactivated)
+                    {
+                        <span>Reactivate</span>
+                    }
+                    else
+                    {
+                        <span>Deactivate</span>
+                    }
+                </button>
+            </td>
+        </tr>
+        }
+    </tbody>
+
+</table>
+
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+
+            $("#users").DataTable();
+
+            $("#users").on("click", ".js-toggle-activate", function () {
+                var button = $(this);
+                @*let hey = button.attr("data-profile");
+                console.log(button);
+                let text = hey===true ? "Are you sure you wish to reactivate this profile?" : "Are you sure you wish to deactivate this profile?";*@
+               
+                bootbox.confirm("Are you sure you want to update this profile?", function (result) {
+                    
+                    if (result) {
+                        $.ajax({
+                            url: "/api/users/toggleActivate/" + button.attr("data-user-id"),
+                            method: "POST"
+                        }).done(function (response) {
+                            location.reload();
+                            console.log(response);
+
+                        }).fail(function (error) {
+                            console.log(error);
+                        });
+                    }
+
+                });
+            });
+        });
+        </script>
+    }
+
+<style>
+    .badge-danger {
+        background-color: palevioletred;
+        color: black;
+    }
+    .badge-success {
+        color:black;
+        background-color: lightgreen;
+    }
+
+</style>

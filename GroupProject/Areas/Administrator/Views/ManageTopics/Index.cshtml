@@ -166,75 +166,56 @@
             $("#topics").DataTable();
 
             $("#topics").on("click", ".js-topic-delete", function () {
-                                                    var button = $(this);
-                                                    console.log(button);
+                var button = $(this);
+                console.log(button);
 
-                                                    bootbox.confirm("Are you sure to delete this topic?", function (result) {
+                bootbox.confirm("Are you sure to delete this topic?", function (result) {
 
-                         if (result) {
+                    if (result) {
                         $.ajax({
                             url: "/api/topics/" + button.attr("data-topic-id"),
                             method: "DELETE"
                         }).done(function (response) {
-                           console.log(response);
+                            console.log(response);
                             button.parents("tr").fadeOut();
                             location.reload();
-                         }).fail(function (error) {
+                        }).fail(function (error) {
                             console.log(error);
-                          });
-                                                        }
+                        });
+                    }
 
-                                                    });
+                });
 
 
 
-                                                });
+            });
 
             $("#topicPosts").DataTable();
 
             $("#topicPosts").on("click", ".js-post-delete", function () {
-                                                    var button = $(this);
-                                                    console.log(button);
+                var button = $(this);
+                console.log(button);
 
-                                                    bootbox.confirm("Are you sure to delete this post?", function (result) {
+                bootbox.confirm("Are you sure to delete this post?", function (result) {
 
-                                                        if (result) {
+                    if (result) {
                         $.ajax({
-                                                            url: "/api/topicPosts/deletePost/" + button.attr("data-topicPost-id"),
+                            url: "/api/topicPosts/deletePost/" + button.attr("data-topicPost-id"),
                             method: "DELETE"
                         }).done(function (response) {
-                                                                console.log(button.attr("data-topicPost-id"));
-                                                                console.log(response);
-                                                                button.parents("tr").fadeOut();
-                                                            }).fail(function (error) {
-                                                                console.log(button.attr("data-topicPost-id"));
-                                                                console.log(error);
-                                                            });
-                                                        }
+                            console.log(button.attr("data-topicPost-id"));
+                            console.log(response);
+                            button.parents("tr").fadeOut();
+                        }).fail(function (error) {
+                            console.log(button.attr("data-topicPost-id"));
+                            console.log(error);
+                        });
+                    }
 
-                                                    });
+                });
 
-                                                });
+            });
 
-
-
-            @*$("#topicPosts").on("click", ".js-post-see", function () {
-                var button = $(this);
-                var id = button.attr("data-topicPost-id");
-               // console.log(text);
-                let text = "";
-                $.getJSON("/api/topicPosts/viewPost/"+id)
-                    .done(function (data) {
-                        //console.log(data);
-                       text = data;
-                        console.log(text);
-                    }).fail(function () {
-                        //console.log(text);
-                        console.log(id);
-                    });
-                
-               
-            });*@
 
         });
     </script>
