@@ -34,13 +34,13 @@ namespace GroupProject.Controllers
                 var lastWallPost = _context.WallPosts
                     .Include(w => w.Post)
                     .Include(w => w.User)
-                    .Where(w => w.UserId == id).ToList().LastOrDefault();
+                    .Where(w => w.UserId == id&&w.User.IsDeactivated==false).ToList().LastOrDefault();
 
                 var lastTopicPost = _context.TopicPosts
                    .Include(w => w.Topic)
                    .Include(w => w.Post)
                    .Include(w => w.Sender)
-                   .Where(w => w.Sender.Id == id).ToList().LastOrDefault();
+                   .Where(w => w.Sender.Id == id&&w.Sender.IsDeactivated==false).ToList().LastOrDefault();
 
                 if (lastWallPost != null) 
                 {
