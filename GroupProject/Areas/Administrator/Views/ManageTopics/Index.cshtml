@@ -57,7 +57,7 @@
                                         @using (Ajax.BeginForm("UpdateTopic", "ManageTopics", new AjaxOptions { UpdateTargetId = "changeTitle" }))
                                         {
                                         <div id="changeTitle" class="form-group">
-                                            <label for="title">New Title</label>
+                                            <label for="title" class="mr-2">New Title</label>
                                             <input type="text" name="title" class="form-control" value="@item.Title"/>
                                             <input type="hidden" value="@item.Id" name="id" />
                                         </div>
@@ -159,7 +159,7 @@
     </table>
 </div>
 @section scripts{
-    <a href="~/Areas/Administrator/Views/ManageTopics/Index.cshtml">~/Areas/Administrator/Views/ManageTopics/Index.cshtml</a>
+    
     <script>
         $(document).ready(function () {
 
@@ -171,16 +171,17 @@
 
                                                     bootbox.confirm("Are you sure to delete this topic?", function (result) {
 
-                                                        if (result) {
+                         if (result) {
                         $.ajax({
-                                                            url: "/api/topics/" + button.attr("data-topic-id"),
+                            url: "/api/topics/" + button.attr("data-topic-id"),
                             method: "DELETE"
                         }).done(function (response) {
-                                                                console.log(response);
-                                                                button.parents("tr").fadeOut();
-                                                            }).fail(function (error) {
-                                                                console.log(error);
-                                                            });
+                           console.log(response);
+                            button.parents("tr").fadeOut();
+                            location.reload();
+                         }).fail(function (error) {
+                            console.log(error);
+                          });
                                                         }
 
                                                     });

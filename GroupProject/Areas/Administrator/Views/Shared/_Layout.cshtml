@@ -21,12 +21,14 @@
              
             </div>
             <div class="navbar-collapse collapse">
-                <li><a href="@Url.Action("Index", "Dashboard")">Users</a></li>
+               
                 
                 <ul class="nav navbar-nav">
+                    <li><a href="@Url.Action("Index", "Dashboard")">Users</a></li>
+                    <li><a href="@Url.Action("Index", "ManageTopics")">Topics-TopicPosts</a></li>
                     @if (Request.IsAuthenticated)
                     {
-                        using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                        using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "" }))
                         {
                             @Html.AntiForgeryToken()
 
