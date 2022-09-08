@@ -38,5 +38,17 @@ namespace GroupProject.Areas.Administrator.Controllers
             };
             return View(viewModel);
         }
+
+        [HttpPost]
+        public ActionResult UpdateTopic(int id,string title)
+        {
+
+            var topic = _context.Topics
+                              .SingleOrDefault(t => t.Id == id);
+            topic.Title = title;
+            _context.Entry(topic).State = EntityState.Modified;
+            _context.SaveChanges();
+            return RedirectToAction("Index", "ManageTopics");
+        }
     }
 }

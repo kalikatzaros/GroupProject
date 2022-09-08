@@ -42,8 +42,35 @@
                         @Html.DisplayFor(modelItem => item.Created)
                     </td>
                     <td>
-                        <button class="btn btn-link js-topic-edit" data-topic-id="@item.Id"><i class="material-icons">edit</i></button>
+                        <button class="btn btn-link js-topic-edit" data-topic-id="@item.Id"data-toggle="modal" data-target="#@item.Id"><i class="material-icons">edit</i></button>
+                        <div class="modal fade" id="@item.Id" tabindex="-1" role="dialog" aria-labelledby="viewFullmessage" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLongTitle">Change Topic Title</h3>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
 
+                                        @using (Ajax.BeginForm("UpdateTopic", "ManageTopics", new AjaxOptions { UpdateTargetId = "changeTitle" }))
+                                        {
+                                        <div id="changeTitle" class="form-group">
+                                            <label for="title">New Title</label>
+                                            <input type="text" name="title" class="form-control" value="@item.Title"/>
+                                            <input type="hidden" value="@item.Id" name="id" />
+                                        </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div> 
+                                                }
+                                            </div>
+   
+                                </div>
+                            </div>
+                        </div>
                         <button class="btn btn-link js-topic-delete" data-topic-id="@item.Id"><i class="material-icons">delete</i></button>
 
                     </td>
@@ -80,7 +107,7 @@
         </thead>
         <tbody>
             @foreach (var item in Model.TopicPosts)
-            {
+                                            {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Id)
@@ -111,6 +138,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
+                                       
                                         <p>@item.Post.Body</p>
                                     </div>
                                     <div class="modal-footer">
@@ -138,56 +166,56 @@
             $("#topics").DataTable();
 
             $("#topics").on("click", ".js-topic-delete", function () {
-                var button = $(this);
-                console.log(button);
+                                                    var button = $(this);
+                                                    console.log(button);
 
-                bootbox.confirm("Are you sure to delete this topic?", function (result) {
+                                                    bootbox.confirm("Are you sure to delete this topic?", function (result) {
 
-                    if (result) {
+                                                        if (result) {
                         $.ajax({
-                            url: "/api/topics/" + button.attr("data-topic-id"),
+                                                            url: "/api/topics/" + button.attr("data-topic-id"),
                             method: "DELETE"
                         }).done(function (response) {
-                            console.log(response);
-                            button.parents("tr").fadeOut();
-                        }).fail(function (error) {
-                            console.log(error);
-                        });
-                    }
+                                                                console.log(response);
+                                                                button.parents("tr").fadeOut();
+                                                            }).fail(function (error) {
+                                                                console.log(error);
+                                                            });
+                                                        }
 
-                });
+                                                    });
 
 
 
-            });
+                                                });
 
             $("#topicPosts").DataTable();
 
             $("#topicPosts").on("click", ".js-post-delete", function () {
-                var button = $(this);
-                console.log(button);
+                                                    var button = $(this);
+                                                    console.log(button);
 
-                bootbox.confirm("Are you sure to delete this post?", function (result) {
+                                                    bootbox.confirm("Are you sure to delete this post?", function (result) {
 
-                    if (result) {
+                                                        if (result) {
                         $.ajax({
-                            url: "/api/topicPosts/deletePost/" + button.attr("data-topicPost-id"),
+                                                            url: "/api/topicPosts/deletePost/" + button.attr("data-topicPost-id"),
                             method: "DELETE"
                         }).done(function (response) {
-                            console.log(button.attr("data-topicPost-id"));
-                            console.log(response);
-                            button.parents("tr").fadeOut();
-                        }).fail(function (error) {
-                            console.log(button.attr("data-topicPost-id"));
-                            console.log(error);
-                        });
-                    }
+                                                                console.log(button.attr("data-topicPost-id"));
+                                                                console.log(response);
+                                                                button.parents("tr").fadeOut();
+                                                            }).fail(function (error) {
+                                                                console.log(button.attr("data-topicPost-id"));
+                                                                console.log(error);
+                                                            });
+                                                        }
 
-                });
+                                                    });
 
-            });
+                                                });
 
-           
+
 
             @*$("#topicPosts").on("click", ".js-post-see", function () {
                 var button = $(this);
