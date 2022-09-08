@@ -1,0 +1,223 @@
+﻿@model GroupProject.Areas.Administrator.ViewModels.TopicsViewModel
+@{
+    ViewBag.Title = "Index";
+}
+<div class="container">
+    <h2>Manage Topics</h2>
+
+    <table class="table" id="topics">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("Id")
+                </th>
+                <th>
+                    @Html.DisplayName("Author")
+                </th>
+                <th>
+                    @Html.DisplayName("Title")
+                </th>
+                <th>
+                    @Html.DisplayName("Date Created")
+                </th>
+                <th>
+                    @Html.DisplayName("Actions")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Topics)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        <button class="btn btn-link js-topic-edit" data-topic-id="@item.Id"data-toggle="modal" data-target="#@item.Id"><i class="material-icons">edit</i></button>
+                        <div class="modal fade" id="@item.Id" tabindex="-1" role="dialog" aria-labelledby="viewFullmessage" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLongTitle">Change Topic Title</h3>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        @using (Ajax.BeginForm("UpdateTopic", "ManageTopics", new AjaxOptions { UpdateTargetId = "changeTitle" }))
+                                        {
+                                        <div id="changeTitle" class="form-group">
+                                            <label for="title" class="mr-2">New Title</label>
+                                            <input type="text" name="title" class="form-control" value="@item.Title"/>
+                                            <input type="hidden" value="@item.Id" name="id" />
+                                        </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div> 
+                                                }
+                                            </div>
+   
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-link js-topic-delete" data-topic-id="@item.Id"><i class="material-icons">delete</i></button>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+    <h2>Manage Topic Posts</h2>
+
+    <table class="table" id="topicPosts">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("Id")
+                </th>
+                <th>
+                    @Html.DisplayName("Topic")
+                </th>
+                <th>
+                    @Html.DisplayName("Author")
+                </th>
+                <th>
+                    @Html.DisplayName("Date Created")
+                </th>
+                <th>
+                    @Html.DisplayName("Message")
+                </th>
+                <th>
+                    @Html.DisplayName("Actions")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.TopicPosts)
+                                            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Topic.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sender.FullName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Post.Datetime)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Post.ShorterBody)
+                        <button class="btn btn-link js-post-see" data-toggle="modal" data-target="#@item.Id" data-topicPost-id="@item.Id"><i class="material-icons">visibility</i></button>
+       
+                        <!-- Modal -->
+                        <div class="modal fade" id="@item.Id" tabindex="-1" role="dialog" aria-labelledby="viewFullmessage" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLongTitle">Full Message</h3>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                       
+                                        <p>@item.Post.Body</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn btn-link js-post-delete" data-topicPost-id="@item.Post.Id"><i class="material-icons">delete</i></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+@section scripts{
+    
+    <script>
+        $(document).ready(function () {
+
+            $("#topics").DataTable();
+
+            $("#topics").on("click", ".js-topic-delete", function () {
+                var button = $(this);
+                console.log(button);
+
+                bootbox.confirm("Are you sure to delete this topic?", function (result) {
+
+                    if (result) {
+                        $.ajax({
+                            url: "/api/topics/" + button.attr("data-topic-id"),
+                            method: "DELETE"
+                        }).done(function (response) {
+                            console.log(response);
+                            button.parents("tr").fadeOut();
+                            location.reload();
+                        }).fail(function (error) {
+                            console.log(error);
+                        });
+                    }
+
+                });
+
+
+
+            });
+
+            $("#topicPosts").DataTable();
+
+            $("#topicPosts").on("click", ".js-post-delete", function () {
+                var button = $(this);
+                console.log(button);
+
+                bootbox.confirm("Are you sure to delete this post?", function (result) {
+
+                    if (result) {
+                        $.ajax({
+                            url: "/api/topicPosts/deletePost/" + button.attr("data-topicPost-id"),
+                            method: "DELETE"
+                        }).done(function (response) {
+                            console.log(button.attr("data-topicPost-id"));
+                            console.log(response);
+                            button.parents("tr").fadeOut();
+                        }).fail(function (error) {
+                            console.log(button.attr("data-topicPost-id"));
+                            console.log(error);
+                        });
+                    }
+
+                });
+
+            });
+
+
+        });
+    </script>
+
+}
