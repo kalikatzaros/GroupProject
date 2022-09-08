@@ -135,7 +135,14 @@ namespace GroupProject.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
-
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _context.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
     }
 }

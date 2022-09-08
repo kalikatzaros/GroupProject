@@ -89,8 +89,15 @@ namespace GroupProject.Controllers
                 return View(viewModel);           
         }
 
-        
-        
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _context.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
 
     }
 }

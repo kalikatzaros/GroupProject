@@ -22,10 +22,19 @@ namespace GroupProject.Controllers
         {
             var userId = User.Identity.GetUserId();
             var followers = _context.Followings
-                .Where(f => f.FolloweeId == userId&&f.Follower.IsDeactivated==false)
+                .Where(f => f.FolloweeId == userId)
                 .Select(f => f.Follower)
                 .ToList();
             return View(followers);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _context.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

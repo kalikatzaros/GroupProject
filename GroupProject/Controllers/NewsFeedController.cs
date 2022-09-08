@@ -55,5 +55,13 @@ namespace GroupProject.Controllers
             }
             return View(newsfeedViewModel);
         }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _context.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

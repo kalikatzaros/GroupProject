@@ -1,7 +1,6 @@
 ﻿using GroupProject.Models;
 using GroupProject.ViewModels;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -17,27 +16,25 @@ namespace GroupProject.Controllers
         public PeopleController()
         {
             _context = new ApplicationDbContext();
-           
         }
-       
+      
         public ActionResult Index(string search)
         {
             var userId = User.Identity.GetUserId();
-            var roleId = _context.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).SingleOrDefault();
             var followees = _context.Followings
-                                .Where(f => f.FollowerId == userId&&f.Followee.IsDeactivated==false)
+                                .Where(f => f.FollowerId == userId)
                                 .Select(f => f.Followee)
                                 .ToList();
 
             var followers = _context.Followings
-                .Where(f => f.FolloweeId == userId&&f.Follower.IsDeactivated==false)
+                .Where(f => f.FolloweeId == userId)
                 .Select(f => f.Follower)
                 .ToList();
-            ;
+
             if (search == null)
             {
                 var users = _context.Users
-                    .Where(u => u.Id != userId&&u.IsDeactivated==false&& !(u.Roles.Any(r => r.RoleId == roleId))).ToList();
+                    .Where(u => u.Id != userId).ToList();
                 var peopleViewModel = new PeopleViewModel()
                 {
                     AllUsers = users,
@@ -52,7 +49,7 @@ namespace GroupProject.Controllers
                 var users = _context.Users
                          .Where(u => u.Id != userId && (u.Name.ToLower() == search.ToLower()
                          || u.LastName.ToLower() == search.ToLower()
-                         || u.Email.ToLower() == search.ToLower())&&u.IsDeactivated==false && !(u.Roles.Any(r => r.RoleId == roleId)))
+                         || u.Email.ToLower() == search.ToLower()))
                          .ToList();
                 var peopleViewModel = new PeopleViewModel()
                 {
@@ -63,7 +60,14 @@ namespace GroupProject.Controllers
                 };
                 return View(peopleViewModel);
             }
-           
+            protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _context.Dispose();
+            }
+            base.Dispose(disposing);
         }
+    }
     }
 }
