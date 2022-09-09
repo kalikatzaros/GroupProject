@@ -22,24 +22,23 @@ namespace GroupProject.Areas.Administrator.Controllers
         public DashboardController()
         {
             _context = new ApplicationDbContext();
-           
-
         }
         public ActionResult Index() {
-            //{
            
             var userId = User.Identity.GetUserId();
             var users = _context.Users
                        .Where(u => u.Id != userId).ToList();
             return View(users);
         }
-        public ActionResult GetWallPosts()
+      
+        public ActionResult GetAllWallPosts()
         {
-            var wallPosts = _context.WallPosts
-                .Include(w=>w.User)
+            var wallposts = _context.WallPosts
                 .Include(w=>w.Post)
+                .Include(w=>w.User)
                 .ToList();
-            return View(wallPosts);
+            return View(wallposts);
         }
+
     }
 }

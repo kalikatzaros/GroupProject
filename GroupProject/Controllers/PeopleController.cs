@@ -17,7 +17,7 @@ namespace GroupProject.Controllers
         {
             _context = new ApplicationDbContext();
         }
-      
+
         public ActionResult Index(string search)
         {
             var userId = User.Identity.GetUserId();
@@ -60,6 +60,7 @@ namespace GroupProject.Controllers
                 };
                 return View(peopleViewModel);
             }
+        }
             protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -70,4 +71,3 @@ namespace GroupProject.Controllers
         }
     }
     }
-}

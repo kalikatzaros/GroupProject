@@ -10,6 +10,7 @@ using GroupProject.Areas.Administrator.ViewModels;
 using GroupProject.Models;
 using GroupProject.ViewModels;
 using Microsoft.AspNet.Identity;
+
 namespace GroupProject.Areas.Administrator.Controllers
 {
     [Authorize(Roles = "Admin")]

@@ -246,6 +246,7 @@
     <Compile Include="Controllers\API\MessagesController.cs" />
     <Compile Include="Controllers\API\TopicPostsController.cs" />
     <Compile Include="Controllers\API\TopicsController.cs" />
+    <Compile Include="Controllers\API\WallPostsController.cs" />
     <Compile Include="Controllers\ChatRoomController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\DonationsController.cs" />
@@ -485,6 +486,7 @@
     <Content Include="Areas\Administrator\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Administrator\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\ManageTopics\Index.cshtml" />
+    <Content Include="Areas\Administrator\Views\Dashboard\GetAllWallPosts.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />

@@ -1,0 +1,115 @@
+﻿@model IEnumerable<GroupProject.Models.WallPost>
+
+@{
+    ViewBag.Title = "Manage Wallposts";
+}
+
+<h2>Manage Wallposts</h2>
+
+<table class="table" id="wallposts">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Id")
+            </th>
+            <th>
+                @Html.DisplayName("Author")
+            </th>
+            <th>
+                @Html.DisplayName("Message")
+            </th>
+            <th>
+                @Html.DisplayName("Date Created")
+            </th>
+
+            <th>
+                @Html.DisplayName("Actions")
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <p>@item.Id</p>
+                </td>
+                <td>
+                    <p>@item.User.FullName</p>
+                </td>
+                <td>
+                    <p>
+                        @item.Post.ShorterBody
+                        <button class="btn btn-link js-see" data-toggle="modal" data-target="#@item.Id-wp" data-id="@item.Id"><i class="material-icons">visibility</i></button>
+                    </p>
+                    <!-- Modal -->
+                    <div class="modal fade" id="@item.Id-wp" tabindex="-1" role="dialog" aria-labelledby="viewFullmessage" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title" id="exampleModalLongTitle">Full Message</h3>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>@item.Post.Body</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <p>@item.Post.Datetime</p>
+                </td>
+                <td>
+                    <button class="btn btn-link js-delete" data-id="@item.Id"><i class="material-icons">delete</i></button>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+
+            $("#wallposts").DataTable();
+
+            $("#wallposts").on("click", ".js-delete", function () {
+                var button = $(this);
+                console.log(button.attr("data-id"));
+
+                bootbox.confirm("Are you sure to delete this wallpost?", function (result) {
+
+                    if (result) {
+                        $.ajax({
+                            url: "/api/wallposts/deleteWallPost/" + button.attr("data-id"),
+                            method: "DELETE"
+                        }).done(function (response) {
+                            console.log(response);
+                            button.parents("tr").fadeOut();
+                            location.reload();
+                        }).fail(function (error) {
+                            console.log(error);
+                        });
+                    }
+
+                });
+
+
+
+            });
+
+
+
+
+        });
+    </script>
+
+}
