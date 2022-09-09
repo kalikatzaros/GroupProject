@@ -39,6 +39,13 @@ namespace GroupProject.Areas.Administrator.Controllers
                 .ToList();
             return View(wallposts);
         }
-
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _context.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

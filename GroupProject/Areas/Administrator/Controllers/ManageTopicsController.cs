@@ -51,5 +51,13 @@ namespace GroupProject.Areas.Administrator.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "ManageTopics");
         }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _context.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
