@@ -44,6 +44,16 @@ namespace GroupProject.Controllers.API
             return Ok(postBody);
         }
 
+        [HttpGet]
+        [Route("getLastTopicPostSender/{id}")]
+        public IHttpActionResult GetLastTopicPostSender(int? id)
+        {
+            var lastTopicPostSender = _context.TopicPosts
+                .Include(t=>t.Sender)
+                .Where(t => t.TopicId == id).ToList().LastOrDefault().Sender.FullName;
+
+            return Ok(lastTopicPostSender);
+        }
 
         [HttpDelete]
         [Route("deletePost/{id}")]
