@@ -31,30 +31,6 @@
                 @Html.ActionLink("Create New", "Create")
             </p>
 
-            @foreach (var item in Model)
-            {
-
-            <div class="subforum-row">
-                <div class="subforum-icon subforum-column center">
-                    <i class="material-icons">note</i>
-                </div>
-                <div class="subforum-description subforum-column">
-                    @Html.ActionLink(item.Title, "Index", "TopicPosts", new { id = item.Id }, null)
-
-                    <p>By @item.User.FullName <small> on @item.Created.ToString("dd/MM/yyyy")</small></p>
-                </div>
-                <div class="subforum-stats subforum-column center">
-                    <span>@Html.ActionLink("Add Post", "Create", "TopicPosts", new { id = item.Id }, null)</span>
-                </div>
-                <div class="subforum-info subforum-column lp-post" data-id="@item.Id">
-                    <b><h5>Last post by</h5></b> <a id="lp-sender" href=""></a>
-                    <br />
-                    on<small id="lp-date"> </small>
-                </div>
-            </div>
-
-            }
-
         </div>
     </div>
 </body>
@@ -88,42 +64,7 @@
                     });
 
                 });
-            @*$.each($('.lp-post'), function () {
-                let id = $(".lp-post").attr("data-id");
-                console.log(id);
-                $.getJSON("/api/topicPosts/getLastTopicPost/" + id)
-                    .done(function (data) {
-                        console.log(data);
-                        let newUrl = "/Profile/VisitProfile/" + data.sender.id;
-                        if (data.sender.isDeactivated) {
-                            $('.lp-post').html
-                                ('<b><h5>Last post by</h5></b> <a href="">${data.sender.fullName}</a>\
-                                    <br/>on <small> </small>');
-                        } else {
-                            $('.lp-post').html
-                                ('<b><h5>Last post by</h5></b> <a href="">'+data.sender.fullName+'</a>'+
-                                    '<br/>on <small> </small>');
-                        }
-
-                    });
-
-            });*@
-            @*$.getJSON("/api/topicPosts/getLastTopicPost/" + id)
-                .done(function (data) {
-                    console.log(data);
-                    let newUrl = "/Profile/VisitProfile/"+data.sender.id;
-                    if (data.sender.isDeactivated) {
-                        $("#lp-sender").html("DeactivatedAccount");
-                        $("#lp-sender").attr("href", "");
-                    } else {
-                        $("#lp-sender").html(data.sender.fullName);
-                        $("#lp-sender").attr("href", newUrl);
-                        $("#lp-date").html(data.post.datetime);
-                    }
-
-                });*@
-
-
+      
         });
     </script>
 
