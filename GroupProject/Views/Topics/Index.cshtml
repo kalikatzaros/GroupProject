@@ -22,44 +22,112 @@
     </header>
 
     <div class="container">
-        <div class="subforum">
+        <div class="subforum" id="subforum">
             <div class="subforum-title">
-                <h1>General Information</h1>
+                <h1>Topics</h1>
             </div>
 
             <p>
                 @Html.ActionLink("Create New", "Create")
             </p>
-            
+
             @foreach (var item in Model)
             {
 
-                <div class="subforum-row">
-                    <div class="subforum-icon subforum-column center">
-                        <i class="material-icons">note</i>
-                    </div>
-                    <div class="subforum-description subforum-column">
-                        @Html.ActionLink(item.Title, "Index", "TopicPosts", new { id = item.Id }, null)
-                        @if(item.User.IsDeactivated){<h5>DeactivatedAccount</h5>}else{
-                        <p>By @item.User.FullName <small> on @item.Created.ToString("dd/MM/yyyy")</small></p>
-                   }
-                    </div>
-                    <div class="subforum-stats subforum-column center">
-                        <span>@Html.ActionLink("Add Post", "Create", "TopicPosts", new { id = item.Id }, null)</span>
-                    </div>
-                    <div class="subforum-info subforum-column">
-                        <b><a href="">Last post by</a></b> <a href="">@item.User.FullName </a>
-                        <br />
-                        on<small> 22 Dec 2022</small>
-                    </div>
+            <div class="subforum-row">
+                <div class="subforum-icon subforum-column center">
+                    <i class="material-icons">note</i>
                 </div>
-                            
+                <div class="subforum-description subforum-column">
+                    @Html.ActionLink(item.Title, "Index", "TopicPosts", new { id = item.Id }, null)
+
+                    <p>By @item.User.FullName <small> on @item.Created.ToString("dd/MM/yyyy")</small></p>
+                </div>
+                <div class="subforum-stats subforum-column center">
+                    <span>@Html.ActionLink("Add Post", "Create", "TopicPosts", new { id = item.Id }, null)</span>
+                </div>
+                <div class="subforum-info subforum-column lp-post" data-id="@item.Id">
+                    <b><h5>Last post by</h5></b> <a id="lp-sender" href=""></a>
+                    <br />
+                    on<small id="lp-date"> </small>
+                </div>
+            </div>
+
             }
 
         </div>
-     </div>  
+    </div>
 </body>
 
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $.getJSON("/api/topicPosts/getAllLastTopicPosts")
+                .done(function (data) {
+                    $.each(data, function (key, item) {
+                        $(`<div class="subforum-row"id=${item.id}></div>`).appendTo('#subforum');
+                        $(`#${item.id}`).html(
+
+             `<div class="subforum-icon subforum-column center">
+                    <i class="material-icons">note</i>
+             </div>
+             <div class="subforum-description subforum-column">
+
+            <a href="/TopicPosts/Index/${item.topicId}">${item.topic.title}</a>
+                   <p> <a href="/Profile/VisitProfile/${item.topic.user.id}">By ${item.topic.user.fullName}</a> <small> on ${item.topic.created}</small</p>
+             </div>
+
+    <div class="subforum-stats subforum-column center">
+                    <a href="/TopicPosts/Create/${item.topicId}">Add a Post</a>
+                </div>
+    <div class="subforum-info subforum-column">
+                    <b><h5>Last post by</h5></b> <a href="/Profile/VisitProfile/${item.sender.id}">${item.sender.fullName}</a>
+                    <br/>
+                    on<small">${item.post.datetime} </small>
+                </div>`);
+                    });
+
+                });
+            @*$.each($('.lp-post'), function () {
+                let id = $(".lp-post").attr("data-id");
+                console.log(id);
+                $.getJSON("/api/topicPosts/getLastTopicPost/" + id)
+                    .done(function (data) {
+                        console.log(data);
+                        let newUrl = "/Profile/VisitProfile/" + data.sender.id;
+                        if (data.sender.isDeactivated) {
+                            $('.lp-post').html
+                                ('<b><h5>Last post by</h5></b> <a href="">${data.sender.fullName}</a>\
+                                    <br/>on <small> </small>');
+                        } else {
+                            $('.lp-post').html
+                                ('<b><h5>Last post by</h5></b> <a href="">'+data.sender.fullName+'</a>'+
+                                    '<br/>on <small> </small>');
+                        }
+
+                    });
+
+            });*@
+            @*$.getJSON("/api/topicPosts/getLastTopicPost/" + id)
+                .done(function (data) {
+                    console.log(data);
+                    let newUrl = "/Profile/VisitProfile/"+data.sender.id;
+                    if (data.sender.isDeactivated) {
+                        $("#lp-sender").html("DeactivatedAccount");
+                        $("#lp-sender").attr("href", "");
+                    } else {
+                        $("#lp-sender").html(data.sender.fullName);
+                        $("#lp-sender").attr("href", newUrl);
+                        $("#lp-date").html(data.post.datetime);
+                    }
+
+                });*@
+
+
+        });
+    </script>
+
+}
 <style>
     * {
         box-sizing: border-box;
@@ -96,19 +164,18 @@
         color: antiquewhite;
         padding: 5px;
         border-radius: 5px;
-        margin:4px;
+        margin: 4px;
     }
 
-    .subforum-description *{
+    .subforum-description * {
         margin-block: 0;
-        
     }
 
-    .subforum-description p {       
-       color:grey;
+    .subforum-description p {
+        color: grey;
     }
 
-    .subforum-row{
+    .subforum-row {
         display: grid;
         grid-template-columns: 7% 60% 13% 20%;
     }
@@ -117,25 +184,26 @@
         font-size: 12px;
         color: aqua;
     }
-    .subforum-column{
+
+    .subforum-column {
         padding: 10px;
         margin: 4px;
         border-radius: 5px;
         background-color: #0e1125;
     }
 
-    .center{
+    .center {
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
-    .subforum-icon{
+    .subforum-icon {
         font-size: 36px;
-        color:aqua;
+        color: aqua;
     }
 
-    .search-box{
+    .search-box {
         border: solid 1px #52057b;
         margin-top: 20px;
         padding: 40px;
@@ -144,17 +212,17 @@
         box-shadow: 1px 2px 3px #52075b;
     }
 
-    .search-box select{
-        padding: 10px;       
-    }
+        .search-box select {
+            padding: 10px;
+        }
 
-   .search-box input {
-   padding: 10px;
-   }
+        .search-box input {
+            padding: 10px;
+        }
 
-   .search-box button{
-       padding: 10px;
-       background-color: #fff;
-       color: #000000;
-   }
+        .search-box button {
+            padding: 10px;
+            background-color: #fff;
+            color: #000000;
+        }
 </style>

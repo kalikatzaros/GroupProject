@@ -45,14 +45,34 @@ namespace GroupProject.Controllers.API
         }
 
         [HttpGet]
-        [Route("getLastTopicPostSender/{id}")]
-        public IHttpActionResult GetLastTopicPostSender(int? id)
+        [Route("getAllLastTopicPosts")]
+        public IHttpActionResult GetAllLastTopicPost()
         {
-            var lastTopicPostSender = _context.TopicPosts
-                .Include(t=>t.Sender)
-                .Where(t => t.TopicId == id).ToList().LastOrDefault().Sender.FullName;
+            var lastTopicPosts = new List<TopicPost>();
+            foreach (var topic in _context.Topics.ToList())
+            {
+                var lastTopicPost = _context.TopicPosts
+                .Include(t => t.Sender)
+                .Include(t=>t.Topic.User)
+                .Include(t => t.Post)
+                .Where(t => t.TopicId == topic.Id)
+                .ToList().LastOrDefault();
+                lastTopicPosts.Add(lastTopicPost);
+            }
+            
 
-            return Ok(lastTopicPostSender);
+            return Ok(lastTopicPosts);
+        }
+        [HttpGet]
+        [Route("getLastTopicPost/{id}")]
+        public IHttpActionResult GetLastTopicPost(int? id)
+        {
+            var lastTopicPost = _context.TopicPosts
+                .Include(t=>t.Sender)
+                .Include(t=>t.Post)
+                .Where(t => t.TopicId == id).ToList().LastOrDefault();
+
+            return Ok(lastTopicPost);
         }
 
         [HttpDelete]
@@ -61,9 +81,11 @@ namespace GroupProject.Controllers.API
         {
             var topicPostToBeDeleted = _context.TopicPosts
                                         .SingleOrDefault(tp => tp.Id == id);
+        
             _context.TopicPosts.Remove(topicPostToBeDeleted);
             _context.SaveChanges();
 
+          
             return Ok(topicPostToBeDeleted);
         }
 

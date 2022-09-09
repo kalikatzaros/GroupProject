@@ -150,7 +150,7 @@
                         </div>
                     </td>
                     <td>
-                        <button class="btn btn-link js-post-delete" data-topicPost-id="@item.Post.Id"><i class="material-icons">delete</i></button>
+                        <button class="btn btn-link js-post-delete" data-topicPost-id="@item.Id"><i class="material-icons">delete</i></button>
                     </td>
                 </tr>
             }
@@ -173,7 +173,7 @@
 
                     if (result) {
                         $.ajax({
-                            url: "/api/topics/" + button.attr("data-topic-id"),
+                            url: "/api/topics/" + button.attr("data-topicPost-id"),
                             method: "DELETE"
                         }).done(function (response) {
                             console.log(response);
