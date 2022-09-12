@@ -42,6 +42,14 @@ namespace GroupProject.Areas.Administrator.Controllers
                 .ToList();
             return View(wallposts);
         }
+
+        public ActionResult ViewProfile()
+        {
+            var userId = User.Identity.GetUserId();
+            var user = _context.Users.SingleOrDefault(u => u.Id == userId);
+            ViewBag.loggedUser = user;
+            return View(user);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
