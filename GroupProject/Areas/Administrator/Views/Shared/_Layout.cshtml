@@ -60,7 +60,7 @@
     <nav class="navBar-top">
         <ul class="navBar-top-nav">
             <li class="navBar-top-item">
-                <a class="nav-top-item-link"><span class="link-top-text">@ViewBag.loggedUser.Email</span><img class="thumbnail-icon" src="~/img/@ViewBag.loggedUser.Thumbnail" /></a>
+                <a class="nav-top-item-link"href="@Url.Action("ViewProfile", "Dashboard")"><span class="link-top-text">@ViewBag.loggedUser.Email</span><img class="thumbnail-icon" src="~/img/@ViewBag.loggedUser.Thumbnail" /></a>
             </li>
         </ul>
     </nav>
