@@ -11,11 +11,12 @@
 <body>
 
 
-    <nav class="navBar">
+    <nav class="navBar" id="navBar">
         <div class="navBar-logo">
-            <a> <span class="material-icons link-icon">coffee</span> </a>
+            <a class="nav-item-link"> <span class="material-icons link-icon">coffee</span><span class="link-text">Pes Ta!</span> </a>
         </div>
-        <hr />
+        <button id="toggle-navBar">toggle</button>
+
         <ul class="navBar-nav">
             <li class="nav-item">
                 <a class="nav-item-link" href="@Url.Action("Index", "Dashboard")"><span class="material-icons link-icon">people</span><span class="link-text">Users</span></a>
@@ -29,9 +30,7 @@
             <li class="nav-item">
                 <a class="nav-item-link"><span class="material-icons link-icon">mail</span><span class="link-text">Inbox</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-item-link"><span class="material-icons link-icon">chat</span><span class="link-text">Chat</span></a>
-            </li>
+           
             <li class="nav-item">
                 <a class="nav-item-link"><span class="material-icons link-icon">person</span><span class="link-text">Profile</span></a>
             </li>
@@ -53,18 +52,15 @@
 
 
     </nav>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-
-            </div>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Link</a></li>
-            </ul>
-        </div>
+    <nav class="navBar-top">
+        <ul class="navBar-top-nav">
+            <li class="navBar-top-item">
+                <a class="nav-top-item-link"><span class="material-icons link-icon">person</span><span class="link-top-text">mplampla@gmail.com</span></a>
+            </li>
+        </ul>
     </nav>
 
-    @*@RenderBody()*@
+
     <div class="body-content">
         <div class="container">
             @RenderBody()
@@ -79,30 +75,70 @@
         </footer>
     </div>
 
+
+
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
 
+            $("#toggle-navBar").click(function () {
+                $("#navBar").toggleClass("navBar-closed");
+                $(".link-text").toggleClass("hidden");
+            });
+
+     </script>
+   
 </body>
 <style>
     :root {
         --color-purple: rgb(54,30,64);
         --color-brughtCyan: rgb(45,240,235);
     }
+
     .body {
         background: -webkit-linear-gradient(90deg, hsla(283, 83%, 86%, 1) 0%, hsla(105, 11%, 85%, 1) 100%);
     }
 
     .body-content {
         font-size: 1.5rem;
-        padding-left:25rem;
+        padding-left: 25rem;
+       padding-top:10rem;
     }
-    
+
     .link-icon {
-        font-size:3.5rem;
+        font-size: 3.5rem;
+        transition: width 800ms ease;
+    }
+
+    .navBar-top {
+        position: fixed;
+        height: 8rem;
+        width: 100%;
+        border-bottom: 1px solid lightgrey;
+        margin-bottom: 10rem;
+       
+    }
+    .navBar-top-nav {
+        height:100%;
+        list-style: none;
+        width: 100%;
+        padding-right: 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    navBar-top-item {
+        width: 25%;
+    }
+    .nav-top-item-link {
+        width;100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
     .navBar {
-       
         width: 25rem;
         height: 100vh;
         position: fixed;
@@ -112,10 +148,14 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-       
         box-shadow: 7px 10px 14px -11px rgba(0,0,0,0.72);
+        transition: width 800ms ease;
     }
 
+    .navBar-closed {
+        width: 10rem;
+        
+    }
 
     .navBar-nav {
         list-style: none;
@@ -125,27 +165,31 @@
         flex-direction: column;
         height: 50%;
         justify-content: space-evenly;
-       width:100%;
+        width: 100%;
     }
 
-    .navBar-bottom{
-        width:100%;
-        margin-top:auto;
-        padding-bottom:5rem;
+    .navBar-bottom {
+        width: 100%;
+        margin-top: auto;
+        padding-bottom: 5rem;
     }
-   
-    .navBar-logo{
-        padding-top:5rem;
+
+    .navBar-logo {
+        padding-top: 2rem;
+        width: 100%;
     }
+
     .nav-item {
         width: 100%;
     }
-    .nav-item-link{
-       width:100%;
-        display:flex;
-        align-items:center;
-        justify-content:space-evenly;
+
+    .nav-item-link {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
     }
+
     .table-div {
         background-color: white;
         padding: 2rem;
@@ -157,5 +201,14 @@
     .table-heading {
         margin-bottom: 2rem;
     }
+    .hidden{
+        display:none;
+    }
+    .link-text {
+        transition: width 800ms ease;
+    }
+   
 </style>
+
+
 </html>
