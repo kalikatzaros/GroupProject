@@ -3,83 +3,79 @@
     ViewBag.Title = "Manage Users";
 }
 
-<h2>Manage Users</h2>
-
-@*@foreach (var user in Model)
-{
-
-    <div>@user.FullName</div>
-    <a href="@Url.Action("DeleteUser", "Dashboard",new { id=user.Id})">Deactivate</a>
+<h3 class="table-heading">Manage Users</h3>
 
 
-}*@
+<div class="table-div">
+    <table class="table" id="users">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("Name")
+                </th>
+                <th>
+                    @Html.DisplayName("Last Name")
+                </th>
+                <th>
+                    @Html.DisplayName("Email")
+                </th>
+                <th>
+                    @Html.DisplayName("Date of Birth")
+                </th>
+                <th>
+                    @Html.DisplayName("Profile Active")
+                </th>
+                <th>
+                    @Html.DisplayName("Actions")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
 
-<table class="table" id="users">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayName("Name")
-            </th>
-            <th>
-                @Html.DisplayName("Last Name")
-            </th>
-            <th>
-                @Html.DisplayName("Email")
-            </th>
-            <th>
-                @Html.DisplayName("Date of Birth")
-            </th>
-            <th>
-                @Html.DisplayName("Profile Active")
-            </th>
-            <th>
-                @Html.DisplayName("Actions")
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateOfBirth)
+                    </td>
+                    <td>
+                        @if (item.IsDeactivated)
+                        {
+                            <span class="badge badge-danger">Deactivated</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-success">Active</span>
+                        }
+                    </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.DateOfBirth)
-            </td>
-            <td>
-                @if (item.IsDeactivated) {
-                <span class="badge badge-danger">Deactivated</span>
-                    }else{
-            <span class="badge badge-success">Active</span>
-                }
-            </td>
-           
-            <td>
-                <button class="btn btn-link js-toggle-activate" data-user-id="@item.Id" data-profile="@item.IsDeactivated">
-                    @if (item.IsDeactivated)
-                    {
-                        <span>Reactivate</span>
-                    }
-                    else
-                    {
-                        <span>Deactivate</span>
-                    }
-                </button>
-            </td>
-        </tr>
-        }
-    </tbody>
+                    <td>
+                        <button class="btn btn-link js-toggle-activate" data-user-id="@item.Id" data-profile="@item.IsDeactivated">
+                            @if (item.IsDeactivated)
+                            {
+                                <span>Reactivate</span>
+                            }
+                            else
+                            {
+                                <span>Deactivate</span>
+                            }
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
 
-</table>
-
+    </table>
+</div>
 @section scripts{
 
     <script>
