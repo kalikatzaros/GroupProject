@@ -24,6 +24,8 @@ namespace GroupProject.Areas.Administrator.Controllers
         }
         public ActionResult Index()
         {
+            var userId = User.Identity.GetUserId();
+            ViewBag.loggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
             var topics = _context.Topics
                 .Include(t => t.User)
                 .ToList();
@@ -43,7 +45,8 @@ namespace GroupProject.Areas.Administrator.Controllers
         [HttpPost]
         public ActionResult UpdateTopic(int id,string title)
         {
-
+            var userId = User.Identity.GetUserId();
+            ViewBag.loggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
             var topic = _context.Topics
                               .SingleOrDefault(t => t.Id == id);
             topic.Title = title;

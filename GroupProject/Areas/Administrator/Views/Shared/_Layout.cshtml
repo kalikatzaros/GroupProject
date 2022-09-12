@@ -13,9 +13,14 @@
 
     <nav class="navBar" id="navBar">
         <div class="navBar-logo">
-            <a class="nav-item-link"> <span class="material-icons link-icon">coffee</span><span class="link-text">Pes Ta!</span> </a>
+            <a class="nav-item-link"> <span class="material-icons link-icon">coffee</span><span class="link-text"><h3>Pes Ta!</h3></span> </a>
+            <a class="nav-item-link" id="toggle-navBar">
+                <svg class="toggle-Chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </a>
         </div>
-        <button id="toggle-navBar">toggle</button>
+
 
         <ul class="navBar-nav">
             <li class="nav-item">
@@ -30,7 +35,7 @@
             <li class="nav-item">
                 <a class="nav-item-link"><span class="material-icons link-icon">mail</span><span class="link-text">Inbox</span></a>
             </li>
-           
+
             <li class="nav-item">
                 <a class="nav-item-link"><span class="material-icons link-icon">person</span><span class="link-text">Profile</span></a>
             </li>
@@ -55,7 +60,7 @@
     <nav class="navBar-top">
         <ul class="navBar-top-nav">
             <li class="navBar-top-item">
-                <a class="nav-top-item-link"><span class="material-icons link-icon">person</span><span class="link-top-text">mplampla@gmail.com</span></a>
+                <a class="nav-top-item-link"><span class="link-top-text">@ViewBag.loggedUser.Email</span><img class="thumbnail-icon" src="~/img/@ViewBag.loggedUser.Thumbnail" /></a>
             </li>
         </ul>
     </nav>
@@ -83,13 +88,17 @@
     @RenderSection("scripts", required: false)
     <script>
 
-            $("#toggle-navBar").click(function () {
-                $("#navBar").toggleClass("navBar-closed");
-                $(".link-text").toggleClass("hidden");
-            });
 
-     </script>
-   
+        $("#toggle-navBar").click(function () {
+
+            $("#toggle-navBar").toggleClass("toggle-Chevron");
+            $("#navBar").toggleClass("navBar-closed");
+            $(".link-text").toggleClass("hidden");
+            $(".body-content").toggleClass("body-close");
+        });
+
+    </script>
+
 </body>
 <style>
     :root {
@@ -104,7 +113,11 @@
     .body-content {
         font-size: 1.5rem;
         padding-left: 25rem;
-       padding-top:10rem;
+        padding-top: 10rem;
+    }
+
+    .body-close {
+        padding-left: 10rem;
     }
 
     .link-icon {
@@ -118,10 +131,10 @@
         width: 100%;
         border-bottom: 1px solid lightgrey;
         margin-bottom: 10rem;
-       
     }
+
     .navBar-top-nav {
-        height:100%;
+        height: 100%;
         list-style: none;
         width: 100%;
         padding-right: 4rem;
@@ -129,15 +142,11 @@
         align-items: center;
         justify-content: flex-end;
     }
-    navBar-top-item {
-        width: 25%;
+
+    .link-top-text {
+        margin-right: 1rem;
     }
-    .nav-top-item-link {
-        width;100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+
     .navBar {
         width: 25rem;
         height: 100vh;
@@ -154,7 +163,6 @@
 
     .navBar-closed {
         width: 10rem;
-        
     }
 
     .navBar-nav {
@@ -175,7 +183,7 @@
     }
 
     .navBar-logo {
-        padding-top: 2rem;
+        padding-top: 1rem;
         width: 100%;
     }
 
@@ -201,13 +209,25 @@
     .table-heading {
         margin-bottom: 2rem;
     }
-    .hidden{
-        display:none;
+
+    .hidden {
+        display: none;
     }
+
     .link-text {
         transition: width 800ms ease;
     }
-   
+
+    .thumbnail-icon {
+        height: 5rem;
+        width: 5rem;
+        border-radius: 5rem;
+    }
+
+    .toggle-Chevron {
+        transform: rotate(180deg);
+        transition: width 800ms ease;
+    }
 </style>
 
 

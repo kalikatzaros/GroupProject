@@ -26,6 +26,7 @@ namespace GroupProject.Areas.Administrator.Controllers
         public ActionResult Index() {
            
             var userId = User.Identity.GetUserId();
+            ViewBag.loggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
             var users = _context.Users
                        .Where(u => u.Id != userId).ToList();
             return View(users);
@@ -33,6 +34,8 @@ namespace GroupProject.Areas.Administrator.Controllers
       
         public ActionResult GetAllWallPosts()
         {
+            var userId = User.Identity.GetUserId();
+            ViewBag.loggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
             var wallposts = _context.WallPosts
                 .Include(w=>w.Post)
                 .Include(w=>w.User)
