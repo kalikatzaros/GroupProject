@@ -50,7 +50,7 @@
              <div class="subforum-description subforum-column">
 
             <a href="/TopicPosts/Index/${item.topicId}">${item.topic.title}</a>
-                   <p> <a href="/Profile/VisitProfile/${item.topic.user.id}">By ${item.topic.user.fullName}</a> <small> on ${item.topic.created}</small></p>
+                   <p> <a href="/Profile/VisitProfile/${item.topic.user.id}">By ${item.topic.user.fullName}</a> <small> on ${item.topic.created.toString().slice(0, 10)}</small></p>
              </div>
 
     <div class="subforum-stats subforum-column center">
@@ -59,7 +59,9 @@
     <div class="subforum-info subforum-column">
                     <b><h5>Last post by</h5></b> <a href="/Profile/VisitProfile/${item.sender.id}">${item.sender.fullName}</a>
                     <br/>
-                    on<small">${item.post.datetime} </small>
+                    
+                    
+                    on <small">${item.post.datetime.toString().slice(0, 10)} </small>
                 </div>`);
                     });
 
