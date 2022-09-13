@@ -5,40 +5,114 @@
 }
 
 <div class="container">
-    <h2>NewsFeed</h2>
-    <h3>Recent Wall Posts</h3>
+    <h3 class="heading">NewsFeed</h3>
+    <h3 class="heading">Recent Wall Posts</h3>
     @foreach (var item in Model.Wallposts)
     {
-        <div>
-            <h4> @Html.ActionLink(item.User.FullName, "VisitProfile", "Profile", new { id = item.User.Id }, null)</h4>
-            <strong>@item.Post.Datetime</strong>
-            <p>@item.Post.Body</p>
+<div class="post">
+    @*<h4> @Html.ActionLink(item.User.FullName, "VisitProfile", "Profile", new { id = item.User.Id }, null)</h4>
+        <strong>@item.Post.Datetime</strong>
+        <p>@item.Post.Body</p>*@
+
+    <div class="post-header">
+        <div class="post-user">
+            <img class="post-thumb thumbnail" src="~/img/@item.User.Thumbnail" />
+            <h4 class="post-user-text"> @Html.ActionLink(item.User.FullName, "VisitProfile", "Profile", new { id = item.User.Id }, null)</h4>
         </div>
-        <hr />
+
+        <strong class="">@item.Post.Datetime</strong>
+    </div>
+    <div class="post-body">
+
+       
+
+        <p class="post-body-p">@item.Post.Body</p>
+
+        @*<img class="post-body-img thumbnail" src="~/img/@item.Sender.Thumbnail" />*@
+    </div>
+
+    @*<div class="post-footer">
+
+        </div>*@
+</div>
+       
     }
 
-    <h3>Recent Topic Posts</h3>
+    <h3 class="heading">Recent Topic Posts</h3>
     @foreach (var item in Model.TopicPosts)
     {
-        <div>
-            <h4> @Html.ActionLink(item.Sender.FullName, "VisitProfile", "Profile", new { id = item.Sender.Id }, null)</h4>
-            <h4>@Html.ActionLink(item.Topic.Title, "Index", "TopicPosts", new { id = item.Topic.Id }, null)</h4>
-            <strong>@item.Post.Datetime</strong>
-            <p>@item.Post.Body</p>
+<div class="post">
+    <div class="post-header">
+        <div class="post-user">
+            <img class="post-thumb thumbnail" src="~/img/@item.Sender.Thumbnail" />
+            <h4 class="post-user-text"> @Html.ActionLink(item.Sender.FullName, "VisitProfile", "Profile", new { id = item.Sender.Id }, null)</h4>
         </div>
-        <hr />
+        
+        <strong class="">@item.Post.Datetime</strong>
+    </div>
+    <div class="post-body">
+
+        <h4 class="post-body-topic">Topic: @Html.ActionLink(item.Topic.Title, "Index", "TopicPosts", new { id = item.Topic.Id }, null)</h4>
+
+        <p class="post-body-p">@item.Post.Body</p>
+
+        @*<img class="post-body-img thumbnail" src="~/img/@item.Sender.Thumbnail" />*@
+    </div>
+
+    @*<div class="post-footer">
+       
+    </div>*@
+    </div>
+
     }
 </div>
 
-@*<script>
+<style>
+    .heading {
+        margin-bottom: 2rem;
+    }
 
-    $(document).ready(function () {
-        $.getJSON("/api/messages/getUnreadMessageCount")
-            .done(function (data) {
+    .post {
+        background-color: white;
+        padding-top: 2rem;
+        padding-bottom: 4rem;
+        padding-left: 4rem;
+        padding-right: 4rem;
+        border-radius: 1rem;
+        box-shadow: 7px 10px 14px -11px rgba(0,0,0,0.1);
+        margin-bottom: 4rem;
+        width: 100%;
+    }
 
-                $(".count").html(data);
-            });
-        $('[data-toggle="tooltip"]').tooltip();
-    });
 
-</script>*@
+    .post-header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .post-thumb{
+        width:7rem;
+        height:7rem;
+        border-radius:7rem;
+       
+    }
+    .post-user {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .user-text {
+        padding-left: 2rem;
+    }
+  
+    .post-body {
+        padding-left: 9rem;
+    }
+   
+    .post-body-img{
+        width:50%;
+       
+    }
+</style>

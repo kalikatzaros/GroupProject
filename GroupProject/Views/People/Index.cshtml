@@ -8,7 +8,7 @@
 
 @using (Html.BeginForm("Index", "People", FormMethod.Get))
     {
-        //the following are search options
+        
 @Html.TextBox("search")
 <input type="submit" name="submit" value="Search" placeholder="Search by name, lastname or email" />
 <button><a href=@Url.Action("Index", "People") style="text-decoration:none;color:black;"> Clear</a></button>
