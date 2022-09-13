@@ -28,6 +28,10 @@
             $.getJSON("/api/topicPosts/getAllLastTopicPosts")
                 .done(function (data) {
                     $.each(data, function (key, item) {
+                        const username = item.topic.user.isDeactivated ? "DeactivatedAccount" : item.topic.user.fullName;
+                        const link = item.topic.user.isDeactivated ? "" : `/Profile/VisitProfile/${item.topic.user.id}`;
+                        const senderUsername = item.sender.isDeactivated ? "DeactivatedAccount" : item.sender.fullName;
+                        const senderLink = item.sender.isDeactivated ? "" : `/Profile/VisitProfile/${item.sender.id}`;
                         $(`<div class="subforum-row"id=${item.id}></div>`).appendTo('#subforum');
                         $(`#${item.id}`).html(
 
@@ -37,14 +41,14 @@
              <div class="subforum-description subforum-column">
 
             <a href="/TopicPosts/Index/${item.topicId}">${item.topic.title}</a>
-                   <p> <a href="/Profile/VisitProfile/${item.topic.user.id}">By ${item.topic.user.fullName}</a> <small> on ${item.topic.created}</small></p>
+                   <p> <a href=${link}>By ${username}</a> <small> on ${item.topic.created}</small></p>
              </div>
 
     <div class="subforum-stats subforum-column center">
                     <a href="/TopicPosts/Create/${item.topicId}">Add a Post</a>
                 </div>
     <div class="subforum-info subforum-column">
-                    <b><h5>Last post by</h5></b> <a href="/Profile/VisitProfile/${item.sender.id}">${item.sender.fullName}</a>
+                    <b><h5>Last post by</h5></b> <a href="${senderLink}">${senderUsername}</a>
                     <br/>
                     on<small">${item.post.datetime} </small>
                 </div>`);

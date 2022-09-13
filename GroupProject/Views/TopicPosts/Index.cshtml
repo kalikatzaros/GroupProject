@@ -2,14 +2,12 @@
 
 @{
     ViewBag.Title = "TopicPosts";
-
-
 }
 
 
 @foreach (var item in Model)
 {
-    <div class="topic-header"><h4>@Html.DisplayFor(modelItem => item.Topic.Title)</h4></div>
+    <div class="topic-header"><h4>@item.Topic.Title)</h4></div>
     <div class="add-post-form">
         @using (Html.BeginForm("Create", "TopicPosts", "Post"))
         {
