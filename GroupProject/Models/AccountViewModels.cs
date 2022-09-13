@@ -91,8 +91,10 @@ namespace GroupProject.Models
         public string LastName { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",ApplyFormatInEditMode = true)]
-        
         public DateTime DateOfBirth { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        public string Description { get; set; }
     }
 
     public class ResetPasswordViewModel

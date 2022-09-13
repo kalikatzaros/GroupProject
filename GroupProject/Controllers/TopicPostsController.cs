@@ -20,7 +20,8 @@ namespace GroupProject.Controllers
      
         public ActionResult Index(int? id)
         {
-            ViewBag.UserId = User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId();
+            ViewBag.userId = userId;
             var topicPosts = db.TopicPosts.Include(t => t.Post)
                 .Include(t => t.Sender)
                 .Include(t => t.Topic)
@@ -107,18 +108,22 @@ namespace GroupProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,TopicId,SenderId,PostId")] TopicPost topicPost)
+        public ActionResult Edit(string body,int? id)
         {
+            var topicPost = db.TopicPosts
+                .Include(tp=>tp.Post)
+                .Include(tp => tp.Topic)
+                .SingleOrDefault(tp => tp.Id == id);
+
+            topicPost.Post.Body = body;
+            topicPost.Post.Datetime = DateTime.Now;
             if (ModelState.IsValid)
             {
                 db.Entry(topicPost).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "TopicPosts", new { id = topicPost.Topic.Id });
             }
-            ViewBag.PostId = new SelectList(db.Posts, "Id", "Body", topicPost.PostId);
-            ViewBag.SenderId = new SelectList(db.Users, "Id", "Name", topicPost.SenderId);
-            ViewBag.TopicId = new SelectList(db.Topics, "Id", "Title", topicPost.TopicId);
-            return View(topicPost);
+            return View("Error");
         }
 
         // GET: TopicPosts/Delete/5

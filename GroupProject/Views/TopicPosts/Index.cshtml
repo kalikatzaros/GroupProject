@@ -14,13 +14,13 @@
         @using (Html.BeginForm("Create", "TopicPosts", "Post"))
         {
             @Html.AntiForgeryToken()
-            <form>
+            <form form-inline>
                 <div class="form-group">
                     <input typeof="text" name="Body" id="text" class="form-control add-post-text" placeholder="Say something..." />
                 </div>
                 <input type="hidden" value="@item.TopicId" name="id" />
                 <input type="hidden" value="@item.SenderId" name="SenderId" />
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Post</button>
             </form>
         }
     </div>
@@ -54,11 +54,26 @@
 
             @*<img class="post-body-img thumbnail" src="~/img/@item.Sender.Thumbnail" />*@
         </div>
-        @if (User.IsInRole("Admin") || (item.Sender.Id == ViewBag.UserId))
+        @if (User.IsInRole("Admin") || (item.Sender.Id == ViewBag.userId))
         {
             <div class="post-footer">
-                <a href=@Url.Action("Edit", "TopicPosts", new { id = item.Id })>Edit |</a>
-                <a href=@Url.Action("Delete", "TopicPosts", new { id = item.Id })> Delete</a>
+                <button class="btn btn-link js-tpost-edit" data-tpost-id="@item.Id"><i class="material-icons">edit</i></button>
+                <button class="btn btn-link js-tpost-delete" data-tpost-id="@item.Id"><i class="material-icons">delete</i></button>
+                <div class="edit-post-form hidden" id="@item.Id-f">
+                    @using (Html.BeginForm("Edit", "TopicPosts", "Post"))
+                    {
+                        @Html.AntiForgeryToken()
+                        <form form-inline>
+                            <div class="form-group">
+                                <input typeof="text" name="body" id="text" class="form-control add-post-text" placeholder="Edit Post..." />
+                            </div>
+                            <input type="hidden" value="@item.Id" name="id" />
+
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
+                    }
+                </div>
+
             </div>
         }
 
@@ -66,7 +81,40 @@
 
 }
 
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".post").on("click", ".js-tpost-edit", function () {
+                var button = $(this);
+                const id = `${button.attr("data-tpost-id")}-f`;
+                $(`#${id}`).toggleClass("hidden");
+               
+            });
+            $(".post").on("click", ".js-tpost-delete", function () {
+                var button = $(this);
+                console.log(button);
 
+                bootbox.confirm("Are you sure you wish to delete this post?", function (result) {
+
+                    if (result) {
+                        $.ajax({
+                            url: "/api/topicPosts/deletePost/" + button.attr("data-tpost-id"),
+                            method: "DELETE"
+                        }).done(function (response) {
+                            console.log(response);
+                          
+                            location.reload();
+                        }).fail(function (error) {
+                            console.log(error);
+                        });
+                    }
+
+                });
+
+            });
+        });
+    </script>
+}
 
 <style>
     .topic-header {
@@ -74,12 +122,13 @@
         color: antiquewhite;
         padding: 5px;
         border-radius: 5px;
-        padding: 1.5rem;
+        padding-left: 5rem;
+        padding-right: 1.5rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
     }
 
-    .heading {
-        margin-bottom: 2rem;
-    }
+
 
     .post {
         background-color: white;
@@ -102,6 +151,7 @@
     }
 
     .post-thumb {
+        object-fit: cover;
         width: 7rem;
         height: 7rem;
         border-radius: 7rem;
@@ -139,7 +189,20 @@
         border-radius: 1rem;
         box-shadow: 7px 10px 14px -11px rgba(0,0,0,0.1);
         margin-bottom: 4rem;
-        margin-top:2rem;
+        margin-top: 2rem;
+        width: 100%;
+    }
+
+    .edit-post-form {
+        width: 100%;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    #text {
+        max-width: unset;
         width: 100%;
     }
 </style>

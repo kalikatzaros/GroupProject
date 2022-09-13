@@ -14,6 +14,7 @@ using GroupProject.Models;
 using System.Collections.ObjectModel;
 using GroupProject.Configurations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace GroupProject.Models
 {
@@ -30,6 +31,9 @@ namespace GroupProject.Models
         public bool IsDeactivated { get; set; } = false;
         public DateTime DateOfBirth { get; set; }
         public string Thumbnail { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        public string Description { get; set; }
 
         [NotMapped]
         public HttpPostedFileBase ImageFile { get; set; }
@@ -91,7 +95,7 @@ namespace GroupProject.Models
 
         }
 
-       
+        
     }
     }
 

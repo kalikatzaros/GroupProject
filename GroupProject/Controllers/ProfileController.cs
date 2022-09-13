@@ -45,7 +45,8 @@ namespace GroupProject.Controllers
                     WallPosts = wallPosts.ToList(),
                     DateOfBirth = user.DateOfBirth,
                     Followings = _followingRepository.GetFollowings(userId).ToLookup(a => a.FolloweeId),
-                    ShowActions = User.Identity.IsAuthenticated
+                    ShowActions = User.Identity.IsAuthenticated,
+                    Description=user.Description
                 };
 
 
@@ -84,20 +85,14 @@ namespace GroupProject.Controllers
                     WallPosts = wallPosts.ToList(),
                     DateOfBirth = user.DateOfBirth,
                     Followings = _followingRepository.GetFollowings(otherUserId).ToLookup(a => a.FolloweeId),
-                    ShowActions = User.Identity.IsAuthenticated
+                    ShowActions = User.Identity.IsAuthenticated,
+                    Description=user.Description
                 };
                 return View(viewModel);           
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _context.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
+        
+        
 
     }
 }
