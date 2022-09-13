@@ -7,66 +7,139 @@
 }
 
 
-
-
-
-    @foreach (var item in Model)
-    {
-<h4>
-    @Html.ActionLink("Create New", "Create", new { id = item.TopicId })
-</h4>
-<h2>@Html.DisplayFor(modelItem => item.Topic.Title)</h2>
-        break;
-    }
-
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Message")
-        </th>
-        <th>
-            @Html.DisplayName("Author")
-        </th>
-        <th>
-            @Html.DisplayName("Actions")
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Post.Body)
-    </td>
-    <td>
-        @if (item.Sender.IsDeactivated)
+@foreach (var item in Model)
+{
+    <div class="topic-header"><h4>@Html.DisplayFor(modelItem => item.Topic.Title)</h4></div>
+    <div class="add-post-form">
+        @using (Html.BeginForm("Create", "TopicPosts", "Post"))
         {
-            <h5>DeactivatedAccount</h5>
+            @Html.AntiForgeryToken()
+            <form>
+                <div class="form-group">
+                    <input typeof="text" name="Body" id="text" class="form-control add-post-text" placeholder="Say something..." />
+                </div>
+                <input type="hidden" value="@item.TopicId" name="id" />
+                <input type="hidden" value="@item.SenderId" name="SenderId" />
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         }
-        else
-        {
+    </div>
+    break;
+}
 
-            @Html.ActionLink(item.Sender.FullName, "VisitProfile", "Profile", new { id = item.Sender.Id }, null)
+@foreach (var item in Model)
+{
+    <div class="post">
 
-        }
-    </td>
-    <td>
+        <div class="post-header">
+            <div class="post-user">
+                <img class="post-thumb thumbnail" src="~/img/@item.Sender.Thumbnail" />
+                @if (item.Sender.IsDeactivated)
+                {
+                    <h4>DeactivatedAccount</h4>
+                }
+                else
+                {
+                    <h4 class="post-user-text"> @Html.ActionLink(item.Sender.FullName, "VisitProfile", "Profile", new { id = item.Sender.Id }, null)</h4>
+                }
+
+            </div>
+
+            <strong class="">@item.Post.Datetime</strong>
+        </div>
+
+        <div class="post-body">
+
+            <p class="post-body-p">@item.Post.Body</p>
+
+            @*<img class="post-body-img thumbnail" src="~/img/@item.Sender.Thumbnail" />*@
+        </div>
         @if (User.IsInRole("Admin") || (item.Sender.Id == ViewBag.UserId))
         {
-            <a href=@Url.Action("Edit", "TopicPosts",new {id=item.Id })>
-                Edit |
-            </a>
-            @*<a href=@Url.Action("Details", "TopicPosts",new {id=item.Id })>
-                Details |
-            </a>*@
-            <a href=@Url.Action("Delete", "TopicPosts",new {id=item.Id })>
-               Delete |
-            </a>
+            <div class="post-footer">
+                <a href=@Url.Action("Edit", "TopicPosts", new { id = item.Id })>Edit |</a>
+                <a href=@Url.Action("Delete", "TopicPosts", new { id = item.Id })> Delete</a>
+            </div>
         }
-    </td>
-</tr>
+
+    </div>
+
+}
+
+
+
+<style>
+    .topic-header {
+        background-color: #292B2E;
+        color: antiquewhite;
+        padding: 5px;
+        border-radius: 5px;
+        padding: 1.5rem;
     }
 
-</table>
+    .heading {
+        margin-bottom: 2rem;
+    }
+
+    .post {
+        background-color: white;
+        padding-top: 2rem;
+        padding-bottom: 4rem;
+        padding-left: 4rem;
+        padding-right: 4rem;
+        border-radius: 1rem;
+        box-shadow: 7px 10px 14px -11px rgba(0,0,0,0.1);
+        margin-bottom: 4rem;
+        width: 100%;
+    }
+
+
+    .post-header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .post-thumb {
+        width: 7rem;
+        height: 7rem;
+        border-radius: 7rem;
+    }
+
+    .post-user {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .user-text {
+        padding-left: 2rem;
+    }
+
+    .post-body {
+        padding-left: 9rem;
+    }
+
+    .post-body-img {
+        width: 50%;
+    }
+
+    .post-footer {
+        padding-left: 9rem;
+    }
+
+
+    .add-post-form {
+        background-color: white;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        padding-left: 5rem;
+        padding-right: 2rem;
+        border-radius: 1rem;
+        box-shadow: 7px 10px 14px -11px rgba(0,0,0,0.1);
+        margin-bottom: 4rem;
+        margin-top:2rem;
+        width: 100%;
+    }
+</style>

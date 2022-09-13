@@ -10,10 +10,7 @@
     @foreach (var item in Model.Wallposts)
     {
 <div class="post">
-    @*<h4> @Html.ActionLink(item.User.FullName, "VisitProfile", "Profile", new { id = item.User.Id }, null)</h4>
-        <strong>@item.Post.Datetime</strong>
-        <p>@item.Post.Body</p>*@
-
+  
     <div class="post-header">
         <div class="post-user">
             <img class="post-thumb thumbnail" src="~/img/@item.User.Thumbnail" />
