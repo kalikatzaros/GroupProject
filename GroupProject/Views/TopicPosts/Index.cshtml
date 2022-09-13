@@ -41,6 +41,10 @@
                 else
                 {
                     <h4 class="post-user-text"> @Html.ActionLink(item.Sender.FullName, "VisitProfile", "Profile", new { id = item.Sender.Id }, null)</h4>
+                    if (User.IsInRole("Admin"))
+                    {
+                        <small>Administrator</small>
+                    }
                 }
 
             </div>
