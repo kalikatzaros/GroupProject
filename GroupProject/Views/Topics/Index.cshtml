@@ -13,10 +13,26 @@
             <div class="subforum-title">
                 <h1>Topics</h1>
             </div>
+            <div class="add-post-form">
+                @using (Html.BeginForm("Create", "Topics", "Post"))
+        {
+                @Html.AntiForgeryToken()
+                <form>
+                    <div class="form-group">
+                        <label for="text-title">Topic Title</label>
+                        <input type="text" name="Title" id="text-title" class="form-control add-post-text"/>
 
-            <p>
-                @Html.ActionLink("Create New", "Create")
-            </p>
+                    </div>
+                    <div class="form-group">
+                        <label for="text-title">Post</label>
+                        <input type="text" name="Post.Body" id="text-body" class="form-control add-post-text" placeholder="Say something..." />
+                    </div>
+                  
+                    <button type="submit" class="btn btn-primary">Post</button>
+                </form>
+        }
+            </div>
+
 
         </div>
     </div>
@@ -45,7 +61,7 @@
              </div>
 
     <div class="subforum-stats subforum-column center">
-                    <a href="/TopicPosts/Create/${item.topicId}">Add a Post</a>
+                    <a href="/TopicPosts/Index/${item.topicId}">Add a Post</a>
                 </div>
     <div class="subforum-info subforum-column">
                     <b><h5>Last post by</h5></b> <a href="${senderLink}">${senderUsername}</a>
@@ -61,12 +77,32 @@
 
 }
 <style>
-    * {
-        box-sizing: border-box;
+    .add-post-form {
+        background-color: white;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        padding-left: 5rem;
+        padding-right: 2rem;
+        border-radius: 1rem;
+        box-shadow: 7px 10px 14px -11px rgba(0,0,0,0.1);
+        margin-bottom: 4rem;
+        margin-top: 2rem;
+        width: 100%;
     }
 
+    #text-body {
+        max-width: unset;
+        width: 100%;
+    }
+    #text-title {
+        max-width: unset;
+        width: 100%;
+    }
+   .subforum-title h1{
+       padding-left:5rem;
+   }
     html {
-        font-size: 14px;
+        font-size: 16px;
         font-family: 'Titilium Web', sans-serif;
         /*background-color: black;*/
     }
@@ -80,12 +116,7 @@
         font-weight: bolder;
     }
 
-    /* home.html*/
-
-    @*.container {
-        margin: 20px;
-        padding: 20px;
-    }*@
+    
 
     .subforum {
         margin-top: 20px;

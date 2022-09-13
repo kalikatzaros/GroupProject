@@ -12,14 +12,16 @@
         @using (Html.BeginForm("Create", "TopicPosts", "Post"))
         {
             @Html.AntiForgeryToken()
-            <form form-inline>
-                <div class="form-group">
-                    <input typeof="text" name="Body" id="text" class="form-control add-post-text" placeholder="Say something..." />
-                </div>
-                <input type="hidden" value="@item.TopicId" name="id" />
-                <input type="hidden" value="@item.SenderId" name="SenderId" />
-                <button type="submit" class="btn btn-primary">Post</button>
-            </form>
+        <form>
+           
+            <div class="form-group">
+                <input typeof="text" name="Body" id="text" class="form-control add-post-text" placeholder="Say something..." />
+              
+            </div>
+            <input type="hidden" value="@item.TopicId" name="id" />
+            <input type="hidden" value="@item.SenderId" name="SenderId" />
+            <button type="submit" class="btn btn-primary">Post</button>
+        </form>
         }
     </div>
     break;
