@@ -66,7 +66,9 @@
     <div class="subforum-info subforum-column">
                     <b><h5>Last post by</h5></b> <a href="${senderLink}">${senderUsername}</a>
                     <br/>
-                    on<small">${item.post.datetime} </small>
+                    
+                    
+                    on <small">${item.post.datetime.toString().slice(0, 10)} </small>
                 </div>`);
                     });
 
