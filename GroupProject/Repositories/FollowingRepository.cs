@@ -21,7 +21,19 @@ namespace GroupProject.Repositories
                 .Where(f => f.FollowerId == userId)
                 .ToList();
         }
+        public int GetFollowersCount(string userId)
+        {
+            return _context.Followings
+                .Where(f => f.FollowerId == userId)
+                .ToList().Count();
+        }
 
+        public int GetFolloweesCount(string userId)
+        {
+            return _context.Followings
+                .Where(f => f.FolloweeId == userId)
+                .ToList().Count();
+        }
         public Following GetFollowing(string followerId, string followeeId)
         {
             return _context.Followings

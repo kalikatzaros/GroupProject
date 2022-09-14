@@ -1,114 +1,272 @@
 ﻿@model GroupProject.ViewModels.ProfileViewModel
-@*@{
-    ViewBag.Title = "Index";
-}*@
-
-<body>
-    <div>
-        <hr />
-        <div class=" container">
-        
-            <section>
-                <div class="profile">
-                    <img align="left" class="fb-image-profile thumbnail" src="~/img/@Url.Content(Model.ProfileImage)" width="200" height="200" style="border-radius: 100px" alt="Profile image example" />
-                    <div class="center-block">
-                        <h2>@Model.FullName</h2>
-                        <div><strong>First Name :</strong> @Model.FirstName</div>
-                        <div><strong>Last Name :</strong> @Model.LastName</div>
-                        <div><strong>E-mail :</strong> @Model.Email</div>
-                        <div><strong>Date of Birth :</strong> @Model.DateOfBirth.ToString("dd/MM/yyyy")</div>
-                        <div><strong>Description :</strong> @Model.Description</div>
-                    </div>
+@{
+    ViewBag.Title = "Profile";
+}
+<div class="container">
+    <div class="wrapper">
+        <div class="profile-card js-profile-card">
+            <div class="profile-card__img">
+                <img align="left" class="fb-image-profile thumbnail" src="~/img/@Url.Content(Model.ProfileImage)" width="200" height="200" style="border-radius: 100px" alt="Profile image example" />
+            </div>
+            <div class="profile-card__cnt js-profile-cnt">
+                <div class="profile-card__name">@Model.FullName</div>
+                <div class="profile-card__txt">
+                    <p>@Model.Description</p>
+                </div> 
+                <div class="profile-card-ctr">
+                    <a href=@Url.Action("GetPeopleThatFollowMe", "Followers") class="profile-card__button button--blue js-message-btn">Followers (@Model.FolloweesCount)</a>
+                    <a href=@Url.Action("GetPeopleIFollow", "Followees") class="profile-card__button button--orange">Following (@Model.FollowersCount) </a>
                 </div>
-
-                <div class="follow-group">
-                    <div>
-                        @Html.ActionLink("Followees", "GetPeopleIFollow", "Followees", null, new { @class = "btn btn-danger" })
-                    </div>
-                    <div>
-                        @Html.ActionLink("Followers", "GetPeopleThatFollowMe", "Followers", null, new { @class = "btn btn-danger" })
-                    </div>
-
-                </div>
-                <h2>
-                  
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                if (Model.User.Id != ViewBag.loggedUser)
-                {
-                    <button class="btn btn-default">Follow</button>
-                }
-       
-                    }
-                </h2>
-
-                
-                    @Html.ActionLink("Create a new post", "Create", "WallPosts")
-                
-
-
-                <table class="table">
-
-
-                    <tr>
-                        <th class="table-name">
-                            @Html.DisplayName("My Posts")
-                        </th>
-                        <th></th>
-
-                    </tr>
-                    @if (Model.WallPosts.ToList().Count() < 1)
-                    {
-
-                        <tbody>
-                            <tr>
-                                <td>
-                                    No Posts yet....
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    }
-
-                    @foreach (var item in Model.WallPosts)
-                    {
-                        
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Post.Body)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Post.Datetime)
-                            </td>
-
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", "WallPosts", new { id = item.Post.Id }, null) |
-                                @Html.ActionLink("Delete", "Delete", "WallPosts", new { id = item.Id }, null)
-                            </td>
-                        </tr>
-
-                    }
-
-                </table>
-            </section>
+      
         </div>
     </div>
-</body>
+
+
+</div>
 
 
 <style>
-
-    .follow-group{
-        display:flex;
-        padding-right: 50px;
+   
+    
+    .icon {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        stroke-width: 0;
+        stroke: currentColor;
+        fill: currentColor;
     }
 
-    body {
-        background-color: #97c5cf;
-        
+    .wrapper {
+        width: 100%;
+        height: 20%;
+        @*min-height: 100vh;*@
+        padding-bottom:1rem;
+        padding-top: 12rem;
+        display: flex;
     }
 
-    .table{
-        margin-right:300px;
+    @@media screen and (max-width: 768px) {
+        .wrapper {
+            height: auto;
+            min-height: 100vh;
+            padding-top: 4rem;
+        }
+    }
+
+    .profile-card {
+        width: 100%;
+        height:400px;
+        margin: auto;
+        box-shadow: 7px 10px 14px -11px rgba(0,0,0,0.1);
+        background: #fff;
+        border-radius: 12px;
+        max-width: 1400px;
+        position: relative;
+    }
+
+    .profile-card__img {
+        width: 17rem;
+        height:17rem;
+     
+        margin-left: auto;
+        margin-right: auto;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+       
+        box-shadow: 0px 5px 20px 0px #337ab7
+        , 0px 0px 0px 7px rgba(107, 74, 255, 0.1);
+    }
+
+        .profile-card__img img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+    .profile-card__cnt {
+        margin-top: -35px;
+        text-align: center;
+        padding: 0 20px;
+        padding-bottom: 3rem;
+        transition: all 0.3s;
+    }
+
+    .profile-card__name {
+        font-weight: 700;
+        font-size: 2.5rem;
+        color: #6944ff;
+        margin-bottom: 1.5rem;
+        text-transform: capitalize;
+    }
+
+    .profile-card__txt {
+        font-size: 16px;
+     
+        color: #324e63;
+        margin-bottom: 1.5rem;
+    }
+
+    .profile-card-inf {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        margin-top: 35px;
+    }
+
+    .profile-card-inf__item {
+        padding: 10px 35px;
+        min-width: 150px;
+    }
+
+    .profile-card-inf__title {
+        font-weight: 700;
+        font-size: 27px;
+        color: #324e63;
+    }
+
+    .profile-card-inf__txt {
+        font-weight: 500;
+        margin-top: 7px;
+    }
+
+    .profile-card-social {
+        margin-top: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .profile-card-social__item {
+        display: inline-flex;
+        width: 55px;
+        height: 55px;
+        margin: 15px;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        background: #405de6;
+        box-shadow: 0px 7px 30px rgba(43, 98, 169, 0.5);
+        position: relative;
+        font-size: 21px;
+        flex-shrink: 0;
+        transition: all 0.3s;
+    }
+
+    @@media screen and (max-width: 768px) {
+        .profile-card-social__item {
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+        }
+    }
+
+    @@media screen and (min-width: 768px) {
+        .profile-card-social__item:hover {
+            transform: scale(1.2);
+        }
+    }
+
+    .profile-card-social__item.facebook {
+        background: linear-gradient(45deg, #3b5998, #0078d7);
+        box-shadow: 0px 4px 30px rgba(43, 98, 169, 0.5);
+    }
+
+    .profile-card-social__item.instagram {
+        background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+        box-shadow: 0px 4px 30px rgba(120, 64, 190, 0.6);
+    }
+
+    .profile-card-social__item.github {
+        background: linear-gradient(45deg, #333, #626b73);
+        box-shadow: 0px 4px 30px rgba(63, 65, 67, 0.6);
+    }
+
+    .profile-card-social .icon-font {
+        display: inline-flex;
+    }
+
+    .profile-card-ctr {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
+    }
+
+    @@media screen and (max-width: 576px) {
+        .profile-card-ctr {
+            flex-wrap: wrap;
+        }
+    }
+
+    .profile-card__button {
+        background: none;
+        border: none;
+        text-decoration: none !important;
+        color: #fff;
+        @*color: inherit !important;*@
+        font-size: 1.5rem;
+        margin: 15px 35px;
+        padding: 15px 40px;
+        border-radius: 50px;
+        cursor: pointer;
+        backface-visibility: hidden;
+        transition: all 0.3s;
+    }
+   
+
+    @@media screen and (max-width: 768px) {
+        .profile-card__button {
+            min-width: 170px;
+            margin: 15px 25px;
+        }
+    }
+
+    .profile-card__button:focus {
+        outline: none !important;
+    }
+
+    @@media screen and (min-width: 768px) {
+        .profile-card__button:hover {
+            transform: translateY(-5px);
+        }
+    }
+
+    .profile-card__button.button--blue {
+        background: linear-gradient(45deg, #1da1f2, #0e71c8);
+        box-shadow: 0px 4px 30px rgba(19, 127, 212, 0.4);
+    }
+
+        .profile-card__button.button--blue:hover {
+            box-shadow: 0px 7px 30px rgba(19, 127, 212, 0.75);
+        }
+
+    .profile-card__button.button--orange {
+        background: linear-gradient(45deg, #d5135a, #f05924);
+        box-shadow: 0px 4px 30px rgba(223, 45, 70, 0.35);
+    }
+
+        .profile-card__button.button--orange:hover {
+            box-shadow: 0px 7px 30px rgba(223, 45, 70, 0.75);
+        }
+
+    .profile-card-form__bottom {
+        justify-content: space-between;
+        display: flex;
+    }
+
+    @@media screen and (max-width: 576px) {
+        .profile-card-form__bottom {
+            flex-wrap: wrap;
+        }
     }
 </style>
+
+

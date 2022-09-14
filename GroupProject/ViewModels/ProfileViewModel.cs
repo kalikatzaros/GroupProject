@@ -28,6 +28,8 @@ namespace GroupProject.ViewModels
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
         public List<string> LoggedUserFollowingIds { get; set; }
+        public int FollowersCount { get; set; } //posous akolouthei
+        public int FolloweesCount { get; set; } //posoi ton akolouthoun
         public ICollection<WallPost> WallPosts { get; set; }
         
         [DataType(DataType.MultilineText)]
