@@ -1,20 +1,236 @@
-﻿@model IEnumerable<GroupProject.Models.ApplicationUser>
+﻿@model GroupProject.ViewModels.SearchPeopleViewModel
 @{
     ViewBag.Title = "Index";
 }
 
-<h1>Followees</h1>
+<div class="container">
+    <h3 class="heading">Following</h3>
+    <div class="search-form">
+        @using (Html.BeginForm("GetPeopleIFollow", "Followees", "Get"))
+        {
+        @Html.AntiForgeryToken()
+        <form class="form-inline">
 
-<ul>
-    @foreach (var user in Model)
+            <div class="form-group">
+                <input typeof="text" name="search" id="search" class="form-control add-post-text" placeholder="Search by name..." />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="button" class="btn btn-default"><a href=@Url.Action("GetPeopleIFollow", "Followees")> Clear</a></button>
+        </form>
+        }
+        
+
+        @if (Model.Followees.Count == 0)
+            {
+                <h5>No results Found..</h5>
+            }
+    </div>
+
+
+
+    @foreach (var item in Model.Followees)
     {
-    <li>
-        <img src="~/img/@Url.Content(user.Thumbnail)" class="userImage" />
-        <div>
-            @Html.ActionLink(@user.FullName , "VisitProfile", "Profile", new { id = user.Id }, null)
-           
-        </div>
-    </li>
+    <figure class="snip0045 ">
+        <figcaption>
+            <div>
+
+                <h2>@Html.ActionLink(item.FullName, "VisitProfile", "Profile", new { id = item.Id }, null)</h2>
+
+                <div class="fig-buttons">
+
+                    <button class="button-basic button-message js-message" data-user-id="@item.Id">Message</button>
+                </div>
+            </div>
+        </figcaption>
+        <img class="fig-image" src="~/img/@Url.Content(item.Thumbnail)" alt="profile image" />
+
+    </figure>
     }
-</ul>
+
+</div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+
+        });
+
+
+
+
+    </script>
+
+}
+
+
+
+<style>
+
+    @@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
+
+    figure.snip0045 {
+        position: relative;
+        overflow: hidden;
+        margin: 10px;
+        min-width: 380px;
+        max-width: 480px;
+        width: 100%;
+        background: #ffffff;
+        color: #000000;
+        box-shadow: 7px 10px 14px -11px rgba(0,0,0,0.1);
+        border-radius: 1rem;
+    }
+
+        /* figure.snip0045 * {
+                    -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+                }*/
+
+        figure.snip0045 > img {
+            width: 50%;
+            border-radius: 50%;
+            border: 4px solid #ffffff;
+            -webkit-transition: all 0.35s ease-in-out;
+            transition: all 0.35s ease-in-out;
+            -webkit-transform: scale(1.6);
+            transform: scale(1.6);
+            position: relative;
+            left: -15%;
+            z-index: 1;
+            width: 200px;
+            height: 200px;
+            Border-radius: 100px;
+        }
+
+        figure.snip0045 figcaption {
+            padding: 20px 30px 20px 20px;
+            position: absolute;
+            right: 0;
+            width: 50%;
+        }
+
+            figure.snip0045 figcaption h2 {
+                margin: 0;
+                text-align: right;
+                padding: 10px 0;
+                width: 100%;
+            }
+
+            figure.snip0045 figcaption h2 {
+                font-size: 1.3em;
+                font-weight: 300;
+                text-transform: capitalize;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            }
+
+                figure.snip0045 figcaption h2 span {
+                    font-weight: 800;
+                }
+
+
+
+            figure.snip0045 figcaption a:hover {
+                opacity: 0.8;
+            }
+
+        figure.snip0045 .position {
+            width: 100%;
+            text-align: right;
+            padding: 15px 30px;
+            font-size: 0.9em;
+            opacity: 1;
+            font-style: italic;
+            color: #ffffff;
+            background: #000000;
+        }
+
+
+
+        figure.snip0045:hover > img,
+        figure.snip0045.hover > img {
+            left: -12%;
+        }
+
+
+    /* Demo purposes only */
+
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: wrap;
+        margin: 0;
+        height: 100%;
+    }
+
+    .button-basic {
+        background: none;
+        border: none;
+        text-decoration: none !important;
+        color: black;
+        height: 4rem;
+        width: 9rem;
+        padding: 0.5rem 1rem;
+        border-radius: 0.7rem;
+        cursor: pointer;
+        backface-visibility: hidden;
+        transition: all 0.3s;
+        margin: 1rem 0.5rem;
+        background-color: lightgrey;
+    }
+
+        .button-basic:hover {
+            filter: invert(100%);
+        }
+
+    .button-following {
+        color: #fff;
+        background: linear-gradient(45deg, #d5135a, #f05924);
+    }
+
+        .button-following:hover {
+            box-shadow: 0px 4px 30px rgba(223, 45, 70, 0.35);
+            filter: contrast(250%);
+        }
+
+    .button-message {
+        color: #fff;
+        background: linear-gradient(45deg, #1da1f2, #0e71c8);
+    }
+
+        .button-message:hover {
+            box-shadow: 0px 7px 30px rgba(19, 127, 212, 0.35);
+            filter: contrast(250%);
+        }
+
+    .fig-buttons {
+        display: flex;
+    }
+
+    .fig-image {
+        object-fit: cover;
+    }
+
+    .search-form {
+        background-color: white;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        padding-left: 5rem;
+        padding-right: 2rem;
+        border-radius: 1rem;
+        box-shadow: 7px 10px 14px -11px rgba(0,0,0,0.1);
+        margin-bottom: 4rem;
+        margin-top: 2rem;
+        width: 100%;
+    }
+
+    .heading {
+        margin-bottom: 2rem;
+    }
+</style>
+
+
+
+
 

@@ -1,4 +1,5 @@
 ﻿using GroupProject.Models;
+using GroupProject.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -18,15 +19,33 @@ namespace GroupProject.Controllers
         }
 
 
-        public ActionResult GetPeopleIFollow()
+        public ActionResult GetPeopleIFollow(string search)
         {
             string userId = User.Identity.GetUserId();
-            var followees = _context.Followings
-                                .Where(f => f.FollowerId == userId)
-                                .Select(f => f.Followee)
-                                .ToList();
-
-            return View(followees);
+            var viewModel = new SearchPeopleViewModel();
+            if (search == null)
+            {
+                var followees = _context.Followings
+                            .Where(f => f.FollowerId == userId && f.Followee.IsDeactivated == false)
+                            .Select(f => f.Followee)
+                            .ToList();
+               
+                viewModel.Followees = followees;
+                return View(viewModel);
+            }
+            else
+            {
+                var followees = _context.Followings
+                                  .Where(f => f.FollowerId == userId && f.Followee.IsDeactivated == false && (f.Followee.Name.ToLower() == search.ToLower()
+                         || f.Followee.LastName.ToLower() == search.ToLower()
+                         || f.Followee.Email.ToLower() == search.ToLower()))
+                                  .Select(f => f.Followee)
+                               .ToList();
+             
+                viewModel.Followees = followees;
+                return View(viewModel);
+            }
+    
         }
 
 
@@ -39,14 +58,7 @@ namespace GroupProject.Controllers
         //        .ToList();
         //    return View(followers);
         //}
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _context.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+
 
 
 
