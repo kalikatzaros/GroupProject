@@ -90,11 +90,21 @@ namespace GroupProject.Controllers
                
                 case SignInStatus.Success:
                     //edw
-                    if (userManager.GetRoles(user.Id).Contains("Admin")) {
+                    if (userManager.GetRoles(user.Id).Contains("Admin")) 
+                    {
                         return RedirectToAction("index", "Dashboard",new { area = "Administrator" });
                     }
-                    return RedirectToAction("index", "NewsFeed");
-                    //return RedirectToLocal(returnUrl);
+                    
+                    if (user.IsDeactivated)
+                    {
+                        return View("Lockout");
+                    }
+
+                    else
+                    {
+                        return RedirectToAction("index", "NewsFeed");
+                    }
+                //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
