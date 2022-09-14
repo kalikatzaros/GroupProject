@@ -38,7 +38,7 @@
                 <h2>@Html.ActionLink(item.FullName, "VisitProfile", "Profile", new { id = item.Id }, null)</h2>
 
                 <div class="fig-buttons">
-
+                    <button class="button-basic button-following js-following" data-user-id="@item.Id">following</button>
                     <button class="button-basic button-message js-message" data-user-id="@item.Id">Message</button>
                 </div>
             </div>
@@ -52,7 +52,24 @@
 @section scripts {
     <script>
         $(document).ready(function () {
+            $('.js-following').click(function () {
+                const button = $(this);
+                const data = button.attr('data-user-id');
+                $.ajax({
+                    url: "/api/followings/" + data,
+                    method: "DELETE"
+                })
+                    .done(function () {
+                        
+                        location.reload();
+                        console.log(data);
+                        console.log(button);
+                    })
+                    .fail(function () {
+                        alert("shit!");
+                    });
 
+            });
         });
 
 
@@ -81,10 +98,7 @@
         border-radius: 1rem;
     }
 
-        /* figure.snip0045 * {
-                    -webkit-box-sizing: border-box;
-                    box-sizing: border-box;
-                }*/
+      
 
         figure.snip0045 > img {
             width: 50%;
