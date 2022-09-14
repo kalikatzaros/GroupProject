@@ -167,7 +167,7 @@ namespace GroupProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Thumbnail = model.Thumbnail, DateOfBirth = model.DateOfBirth, Name = model.Name, LastName = model.LastName,Description=model.Description };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Thumbnail = model.Thumbnail, DateOfBirth = model.DateOfBirth, Name = model.Name, LastName = model.LastName};
                 if (model.ImageFile == null)
                 {
                     model.Thumbnail = "na_image.jpg";
