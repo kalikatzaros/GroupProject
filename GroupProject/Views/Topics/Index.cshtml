@@ -5,37 +5,34 @@
     ViewBag.Title = "Forum";
 }
 
-
-   
-
-    <div class="container">
-        <div class="subforum" id="subforum">
-            <div class="subforum-title">
-                <h1>Topics</h1>
-            </div>
-            <div class="add-post-form">
-                @using (Html.BeginForm("Create", "Topics", "Post"))
-        {
+<div class="container">
+    <div class="subforum" id="subforum">
+        <div class="subforum-title">
+            <h1>Topics</h1>
+        </div>
+        <div class="add-post-form">
+            @using (Html.BeginForm("Create", "Topics", "Post"))
+            {
                 @Html.AntiForgeryToken()
                 <form>
                     <div class="form-group">
                         <label for="text-title">Topic Title</label>
-                        <input type="text" name="Title" id="text-title" class="form-control add-post-text"/>
+                        <input type="text" name="Title" id="text-title" class="form-control add-post-text" />
 
                     </div>
                     <div class="form-group">
                         <label for="text-title">Post</label>
                         <input type="text" name="Post.Body" id="text-body" class="form-control add-post-text" placeholder="Say something..." />
                     </div>
-                  
+
                     <button type="submit" class="btn btn-primary">Post</button>
                 </form>
-        }
-            </div>
-
-
+            }
         </div>
+
+
     </div>
+</div>
 
 
 @section scripts{
@@ -51,29 +48,29 @@
                         $(`<div class="subforum-row"id=${item.id}></div>`).appendTo('#subforum');
                         $(`#${item.id}`).html(
 
-             `<div class="subforum-icon subforum-column center">
-                    <i class="material-icons">note</i>
-             </div>
-             <div class="subforum-description subforum-column">
+                            `<div class="subforum-icon subforum-column center">
+                        <i class="material-icons">note</i>
+                 </div>
+                 <div class="subforum-description subforum-column">
 
-            <a class="text-capitalize" href="/TopicPosts/Index/${item.topicId}">${item.topic.title}</a>
-                   <p> <a class="text-capitalize" href=${link}>By ${username}</a> <small> on ${item.topic.created}</small></p>
-             </div>
+                <a class="text-capitalize" href="/TopicPosts/Index/${item.topicId}">${item.topic.title}</a>
+                       <p> <a class="text-capitalize" href=${link}>By ${username}</a> <small> on ${item.topic.created}</small></p>
+                 </div>
 
-    <div class="subforum-stats subforum-column center">
-                    <a href="/TopicPosts/Index/${item.topicId}">Add a Post</a>
-                </div>
-    <div class="subforum-info subforum-column">
-                    <b><h5>Last post by</h5></b> <a class="text-capitalize" href="${senderLink}">${senderUsername}</a>
-                    <br/>
-                    
-                    
-                    on <small">${item.post.datetime.toString().slice(0, 10)} </small>
-                </div>`);
+        <div class="subforum-stats subforum-column center">
+                        <a href="/TopicPosts/Index/${item.topicId}">Add a Post</a>
+                    </div>
+        <div class="subforum-info subforum-column">
+                        <b><h5>Last post by</h5></b> <a class="text-capitalize" href="${senderLink}">${senderUsername}</a>
+                        <br/>
+
+
+                        on <small">${item.post.datetime.toString().slice(0, 10)} </small>
+                    </div>`);
                     });
 
                 });
-      
+
         });
     </script>
 
@@ -96,14 +93,16 @@
         max-width: unset;
         width: 100%;
     }
+
     #text-title {
         max-width: unset;
         width: 100%;
     }
-   .subforum-title h1{
-       padding-left:5rem;
-   }
-   
+
+    .subforum-title h1 {
+        padding-left: 5rem;
+    }
+
 
     a {
         font-weight: bolder;
@@ -114,10 +113,8 @@
         font-weight: bolder;
     }
 
-    
-
     .subforum {
-        margin-top: 20px;
+        margin-top: 4rem;
     }
 
     .subforum-title {

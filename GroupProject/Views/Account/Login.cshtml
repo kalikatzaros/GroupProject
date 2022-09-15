@@ -5,8 +5,8 @@
 }
 
 @*<h2>@ViewBag.Title.</h2>*@
-<div class="row">
-    <div class="col-md-8">
+<div class="container container-login">
+    <div class="log-in">
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
+                        <input type="submit" value="Log in" class="btn btn-info" />
                     </div>
                 </div>
                 </div>
@@ -79,21 +79,27 @@
         color:black;
     }
 
-    .left-border-none {
-        border-left: none !important;
-        box-shadow: inset 0px 1px 0 rgba(0,0,0,.075);
-    }
-
-    .login-form {
-        margin: 18% auto;
-        width: 250px;
-        margin-right:50px;
-        
-    }
-
+    
     .col-md-offset-2 :hover {
         background-color: #ff6c60;
     }
+
+    .log-in {
+        background-color: white;
+        padding-top: 2rem;
+        padding-bottom: 4rem;
+        padding-left: 4rem;
+        padding-right: 4rem;
+        border-radius: 1rem;
+        box-shadow: 7px 10px 14px -11px rgba(0,0,0,0.1);
+      
+    }
+  .container-login{
+      height:80vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+  }
 
 
 </style>

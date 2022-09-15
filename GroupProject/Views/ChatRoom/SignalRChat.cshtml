@@ -4,7 +4,6 @@
 
 }
 
-
 <div class="container chat-container">
     <h3>Chat</h3>
     <div id="container">
@@ -33,7 +32,7 @@
     </div>
 </div>
 @section scripts{
- 
+
     @Scripts.Render("~/Scripts/jquery.chatbubble.js")
     @Scripts.Render("~/Scripts/jquery.signalR-2.4.3.min.js")
     @Scripts.Render("/signalr/hubs")
@@ -75,10 +74,8 @@
                     @*$('#messages').append('<li class="bubble"><span style="color:purple">' + name + '</span>: ' + message + '</li>');*@
                     $('#chatlog').append('<div class="border"><span style="color:purple">' + name + '</span>: ' + message + '</div>');
                     console.log(messages);
-                   
+
                 }
-
-
 
             };
 
@@ -113,9 +110,10 @@
 }
 
 <style>
-    .chat-container{
-        height:80vh;
+    .chat-container {
+        height: 80vh;
     }
+
     .cb__list {
         padding: 0;
         list-style-type: none;

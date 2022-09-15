@@ -38,71 +38,71 @@
 
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav navbar-nav"></button>
         <ul class="nav navbar-nav" id="nav navbar-nav">
-            <li>
-                <a href=@Url.Action("Index", "NewsFeed") class="material-icons" data-toggle="tooltip" title="Newsfeed">
-                    newspaper
-                </a>
-            </li>
-            <li>
-                <a href=@Url.Action("Index", "People") class="material-icons" data-toggle="tooltip" title="Authors">
-                    people
-                </a>
-
-
-            </li>
-
-            <li>
-
-                <div class="inbox">
-                    <a href=@Url.Action("ReadIncomingMessages", "Messages") class="material-icons" data-toggle="tooltip" title="Inbox">
-                        mail
-                    </a>
-                    @if (Request.IsAuthenticated)
-                                {
-                    <span class="count badge" style="color:white;"></span>
-                                }
-                </div>
-
-            </li>
-
-            <li>
-                <a href=@Url.Action("Index", "Topics") class="material-icons" data-toggle="tooltip" title="Forum">
-                    forum
-                </a>
-            </li>
-            <li>
-                <a href=@Url.Action("Index", "Profile") class="material-icons" data-toggle="tooltip" title="Profile">
-                    person
-                </a>
-            </li>
-            <li>
-                <a href=@Url.Action("Index", "Checkout") class="material-icons" data-toggle="tooltip" title="Be Cool and Donate!">
-                    favorite
-                </a>
-            </li>
-            <li>
-                <a href=@Url.Action("SignalRChat", "ChatRoom") class="material-icons" data-toggle="tooltip" title="Chat">
-                    chat
-                </a>
-            </li>
             @if (Request.IsAuthenticated)
-                        {
-                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-                            {
-            @Html.AntiForgeryToken()
+            {
+                <li>
+                    <a href=@Url.Action("Index", "NewsFeed") class="material-icons" data-toggle="tooltip" title="Newsfeed">
+                        newspaper
+                    </a>
+                </li>
+                <li>
+                    <a href=@Url.Action("Index", "People") class="material-icons" data-toggle="tooltip" title="Authors">
+                        people
+                    </a>
 
-            <li class="meme signout"><a href="javascript:document.getElementById('logoutForm').submit()" class="material-icons" data-toggle="tooltip" title="Log Out">logout</a></li>
 
-                            }
+                </li>
+
+                <li>
+
+                    <div class="inbox">
+                        <a href=@Url.Action("ReadIncomingMessages", "Messages") class="material-icons" data-toggle="tooltip" title="Inbox">
+                            mail
+                        </a>
+
+                        <span class="count badge" style="color:white;"></span>
                         }
-                        else
-                        {
-            <li class="meme">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-            <li class="meme">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>
-                        }
+                    </div>
+
+                </li>
+
+                <li>
+                    <a href=@Url.Action("Index", "Topics") class="material-icons" data-toggle="tooltip" title="Forum">
+                        forum
+                    </a>
+                </li>
+                <li>
+                    <a href=@Url.Action("Index", "Profile") class="material-icons" data-toggle="tooltip" title="Profile">
+                        person
+                    </a>
+                </li>
+                <li>
+                    <a href=@Url.Action("Index", "Checkout") class="material-icons" data-toggle="tooltip" title="Be Cool and Donate!">
+                        favorite
+                    </a>
+                </li>
+                <li>
+                    <a href=@Url.Action("SignalRChat", "ChatRoom") class="material-icons" data-toggle="tooltip" title="Chat">
+                        chat
+                    </a>
+                </li>
+               
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <li class="meme signout"><a href="javascript:document.getElementById('logoutForm').submit()" class="material-icons" data-toggle="tooltip" title="Log Out">logout</a></li>
+
+                    }
+                }
+                else
+                {
+                    <li class="meme">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                    <li class="meme">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>
+                }
 
 
-        </ul>
+            </ul>
 
     </div>
 
