@@ -7,14 +7,22 @@
 body {
     font-size: 16px;
     background-color: rgb(237,241,246);
+    height: 100vh;
     /*    background-color: #97c5cf;*/
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     /*   padding:1rem;*/
-    height: 80%;
+    
+    height: 100%;
 }
+
+.container-this {
+    padding-top: 10rem;
+   
+}
+
 #crown {
     margin-left: 1rem;
     height: 2.5rem;

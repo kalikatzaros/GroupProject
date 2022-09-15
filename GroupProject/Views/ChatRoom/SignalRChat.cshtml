@@ -4,37 +4,36 @@
 
 }
 
-<h2>Chat</h2>
 
-<div id="container">
-    <input type="hidden" id="nickname" value="@ViewBag.UserName" />
-    <div id="chatlog"></div>
-    <div id="onlineusers">
-        <b>Online Users</b>
-    </div>
-    <div id="chatarea">
-        <div class="messagelog">
-            <textarea spellcheck="true" id="message" class="messagebox form-control"></textarea>
+<div class="container chat-container">
+    <h3>Chat</h3>
+    <div id="container">
+        <input type="hidden" id="nickname" value="@ViewBag.UserName" />
+        <div id="chatlog"></div>
+        <div id="onlineusers">
+            <b>Online Users</b>
         </div>
-        <div class="actionpanel form-group">
-            <input class="btn btn-primary" type="button" id="btnsend" value="Send" />
-        </div>
-        <div class="actionpanel form-group">
-            <select class="form-control" id="users">
-                <option value="All">All</option>
+        <div id="chatarea">
+            <div class="messagelog">
+                <textarea spellcheck="true" id="message" class="messagebox form-control"></textarea>
+            </div>
+            <div class="actionpanel form-group">
+                <input class="btn btn-primary" type="button" id="btnsend" value="Send" />
+            </div>
+            <div class="actionpanel form-group">
+                <select class="form-control" id="users">
+                    <option value="All">All</option>
 
-            </select>
+                </select>
+            </div>
         </div>
+        <ul id="messages" class=".cb__list">
+        </ul>
+
     </div>
-    <ul id="messages" class=".cb__list">
-    </ul>
-    @*<div id="dialog" title="Enter your name to start a chat.">
-            <input type="text" value="@ViewBag.UserName" id="nick" />
-        </div>*@
 </div>
-
 @section scripts{
-    @*@Scripts.Render("~/Scripts/jquery-ui.min.js")*@
+ 
     @Scripts.Render("~/Scripts/jquery.chatbubble.js")
     @Scripts.Render("~/Scripts/jquery.signalR-2.4.3.min.js")
     @Scripts.Render("/signalr/hubs")
@@ -114,6 +113,9 @@
 }
 
 <style>
+    .chat-container{
+        height:80vh;
+    }
     .cb__list {
         padding: 0;
         list-style-type: none;
