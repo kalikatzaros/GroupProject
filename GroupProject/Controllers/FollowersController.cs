@@ -1,4 +1,5 @@
 ﻿using GroupProject.Models;
+using GroupProject.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -18,14 +19,39 @@ namespace GroupProject.Controllers
             _context = new ApplicationDbContext();
         }
               
-        public ActionResult GetPeopleThatFollowMe()
+        public ActionResult GetPeopleThatFollowMe(string search)
         {
-            var userId = User.Identity.GetUserId();
-            var followers = _context.Followings
-                .Where(f => f.FolloweeId == userId)
-                .Select(f => f.Follower)
-                .ToList();
-            return View(followers);
+            string userId = User.Identity.GetUserId();
+            var viewModel = new SearchPeopleViewModel();
+            var followees = _context.Followings
+                          .Where(f => f.FollowerId == userId && f.Followee.IsDeactivated == false)
+                          .Select(f => f.Followee)
+                          .ToList();
+            if (search == null)
+            {
+                var followers = _context.Followings
+                            .Where(f => f.FolloweeId == userId && f.Follower.IsDeactivated == false)
+                            .Select(f => f.Follower)
+                            .ToList();
+
+                viewModel.Followers = followers;
+                viewModel.Followees = followees;
+                return View(viewModel);
+            }
+            else
+            {
+                var followers = _context.Followings
+                                  .Where(f => f.FolloweeId == userId && f.Follower.IsDeactivated == false && (f.Followee.Name.ToLower() == search.ToLower()
+                         || f.Follower.LastName.ToLower() == search.ToLower()
+                         || f.Follower.Email.ToLower() == search.ToLower()))
+                                  .Select(f => f.Follower)
+                               .ToList();
+
+                viewModel.Followers = followers;
+                viewModel.Followees = followees;
+                return View(viewModel);
+            }
+           
         }
 
         protected override void Dispose(bool disposing)

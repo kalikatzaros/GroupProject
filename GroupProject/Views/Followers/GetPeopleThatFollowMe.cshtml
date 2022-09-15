@@ -39,7 +39,15 @@
                 <h2>@Html.ActionLink(item.FullName, "VisitProfile", "Profile", new { id = item.Id }, null)</h2>
 
                 <div class="fig-buttons">
+                    @if (Model.Followees.Contains(item))
+                    {
+                        <button class="button-basic button-following js-toggle-follow" data-user-id="@item.Id">following</button>
+                    }
 
+                    else
+                    {
+                        <button class="button-basic js-toggle-follow" data-user-id="@item.Id">follow</button>
+                    }
                     <button class="button-basic button-message js-message" data-user-id="@item.Id">Message</button>
                 </div>
             </div>
@@ -53,11 +61,46 @@
 @section scripts {
     <script>
         $(document).ready(function () {
+            $(".js-toggle-follow").click(function (e) {
 
+                var button = e.target;
+                var data = button.getAttribute("data-user-id");
+                console.log(button.getAttribute("data-user-id"));
+
+                if (!button.classList.contains('button-following')) {
+                    $.post(
+                        "/api/followings", { followeeId: data }
+                    ).done(function () {
+
+                        button.classList.add("button-following");
+                        button.innerText = "Following";
+                        console.log(data);
+                        console.log(button);
+                        location.reload();
+                    })
+                        .fail(function () {
+                            alert("shit!");
+                            console.log(button);
+                        });
+                } else {
+                    $.ajax({
+                        url: "/api/followings/" + data,
+                        method: "DELETE"
+                    })
+                        .done(function () {
+                            button.classList.remove('button-following');
+                            button.innerText = "Follow";
+                            location.reload();
+                            console.log(data);
+                            console.log(button);
+                        })
+                        .fail(function () {
+                            alert("shit!");
+                        });
+
+                }
+            });
         });
-      
-     
-
 
     </script>
 
