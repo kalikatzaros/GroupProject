@@ -1,9 +1,8 @@
-﻿@model IEnumerable<GroupProject.Models.ApplicationUser>
+﻿@model GroupProject.ViewModels.SearchPeopleViewModel
+
 @{
-        ViewBag.Title = "Index";
-}
-
-
+        ViewBag.Title = "Followers";
+ }
 
 <div class="container">
     <h3 class="heading">Followers</h3>
@@ -23,15 +22,15 @@
         }
 
 
-        @*@if (Model.AllUsers.Count == 0)
+        @if (Model.Followers.Count == 0)
             {
                 <h5>No results Found..</h5>
-            }*@
+            }
     </div>
 
 
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Followers)
     {
     <figure class="snip0045 ">
         <figcaption>

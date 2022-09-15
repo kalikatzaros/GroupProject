@@ -94,7 +94,7 @@ namespace GroupProject.Controllers
                         return RedirectToAction("index", "Dashboard",new { area = "Administrator" });
                     }
                     return RedirectToAction("index", "NewsFeed");
-                    //return RedirectToLocal(returnUrl);
+                   
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
