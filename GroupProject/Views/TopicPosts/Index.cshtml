@@ -3,88 +3,88 @@
 @{
     ViewBag.Title = "TopicPosts";
 }
+<div class="container">
 
+    @foreach (var item in Model)
+    {
+        <div class="topic-header"><h4>@item.Topic.Title)</h4></div>
+        <div class="add-post-form">
+            @using (Html.BeginForm("Create", "TopicPosts", "Post"))
+            {
+                @Html.AntiForgeryToken()
+                <form>
 
-@foreach (var item in Model)
-{
-    <div class="topic-header"><h4>@item.Topic.Title)</h4></div>
-    <div class="add-post-form">
-        @using (Html.BeginForm("Create", "TopicPosts", "Post"))
-        {
-            @Html.AntiForgeryToken()
-        <form>
-           
-            <div class="form-group">
-                <input typeof="text" name="Body" id="text" class="form-control add-post-text" placeholder="Say something..." />
-              
-            </div>
-            <input type="hidden" value="@item.TopicId" name="id" />
-            <input type="hidden" value="@item.SenderId" name="SenderId" />
-            <button type="submit" class="btn btn-primary">Post</button>
-        </form>
-        }
-    </div>
-    break;
-}
+                    <div class="form-group">
+                        <input typeof="text" name="Body" id="text" class="form-control add-post-text" placeholder="Say something..." />
 
-@foreach (var item in Model)
-{
-    <div class="post">
-
-        <div class="post-header">
-            <div class="post-user">
-                <img class="post-thumb thumbnail" src="~/img/@item.Sender.Thumbnail" />
-                @if (item.Sender.IsDeactivated)
-                {
-                    <h4>DeactivatedAccount</h4>
-                }
-                else
-                {
-                    <h4 class="post-user-text"> @Html.ActionLink(item.Sender.FullName, "VisitProfile", "Profile", new { id = item.Sender.Id }, null)</h4>
-                    if (User.IsInRole("Admin"))
-                    {
-                        <small>Administrator</small>
-                    }
-                }
-
-            </div>
-
-            <strong class="">@item.Post.Datetime</strong>
+                    </div>
+                    <input type="hidden" value="@item.TopicId" name="id" />
+                    <input type="hidden" value="@item.SenderId" name="SenderId" />
+                    <button type="submit" class="btn btn-primary">Post</button>
+                </form>
+            }
         </div>
+        break;
+    }
 
-        <div class="post-body">
+    @foreach (var item in Model)
+    {
+        <div class="post">
 
-            <p class="post-body-p">@item.Post.Body</p>
-
-            @*<img class="post-body-img thumbnail" src="~/img/@item.Sender.Thumbnail" />*@
-        </div>
-        @if (User.IsInRole("Admin") || (item.Sender.Id == ViewBag.userId))
-        {
-            <div class="post-footer">
-                <button class="btn btn-link js-tpost-edit" data-tpost-id="@item.Id"><i class="material-icons">edit</i></button>
-                <button class="btn btn-link js-tpost-delete" data-tpost-id="@item.Id"><i class="material-icons">delete</i></button>
-                <div class="edit-post-form hidden" id="@item.Id-f">
-                    @using (Html.BeginForm("Edit", "TopicPosts", "Post"))
+            <div class="post-header">
+                <div class="post-user">
+                    <img class="post-thumb thumbnail" src="~/img/@item.Sender.Thumbnail" />
+                    @if (item.Sender.IsDeactivated)
                     {
-                        @Html.AntiForgeryToken()
-                        <form form-inline>
-                            <div class="form-group">
-                                <input typeof="text" name="body" id="text" class="form-control add-post-text" placeholder="Edit Post..." />
-                            </div>
-                            <input type="hidden" value="@item.Id" name="id" />
-
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
+                        <h4>DeactivatedAccount</h4>
                     }
+                    else
+                    {
+                        <h4 class="post-user-text"> @Html.ActionLink(item.Sender.FullName, "VisitProfile", "Profile", new { id = item.Sender.Id }, null)</h4>
+                        if (User.IsInRole("Admin"))
+                        {
+                            <small>Administrator</small>
+                        }
+                    }
+
                 </div>
 
+                <strong class="">@item.Post.Datetime</strong>
             </div>
-        }
 
-    </div>
+            <div class="post-body">
 
-}
+                <p class="post-body-p">@item.Post.Body</p>
 
+                @*<img class="post-body-img thumbnail" src="~/img/@item.Sender.Thumbnail" />*@
+            </div>
+            @if (User.IsInRole("Admin") || (item.Sender.Id == ViewBag.userId))
+            {
+                <div class="post-footer">
+                    <button class="btn btn-link js-tpost-edit" data-tpost-id="@item.Id"><i class="material-icons">edit</i></button>
+                    <button class="btn btn-link js-tpost-delete" data-tpost-id="@item.Id"><i class="material-icons">delete</i></button>
+                    <div class="edit-post-form hidden" id="@item.Id-f">
+                        @using (Html.BeginForm("Edit", "TopicPosts", "Post"))
+                        {
+                            @Html.AntiForgeryToken()
+                            <form form-inline>
+                                <div class="form-group">
+                                    <input typeof="text" name="body" id="text" class="form-control add-post-text" placeholder="Edit Post..." />
+                                </div>
+                                <input type="hidden" value="@item.Id" name="id" />
+
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </form>
+                        }
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+    }
+</div>
 @section scripts{
     <script>
         $(document).ready(function () {

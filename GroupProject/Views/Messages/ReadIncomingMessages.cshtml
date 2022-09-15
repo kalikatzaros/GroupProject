@@ -4,29 +4,22 @@
     ViewBag.Title = "ReadIncomingMessages";
 }
 
-
-
-
-
-
 <div class="container">
-    
-    
     <div class="mail-box">
         <aside class="sm-side">
             <div class="user-head">
                 <a class="inbox-avatar" href="#">
                     <img width="64" height="60" style="border-radius:30px" src="~/img/@Url.Content(ViewBag.Thumbnail)">
-               </a>
+                </a>
                 <div class="user-name">
-                   <a href=@Url.Action("Index", "Profile")>
-                    <h5>@ViewBag.Email</h5>
-                   </a>   
+                    <a href=@Url.Action("Index", "Profile")>
+                        <h5>@ViewBag.Email</h5>
+                    </a>
                 </div>
             </div>
             <div class="inbox-body">
                 @Html.ActionLink("Compose", "CreateMessage", "Messages", null, new { @class = "btn btn-compose" })
-                
+
             </div>
             <ul class="inbox-nav inbox-divider inboxCustomNavbar">
                 <li>
@@ -34,14 +27,14 @@
                         <i class="material-icons">mail</i>
                         Inbox
                     </a>
-                    
+
                     @*@Html.ActionLink("mail", "ReadIncomingMessages", "Messages", null, new {@class= "material-icons" })*@
 
                 </li>
                 <li class="arrow">
                     <a href=@Url.Action("ReadSentMessages", "Messages")>
                         <i class="material-icons">send</i>
-                       Sent
+                        Sent
                     </a>
                     @*@Html.ActionLink("send", "ReadSentMessages", "Messages", null, new {@class= "material-icons" })*@
 
@@ -49,7 +42,7 @@
 
             </ul>
 
-           
+
         </aside>
         <aside class="lg-side">
             <div class="inbox-head">
@@ -79,7 +72,7 @@
                             <tr>
 
                                 <td>
-                                    <a href="@Url.Action("Details","Messages",new {id=item.Id })"data-message-id="@item.Id">@item.ShorterBody</a>
+                                    <a href="@Url.Action("Details","Messages",new {id=item.Id })" data-message-id="@item.Id">@item.ShorterBody</a>
                                     @*@Html.ActionLink(item.ShorterBody, "Details", "Messages", new { id = item.Id }, null)*@
                                 </td>
 
@@ -99,8 +92,8 @@
             </div>
         </aside>
     </div>
-</div>
 
+</div>
 
 
 @section scripts{
@@ -152,3 +145,13 @@
     </script>
 
 }
+
+<style>
+    .mail-box {
+        height: 80vh;
+        margin-top: 4rem;
+    }
+
+  
+   
+</style>

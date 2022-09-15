@@ -5,7 +5,7 @@
     ViewBag.Title = "Forum";
 }
 
-<body>
+
    
 
     <div class="container">
@@ -36,7 +36,7 @@
 
         </div>
     </div>
-</body>
+
 
 @section scripts{
     <script>
@@ -56,15 +56,15 @@
              </div>
              <div class="subforum-description subforum-column">
 
-            <a href="/TopicPosts/Index/${item.topicId}">${item.topic.title}</a>
-                   <p> <a href=${link}>By ${username}</a> <small> on ${item.topic.created}</small></p>
+            <a class="text-capitalize" href="/TopicPosts/Index/${item.topicId}">${item.topic.title}</a>
+                   <p> <a class="text-capitalize" href=${link}>By ${username}</a> <small> on ${item.topic.created}</small></p>
              </div>
 
     <div class="subforum-stats subforum-column center">
                     <a href="/TopicPosts/Index/${item.topicId}">Add a Post</a>
                 </div>
     <div class="subforum-info subforum-column">
-                    <b><h5>Last post by</h5></b> <a href="${senderLink}">${senderUsername}</a>
+                    <b><h5>Last post by</h5></b> <a class="text-capitalize" href="${senderLink}">${senderUsername}</a>
                     <br/>
                     
                     
@@ -103,11 +103,7 @@
    .subforum-title h1{
        padding-left:5rem;
    }
-    html {
-        font-size: 16px;
-        font-family: 'Titilium Web', sans-serif;
-        /*background-color: black;*/
-    }
+   
 
     a {
         font-weight: bolder;
