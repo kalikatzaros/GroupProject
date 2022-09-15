@@ -94,17 +94,8 @@ namespace GroupProject.Controllers
                     {
                         return RedirectToAction("index", "Dashboard",new { area = "Administrator" });
                     }
-                    
-                    if (user.IsDeactivated)
-                    {
-                        return View("Lockout");
-                    }
-
-                    else
-                    {
-                        return RedirectToAction("index", "NewsFeed");
-                    }
-                //return RedirectToLocal(returnUrl);
+                    return RedirectToAction("index", "NewsFeed");
+                   
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

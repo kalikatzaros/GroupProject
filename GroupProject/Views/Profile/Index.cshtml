@@ -9,25 +9,130 @@
                 <img align="left" class="fb-image-profile thumbnail" src="~/img/@Url.Content(Model.ProfileImage)" width="200" height="200" style="border-radius: 100px" alt="Profile image example" />
             </div>
             <div class="profile-card__cnt js-profile-cnt">
-                <div class="profile-card__name">@Model.FullName</div>
+                <div class="profile-card__name">
+                    @Model.FullName
+                    @if (User.IsInRole("Admin"))
+                    {
+                       
+                           <img id="crown" src="~/img/crown.svg">
+
+                    }
+                </div>
                 <div class="profile-card__txt">
                     <p>@Model.Description</p>
-                </div> 
+                </div>
                 <div class="profile-card-ctr">
                     <a href=@Url.Action("GetPeopleThatFollowMe", "Followers") class="profile-card__button button--blue js-message-btn">Followers (@Model.FolloweesCount)</a>
                     <a href=@Url.Action("GetPeopleIFollow", "Followees") class="profile-card__button button--orange">Following (@Model.FollowersCount) </a>
                 </div>
-      </div>
+            </div>
         </div>
     </div>
 
+    <div class="add-post-form">
+        @using (Html.BeginForm("Create", "WallPosts", "Post"))
+        {
+            @Html.AntiForgeryToken()
+            <form>
 
-</div>
+                <div class="form-group">
+                    <input typeof="text" name="Body" id="text" class="form-control add-post-text" placeholder="Say something..." />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Post</button>
+
+            </form>
+        }
+    </div>
+
+    @foreach (var item in Model.WallPosts)
+    {
+        <div class="post">
+
+            <div class="post-header">
+                <div class="post-user">
+                    <img class="post-thumb thumbnail" src="~/img/@item.User.Thumbnail" />
+
+                    <h4 class="post-user-text">
+                        @Html.ActionLink(item.User.FullName, "VisitProfile", "Profile", new { id = item.User.Id }, null)
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <img id="crown" src="~/img/crown.svg">
+                        }
+                    </h4>
+                 </div>
+                <strong class="post-date">@item.Post.Datetime</strong>
+            </div>
+
+            <div class="post-body">
+
+                <p class="post-body-p">@item.Post.Body</p>
+
+                @*<img class="post-body-img thumbnail" src="~/img/@item.Sender.Thumbnail" />*@
+            </div>
 
 
-<style>
-   
-    
+            <div class="post-footer">
+                <button class="btn btn-link js-tpost-edit" data-tpost-id="@item.Id"><i class="material-icons">edit</i></button>
+                <button class="btn btn-link js-tpost-delete" data-tpost-id="@item.Id"><i class="material-icons">delete</i></button>
+                <div class="edit-post-form hidden" id="@item.Id-f">
+                    @using (Html.BeginForm("Edit", "Wallposts", "Post"))
+                    {
+                        @Html.AntiForgeryToken()
+                        <form form-inline>
+                            <div class="form-group">
+                                <input typeof="text" name="Body" id="text" class="form-control add-post-text" placeholder="Edit Post..." />
+                            </div>
+                            <input type="hidden" value="@item.Id" name="id" />
+
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
+                    }
+                </div>
+
+            </div>
+        </div>
+
+    }
+
+    @section scripts{
+        <script>
+        $(document).ready(function () {
+            $(".post").on("click", ".js-tpost-edit", function () {
+                var button = $(this);
+                const id = `${button.attr("data-tpost-id")}-f`;
+                $(`#${id}`).toggleClass("hidden");
+
+            });
+            $(".post").on("click", ".js-tpost-delete", function () {
+                var button = $(this);
+                console.log(button);
+
+                bootbox.confirm("Are you sure you wish to delete this post?", function (result) {
+
+                    if (result) {
+                        $.ajax({
+                            url: "/api/wallposts/deleteWallPost/" + button.attr("data-tpost-id"),
+                            method: "DELETE"
+                        }).done(function (response) {
+                            console.log(response);
+
+                            location.reload();
+                        }).fail(function (error) {
+                            console.log(error);
+                        });
+                    }
+
+                });
+
+            });
+        });
+        </script>
+        }
+
+    <style>
+
+
     .icon {
         display: inline-block;
         width: 1em;
@@ -68,14 +173,14 @@
     .profile-card__img {
         width: 17rem;
         height:17rem;
-     
+
         margin-left: auto;
         margin-right: auto;
         transform: translateY(-50%);
         border-radius: 50%;
         overflow: hidden;
         position: relative;
-       
+
         box-shadow: 0px 5px 20px 0px #337ab7
         , 0px 0px 0px 7px rgba(107, 74, 255, 0.1);
     }
@@ -106,7 +211,7 @@
 
     .profile-card__txt {
         font-size: 16px;
-     
+
         color: #324e63;
         margin-bottom: 1.5rem;
     }
@@ -220,7 +325,7 @@
         backface-visibility: hidden;
         transition: all 0.3s;
     }
-   
+
 
     @@media screen and (max-width: 768px) {
         .profile-card__button {
@@ -266,7 +371,90 @@
         .profile-card-form__bottom {
             flex-wrap: wrap;
         }
+
+     
     }
-</style>
+
+        .post {
+            background-color: white;
+            padding-top: 2rem;
+            padding-bottom: 4rem;
+            padding-left: 4rem;
+            padding-right: 4rem;
+            border-radius: 1rem;
+            box-shadow: 7px 10px 14px -11px rgba(0,0,0,0.1);
+            margin-bottom: 4rem;
+            width: 100%;
+        }
+
+
+        .post-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .post-thumb {
+            object-fit: cover;
+            width: 7rem;
+            height: 7rem;
+            border-radius: 7rem;
+        }
+
+        .post-user {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .user-text {
+            padding-left: 2rem;
+        }
+
+        .post-body {
+            padding-left: 9rem;
+        }
+
+        .post-body-img {
+            width: 50%;
+        }
+
+        .post-footer {
+            padding-left: 9rem;
+        }
+
+        .add-post-form {
+            background-color: white;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            padding-left: 5rem;
+            padding-right: 2rem;
+            border-radius: 1rem;
+            box-shadow: 7px 10px 14px -11px rgba(0,0,0,0.1);
+            margin-bottom: 4rem;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .edit-post-form {
+            width: 100%;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #text {
+            max-width: unset;
+            width: 100%;
+        }
+        #crown {
+            margin-left: 1rem;
+            height: 2.5rem;
+            filter: invert(85%) sepia(33%) saturate(6093%) hue-rotate(7deg) brightness(109%) contrast(110%);
+        }
+       
+    </style>
 
 

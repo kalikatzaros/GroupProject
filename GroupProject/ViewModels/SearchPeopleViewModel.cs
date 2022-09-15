@@ -11,5 +11,12 @@ namespace GroupProject.ViewModels
         public ApplicationUser User { get; set; }
         public List<ApplicationUser> Followees { get; set; }
         public List<ApplicationUser> Followers { get; set; }
+        public SearchPeopleViewModel()
+        {
+            Followees = new List<ApplicationUser>();
+            Followers = new List<ApplicationUser>();
+        }
     }
+    
+            
 }

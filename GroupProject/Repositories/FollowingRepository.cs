@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
 
 namespace GroupProject.Repositories
 {
@@ -24,14 +25,16 @@ namespace GroupProject.Repositories
         public int GetFollowersCount(string userId)
         {
             return _context.Followings
-                .Where(f => f.FollowerId == userId)
+                .Include(f=>f.Followee)
+                .Where(f => f.FollowerId == userId&&f.Followee.IsDeactivated==false)
                 .ToList().Count();
         }
 
         public int GetFolloweesCount(string userId)
         {
             return _context.Followings
-                .Where(f => f.FolloweeId == userId)
+                .Include(f => f.Follower)
+                .Where(f => f.FolloweeId == userId && f.Follower.IsDeactivated == false)
                 .ToList().Count();
         }
         public Following GetFollowing(string followerId, string followeeId)

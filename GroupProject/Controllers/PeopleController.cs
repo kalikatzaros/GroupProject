@@ -23,7 +23,7 @@ namespace GroupProject.Controllers
         public ActionResult Index(string search)
         {
             var userId = User.Identity.GetUserId();
-            var roleId = _context.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).SingleOrDefault();
+            //var roleId = _context.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).SingleOrDefault();
             var followees = _context.Followings
                                 .Where(f => f.FollowerId == userId&&f.Followee.IsDeactivated==false)
                                 .Select(f => f.Followee)
@@ -37,7 +37,8 @@ namespace GroupProject.Controllers
             if (search == null)
             {
                 var users = _context.Users
-                    .Where(u => u.Id != userId&&u.IsDeactivated==false&& !(u.Roles.Any(r => r.RoleId == roleId))).ToList();
+                     .Where(u => u.Id != userId && u.IsDeactivated == false).ToList();
+                    //.Where(u => u.Id != userId&&u.IsDeactivated==false&& !(u.Roles.Any(r => r.RoleId == roleId))).ToList();
                 var peopleViewModel = new PeopleViewModel()
                 {
                     AllUsers = users,
@@ -52,7 +53,7 @@ namespace GroupProject.Controllers
                 var users = _context.Users
                          .Where(u => u.Id != userId && (u.Name.ToLower() == search.ToLower()
                          || u.LastName.ToLower() == search.ToLower()
-                         || u.Email.ToLower() == search.ToLower())&&u.IsDeactivated==false && !(u.Roles.Any(r => r.RoleId == roleId)))
+                         || u.Email.ToLower() == search.ToLower())&&u.IsDeactivated==false)
                          .ToList();
                 var peopleViewModel = new PeopleViewModel()
                 {

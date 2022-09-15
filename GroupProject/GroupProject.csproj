@@ -477,6 +477,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\crown.svg" />
     <Content Include="img\img1.jfif" />
     <Content Include="img\Screenshot_4.png" />
     <Content Include="Scripts\bootbox.js" />
