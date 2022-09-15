@@ -9,58 +9,54 @@
     <h3 class="heading">Recent Wall Posts</h3>
     @foreach (var item in Model.Wallposts)
     {
-<div class="post">
-  
-    <div class="post-header">
-        <div class="post-user">
-            <img class="post-thumb thumbnail" src="~/img/@item.User.Thumbnail" />
-            <h4 class="post-user-text"> @Html.ActionLink(item.User.FullName, "VisitProfile", "Profile", new { id = item.User.Id }, null)</h4>
+        <div class="post">
 
+            <div class="post-header">
+                <div class="post-user">
+                    <img class="post-thumb thumbnail" src="~/img/@item.User.Thumbnail" />
+                    <h4 class="post-user-text"> @Html.ActionLink(item.User.FullName, "VisitProfile", "Profile", new { id = item.User.Id }, null)</h4>
+                </div>
+
+                <strong class="">@item.Post.Datetime</strong>
+            </div>
+            <div class="post-body">
+                <p class="post-body-p">@item.Post.Body</p>
+
+                @*<img class="post-body-img thumbnail" src="~/img/@item.Sender.Thumbnail" />*@
+            </div>
+
+            @*<div class="post-footer">
+
+                </div>*@
         </div>
 
-        <strong class="">@item.Post.Datetime</strong>
-    </div>
-    <div class="post-body">
-
-       
-
-        <p class="post-body-p">@item.Post.Body</p>
-
-        @*<img class="post-body-img thumbnail" src="~/img/@item.Sender.Thumbnail" />*@
-    </div>
-
-    @*<div class="post-footer">
-
-        </div>*@
-</div>
-       
     }
 
     <h3 class="heading">Recent Topic Posts</h3>
     @foreach (var item in Model.TopicPosts)
     {
-<div class="post">
-    <div class="post-header">
-        <div class="post-user">
-            <img class="post-thumb thumbnail" src="~/img/@item.Sender.Thumbnail" />
-            <h4 class="post-user-text"> @Html.ActionLink(item.Sender.FullName, "VisitProfile", "Profile", new { id = item.Sender.Id }, null)</h4>
+        <div class="post">
+            <div class="post-header">
+                <div class="post-user">
+                    <img class="post-thumb thumbnail" src="~/img/@item.Sender.Thumbnail" />
+                    <h4 class="post-user-text"> @Html.ActionLink(item.Sender.FullName, "VisitProfile", "Profile", new { id = item.Sender.Id }, null)</h4>
+                </div>
+
+                <strong class="">@item.Post.Datetime</strong>
+            </div>
+            <div class="post-body">
+
+                <h4 class="post-body-topic">Topic: @Html.ActionLink(item.Topic.Title, "Index", "TopicPosts", new { id = item.Topic.Id }, null)</h4>
+
+                <p class="post-body-p">@item.Post.Body</p>
+
+                @*<img class="post-body-img thumbnail" src="~/img/@item.Sender.Thumbnail" />*@
+            </div>
+
+            @*<div class="post-footer">
+
+                </div>*@
         </div>
-        
-        <strong class="">@item.Post.Datetime</strong>
-    </div>
-    <div class="post-body">
-
-        <h4 class="post-body-topic">Topic: @Html.ActionLink(item.Topic.Title, "Index", "TopicPosts", new { id = item.Topic.Id }, null)</h4>
-
-        <p class="post-body-p">@item.Post.Body</p>
-
-        @*<img class="post-body-img thumbnail" src="~/img/@item.Sender.Thumbnail" />*@
-    </div>
-
-    @*<div class="post-footer">
-       
-    </div>*@
-    </div>
 
     }
 </div>
@@ -89,12 +85,14 @@
         align-items: center;
         justify-content: space-between;
     }
-    .post-thumb{
-        width:7rem;
-        height:7rem;
-        border-radius:7rem;
-       
+
+    .post-thumb {
+        width: 7rem;
+        height: 7rem;
+        border-radius: 7rem;
+        object-fit:cover;
     }
+
     .post-user {
         display: flex;
         align-items: center;
@@ -104,13 +102,13 @@
     .user-text {
         padding-left: 2rem;
     }
-  
+
     .post-body {
         padding-left: 9rem;
     }
-   
-    .post-body-img{
-        width:50%;
-       
+
+    .post-body-img {
+        width: 50%;
+        object-fit:cover;
     }
 </style>
