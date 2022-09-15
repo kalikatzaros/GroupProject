@@ -107,16 +107,21 @@ namespace GroupProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Post post)
+        public ActionResult Edit(int id,string body)
         {
+            var wallpost = db.WallPosts
+                .Include(wp => wp.Post)
+                .SingleOrDefault(wp => wp.Id == id);
+            wallpost.Post.Body = body;
+            wallpost.Post.Datetime = DateTime.Now;
             if (ModelState.IsValid)
             {
-                db.Entry(post).State = EntityState.Modified;
-                post.Datetime = DateTime.Now;
+                db.Entry(wallpost).State = EntityState.Modified;
+                
                 db.SaveChanges();
                 return RedirectToAction("Index","Profile");
             }      
-            return View(post);
+            return View(wallpost);
         }
 
         // GET: WallPosts/Delete/5

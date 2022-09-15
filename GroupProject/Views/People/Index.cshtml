@@ -1,57 +1,59 @@
 ﻿@model GroupProject.ViewModels.PeopleViewModel
-
+@{
+    ViewBag.Title = "Authors";
+}
 
 <div class="container">
     <h3 class="heading">Authors</h3>
     <div class="search-form">
         @using (Html.BeginForm("Index", "People", "Get"))
         {
-        @Html.AntiForgeryToken()
-        <form class="form-inline">
+            @Html.AntiForgeryToken()
+            <form class="form-inline">
 
-            <div class="form-group">
-                <input typeof="text" name="search" id="text" class="form-control add-post-text" placeholder="Search by name..." />
-            </div>
+                <div class="form-group">
+                    <input typeof="text" name="search" id="text" class="form-control add-post-text" placeholder="Search by name..." />
+                </div>
 
-            <button type="submit" class="btn btn-primary">Search</button>
-            <button type="button" class="btn btn-default"><a href=@Url.Action("Index", "People")> Clear</a></button>
-        </form>
+                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="button" class="btn btn-default"><a href=@Url.Action("Index", "People")> Clear</a></button>
+            </form>
         }
 
 
         @if (Model.AllUsers.Count == 0)
-    {
-        <h5>No results Found..</h5>
-    }
+        {
+            <h5>No results Found..</h5>
+        }
     </div>
 
 
 
     @foreach (var item in Model.AllUsers)
     {
-    <figure class="snip0045 ">
-        <figcaption>
-            <div>
+        <figure class="snip0045 ">
+            <figcaption>
+                <div>
 
-                <h2>@Html.ActionLink(item.FullName, "VisitProfile", "Profile", new { id = item.Id }, null)</h2>
+                    <h2>@Html.ActionLink(item.FullName, "VisitProfile", "Profile", new { id = item.Id }, null)</h2>
 
-                <div class="fig-buttons">
-                    @if (Model.Followees.Contains(item))
-            {
-                    <button class="button-basic button-following js-toggle-follow" data-user-id="@item.Id">following</button>
-            }
+                    <div class="fig-buttons">
+                        @if (Model.Followees.Contains(item))
+                        {
+                            <button class="button-basic button-following js-toggle-follow" data-user-id="@item.Id">following</button>
+                        }
 
-            else
-            {
-                    <button class="button-basic js-toggle-follow" data-user-id="@item.Id">follow</button>
-            }
-                    <button class="button-basic button-message js-message" data-user-id="@item.Id">Message</button>
+                        else
+                        {
+                            <button class="button-basic js-toggle-follow" data-user-id="@item.Id">follow</button>
+                        }
+                        <button class="button-basic button-message js-message" data-user-id="@item.Id">Message</button>
+                    </div>
                 </div>
-            </div>
-        </figcaption>
-        <img class="fig-image" src="~/img/@Url.Content(item.Thumbnail)" alt="profile image" />
+            </figcaption>
+            <img class="fig-image" src="~/img/@Url.Content(item.Thumbnail)" alt="profile image" />
 
-    </figure>
+        </figure>
     }
 
 </div>

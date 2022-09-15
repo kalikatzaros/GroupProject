@@ -5,7 +5,7 @@
 }
 
 <div class="container">
-    <h3 class="heading">NewsFeed</h3>
+    
     <h3 class="heading">Recent Wall Posts</h3>
     @foreach (var item in Model.Wallposts)
     {
@@ -14,10 +14,13 @@
             <div class="post-header">
                 <div class="post-user">
                     <img class="post-thumb thumbnail" src="~/img/@item.User.Thumbnail" />
-                    <h4 class="post-user-text"> @Html.ActionLink(item.User.FullName, "VisitProfile", "Profile", new { id = item.User.Id }, null)</h4>
+                    <h4 class="post-user-text">
+                        @Html.ActionLink(item.User.FullName, "VisitProfile", "Profile", new { id = item.User.Id }, null)
+                       
+                    </h4>
                 </div>
 
-                <strong class="">@item.Post.Datetime</strong>
+               <strong class="">@item.Post.Datetime</strong>
             </div>
             <div class="post-body">
                 <p class="post-body-p">@item.Post.Body</p>
@@ -60,6 +63,10 @@
 
     }
 </div>
+
+@section scripts{
+
+    }
 
 <style>
     .heading {
@@ -110,5 +117,11 @@
     .post-body-img {
         width: 50%;
         object-fit:cover;
+    }
+
+    #crown {
+        margin-left: 1rem;
+        height: 2.5rem;
+        filter: invert(85%) sepia(33%) saturate(6093%) hue-rotate(7deg) brightness(109%) contrast(110%);
     }
 </style>
