@@ -12,10 +12,8 @@
 
 </head>
 
-
-
 <nav class="navbar nav-bar-default navbar-fixed-top">
-
+    <a class="navbar-brand" href="~/"><span class="material-icons">coffee</span>A Name</a>
     @*<input type="checkbox" id="check" />
         <label for="check">
             <i class="material-icons" id="btn">menu</i>
@@ -86,27 +84,29 @@
                         chat
                     </a>
                 </li>
-               
-                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-                    {
-                        @Html.AntiForgeryToken()
 
-                        <li class="meme signout"><a href="javascript:document.getElementById('logoutForm').submit()" class="material-icons" data-toggle="tooltip" title="Log Out">logout</a></li>
-
-                    }
-                }
-                else
+                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                 {
-                    <li class="meme">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                    <li class="meme">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>
+                    @Html.AntiForgeryToken()
+
+                    <li class="meme signout"><a href="javascript:document.getElementById('logoutForm').submit()" class="material-icons" data-toggle="tooltip" title="Log Out">logout</a></li>
+
                 }
+            }
+            else
+            {
+                <div class="navbar-right non-authenticated">
+                <li class="meme">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                <li class="meme">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>
+        </div>
+    }
 
 
             </ul>
 
-    </div>
+            </div>
 
-</nav>
+        </nav>
 
 
 @section scripts{
@@ -229,7 +229,7 @@
     }
 
     /*----------------------------------------------------------------Right TOP BAR----------------------------------------------------------------------*/
-    .meme {
+    @*.meme {
         list-style: none;
         margin: 0;
         padding: 0;
@@ -237,7 +237,7 @@
         right: 0px;
         top: 0px;
         position: absolute;
-    }
+    }*@
 
 
 
@@ -320,6 +320,15 @@
     .signout{
         padding:0 6rem;
     }
+
+    .navbar-brand {
+        padding: 0.5rem 6rem;
+    }
+    .non-authenticated{
+        display:flex;
+        @*width:20rem;*@
+    }
+
 </style>
 
 

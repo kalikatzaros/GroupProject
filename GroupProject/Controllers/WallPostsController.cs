@@ -19,7 +19,9 @@ namespace GroupProject.Controllers
         // GET: WallPosts
         public ActionResult Index()
         {
-            var wallPosts = db.WallPosts.Include(w => w.Post).Include(w => w.User);
+            var wallPosts = db.WallPosts
+                .Include(w => w.Post)
+                .Include(w => w.User);
             return View(wallPosts.ToList());
         }
 

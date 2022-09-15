@@ -36,7 +36,8 @@ namespace GroupProject.Controllers
 
                 var wallPosts = _context.WallPosts
                     .Include(w => w.Post)
-                    .Where(w => w.UserId == userId);
+                    .Where(w => w.UserId == userId)
+                    .OrderByDescending(w => w.Post.Datetime);
 
             var viewModel = new ProfileViewModel()
             {
