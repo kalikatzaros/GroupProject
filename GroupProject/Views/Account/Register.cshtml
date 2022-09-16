@@ -5,69 +5,83 @@
 
 @*new { @class = "form-horizontal", role = "form" },*@
 @*@using (Html.BeginForm("Create", "Artists", FormMethod.Post, new { enctype = "multipart/form-data" }))*@
+<div class="container-register">
+    <div class="form-container form-register">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <h4>Create a new account.</h4>
+            <hr />
+            <div class="validation-container">
+                @Html.ValidationSummary(false, "", new { @class = "validation-text" })
+            </div>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-<div class="form-horizontal">
-    <h4>Create a new account.</h4>
-    <hr />
+            <div class="form-group">
 
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Enter your Name" })
-        </div>
-    </div>
+                <div class="col-md-10">
+                    @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Enter your Name" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Enter your Last Name" })
-        </div>
-    </div>
+            <div class="form-group">
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.DateOfBirth, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.EditorFor(m => m.DateOfBirth, new { @class = "form-control", @placeholder = "Date of Birth" })
+                <div class="col-md-10">
+                    @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Enter your Last Name" })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-md-10">
+                    @Html.LabelFor(m => m.DateOfBirth, new { @class = "col-md-2 control-label" })
+                    @Html.EditorFor(m => m.DateOfBirth, new { @class = "form-control", @placeholder = "Date of Birth" })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-md-10">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Enter your E-mail" })
+                </div>
+            </div>
+            <div class="form-group">
+
+                <div class="col-md-10">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Enter your Password" })
+
+                </div>
+            </div>
+            <div class="form-group">
+
+                <div class="col-md-10">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirm your Password" })
+                   
+                </div>
+            </div>
+            <div class="form-group">
+
+                <div class="col-md-10">
+                    @Html.LabelFor(model => model.Thumbnail, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <input type="file" name="ImageFile" />
+                   
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-10">
+                    <input type="submit" class="btn btn-info" value="Register" />
+                </div>
+            </div>
         </div>
-    </div>
-   
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Enter your E-mail" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Enter your Password" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirm your Password" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Thumbnail, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <input type="file" name="ImageFile" />
-            @Html.ValidationMessageFor(model => model.Thumbnail, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
+        }
+    
     </div>
 </div>
-        }
-
         @section Scripts {
             @Scripts.Render("~/bundles/jqueryval")
         }
@@ -77,5 +91,36 @@
         background: -moz-radial-gradient(center, ellipse cover, #0264d6 1%, #1c2b5a 100%); /* For FireFox 3.6+ */
         background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(1%,#0264d6), color-stop(100%,#1c2b5a)); /* For Chrome,Safari4+ */
         background: -webkit-radial-gradient(center, ellipse cover, #0264d6 1%,#1c2b5a 100%); /* For Chrome10+,Safari5.1+ */
+    }
+
+    .container-register {
+        height: 90vh;
+        width: 90vw;
+        display: flex;
+        justify-content: center;
+      
+        padding-top: 2rem;
+      
+        padding-top:8rem;
+    }
+    .form-container {
+        width: 50%;
+        height: 80%;
+        background-color: white;
+        padding-top: 2rem;
+        padding-bottom: 4rem;
+        padding-left: 4rem;
+        border-radius: 1rem;
+        box-shadow: 7px 10px 14px -11px rgba(0,0,0,0.1);
+    }
+    .form-horizontal label{
+     width:20rem;
+
+    }
+  
+    .validation-text {
+        color: lightcoral;
+        list-style: none;
+        margin-bottom: 1rem;
     }
 </style>
