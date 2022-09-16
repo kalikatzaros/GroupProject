@@ -12,8 +12,74 @@
 
 </head>
 
-<nav class="navbar nav-bar-default navbar-fixed-top">
-    <a class="navbar-brand" href="~/"><span class="material-icons">coffee</span>A Name</a>
+<nav class="navbar navbar-fixed-top top-navbar">
+    <div class="navbar-content">
+        <div class="navbar-logo"> <a href="~/"><span class="material-icons">coffee</span>A Name</a></div>
+        @if (Request.IsAuthenticated)
+        {
+    <ul class="navbar-list">
+        <li>
+            <a href=@Url.Action("Index", "NewsFeed") class="material-icons" data-toggle="tooltip" title="Newsfeed">
+                newspaper
+            </a>
+        </li>
+        <li>
+            <a href=@Url.Action("Index", "People") class="material-icons" data-toggle="tooltip" title="Authors">
+                people
+            </a>
+        </li>
+
+        <li>
+            <div class="inbox">
+                <a href=@Url.Action("ReadIncomingMessages", "Messages") class="material-icons" data-toggle="tooltip" title="Inbox">
+                    mail
+                </a>
+
+                <span class="count badge" style="color:white;"></span>
+            </div>
+
+        </li>
+
+        <li>
+            <a href=@Url.Action("Index", "Topics") class="material-icons" data-toggle="tooltip" title="Forum">
+                forum
+            </a>
+        </li>
+        <li>
+            <a href=@Url.Action("Index", "Profile") class="material-icons" data-toggle="tooltip" title="Profile">
+                person
+            </a>
+        </li>
+        <li>
+            <a href=@Url.Action("Index", "Checkout") class="material-icons" data-toggle="tooltip" title="Be Cool and Donate!">
+                favorite
+            </a>
+        </li>
+        <li>
+            <a href=@Url.Action("SignalRChat", "ChatRoom") class="material-icons" data-toggle="tooltip" title="Chat">
+                chat
+            </a>
+        </li>
+
+    </ul>
+        }
+    <div class="navbar-left-links">
+
+        @Html.Partial("_LoginPartial")
+        @*@using(Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            Html.AntiForgeryToken()
+            <a href="javascript:document.getElementById('logoutForm').submit()" class="material-icons" data-toggle="tooltip" title="Log Out">logout</a>
+        }
+
+
+        <li class="meme">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li class="meme">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>*@
+
+
+    </div>
+        
+    </div>
     @*<input type="checkbox" id="check" />
         <label for="check">
             <i class="material-icons" id="btn">menu</i>
@@ -32,8 +98,8 @@
             </ul>
         </div>*@
 
-    <div class="container-fluid">
-
+    @*<div class="container-fluid">
+        <a class="navbar-brand" href="~/"><span class="material-icons">coffee</span>A Name</a>
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav navbar-nav"></button>
         <ul class="nav navbar-nav" id="nav navbar-nav">
             @if (Request.IsAuthenticated)
@@ -43,23 +109,20 @@
                         newspaper
                     </a>
                 </li>
+
                 <li>
                     <a href=@Url.Action("Index", "People") class="material-icons" data-toggle="tooltip" title="Authors">
                         people
                     </a>
-
-
                 </li>
 
                 <li>
-
                     <div class="inbox">
                         <a href=@Url.Action("ReadIncomingMessages", "Messages") class="material-icons" data-toggle="tooltip" title="Inbox">
                             mail
                         </a>
 
                         <span class="count badge" style="color:white;"></span>
-                        }
                     </div>
 
                 </li>
@@ -85,51 +148,95 @@
                     </a>
                 </li>
 
-                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+
+
+
+
+                <li class="navbar-right signout">
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <a href="javascript:document.getElementById('logoutForm').submit()" class="material-icons" data-toggle="tooltip" title="Log Out">logout</a>
+                    }
+                </li>*@
+
+                @*using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                 {
-                    @Html.AntiForgeryToken()
+                    Html.AntiForgeryToken()
 
-                    <li class="meme signout"><a href="javascript:document.getElementById('logoutForm').submit()" class="material-icons" data-toggle="tooltip" title="Log Out">logout</a></li>
+                    <li class="signout navbar-right"> <a href = "javascript:document.getElementById('logoutForm').submit()" class="material-icons" data-toggle="tooltip" title="Log Out">logout</a></li>
+                }*@
 
-                }
-            }
+            @*}
             else
             {
-                <div class="navbar-right non-authenticated">
+
                 <li class="meme">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
                 <li class="meme">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>
-        </div>
-    }
+
+            }
+
+        </ul>*@
 
 
-            </ul>
-
-            </div>
 
         </nav>
 
 
-@section scripts{
-    $(function(){
+        @section scripts{
+            $(function(){
 
-    $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="tooltip"]').tooltip();
 
-    });
-   
-}
+            });
+
+        }
 
 
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-</html>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+    </html>
 
-<style>
+    <style>
+
+        .top-navbar {
+            height: 7.5rem;
+            background-color: #333333;
+          
+        }
+
+        .navbar-content {
+            width:100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+           padding-left:5rem;
+           padding-right:8rem;
+        }
+        .nav-bar-logo{
+           
+           display:flex;
+           justify-content:space-between;
+           align-items:center;
+           height:100%;
+        }
+        .navbar-list{
+            height:100%;
+            width:50%;
+            display:flex;
+            align-items:center;
+            justify-content:space-evenly;
+        }
+        .navbar-left-links{
+            width:10%;
+        }
     /*---------------------------------------------------------------------------SIDE BAR-----------------------------------------------------------*/
- .inbox{
+ @*.inbox{
      display:flex;
      align-items:center;
-    
+
  }
     .sidebar { /*adjust side bar*/
         position: absolute;
@@ -149,9 +256,9 @@
             font-size: 22px;
             background: #063146;
             line-height: 70px;
-        }
+        }*@
 
-        .sidebar ul li {
+        @*.sidebar ul li {
             padding: 15px;
             border-bottom: 1px solid rgba(0,0,0,0.05);
             border-top: 1px solid rgba(225,225,225,0.05);
@@ -163,23 +270,23 @@
                 display: block;
             }
 
-         
+
     .navbar-fixed-top > sidebar ul li a {
         width: 25px;
-       
-    }
 
-    .navbar-fixed-top sidebar ul li:hover { /*change the block color when hover*/
+    }*@
+
+    @*<!--.navbar-fixed-top sidebar ul li:hover { /*change the block color when hover*/
         background: #063146;
-    }
+    }*@
 
-        .navbar-fixed-top sidebar ul li:hover a { /*change the item color when hover*/
-            color: #fff;
-            @*padding-left: 30px;*@
-        }
+        @*.navbar-fixed-top sidebar ul li:hover a { /*change the item color when hover*/
+            color: #fff;-->
+            padding-left: 30px;
+        <!--}-->*@
 
 
-    .main_content {
+    @*.main_content {
         width: 100%;
         margin-left: 200px;
     }
@@ -226,7 +333,7 @@
 
     #check:checked ~ label #cancel {
         left: 195px;
-    }
+    }*@
 
     /*----------------------------------------------------------------Right TOP BAR----------------------------------------------------------------------*/
     @*.meme {
@@ -245,18 +352,18 @@
 
 
 
-    /*-------------------------------------------------------------------------TOP BAR-------------------------------------------------------------------------*/
-    .navbar { /*adjust side bar*/
-        /*  border: 1px solid #ccc;
+    @*/*-------------------------------------------------------------------------TOP BAR-------------------------------------------------------------------------*/
+        .navbar { /*adjust side bar*/
+            /*  border: 1px solid #ccc;
     border-width: 1px 0;*/
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-        background-color: #1c1e21;
-    }
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            background-color: #1c1e21;
+        }*@
 
-        .navbar li {
+        @*.navbar li {
             display: inline;
         }
 
@@ -264,22 +371,26 @@
                 /*display:inline-block;*/
                 padding: 10px;
                 /* background-color:aqua;*/
-            }
+            }*@
 
     /*--------------------------------------------------------------------TOP NAVBAR BAR---------------------------------------------------------------*/
-    .navbar-fixed-top {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+        @*.navbar-fixed-top {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 8rem;
+            width: 100vw;
+        }
 
         .navbar-fixed-top ul{
             display:flex;
             justify-content:space-evenly;
+            align-items:center;
+            width:100%;
 
-        }
+        }*@
 
-        .navbar-fixed-top ul li {
+        @*.navbar-fixed-top ul li {
             margin-block-start: 1em;
             margin-block-end: 1em;
             margin-inline-start: 0px;
@@ -293,9 +404,9 @@
         align-items: center;
         text-align: center;
         line-height: 60px;
-    }
+    }*@
 
-    .inboxCustomNavbar li {
+    @*.inboxCustomNavbar li {
         font-weight: bolder;
         font-size: 20px;
     }
@@ -308,28 +419,34 @@
         border-radius: 7px;
         padding: 3px;
         /*background-color:blue;*/
-    }
+    }*@
 
-    .userImage {
+    @*.userImage {
         display: block;
         object-fit: fill;
         width: 70px;
         height: 70px;
         border-radius: 35px;
     }
-    .signout{
-        padding:0 6rem;
-    }
+
 
     .navbar-brand {
         padding: 0.5rem 6rem;
-    }
-    .non-authenticated{
+    }*@
+    @*.non-authenticated{
         display:flex;
+        padding-left:50rem;-->-->*@
         @*width:20rem;*@
-    }
+   @*}*@
 
-</style>
+        @*.signout {
+            align-self:flex-end;
+        }
+
+        .here{
+            width:100vw;
+        }*@
+    </style>
 
 
 

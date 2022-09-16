@@ -27,14 +27,7 @@ namespace GroupProject.Controllers.API
             {
                 return BadRequest();
             }
-            //UserStore<ApplicationUser> UserStore = new UserStore<DALApplicationUser>(_db);
-            //UserManager<ApplicationUser> UserManager = new UserManager<DALApplicationUser>(UserStore);
-            //UserManager.UserLockoutEnabledByDefault = true;
-            //ApplicationUser user = _userService.GetUserByProfileId(id);
-            //bool a = UserManager.IsLockedOut(user.Id);
-            //UserManager.SetLockoutEnabled(user.Id, true);
-
-            //a = UserManager.IsLockedOut(user.Id);
+           
             var user = _context.Users
                  .SingleOrDefault(u => u.Id == id);
                 if (user.IsDeactivated)
