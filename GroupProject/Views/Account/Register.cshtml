@@ -3,8 +3,7 @@
     ViewBag.Title = "Register";
 }
 
-@*new { @class = "form-horizontal", role = "form" },*@
-@*@using (Html.BeginForm("Create", "Artists", FormMethod.Post, new { enctype = "multipart/form-data" }))*@
+
 <div class="container-register">
     <div class="form-container form-register">
         @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -117,7 +116,7 @@
      width:20rem;
 
     }
-  
+
     .validation-text {
         color: lightcoral;
         list-style: none;

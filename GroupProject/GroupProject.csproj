@@ -497,7 +497,6 @@
     <Content Include="Areas\Administrator\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\ManageTopics\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\Dashboard\GetAllWallPosts.cshtml" />
-    <Content Include="Areas\Administrator\Views\Dashboard\ViewProfile.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
