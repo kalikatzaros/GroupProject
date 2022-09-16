@@ -82,15 +82,20 @@ namespace GroupProject.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-
+        [Display(Name = "Photo")]
         public string Thumbnail { get; set; }
 
         [NotMapped]
         public HttpPostedFileBase ImageFile { get; set; }
+        [Required]
+        [Display(Name = "Name")]
         public string Name { get; set; }
+        [Required]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",ApplyFormatInEditMode = true)]
+        [Display(Name = "Date Of Birth")]
         public DateTime DateOfBirth { get; set; }
 
         [DataType(DataType.MultilineText)]

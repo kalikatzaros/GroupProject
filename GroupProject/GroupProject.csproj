@@ -335,6 +335,10 @@
     <Compile Include="Migrations\202209131552415_AddedUserDescription.Designer.cs">
       <DependentUpon>202209131552415_AddedUserDescription.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202209161059118_NameAndLastNameAtRegisterRequired.cs" />
+    <Compile Include="Migrations\202209161059118_NameAndLastNameAtRegisterRequired.Designer.cs">
+      <DependentUpon>202209161059118_NameAndLastNameAtRegisterRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Following.cs" />
@@ -708,6 +712,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202209131552415_AddedUserDescription.resx">
       <DependentUpon>202209131552415_AddedUserDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209161059118_NameAndLastNameAtRegisterRequired.resx">
+      <DependentUpon>202209161059118_NameAndLastNameAtRegisterRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
