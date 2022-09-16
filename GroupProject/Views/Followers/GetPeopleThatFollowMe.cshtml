@@ -36,7 +36,16 @@
         <figcaption>
             <div>
 
-                <h2>@Html.ActionLink(item.FullName, "VisitProfile", "Profile", new { id = item.Id }, null)</h2>
+                <h2>
+                    @Html.ActionLink(item.FullName, "VisitProfile", "Profile", new { id = item.Id }, null)
+                                @if (item.IsAdmin)
+                                {
+
+                                    <img id="crown" src="~/img/crown.svg">
+
+
+                                }
+                            </h2>
 
                 <div class="fig-buttons">
                     @if (Model.Followees.Contains(item))

@@ -1,1 +1,482 @@
-﻿
+﻿@model GroupProject.ViewModels.ProfileViewModel
+@{
+    ViewBag.Title = "Visit Profile";
+}
+<div class="container">
+    <div class="wrapper">
+        <div class="profile-card js-profile-card">
+            <div class="profile-card__img">
+                <img align="left" class="fb-image-profile thumbnail" src="~/img/@Url.Content(Model.ProfileImage)" width="200" height="200" style="border-radius: 100px" alt="Profile image example" />
+            </div>
+            <div class="profile-card__cnt js-profile-cnt">
+                <div class="profile-card__name">
+                    @Model.FullName
+                    @if (Model.IsAdmin)
+                    {
+
+                        <img id="crown" src="~/img/crown.svg">
+
+                    }
+                </div>
+                <div class="profile-card__txt">
+                    <p>@Model.Description</p>
+                </div>
+                <div class="profile-card-ctr">
+                    <a class="profile-card__button button--blue js-message" data-user-id="@Model.User.Id">Message</a>
+
+                    @if (Model.LoggedUserFollowingIds.Contains(Model.User.Id))
+                    {
+                        <a class="profile-card__button  button-following js-toggle-follow" data-user-id="@Model.User.Id">Following</a>
+            }
+            else
+            {
+                <a class="profile-card__button button-default js-toggle-follow" data-user-id="@Model.User.Id">Follow</a>
+            }
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @foreach (var item in Model.WallPosts)
+    {
+        <div class="post">
+
+            <div class="post-header">
+                <div class="post-user">
+                    <img class="post-thumb thumbnail" src="~/img/@item.User.Thumbnail" />
+
+                    <h4 class="post-user-text">
+                        @Html.ActionLink(item.User.FullName, "VisitProfile", "Profile", new { id = item.User.Id }, null)
+                        @if (Model.IsAdmin)
+                        {
+                            <img id="crown" src="~/img/crown.svg">
+                        }
+                    </h4>
+                </div>
+                <strong class="post-date">@item.Post.Datetime</strong>
+            </div>
+
+            <div class="post-body">
+
+                <p class="post-body-p">@item.Post.Body</p>
+
+                @*<img class="post-body-img thumbnail" src="~/img/@item.Sender.Thumbnail" />*@
+            </div>
+
+
+            <div class="post-footer">
+                @if (User.IsInRole("Admin"))
+                {
+                <button class="btn btn-link js-tpost-delete" data-tpost-id="@item.Id"><i class="material-icons">delete</i></button>
+                }
+
+            </div>
+        </div>
+
+    }
+
+ @section scripts{
+        <script>
+            $(document).ready(function () {
+                $('.js-toggle-follow').click(function (e) {
+                    var button = e.target;
+                    var data = button.getAttribute("data-user-id");
+                    console.log(button.getAttribute("data-user-id"));
+
+                    if (!button.classList.contains('button-following')) {
+                        $.post(
+                            "/api/followings", { followeeId: data }
+                        ).done(function () {
+
+
+                            button.classList.add("button-following");
+                            button.innerText = "Following";
+                            console.log(data);
+                            console.log(button);
+                            location.reload();
+                        }
+                        )
+                            .fail(function () {
+                                alert("shit!");
+                                console.log(button);
+                            }
+                            );
+                    } else {
+                        $.ajax({
+                            url: "/api/followings/" + data,
+                            method: "DELETE"
+                        })
+                            .done(function () {
+                                button.classList.remove('button-following');
+                                button.innerText = "Follow";
+                                location.reload();
+                                console.log(data);
+                                console.log(button);
+                            })
+                            .fail(function () {
+                                alert("shit!");
+                            });
+
+                    }
+
+                });
+               
+            
+        });
+        </script>
+    }
+
+    <style>
+
+
+    .icon {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        stroke-width: 0;
+        stroke: currentColor;
+        fill: currentColor;
+    }
+
+    .wrapper {
+        width: 100%;
+        height: 20%;
+        @*min-height: 100vh;*@
+        padding-bottom:1rem;
+        padding-top: 12rem;
+        display: flex;
+    }
+
+    @@media screen and (max-width: 768px) {
+        .wrapper {
+            height: auto;
+            min-height: 100vh;
+            padding-top: 4rem;
+        }
+    }
+
+    .profile-card {
+        width: 100%;
+        height:400px;
+        margin: auto;
+        box-shadow: 7px 10px 14px -11px rgba(0,0,0,0.1);
+        background: #fff;
+        border-radius: 12px;
+        max-width: 1400px;
+        position: relative;
+    }
+
+    .profile-card__img {
+        width: 17rem;
+        height:17rem;
+
+        margin-left: auto;
+        margin-right: auto;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+
+        box-shadow: 0px 5px 20px 0px #337ab7
+        , 0px 0px 0px 7px rgba(107, 74, 255, 0.1);
+    }
+
+        .profile-card__img img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+    .profile-card__cnt {
+        margin-top: -35px;
+        text-align: center;
+        padding: 0 20px;
+        padding-bottom: 3rem;
+        transition: all 0.3s;
+    }
+
+    .profile-card__name {
+        font-weight: 700;
+        font-size: 2.5rem;
+        color: #6944ff;
+        margin-bottom: 1.5rem;
+        text-transform: capitalize;
+    }
+
+    .profile-card__txt {
+        font-size: 16px;
+
+        color: #324e63;
+        margin-bottom: 1.5rem;
+    }
+
+    .profile-card-inf {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        margin-top: 35px;
+    }
+
+    .profile-card-inf__item {
+        padding: 10px 35px;
+        min-width: 150px;
+    }
+
+    .profile-card-inf__title {
+        font-weight: 700;
+        font-size: 27px;
+        color: #324e63;
+    }
+
+    .profile-card-inf__txt {
+        font-weight: 500;
+        margin-top: 7px;
+    }
+
+    .profile-card-social {
+        margin-top: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .profile-card-social__item {
+        display: inline-flex;
+        width: 55px;
+        height: 55px;
+        margin: 15px;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        background: #405de6;
+        box-shadow: 0px 7px 30px rgba(43, 98, 169, 0.5);
+        position: relative;
+        font-size: 21px;
+        flex-shrink: 0;
+        transition: all 0.3s;
+    }
+
+    @@media screen and (max-width: 768px) {
+        .profile-card-social__item {
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+        }
+    }
+
+    @@media screen and (min-width: 768px) {
+        .profile-card-social__item:hover {
+            transform: scale(1.2);
+        }
+    }
+
+    .profile-card-social__item.facebook {
+        background: linear-gradient(45deg, #3b5998, #0078d7);
+        box-shadow: 0px 4px 30px rgba(43, 98, 169, 0.5);
+    }
+
+    .profile-card-social__item.instagram {
+        background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+        box-shadow: 0px 4px 30px rgba(120, 64, 190, 0.6);
+    }
+
+    .profile-card-social__item.github {
+        background: linear-gradient(45deg, #333, #626b73);
+        box-shadow: 0px 4px 30px rgba(63, 65, 67, 0.6);
+    }
+
+    .profile-card-social .icon-font {
+        display: inline-flex;
+    }
+
+    .profile-card-ctr {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
+    }
+
+    @@media screen and (max-width: 576px) {
+        .profile-card-ctr {
+            flex-wrap: wrap;
+        }
+    }
+
+    .profile-card__button {
+        background: none;
+        border: none;
+        text-decoration: none !important;
+        color: #fff;
+        @*color: inherit !important;*@
+        font-size: 1.5rem;
+        margin: 15px 35px;
+        padding: 15px 40px;
+        border-radius: 50px;
+        cursor: pointer;
+        backface-visibility: hidden;
+        transition: all 0.3s;
+    }
+
+    .button-default{
+        background-color:grey;
+    }
+
+        .button-message {
+            background: linear-gradient(45deg, #1da1f2, #0e71c8);
+            box-shadow: 0px 4px 30px rgba(19, 127, 212, 0.4);
+        }
+
+            .button-message:hover {
+                box-shadow: 0px 7px 30px rgba(19, 127, 212, 0.75);
+            }
+
+        .button-following {
+            background: linear-gradient(45deg, #d5135a, #f05924);
+            box-shadow: 0px 4px 30px rgba(223, 45, 70, 0.35);
+        }
+
+            .button-following:hover {
+                box-shadow: 0px 7px 30px rgba(223, 45, 70, 0.75);
+            }
+
+
+    @@media screen and (max-width: 768px) {
+        .profile-card__button {
+            min-width: 170px;
+            margin: 15px 25px;
+        }
+    }
+
+    .profile-card__button:focus {
+        outline: none !important;
+    }
+
+    @@media screen and (min-width: 768px) {
+        .profile-card__button:hover {
+            transform: translateY(-5px);
+        }
+    }
+
+    .profile-card__button.button--blue {
+        background: linear-gradient(45deg, #1da1f2, #0e71c8);
+        box-shadow: 0px 4px 30px rgba(19, 127, 212, 0.4);
+    }
+
+        .profile-card__button.button--blue:hover {
+            box-shadow: 0px 7px 30px rgba(19, 127, 212, 0.75);
+        }
+
+    .profile-card__button.button--orange {
+        background: linear-gradient(45deg, #d5135a, #f05924);
+        box-shadow: 0px 4px 30px rgba(223, 45, 70, 0.35);
+    }
+
+        .profile-card__button.button--orange:hover {
+            box-shadow: 0px 7px 30px rgba(223, 45, 70, 0.75);
+        }
+
+    .profile-card-form__bottom {
+        justify-content: space-between;
+        display: flex;
+    }
+
+    @@media screen and (max-width: 576px) {
+        .profile-card-form__bottom {
+            flex-wrap: wrap;
+        }
+
+
+    }
+
+        .post {
+            background-color: white;
+            padding-top: 2rem;
+            padding-bottom: 4rem;
+            padding-left: 4rem;
+            padding-right: 4rem;
+            border-radius: 1rem;
+            box-shadow: 7px 10px 14px -11px rgba(0,0,0,0.1);
+            margin-bottom: 4rem;
+            width: 100%;
+        }
+
+
+        .post-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .post-thumb {
+            object-fit: cover;
+            width: 7rem;
+            height: 7rem;
+            border-radius: 7rem;
+        }
+
+        .post-user {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .user-text {
+            padding-left: 2rem;
+        }
+
+        .post-body {
+            padding-left: 9rem;
+        }
+
+        .post-body-img {
+            width: 50%;
+        }
+
+        .post-footer {
+            padding-left: 9rem;
+        }
+
+        .add-post-form {
+            background-color: white;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            padding-left: 5rem;
+            padding-right: 2rem;
+            border-radius: 1rem;
+            box-shadow: 7px 10px 14px -11px rgba(0,0,0,0.1);
+            margin-bottom: 4rem;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .edit-post-form {
+            width: 100%;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #text {
+            max-width: unset;
+            width: 100%;
+        }
+        #crown {
+            margin-left: 1rem;
+            height: 2.5rem;
+            filter: invert(85%) sepia(33%) saturate(6093%) hue-rotate(7deg) brightness(109%) contrast(110%);
+        }
+
+    </style>
+
+
+

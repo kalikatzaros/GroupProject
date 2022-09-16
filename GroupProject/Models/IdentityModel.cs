@@ -29,6 +29,7 @@ namespace GroupProject.Models
 
         }
         public bool IsDeactivated { get; set; } = false;
+        public bool IsAdmin { get; set; } = false;
         public DateTime DateOfBirth { get; set; }
         public string Thumbnail { get; set; }
 

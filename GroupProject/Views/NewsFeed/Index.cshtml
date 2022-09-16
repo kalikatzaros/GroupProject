@@ -16,7 +16,12 @@
                     <img class="post-thumb thumbnail" src="~/img/@item.User.Thumbnail" />
                     <h4 class="post-user-text">
                         @Html.ActionLink(item.User.FullName, "VisitProfile", "Profile", new { id = item.User.Id }, null)
-                       
+                        @if (item.User.IsAdmin)
+                        {
+
+                            <img id="crown" src="~/img/crown.svg">
+
+                        }
                     </h4>
                 </div>
 
@@ -42,7 +47,15 @@
             <div class="post-header">
                 <div class="post-user">
                     <img class="post-thumb thumbnail" src="~/img/@item.Sender.Thumbnail" />
-                    <h4 class="post-user-text"> @Html.ActionLink(item.Sender.FullName, "VisitProfile", "Profile", new { id = item.Sender.Id }, null)</h4>
+                    <h4 class="post-user-text">
+                        @Html.ActionLink(item.Sender.FullName, "VisitProfile", "Profile", new { id = item.Sender.Id }, null)
+                        @if (item.Sender.IsAdmin)
+                        {
+
+                            <img id="crown" src="~/img/crown.svg">
+
+                        }
+                    </h4>
                 </div>
 
                 <strong class="">@item.Post.Datetime</strong>

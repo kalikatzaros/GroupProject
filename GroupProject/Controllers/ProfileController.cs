@@ -48,37 +48,38 @@ namespace GroupProject.Controllers
                 LastName = user.LastName,
                 WallPosts = wallPosts.ToList(),
                 DateOfBirth = user.DateOfBirth,
-                Followings = _followingRepository.GetFollowings(userId).ToLookup(a => a.FolloweeId),
-                ShowActions = User.Identity.IsAuthenticated,
+                //Followings = _followingRepository.GetFollowings(userId).ToLookup(a => a.FolloweeId),
+                //ShowActions = User.Identity.IsAuthenticated,
                 Description = user.Description,
                 FolloweesCount = _followingRepository.GetFolloweesCount(userId),
                 FollowersCount= _followingRepository.GetFollowersCount(userId)
             };
 
 
-            if (User.Identity.IsAuthenticated)
-            {
+            //if (User.Identity.IsAuthenticated)
+            //{
                 
-                viewModel.IsFollowing = _followingRepository.GetFollowing(userId, user.Id) != null;
+            //    viewModel.IsFollowing = _followingRepository.GetFollowing(userId, user.Id) != null;
 
-            }
+            //}
             return View("Index", viewModel);
         }
 
-        public ActionResult VisitProfile(string Id)
+        public ActionResult VisitProfile(string id)
         {
             var userId = User.Identity.GetUserId();
-            //ViewBag.loggedUser = userId;
+           
            var followeesIds= _context.Followings
                                  .Where(f => f.FollowerId == userId)
                                  .Select(f => f.FolloweeId)
                                  .ToList();
-            var otherUserId = Id;
+            var otherUserId = id;
                 var user = _context.Users.Include(u => u.WallPosts)
                         .SingleOrDefault(u => u.Id == otherUserId);
                 var wallPosts = _context.WallPosts
                     .Include(w => w.Post)
-                    .Where(w => w.UserId == otherUserId);
+                    .Where(w => w.UserId == otherUserId)
+                    .OrderByDescending(w => w.Post.Datetime); ;
                 var viewModel = new ProfileViewModel()
                 {
                     LoggedUserFollowingIds=followeesIds,
@@ -90,9 +91,10 @@ namespace GroupProject.Controllers
                     LastName = user.LastName,
                     WallPosts = wallPosts.ToList(),
                     DateOfBirth = user.DateOfBirth,
-                    Followings = _followingRepository.GetFollowings(otherUserId).ToLookup(a => a.FolloweeId),
-                    ShowActions = User.Identity.IsAuthenticated,
-                    Description=user.Description
+                    //Followings = _followingRepository.GetFollowings(otherUserId).ToLookup(a => a.FolloweeId),
+                    //ShowActions = User.Identity.IsAuthenticated,
+                    Description=user.Description,
+                    IsAdmin=user.IsAdmin
                 };
                 return View(viewModel);           
         }
