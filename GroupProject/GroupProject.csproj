@@ -335,6 +335,14 @@
     <Compile Include="Migrations\202209131552415_AddedUserDescription.Designer.cs">
       <DependentUpon>202209131552415_AddedUserDescription.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202209161059118_NameAndLastNameAtRegisterRequired.cs" />
+    <Compile Include="Migrations\202209161059118_NameAndLastNameAtRegisterRequired.Designer.cs">
+      <DependentUpon>202209161059118_NameAndLastNameAtRegisterRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202209161459121_IsAdminPropertyAtApplicationUserAdded.cs" />
+    <Compile Include="Migrations\202209161459121_IsAdminPropertyAtApplicationUserAdded.Designer.cs">
+      <DependentUpon>202209161459121_IsAdminPropertyAtApplicationUserAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Following.cs" />
@@ -477,6 +485,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\blank.png" />
     <Content Include="img\crown.svg" />
     <Content Include="img\img1.jfif" />
     <Content Include="img\Screenshot_4.png" />
@@ -493,7 +502,6 @@
     <Content Include="Areas\Administrator\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\ManageTopics\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\Dashboard\GetAllWallPosts.cshtml" />
-    <Content Include="Areas\Administrator\Views\Dashboard\ViewProfile.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
@@ -635,6 +643,8 @@
     <Content Include="Views\Checkout\Index.cshtml" />
     <Content Include="Views\Checkout\Success.cshtml" />
     <Content Include="Views\ChatRoom\SignalRChat.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_MessagesModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -707,6 +717,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202209131552415_AddedUserDescription.resx">
       <DependentUpon>202209131552415_AddedUserDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209161059118_NameAndLastNameAtRegisterRequired.resx">
+      <DependentUpon>202209161059118_NameAndLastNameAtRegisterRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209161459121_IsAdminPropertyAtApplicationUserAdded.resx">
+      <DependentUpon>202209161459121_IsAdminPropertyAtApplicationUserAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

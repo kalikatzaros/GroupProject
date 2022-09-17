@@ -171,7 +171,7 @@ namespace GroupProject.Controllers
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Thumbnail = model.Thumbnail, DateOfBirth = model.DateOfBirth, Name = model.Name, LastName = model.LastName};
                 if (model.ImageFile == null)
                 {
-                    model.Thumbnail = "na_image.jpg";
+                    model.Thumbnail = "blank.png";
                 }
                 else
                 {

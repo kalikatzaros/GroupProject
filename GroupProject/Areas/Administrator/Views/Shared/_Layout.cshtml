@@ -57,8 +57,12 @@
     <nav class="navBar-top">
         <ul class="navBar-top-nav">
             <li class="navBar-top-item">
-                <a class="nav-top-item-link"href="@Url.Action("ViewProfile", "Dashboard")"><span class="link-top-text">@ViewBag.loggedUser.Email</span><img class="thumbnail-icon" src="~/img/@ViewBag.loggedUser.Thumbnail" /></a>
+                <a class="nav-top-item-link" href="@Url.Action("Index", "NewsFeed",new {Area="" })" target="_blank">visit site | </a>
             </li>
+            <li class="navBar-top-item">
+                <a class="nav-top-item-link text-capitalize" href="@Url.Action("Index", "Profile",new {Area="" })" target="_blank"><span class="link-top-text">@ViewBag.loggedUser.FullName</span><img class="thumbnail-icon" src="~/img/@ViewBag.loggedUser.Thumbnail" /></a>
+            </li>
+
         </ul>
     </nav>
 
@@ -224,6 +228,9 @@
     .toggle-Chevron {
         transform: rotate(180deg);
         transition: width 800ms ease;
+    }
+    .navBar-top-item{
+        margin-left:0.5rem;
     }
 </style>
 
