@@ -644,6 +644,7 @@
     <Content Include="Views\Checkout\Success.cshtml" />
     <Content Include="Views\ChatRoom\SignalRChat.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_MessagesModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
