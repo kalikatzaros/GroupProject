@@ -27,9 +27,9 @@
             <div class="wrapper">
                 <div class="main-left">
                     <a class="profile">
-                        <div class="profile-photo">
-                            <img src="~/img/mia.jpg" />
-                        </div>
+                      
+                            <img class="profile-photo"src="~/img/mia.jpg" />
+                      
                         <div class="profile-text">
                             <h4>Mia wallace</h4>
                             <p class="text-muted">
@@ -39,7 +39,7 @@
                     </a>
 
                     <div class="sidebar">
-                        @*<a class="sidebar-item">
+                        <a class="sidebar-item active">
                 <span><i class="material-icons"> newspaper</i></span>
                 <h3>Newsfeed</h3>
             </a>
@@ -72,8 +72,8 @@
                 <span><i class="material-icons">settings</i></span>
                 <h3>Settings</h3>
             </a>
-        </div>*@
-                        @Html.Partial("_Sidebar")
+        </div>
+                        @*@Html.Partial("_Sidebar")*@
 
 
                     </div>
@@ -111,6 +111,8 @@
         --card-border-radius:1rem;
         --search-padding:0.6rem 1rem;
         --card-padding:1rem;
+        --sticky-top-left:5.4rem;
+        --sticky-top-right:-18rem;
 
     }
    *,*::before,*::after{
@@ -194,4 +196,74 @@
         gap:0.5rem;
         align-items:center;
     }
+    main{
+        position:relative;
+        top:5.4rem;
+    }
+    main .wrapper{
+        display:grid;
+        grid-template-columns:18vw auto 20vw;
+        column-gap:2rem;
+        position:relative;
+    }
+
+    .main-left{
+       height:max-content;
+       position:sticky;
+       top:var(--sticky-top-left);
+    }
+
+    .profile{
+        padding:var(--card-padding);
+        background-color:var(--color-white);
+        border-radius:var(--card-border-radius);
+        display:flex;
+        align-items:center;
+        column-gap:1rem;
+        width:100%;
+    }
+
+    .sidebar{
+margin-top:1rem;
+background-color:var(--color-white);
+border-radius:var(--card-border-radius);
+    }
+
+    .sidebar-item {
+        display: flex;
+        height: 4rem;
+        cursor: pointer;
+        transition: all 300ms ease;
+        position:relative;
+        align-items:center;
+        gap:1rem;
+    }
+        .sidebar-item i {
+            color:var(--color-gray);
+            position:relative;
+            margin-left:2rem;
+            @*position:relative;*@
+        }
+    .sidebar-item i:hover {
+        color: var(--color-primary);
+    }
+    .sidebar-item:hover {
+        color: var(--color-primary);
+        border-left: 0.5rem solid var(--color-primary);
+        
+    }
+    .sidebar-item h3{
+        margin-left:1.5rem;
+        font-size:1rem;
+    }
+    .sidebar .active {
+        border-left: 0.5rem solid var(--color-primary);
+    }
+
+        .sidebar .active i,
+        .sidebar .active h3 {
+           
+            color: var(--color-primary);
+            
+        }
 </style>
