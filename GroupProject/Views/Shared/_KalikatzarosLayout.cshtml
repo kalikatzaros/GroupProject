@@ -15,7 +15,7 @@
                 </h2>
                 <div class="top-nav-left">
                    
-                    <img class="profile-photo"src="~/img/mia.jpg" />
+                    <img class="profile-photo"src="~/img/@ViewBag.LoggedUser.Thumbnail"/>
                   
                     <div class="signout">
                         <a href="#"class="material-icons">logout</a>
@@ -28,12 +28,12 @@
                 <div class="main-left">
                     <a class="profile">
                       
-                            <img class="profile-photo"src="~/img/mia.jpg" />
+                            <img class="profile-photo"src="~/img/@ViewBag.LoggedUser.Thumbnail"/>
                       
                         <div class="profile-text">
-                            <h4>Mia wallace</h4>
+                            <h4>@ViewBag.LoggedUser.FullName</h4>
                             <p class="text-muted">
-                               mia@gmail.com
+                                @ViewBag.LoggedUser.Email
                             </p>
                         </div>
                     </a>
@@ -234,7 +234,6 @@ border-radius:var(--card-border-radius);
         height: 4rem;
         cursor: pointer;
         transition: all 300ms ease;
-        position:relative;
         align-items:center;
         gap:1rem;
     }
@@ -242,7 +241,7 @@ border-radius:var(--card-border-radius);
             color:var(--color-gray);
             position:relative;
             margin-left:2rem;
-            @*position:relative;*@
+           
         }
     .sidebar-item i:hover {
         color: var(--color-primary);

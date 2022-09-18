@@ -19,7 +19,32 @@ namespace GroupProject.Controllers
             _context = new ApplicationDbContext();
            
         }
-       
+       public ActionResult GetAllPeople()
+        {
+            var userId = User.Identity.GetUserId();
+            //var roleId = _context.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).SingleOrDefault();
+            var followees = _context.Followings
+                                .Where(f => f.FollowerId == userId && f.Followee.IsDeactivated == false)
+                                .Select(f => f.Followee)
+                                .ToList();
+
+            var followers = _context.Followings
+                .Where(f => f.FolloweeId == userId && f.Follower.IsDeactivated == false)
+                .Select(f => f.Follower)
+                .ToList();
+
+            var users = _context.Users
+                    .Where(u => u.Id != userId && u.IsDeactivated == false).ToList();
+            //.Where(u => u.Id != userId&&u.IsDeactivated==false&& !(u.Roles.Any(r => r.RoleId == roleId))).ToList();
+            var peopleViewModel = new PeopleViewModel()
+            {
+                AllUsers = users,
+                Followees = followees,
+                Followers = followers,
+                UserId = userId
+            };
+            return View(peopleViewModel);
+        }
         public ActionResult Index(string search)
         {
             var userId = User.Identity.GetUserId();
@@ -66,5 +91,7 @@ namespace GroupProject.Controllers
             }
            
         }
+
+      
     }
 }

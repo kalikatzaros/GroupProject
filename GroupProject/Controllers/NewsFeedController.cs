@@ -60,7 +60,42 @@ namespace GroupProject.Controllers
 
         public ActionResult Newsfeed()
         {
-            return View();
+            var loggedUserId = User.Identity.GetUserId();
+            ViewBag.LoggedUser = _context.Users.SingleOrDefault(u => u.Id == loggedUserId);
+            var peopleIFollow = _context.Followings
+                .Where(f => f.FollowerId == loggedUserId)
+                .Select(f => f.FolloweeId).ToList();
+            var newsfeedViewModel = new NewsFeedViewModel()
+            {
+                Wallposts = new List<WallPost>(),
+                TopicPosts = new List<TopicPost>()
+            };
+            foreach (var id in peopleIFollow)
+            {
+                var lastWallPost = _context.WallPosts
+                    .Include(w => w.Post)
+                    .Include(w => w.User)
+                    .Where(w => w.UserId == id && w.User.IsDeactivated == false).ToList().LastOrDefault();
+
+                var lastTopicPost = _context.TopicPosts
+                   .Include(w => w.Topic)
+                   .Include(w => w.Post)
+                   .Include(w => w.Sender)
+                   .Where(w => w.Sender.Id == id && w.Sender.IsDeactivated == false).ToList().LastOrDefault();
+
+                if (lastWallPost != null)
+                {
+                    newsfeedViewModel.Wallposts.Add(lastWallPost);
+                }
+
+                if (lastTopicPost != null)
+                {
+                    newsfeedViewModel.TopicPosts.Add(lastTopicPost);
+                }
+
+            }
+            return View(newsfeedViewModel);
+           
         }
         protected override void Dispose(bool disposing)
         {
