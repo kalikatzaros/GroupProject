@@ -65,10 +65,14 @@ namespace GroupProject.Controllers
             var peopleIFollow = _context.Followings
                 .Where(f => f.FollowerId == loggedUserId)
                 .Select(f => f.FolloweeId).ToList();
+            var users = _context.Users
+                   .Where(u => u.Id != loggedUserId
+                   && u.IsDeactivated == false).ToList();
             var newsfeedViewModel = new NewsFeedViewModel()
             {
                 Wallposts = new List<WallPost>(),
-                TopicPosts = new List<TopicPost>()
+                TopicPosts = new List<TopicPost>(),
+                People = users
             };
             foreach (var id in peopleIFollow)
             {

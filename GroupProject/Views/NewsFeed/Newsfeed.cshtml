@@ -1,45 +1,57 @@
-﻿
+﻿@model GroupProject.ViewModels.NewsFeedViewModel
 @{
     ViewBag.Title = "Newsfeed";
     Layout = "~/Views/Shared/_KalikatzarosLayout.cshtml";
+
+
 }
 
-<div class="people"> 
-   
+@*<div class="people">
+    @foreach(var item in Model.People) {
     <div class="person-card">
         <div class="profile-photo">
-            <img src="~/img/darth.jpg" />
+            <img src="~/img/@item.Thumbnail"/>
         </div>
-        <p class="person-name">Darth Vader</p>
+        <p class="person-name text-capitalize">@item.FullName</p>
+        <button class="button-default">Follow </button>
     </div>
-    <div class="person-card">
+    
+    
+    }
+</div>*@
+<div class="newsfeed">
+    <div class="create-post">
         <div class="profile-photo">
-            <img src="~/img/darth.jpg" />
+            <img src="~/img/mia.jpg" />
         </div>
-        <p class="person-name">Darth Vader</p>
+        <h4>Whats on your mind?</h4>
+        <button class="button-default button-primary">+ Post</button>
     </div>
-    <div class="person-card">
-        <div class="profile-photo">
-            <img src="~/img/darth.jpg" />
-        </div>
-        <p class="person-name">Darth Vader</p>
-    </div>
-</div>
 
-<div class="create-post">
-    <div class="profile-photo">
-        <img src="~/img/mia.jpg" />
-    </div>
-    <h4>Whats on your mind?</h4>
-    <button class="button-default button-primary">+ Post</button>
-</div>
+    <div class="posts" id="posts">
 
+    </div>
+
+</div>
 <style>
-    .people{
-display:flex;
-justify-content:space-between;
-align-items:center;
-height:12rem;
-gap:0.5rem;
+    .people {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 10rem;
+        gap: 0.5rem;
+    }
+    .person-card{
+        padding:var(--card-padding);
+        border-radius:var(--card-border-radius);
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+        align-items:center;
+        color:var(--var-color-white);
+        font-size:0.75rem;
+        width:5rem;
+        height:100%;
+        background-color:lightpink;
     }
 </style>

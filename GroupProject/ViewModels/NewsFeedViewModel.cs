@@ -10,5 +10,6 @@ namespace GroupProject.ViewModels
     {
         public List<WallPost> Wallposts { get; set; }
         public List<TopicPost> TopicPosts { get; set; }
+        public List<ApplicationUser> People { get; set; }
     }
 }
