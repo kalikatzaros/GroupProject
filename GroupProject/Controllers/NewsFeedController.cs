@@ -19,6 +19,8 @@ namespace GroupProject.Controllers
         {
             _context = new ApplicationDbContext();
         }
+
+        
         public ActionResult Index()
         {
             var loggedUserId= User.Identity.GetUserId();
@@ -54,6 +56,11 @@ namespace GroupProject.Controllers
 
             }
             return View(newsfeedViewModel);
+        }
+
+        public ActionResult Newsfeed()
+        {
+            return View();
         }
         protected override void Dispose(bool disposing)
         {

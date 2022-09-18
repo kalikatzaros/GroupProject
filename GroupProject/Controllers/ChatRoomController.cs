@@ -32,6 +32,15 @@ namespace GroupProject.Controllers
             return View();
         }
 
+        public ActionResult ChatRoom()
+        {
+
+            var userId = User.Identity.GetUserId();
+            var user = _context.Users.SingleOrDefault(u => u.Id == userId);
+            ViewBag.UserName = user.FullName;
+
+            return View();
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

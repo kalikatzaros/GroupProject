@@ -645,6 +645,10 @@
     <Content Include="Views\ChatRoom\SignalRChat.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_MessagesModal.cshtml" />
+    <Content Include="Views\Shared\_KalikatzarosLayout.cshtml" />
+    <Content Include="Views\NewsFeed\Newsfeed.cshtml" />
+    <Content Include="Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Views\Shared\_ChatRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
