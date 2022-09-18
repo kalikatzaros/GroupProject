@@ -6,24 +6,24 @@
 
 }
 
-@*<div class="people">
+<div class="people">
     @foreach(var item in Model.People) {
     <div class="person-card">
-        <div class="profile-photo">
-            <img src="~/img/@item.Thumbnail"/>
-        </div>
+       
+     @*lass="profile-photo"src="~/img/@item.Thumbnail"/>*@
+       
         <p class="person-name text-capitalize">@item.FullName</p>
         <button class="button-default">Follow </button>
     </div>
     
     
     }
-</div>*@
+</div>
 <div class="newsfeed">
     <div class="create-post">
-        <div class="profile-photo">
-            <img src="~/img/mia.jpg" />
-        </div>
+       
+            <img class="profile-photo"src="~/img/@ViewBag.LoggedUser.Thumbnail"/>
+       
         <h4>Whats on your mind?</h4>
         <button class="button-default button-primary">+ Post</button>
     </div>
