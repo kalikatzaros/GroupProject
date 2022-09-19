@@ -11,14 +11,14 @@
         <nav>
             <div class="wrapper">
                 <h2 class="logo">
-                    A Name
+                    Support
                 </h2>
                 <div class="top-nav-left">
-                   
-                    <img class="profile-photo"src="~/img/@ViewBag.LoggedUser.Thumbnail"/>
-                  
+
+                    <img class="profile-photo" src="~/img/@ViewBag.LoggedUser.Thumbnail" />
+
                     <div class="signout">
-                        <a href="#"class="material-icons">logout</a>
+                        <a href="#" class="material-icons">logout</a>
                     </div>
                 </div>
             </div>
@@ -27,94 +27,117 @@
             <div class="wrapper">
                 <div class="main-left">
                     <a class="profile">
-                      
-                            <img class="profile-photo"src="~/img/@ViewBag.LoggedUser.Thumbnail"/>
-                      
+
+                        <img class="profile-photo" src="~/img/@ViewBag.LoggedUser.Thumbnail" />
+
                         <div class="profile-text">
-                            <h4>@ViewBag.LoggedUser.FullName</h4>
+                            <h4>
+                                @ViewBag.LoggedUser.FullName
+                                @if (ViewBag.LoggedUser.IsAdmin)
+                                {
+                                    <i src="~/img/crown.svg"></i>
+                                }
+                            </h4>
                             <p class="text-muted">
                                 @ViewBag.LoggedUser.Email
+
                             </p>
                         </div>
                     </a>
 
                     <div class="sidebar">
-                        <a class="sidebar-item active">
-                <span><i class="material-icons"> newspaper</i></span>
-                <h3>Newsfeed</h3>
-            </a>
-            <a class="sidebar-item">
-                <span><i class="material-icons"> people</i></span>
-                <h3>People</h3>
-            </a>
+                        <a href=@Url.Action("Newsfeed", "NewsFeed") class="sidebar-item" id="newsfeed">
+                            <span><i class="material-icons"> newspaper</i></span>
+                            <h3>Newsfeed</h3>
+                        </a>
+                        <a class="sidebar-item" id="people">
+                            <span><i class="material-icons"> people</i></span>
+                            <h3>People</h3>
+                        </a>
 
-            <a class="sidebar-item">
-                <span><i class="material-icons">mail</i></span>
-                <h3>Inbox</h3>
-            </a>
-            <a class="sidebar-item">
-                <span><i class="material-icons">forum</i></span>
-                <h3>Forum</h3>
-            </a>
-            <a class="sidebar-item">
-                <span><i class="material-icons">person</i></span>
-                <h3>Profile</h3>
-            </a>
-            <a class="sidebar-item">
-                <span><i class="material-icons">favorite</i></span>
-                <h3>Donate</h3>
-            </a>
-            <a class="sidebar-item">
-                <span><i class="material-icons">chat</i></span>
-                <h3>Chat</h3>
-            </a>
-            <a class="sidebar-item">
-                <span><i class="material-icons">settings</i></span>
-                <h3>Settings</h3>
-            </a>
-        </div>
-                        @*@Html.Partial("_Sidebar")*@
-
-
+                        <a class="sidebar-item" id="inbox">
+                            <span><i class="material-icons">mail</i></span>
+                            <h3>Inbox</h3>
+                        </a>
+                        <a class="sidebar-item" id="forum">
+                            <span><i class="material-icons">forum</i></span>
+                            <h3>Forum</h3>
+                        </a>
+                        <a  href=@Url.Action("MyProfile", "Profile") class="sidebar-item" id="profile">
+                            <span><i class="material-icons">person</i></span>
+                            <h3>Profile</h3>
+                        </a>
+                        <a class="sidebar-item"id="favorite">
+                            <span><i class="material-icons">favorite</i></span>
+                            <h3>Donate</h3>
+                        </a>
+                        <a class="sidebar-item"id="chat">
+                            <span><i class="material-icons">chat</i></span>
+                            <h3>Chat</h3>
+                        </a>
+                        <a class="sidebar-item"id="settings">
+                            <span><i class="material-icons">settings</i></span>
+                            <h3>Settings</h3>
+                        </a>
                     </div>
+                    @*@Html.Partial("_Sidebar")*@
+
+
+                </div>
                 <div class="main-middle">
                     @RenderBody()
                 </div>
                 @*<div class="main-right">
-                    @Html.Partial("_ChatRoom")
-                    
+                        @Html.Partial("_ChatRoom")
 
-                </div>*@
-               
+
+                    </div>*@
+
             </div>
         </main>
-        
+
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+   
+        <script>
+            $(document).ready(function () {
+                console.log("hey");
+                @*$('.sidebar-item').click(function () {
+                    const link = $(this);
+                    $('.active').removeClass('active');
+ 
+                    link.addClass('active');
+                });*@
+
+
+            });
+        </script>
+
+   
 </body>
 </html>
 <style>
     :root {
         --color-dark: hsl(252,30%,17%);
         --color-white: hsl(252,30%,100%);
-        --color-black:hsl(252,30%,10%);
+        --color-black: hsl(252,30%,10%);
         --color-light: hsl(252,30%,95%);
         --color-gray: hsl(252,15%,65%);
-        --color-primary:rgb(102,252,241);
-        --color-secondary:rgba(102,252,241,0.5);
-        --color-success:lightgreen;
-        --color-danger:lightcoral;
-        --border-radius:2rem;
-        --button-padding:0.6rem 2rem;
-        --card-border-radius:1rem;
-        --search-padding:0.6rem 1rem;
-        --card-padding:1rem;
-        --sticky-top-left:5.4rem;
-        --sticky-top-right:-18rem;
-
+        --color-primary: rgb(15,228,212);
+        --color-secondary: rgba(15,228,212,0.1);
+        --color-success: lightgreen;
+        --color-danger: lightcoral;
+        --border-radius: 2rem;
+        --button-padding: 0.6rem 2rem;
+        --card-border-radius: 1rem;
+        --search-padding: 0.6rem 1rem;
+        --card-padding: 1rem;
+        --title-padding: 0.5rem 1rem;
+        --sticky-top-left: 5.4rem;
+        --sticky-top-right: -18rem;
     }
    *,*::before,*::after{
      margin:0;
@@ -199,12 +222,13 @@
         position:relative;
         top:5.4rem;
     }
-    main .wrapper{
-        display:grid;
-        grid-template-columns:18vw auto 20vw;
-        column-gap:2rem;
-        position:relative;
-    }
+        main .wrapper {
+            display: grid;
+            @*grid-template-columns: 18vw auto 20vw;*@
+            grid-template-columns: 18vw auto;
+            column-gap: 2rem;
+            position: relative;
+        }
 
     .main-left{
        height:max-content;
@@ -235,6 +259,9 @@ border-radius:var(--card-border-radius);
         transition: all 300ms ease;
         align-items:center;
         gap:1rem;
+    }
+    .sidebar-item a:link, a:visited {
+        color: var(--color-black);
     }
         .sidebar-item i {
             color:var(--color-gray);

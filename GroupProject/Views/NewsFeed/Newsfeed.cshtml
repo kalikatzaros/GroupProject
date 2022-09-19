@@ -6,33 +6,68 @@
 
 }
 
-<div class="people">
+@*<div class="people">
     @foreach(var item in Model.People) {
     <div class="person-card">
        
-     @*lass="profile-photo"src="~/img/@item.Thumbnail"/>*@
+     <img class="profile-photo"src="~/img/@item.Thumbnail"/>
        
         <p class="person-name text-capitalize">@item.FullName</p>
-        <button class="button-default">Follow </button>
+        <button class="button-follow">Follow </button>
     </div>
-    
-    
+ 
     }
-</div>
+</div>*@
 <div class="newsfeed">
     <div class="create-post">
-       
-            <img class="profile-photo"src="~/img/@ViewBag.LoggedUser.Thumbnail"/>
-       
-        <h4>Whats on your mind?</h4>
-        <button class="button-default button-primary">+ Post</button>
+
+        <img class="profile-photo" src="~/img/@ViewBag.LoggedUser.Thumbnail" />
+        <h4>What's on your mind?</h4>
+        <button class="button-default button-primary"id="create-post">+ Post</button>
     </div>
 
-    <div class="posts" id="posts">
+    <div class="add-post-form hidden">
+        <form>
+            <input type="text" id="Body"name="Body" />
+
+            <div class="add-post-footer">
+               
+                <a class="get-image-button" onclick="document.getElementById('getFile').click()"><i class="material-icons">camera</i><span>Photo</span></a>
+                <input type='file' id="getFile" accept="image/png, image/jpeg, image/jpg, image/gif" style="display:none">
+                @*<label for="add-post-image">
+            <label class="material-icons">camera</label>
+            <span class="add-post-image-text">Upload Image</span>
+            <input type="file" id="add-post-image" accept="image/png, image/jpeg, image/jpg, image/gif" />
+        </label>*@
+                <div class="add-post-buttons">
+                    <button type="reset" id="add-post-submit" class="button-default">Clear</button>
+                    <button type="submit" id="add-post-submit" class="button-default button-primary">Post</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="title"><h4>Recent Wallposts From the People you follow</h4></div>
+    <div class="wallPosts" id="topicPosts">
+
+    </div>
+    <div class="title"><h4>Recent Topic posts From the People you follow</h4></div>
+    <div class="topicPosts" id="TopicPosts">
 
     </div>
 
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#newsfeed').addClass('active');
+            $('#create-post').click(function () {
+               
+                console.log('hey');
+            });
+        });
+    </script>
+    }
 <style>
     .people {
         display: flex;
@@ -53,5 +88,94 @@
         width:5rem;
         height:100%;
         background-color:lightpink;
+    }
+    .button-follow {
+ 
+       
+       padding:0 2rem;
+       width:0.5rem 2rem;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: all 300ms ease;
+        font-size: 0.9rem;
+    }
+
+    .create-post{
+        width:100%;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        background-color:var(--color-white);
+        border-radius:var(--card-border-radius);
+        padding:var(--card-padding);
+        margin-bottom:1rem;
+    }
+
+    .title {
+        background-color: var(--color-white);
+        padding: var(--title-padding);
+        border-radius: var(--card-border-radius);
+        background-color: var(--color-secondary);
+        margin-bottom:1rem;
+    }
+    .add-post-form {
+      
+        width: 100%;
+        background-color: var(--color-white);
+        border-radius: var(--card-border-radius);
+        padding: var(--card-padding);
+        margin-bottom: 1rem;
+    }
+        .add-post-form input[type=text] {
+            width: 100%;
+            display:flex;
+            padding: var(--card-padding);
+            background-color: var(--color-light);
+            color: var(--color-black);
+            height: 3rem;
+            border-radius: var(--card-border-radius);
+        }
+
+        @*.add-post-buttons{
+           margin-top:0.5rem;
+        }*@
+
+        .add-post-form input[type=file] {
+           
+        }
+    .add-post-footer{
+        margin-top:0.75rem;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+    }
+    .add-post-image i {
+        color: var(--color-gray);
+    }
+        .add-post-image i:hover {
+            color: var(--color-primary);
+            transition: all 300ms ease;
+            cursor:pointer;
+        }
+    .get-image-button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--color-light);
+        border-radius: var(--card-border-radius);
+        padding: var(--card-padding);
+       height:1.8rem;
+       color:var(--color-gray);
+      
+    }
+        .get-image-button:hover{
+            color:var(--color-primary);
+            cursor:pointer;
+        }
+        .get-image-button span {
+            padding-left: 0.3rem;
+        }
+    .hidden{
+        display:none;
     }
 </style>

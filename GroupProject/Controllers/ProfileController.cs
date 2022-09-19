@@ -65,6 +65,40 @@ namespace GroupProject.Controllers
             return View("Index", viewModel);
         }
 
+        public ActionResult MyProfile()
+        {
+         
+                var userId = User.Identity.GetUserId();
+                ViewBag.loggedUser = userId;
+            ViewBag.LoggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
+            var user = _context.Users.Include(u => u.WallPosts)
+                    .SingleOrDefault(u => u.Id == userId);
+
+                var wallPosts = _context.WallPosts
+                    .Include(w => w.Post)
+                    .Where(w => w.UserId == userId)
+                    .OrderByDescending(w => w.Post.Datetime);
+
+                var viewModel = new ProfileViewModel()
+                {
+                    User = user,
+                    Email = user.Email,
+                    ProfileImage = user.Thumbnail,
+                    FirstName = user.Name,
+                    LastName = user.LastName,
+                    WallPosts = wallPosts.ToList(),
+                    DateOfBirth = user.DateOfBirth,
+                    //Followings = _followingRepository.GetFollowings(userId).ToLookup(a => a.FolloweeId),
+                    //ShowActions = User.Identity.IsAuthenticated,
+                    Description = user.Description,
+                    FolloweesCount = _followingRepository.GetFolloweesCount(userId),
+                    FollowersCount = _followingRepository.GetFollowersCount(userId)
+                };
+
+  return View("MyProfile", viewModel);
+            }
+        
+
         public ActionResult VisitProfile(string id)
         {
             var userId = User.Identity.GetUserId();
