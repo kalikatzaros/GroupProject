@@ -35,12 +35,12 @@
                                 @ViewBag.LoggedUser.FullName
                                 @if (ViewBag.LoggedUser.IsAdmin)
                                 {
-                                    <i src="~/img/crown.svg"></i>
+                                    <image src="~/img/crown.svg" id="crown"></image>
                                 }
                             </h4>
                             <p class="text-muted">
                                 @ViewBag.LoggedUser.Email
-
+                                
                             </p>
                         </div>
                     </a>
@@ -215,8 +215,20 @@
 
     .top-nav-left{
         display:flex;
-        gap:0.5rem;
+        gap:0.7rem;
         align-items:center;
+       
+    }
+    .profile-text h4{
+        display:flex;
+    }
+    .profile-text p {
+        padding-top:0.3rem;
+        font-size:0.9rem;
+    }
+    #crown {
+        height: 1rem;
+        filter: invert(85%) sepia(33%) saturate(6093%) hue-rotate(7deg) brightness(109%) contrast(110%);
     }
     main{
         position:relative;
