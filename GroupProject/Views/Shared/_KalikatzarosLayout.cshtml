@@ -322,8 +322,9 @@ border-radius:var(--card-border-radius);
                 color: var(--color-primary);
             }
     .logo {
-        font-family:'Pacifico', cursive;
-        background: -webkit-linear-gradient(rgba(83,138,214,1), rgba(134,231,214,1));
+        font-family: 'Pacifico', cursive;
+        @*background: -webkit-linear-gradient(var(--color-primary) 40%, var(--color-analogus));*@
+        background: -webkit-linear-gradient(var(--color-analogus)3%,var(--color-primary));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }

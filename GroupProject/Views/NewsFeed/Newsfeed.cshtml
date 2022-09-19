@@ -179,8 +179,8 @@
                             method: "DELETE"
                         }).done(function (response) {
                             console.log(response);
-
-                            location.reload();
+                            button.parent().parent().parent().fadeOut();
+                            @*location.reload();*@
                         }).fail(function (error) {
                             console.log(error);
                         });
