@@ -19,5 +19,7 @@ namespace GroupProject.ViewModels
         [DataType(DataType.DateTime)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Datetime { get; set; }
+        public HttpPostedFileBase ImageFile { get; set; }
+        public string Thumbnail { get; set; }
     }
 }

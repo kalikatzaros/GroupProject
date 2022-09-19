@@ -6,6 +6,8 @@ using System.Data.Entity;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
+using System.IO;
 
 namespace GroupProject.Controllers.API
 {
@@ -53,6 +55,29 @@ namespace GroupProject.Controllers.API
             return Ok(wallPostToBeDeleted);
         }
 
+        [HttpPost]
+        [Route("addWallPost")]
+        public IHttpActionResult AddWallPost(string imageFile,string body)
+        {
+            var userId = User.Identity.GetUserId();
+            var post = new Post();
+            post.Body = body;
+            post.Datetime = DateTime.Now;
+
+           
+            _context.Posts.Add(post);
+            _context.SaveChanges();
+            var wallPost = new WallPost()
+            {
+                UserId = userId,
+                PostId = post.Id
+            };
+            _context.WallPosts.Add(wallPost);
+            _context.SaveChanges();
+
+            return Ok(wallPost);
+        }
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

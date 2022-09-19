@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -59,8 +60,18 @@ namespace GroupProject.Controllers
             var post = new Post()
             {
                 Body = viewModel.Body,
-                Datetime = DateTime.Now
+                Datetime = DateTime.Now,
+                
             };
+
+            if (viewModel.ImageFile != null)
+            {
+                post.Thumbnail = Path.GetFileName(viewModel.ImageFile.FileName);
+                string fullPath = Path.Combine(Server.MapPath("~/img"), post.Thumbnail);
+                viewModel.ImageFile.SaveAs(fullPath);
+            }
+            
+
             db.Posts.Add(post);
             db.SaveChanges();
             
@@ -75,7 +86,7 @@ namespace GroupProject.Controllers
                 };
                 db.WallPosts.Add(wallPost);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Profile");
+                return RedirectToAction("NewsFeed", "NewsFeed");
             }           
             return View();
         }
