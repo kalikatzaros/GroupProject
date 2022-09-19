@@ -16,10 +16,14 @@
                 <div class="top-nav-left">
 
                     <img class="profile-photo" src="~/img/@ViewBag.LoggedUser.Thumbnail" />
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="signout">
+                            <a href="javascript:document.getElementById('logoutForm').submit()" class="material-icons">logout</a>
+                        </div> 
+                    }
 
-                    <div class="signout">
-                        <a href="#" class="material-icons">logout</a>
-                    </div>
                 </div>
             </div>
         </nav>
@@ -303,4 +307,12 @@ border-radius:var(--card-border-radius);
             color: var(--color-primary);
             
         }
+
+    .signout a {
+        color: var(--color-gray);
+        transition: all 300ms ease;
+    }
+            .signout a:hover {
+                color: var(--color-primary);
+            }
 </style>

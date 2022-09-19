@@ -49,6 +49,19 @@
     <div class="title"><h4>Recent Wallposts From the People you follow</h4></div>
     <div class="wallPosts" id="topicPosts">
 
+        @foreach (var item in Model.Wallposts)
+        {
+      <div class="wallpost">
+          <div class="walpost-header">
+              <div class="wallpost-user">
+                  <image class="profile-photo"src="~/img/@item.User.Thumbnail"/>
+              </div>
+          </div>
+
+        </div>
+         }
+           
+
     </div>
     <div class="title"><h4>Recent Topic posts From the People you follow</h4></div>
     <div class="topicPosts" id="TopicPosts">
@@ -90,8 +103,8 @@
         background-color:lightpink;
     }
     .button-follow {
- 
-       
+
+
        padding:0 2rem;
        width:0.5rem 2rem;
         border-radius: var(--border-radius);
@@ -119,7 +132,7 @@
         margin-bottom:1rem;
     }
     .add-post-form {
-      
+
         width: 100%;
         background-color: var(--color-white);
         border-radius: var(--card-border-radius);
@@ -141,7 +154,7 @@
         }*@
 
         .add-post-form input[type=file] {
-           
+
         }
     .add-post-footer{
         margin-top:0.75rem;
@@ -166,7 +179,7 @@
         padding: var(--card-padding);
        height:1.8rem;
        color:var(--color-gray);
-      
+
     }
         .get-image-button:hover{
             color:var(--color-primary);
@@ -178,4 +191,13 @@
     .hidden{
         display:none;
     }
+
+    @*---------------Wallposts--------------------------------------*@
+    @*<div class="walpost-header">
+              <div class="wallpost-user">
+                  <image class="profile-photo"src="~/img/@item.User.Thumbnail"/>
+              </div>
+          </div>*@
+
+
 </style>
