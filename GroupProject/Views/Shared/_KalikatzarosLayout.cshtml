@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+   
 </head>
 <body>
     <div>
@@ -15,6 +18,7 @@
             <div class="wrapper">
                 <h2 class="logo">
                     Support Hug <i class="material-icons">favorite</i>
+
                 </h2>
                 <div class="top-nav-left">
 
@@ -24,7 +28,7 @@
                         @Html.AntiForgeryToken()
                         <div class="signout">
                             <a href="javascript:document.getElementById('logoutForm').submit()" class="material-icons">logout</a>
-                        </div> 
+                        </div>
                     }
 
                 </div>
@@ -47,7 +51,7 @@
                             </h4>
                             <p class="text-muted">
                                 @ViewBag.LoggedUser.Email
-                                
+
                             </p>
                         </div>
                     </a>
@@ -70,19 +74,19 @@
                             <span><i class="material-icons">forum</i></span>
                             <h3>Forum</h3>
                         </a>
-                        <a  href=@Url.Action("MyProfile", "Profile") class="sidebar-item" id="profile">
+                        <a href=@Url.Action("MyProfile", "Profile") class="sidebar-item" id="profile">
                             <span><i class="material-icons">person</i></span>
                             <h3>Profile</h3>
                         </a>
-                        <a class="sidebar-item"id="favorite">
+                        <a class="sidebar-item" id="favorite">
                             <span><i class="material-icons">favorite</i></span>
                             <h3>Donate</h3>
                         </a>
-                        <a class="sidebar-item"id="chat">
+                        <a class="sidebar-item" id="chat">
                             <span><i class="material-icons">chat</i></span>
                             <h3>Chat</h3>
                         </a>
-                        <a class="sidebar-item"id="settings">
+                        <a class="sidebar-item" id="settings">
                             <span><i class="material-icons">settings</i></span>
                             <h3>Settings</h3>
                         </a>
@@ -104,26 +108,26 @@
         </main>
 
     </div>
-    
+    @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-   
-        <script>
+
+    <script>
             $(document).ready(function () {
                 console.log("hey");
                 @*$('.sidebar-item').click(function () {
                     const link = $(this);
                     $('.active').removeClass('active');
- 
+
                     link.addClass('active');
                 });*@
 
 
             });
-        </script>
+    </script>
 
-   
+
 </body>
 </html>
 <style>
@@ -328,4 +332,5 @@ border-radius:var(--card-border-radius);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
+    
 </style>
