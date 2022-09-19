@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
     <div>
         <nav>
             <div class="wrapper">
                 <h2 class="logo">
-                    Support
+                    Support Hug
                 </h2>
                 <div class="top-nav-left">
 
@@ -153,7 +156,7 @@
      text-decoration:none;
      border:none;
     }
-
+  
    body{
        @*font-family:;*@
        color:var(--color-dark);
@@ -172,7 +175,7 @@
        aspect-ratio:1/1;
        overflow:hidden;
    }
-    
+
    img{
        display:block;
        width:100%;
@@ -212,7 +215,7 @@
        z-index:999;
    }
 
-   nav .wrapper{ 
+   nav .wrapper{
        display:flex;
        align-items:center;
        justify-content:space-between;
@@ -222,7 +225,7 @@
         display:flex;
         gap:0.7rem;
         align-items:center;
-       
+
     }
     .profile-text h4{
         display:flex;
@@ -284,7 +287,7 @@ border-radius:var(--card-border-radius);
             color:var(--color-gray);
             position:relative;
             margin-left:2rem;
-           
+
         }
     .sidebar-item i:hover {
         color: var(--color-primary);
@@ -292,7 +295,7 @@ border-radius:var(--card-border-radius);
     .sidebar-item:hover {
         color: var(--color-primary);
         border-left: 0.5rem solid var(--color-primary);
-        
+
     }
     .sidebar-item h3{
         margin-left:1.5rem;
@@ -304,9 +307,9 @@ border-radius:var(--card-border-radius);
 
         .sidebar .active i,
         .sidebar .active h3 {
-           
+
             color: var(--color-primary);
-            
+
         }
 
     .signout a {
@@ -317,7 +320,7 @@ border-radius:var(--card-border-radius);
                 color: var(--color-primary);
             }
     .logo {
-      font-weight:bolder;
+        font-family:'Pacifico', cursive;
         background: -webkit-linear-gradient(rgba(83,138,214,1), rgba(134,231,214,1));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
