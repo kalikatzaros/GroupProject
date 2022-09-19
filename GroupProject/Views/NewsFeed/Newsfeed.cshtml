@@ -36,8 +36,9 @@
         <div class="add-post-footer">
 
             <a class="get-image-button" onclick="document.getElementById('ImageFile').click()"><i class="material-icons">camera</i><span>Photo</span></a>
-            <input type='file' name="ImageFile" id="ImageFile" accept="image/png, image/jpeg, image/jpg, image/gif" style="display:none">
 
+            <input type='file' name="ImageFile" id="ImageFile" accept="image/png, image/jpeg, image/jpg, image/gif" style="display:none">
+          
             <div class="add-post-buttons">
                 <button type="reset" id="add-post-reset" class="button-default">Clear</button>
                 <button type="submit" id="add-post-submit" class="button-default button-primary">Post</button>
@@ -53,23 +54,23 @@
         {
       <div class="wallpost">
           <div class="walpost-header">
-              
+
               <div class="walpost-user">
                   <div class="wall-post-left">
-                  <div class="profile-photo">
-                      <img class="profile-photo" src="~/img/@item.User.Thumbnail" />
+                      <div class="profile-photo">
+                          <img class="profile-photo" src="~/img/@item.User.Thumbnail" />
+                      </div>
+                      <div class="user-info">
+                          <h3 class="text-capitalize">
+                              @item.User.FullName
+                              @if (item.User.IsAdmin)
+                              {
+                                  <img src="~/img/crown.svg" id="crown"></img>
+                              }
+                          </h3>
+
+                      </div>
                   </div>
-                  <div class="user-info">
-                      <h3 class="text-capitalize">
-                          @item.User.FullName
-                          @if (item.User.IsAdmin)
-                {
-                    <img src="~/img/crown.svg" id="crown"></img>
-                }
-                      </h3>
-                    
-                  </div>
-</div>
                   <small class="text-muted">@item.Post.Datetime</small>
 
               </div>
@@ -79,24 +80,21 @@
                   {
                       <img src="~/img/@item.Post.Thumbnail" />
                   }
-                  </div>
-              <div class="action-buttons">
-                  <div class="two-buttons">
-                      <a class="material-icons wp-delete"data-wp-id="@item">delete</a>
-                      <a class="material-icons wp-edit">edit</a>
-                  </div>
               </div>
-             <div class="wallpost-text">
-                 <p>@item.Post.Body</p>
-             </div>
-              @*<div class="wallpost-right">
-                  <small>@item.Post.Datetime</small>
+              @if (ViewBag.LoggedUser.IsAdmin)
+              {
                   <div class="action-buttons">
-                      <a class="material-icons">delete</a>
-                      <a class="material-icons">edit</a>
+                      <div class="two-buttons">
+                     <a class="material-icons wp-delete" data-wp-id="@item.Id">delete</a>
+                   @*<a class="material-icons wp-edit"data-wp-id="@item.Id">edit</a>*@
+                      </div>
                   </div>
-              </div>*@
-          </div>
+              }
+                  <div class="wallpost-text">
+                      <p>@item.Post.Body</p>
+                  </div>
+            
+              </div>
          
 
         </div>
@@ -106,10 +104,54 @@
     </div>
     <div class="title"><h4>Recent Topic posts From the People you follow</h4></div>
     <div class="topicPosts" id="TopicPosts">
+        @foreach (var item in Model.TopicPosts)
+        {
+            <div class="wallpost">
+                <div class="walpost-header">
 
-    </div>
+                    <div class="walpost-user">
+                        <div class="wall-post-left">
+                            <div class="profile-photo">
+                                <img class="profile-photo" src="~/img/@item.Sender.Thumbnail" />
+                            </div>
+                            <div class="user-info">
+                                <h3 class="text-capitalize">
+                                    @item.Sender.FullName
+                                    @if (item.Sender.IsAdmin)
+                                    {
+                                        <img src="~/img/crown.svg" id="crown"></img>
+                                    }
+                                </h3>
 
-</div>
+                            </div>
+                        </div>
+                        <small class="text-muted">@item.Post.Datetime</small>
+
+                    </div>
+
+                    <div class="photo">
+                        @if (item.Post.Thumbnail != null)
+                        {
+                            <img src="~/img/@item.Post.Thumbnail" />
+                        }
+                    </div>
+                    @if (ViewBag.LoggedUser.IsAdmin)
+                    {
+                        <div class="action-buttons">
+                            <div class="two-buttons">
+                                <a class="material-icons tp-delete" data-tp-id="@item.Id">delete</a>
+                                @*<a class="material-icons tp-edit"data-wp-id="@item.Id">edit</a>*@
+                            </div>
+                        </div>
+                    }
+                    <div class="wallpost-text">
+                        <p>@item.Post.Body</p>
+                    </div>
+                 </div>
+                
+            </div>
+        }
+        </div>
 
 @section Scripts{
     <script>
@@ -117,8 +159,9 @@
             $('#newsfeed').addClass('active');
             $('#create-post').click(function () {
                 $('.add-post-form').toggleClass('hidden');
-               
             });
+
+
         });
     </script>
     }
@@ -256,7 +299,7 @@
     .walpost-user{
         display:flex;
         justify-content:space-between;
-        gap:1rem;
+        @*gap:1rem;*@
     }
 
     .wall-post-left{
@@ -299,6 +342,13 @@
         color: var(--color-danger);
     }
     .wp-edit:hover {
+        color: var(--color-primary);
+    }
+    .tp-delete:hover {
+        color: var(--color-danger);
+    }
+
+    .tp-edit:hover {
         color: var(--color-primary);
     }
     .wallpost-text {

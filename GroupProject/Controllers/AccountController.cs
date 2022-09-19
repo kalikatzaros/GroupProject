@@ -93,7 +93,7 @@ namespace GroupProject.Controllers
                     if (userManager.GetRoles(user.Id).Contains("Admin")) {
                         return RedirectToAction("index", "Dashboard",new { area = "Administrator" });
                     }
-                    return RedirectToAction("index", "NewsFeed");
+                    return RedirectToAction("NewsFeed", "NewsFeed");
                    
                 case SignInStatus.LockedOut:
                     return View("Lockout");
