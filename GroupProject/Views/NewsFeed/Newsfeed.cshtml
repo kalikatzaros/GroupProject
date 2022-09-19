@@ -49,7 +49,7 @@
     }
     </div>
     <div class="title"><h4>Recent Wallposts From the People you Follow</h4></div>
-    <div class="wallPosts" id="topicPosts">
+    <div class="wallPosts" id="wallPosts">
 
         @foreach (var item in Model.Wallposts)
         {
@@ -104,7 +104,7 @@
 
     </div>
     <div class="title"><h4>Recent Topic posts From the People you follow</h4></div>
-    <div class="topicPosts" id="TopicPosts">
+    <div class="topicPosts" id="topicPosts">
         @foreach (var item in Model.TopicPosts)
         {
             <div class="wallpost">
@@ -160,7 +160,36 @@
             $('#newsfeed').addClass('active');
             $('#create-post').click(function () {
                 $('.add-post-form').toggleClass('hidden');
+                if ($('.add-post-form').hasClass('hidden')) {
+                    $('#create-post').html(' + Post');
+                } else {
+                    $('#create-post').html(' - Post');
+                }
             });
+
+            $(".wallPosts").on("click", ".wp-delete", function () {
+                var button = $(this);
+                console.log(button);
+
+                bootbox.confirm("Are you sure you wish to delete this post?", function (result) {
+
+                    if (result) {
+                        $.ajax({
+                            url: "/api/wallposts/deleteWallPost/" + button.attr("data-wp-id"),
+                            method: "DELETE"
+                        }).done(function (response) {
+                            console.log(response);
+
+                            location.reload();
+                        }).fail(function (error) {
+                            console.log(error);
+                        });
+                    }
+
+                });
+
+            });
+
 
 
         });
