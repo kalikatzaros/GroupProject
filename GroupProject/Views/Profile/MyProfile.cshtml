@@ -5,32 +5,52 @@
 }
 
 <div class="my-profile">
+    <div class="my-profile-photo">
+        <img src="~/img/@Model.User.Thumbnail" />
+    </div>
+    <div class="my-profile-about">
+        <div class="my-profile-about-header">
+            <h3 class="my-profile-name">
+                @Model.User.FullName
+            </h3>
+            <small>@Model.User.Email</small>
+        </div>
+        <p class="my-profile-description">
 
-    <div class="my-profile-header">
-        <div class="my-profile-left">
-            <div class="my-profile-photo">
-                <img src="~/img/@Model.User.Thumbnail" />
-            </div>
-            <div class="my-profile-about">
-                <h3 class="my-profile-name">
-                    @Model.User.FullName
-                </h3>
-                <small>@Model.User.Email</small>
+            shdjshfksjdhfkjdshfkjsdhkfhdskjfhdskjfhsdkjhfkjsd
+            kdsfjsdlkfjsdlkfjsdfldksfjlkdsjflkdsjflkdsjfkl
+            kdfjsdfjsdkljflksdjfkldsjflkdsfjlkdsfjlkdsffdfjd
+        </p>
+    </div>
+    <div class="my-profile-buttons">
+       <a href=@Url.Action("GetPeopleThatFollowMe", "Followers") class="button-default button-follow">Followers</a>
+       <a href=@Url.Action("GetPeopleIFollow", "Followees") class="button-default button-primary">Following</a>
+    </div>
+    @*<div class="my-profile-header">
+            <div class="my-profile-left">
+                <div class="my-profile-photo">
+                    <img src="~/img/@Model.User.Thumbnail" />
+                </div>
+                <div class="my-profile-about">
+                    <h3 class="my-profile-name">
+                        @Model.User.FullName
+                    </h3>
+                    <small>@Model.User.Email</small>
+                </div>
             </div>
         </div>
-    </div>
 
-    <p class="my-profile-description">
+        <p class="my-profile-description">
 
-        shdjshfksjdhfkjdshfkjsdhkfhdskjfhdskjfhsdkjhfkjsd
-        kdsfjsdlkfjsdlkfjsdfldksfjlkdsjflkdsjflkdsjfkl
-        kdfjsdfjsdkljflksdjfkldsjflkdsfjlkdsfjlkdsffdfjd
-    </p>
+            shdjshfksjdhfkjdshfkjsdhkfhdskjfhdskjfhsdkjhfkjsd
+            kdsfjsdlkfjsdlkfjsdfldksfjlkdsjflkdsjflkdsjfkl
+            kdfjsdfjsdkljflksdjfkldsjflkdsfjlkdsfjlkdsffdfjd
+        </p>
 
-    <div class="my-profile-right">
-        <h3>Followers</h3>
-        <h3>Following</h3>
-    </div>
+        <div class="my-profile-right">
+            <h3>Followers</h3>
+            <h3>Following</h3>
+        </div>*@
 
 </div>
 
@@ -126,7 +146,7 @@
                             console.log(response);
 
                             button.parent().parent().parent().parent().fadeOut();
-                            @* location.reload();*@
+                           
                         }).fail(function (error) {
                             console.log(error);
                         });
@@ -153,11 +173,12 @@
         width: 100%;
         background-color: var(--color-white);
         border-radius: var(--card-border-radius);
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 10% 70% auto;
+      @*justify-content:center;*@
+      align-items:center;
         padding: var(--card-padding);
+        
     }
 
     .my-profile-photo img {
@@ -167,27 +188,25 @@
         object-fit: cover;
     }
 
-    .my-profile-header {
-        display: flex;
-        justify-content: space-end;
-    }
-
-    .my-profile-left {
-        display: flex;
-        gap: 1rem;
-    }
-
+    
     .my-profile-about {
+        height:100%;
         display: flex;
         flex-direction: column;
+        align-items:center;
+        justify-content:space-between;
+    }
+    .my-profile-description{
+        padding:1rem 2rem;
     }
 
-    .my-profile-name {
+    .my-profile-about-header{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:0.1rem;
     }
 
-    .my-profile-description {
-        padding: 0 6rem;
-    }
 
     my-profile-about small {
         color: var(--color-gray);
@@ -342,6 +361,40 @@
 
     .hidden {
         display: none;
+    }
+    .my-profile-buttons{
+        display:flex;
+        flex-direction:column;
+        gap:0.5rem;
+        width:10rem;
+        align-items:center;
+    }
+    .button-follow {
+        color: var(--color-gray);
+        border: 2px solid var(--color-primary);
+    }
+    .button-follow:hover {
+        color:var(--color-primary);
+
+    }
+    .button-default {
+        display: inline-block;
+        padding: var(--button-padding);
+        font-weight: 500;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: all 300ms ease;
+        font-size: 1rem;
+    }
+
+        .button-default:hover {
+            opacity: 0.8;
+            text-decoration:none;
+        }
+
+    .button-primary {
+        background-color: var(--color-primary);
+        color: var(--color-white);
     }
 
 </style>
