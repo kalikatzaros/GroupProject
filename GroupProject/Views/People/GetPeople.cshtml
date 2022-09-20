@@ -70,7 +70,7 @@
                     ).done(function () {
                         button.toggleClass('button-following');
                         button.toggleClass('button-follow');
-                        button.innerText = "Following";
+                        button.html("Following");
                         console.log(data);
                       
                     }).fail(function () {
@@ -85,8 +85,8 @@
                         .done(function () {
                             button.toggleClass('button-following');
                             button.toggleClass('button-follow');
-                            button.innerText = "Follow";
-                           
+                            button.html("Follow");
+        
                             console.log(data);
                             console.log(button);
                         })
