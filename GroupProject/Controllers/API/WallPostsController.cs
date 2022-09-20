@@ -46,6 +46,10 @@ namespace GroupProject.Controllers.API
         [Route("deleteWallPost/{id}")]
         public IHttpActionResult DeleteWallPost(int? id)
         {
+            if (id == null)
+            {
+                return BadRequest();
+            }
             var wallPostToBeDeleted = _context.WallPosts
                                               .SingleOrDefault(wp => wp.Id == id);
 

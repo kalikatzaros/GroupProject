@@ -32,7 +32,7 @@
         @using (Html.BeginForm("Create", "WallPosts", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
-        <input type="text" id="Body" name="Body" />
+        <input class="add-post-form-text"type="text" id="Body" name="Body" />
 
         <div class="add-post-footer">
 
@@ -49,7 +49,7 @@
     }
     </div>
     <div class="title"><h4>Recent Wallposts From the People you Follow</h4></div>
-    <div class="wallPosts" id="topicPosts">
+    <div class="wallPosts" id="wallPosts">
 
         @foreach (var item in Model.Wallposts)
         {
@@ -62,14 +62,15 @@
                           <img class="profile-photo" src="~/img/@item.User.Thumbnail" />
                       </div>
                       <div class="user-info">
-                          <h3 class="text-capitalize">
-                              @item.User.FullName
-                              @if (item.User.IsAdmin)
-                              {
-                                  <img src="~/img/crown.svg" id="crown"></img>
-                              }
-                          </h3>
-
+                          <a href=@Url.Action("VisitingProfile", "Profile",new {id=item.User.Id }) >
+                              <h3 class="text-capitalize">
+                                  @item.User.FullName
+                                  @if (item.User.IsAdmin)
+                                  {
+                                      <img src="~/img/crown.svg" id="crown"></img>
+                                  }
+                              </h3>
+                          </a>
                       </div>
                   </div>
                   <small class="text-muted">@item.Post.Datetime</small>
@@ -104,7 +105,7 @@
 
     </div>
     <div class="title"><h4>Recent Topic posts From the People you follow</h4></div>
-    <div class="topicPosts" id="TopicPosts">
+    <div class="topicPosts" id="topicPosts">
         @foreach (var item in Model.TopicPosts)
         {
             <div class="wallpost">
@@ -117,6 +118,7 @@
                             </div>
                             <div class="user-info">
                                 <h3 class="text-capitalize">
+                                    <a ></a>
                                     @item.Sender.FullName
                                     @if (item.Sender.IsAdmin)
                                     {
@@ -160,8 +162,59 @@
             $('#newsfeed').addClass('active');
             $('#create-post').click(function () {
                 $('.add-post-form').toggleClass('hidden');
+                if ($('.add-post-form').hasClass('hidden')) {
+                    $('#create-post').html(' + Post');
+                } else {
+                    $('#create-post').html(' - Post');
+                }
             });
 
+            $(".wallPosts").on("click", ".wp-delete", function () {
+                var button = $(this);
+                console.log(button);
+
+                bootbox.confirm("Are you sure you wish to delete this post?", function (result) {
+
+                    if (result) {
+                        $.ajax({
+                            url: "/api/wallposts/deleteWallPost/" + button.attr("data-wp-id"),
+                            method: "DELETE"
+                        }).done(function (response) {
+                            console.log(response);
+
+                            button.parent().parent().parent().parent().fadeOut();
+                            @*location.reload();*@
+                        }).fail(function (error) {
+                            console.log(error);
+                        });
+                    }
+
+                });
+
+            });
+
+            $(".topicPosts").on("click", ".tp-delete", function () {
+                var button = $(this);
+                console.log(button);
+
+                bootbox.confirm("Are you sure you wish to delete this post?", function (result) {
+
+                    if (result) {
+                        $.ajax({
+                            url: "/api/topicPosts/deletePost/" + button.attr("data-tp-id"),
+                            method: "DELETE"
+                        }).done(function (response) {
+                            console.log(response);
+                            button.parent().parent().parent().parent().fadeOut();
+                             @*location.reload();*@
+                        }).fail(function (error) {
+                                console.log(error);
+                            });
+                    }
+
+                });
+
+            });
 
         });
     </script>
@@ -195,7 +248,7 @@
         border-radius: var(--border-radius);
         cursor: pointer;
         transition: all 300ms ease;
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 
     .create-post{
@@ -224,6 +277,7 @@
         padding: var(--card-padding);
         margin-bottom: 1rem;
     }
+
         .add-post-form input[type=text] {
             width: 100%;
             display:flex;
@@ -234,18 +288,15 @@
             border-radius: var(--card-border-radius);
         }
 
-        @*.add-post-buttons{
+   
+    @*.add-post-buttons{
            margin-top:0.5rem;
         }*@
-
-        .add-post-form input[type=file] {
-
-        }
-    .add-post-footer{
-        margin-top:0.75rem;
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
+    .add-post-footer {
+        margin-top: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
     .add-post-image i {
         color: var(--color-gray);
@@ -288,7 +339,7 @@
         padding: var(--card-padding);
         border-radius: var(--card-border-radius);
         margin:1rem 0;
-       font-size:0.85rem;
+       font-size:1rem;
        line-height:1.5;
     }
 
@@ -335,33 +386,33 @@
     .action-buttons a {
         color:var(--color-gray);
         border-radius: var(--card-border-radius);
-        font-size: 0.95rem;
+        font-size: 1rem;
         transition: var(--transition);
         cursor: pointer;
     }
     .wp-delete:hover {
         color: var(--color-danger);
+        text-decoration:none;
     }
     .wp-edit:hover {
         color: var(--color-primary);
+        text-decoration: none;
     }
     .tp-delete:hover {
         color: var(--color-danger);
+        text-decoration: none;
     }
 
     .tp-edit:hover {
         color: var(--color-primary);
+        text-decoration: none;
     }
     .wallpost-text {
         background-color: var(--color-light);
         padding: var(--card-padding);
         border-radius: var(--card-border-radius);
     }
-    @*.wallpost-header {
-        display: flex;
-       
-        justify-content:space-between;
-    }*@
+   
     
    
 
