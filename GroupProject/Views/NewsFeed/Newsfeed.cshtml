@@ -32,7 +32,7 @@
         @using (Html.BeginForm("Create", "WallPosts", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
-        <input type="text" id="Body" name="Body" />
+        <input class="add-post-form-text"type="text" id="Body" name="Body" />
 
         <div class="add-post-footer">
 
@@ -179,7 +179,8 @@
                             method: "DELETE"
                         }).done(function (response) {
                             console.log(response);
-                            button.parent().parent().parent().fadeOut();
+
+                            button.parent().parent().parent().parent().fadeOut();
                             @*location.reload();*@
                         }).fail(function (error) {
                             console.log(error);
@@ -190,7 +191,28 @@
 
             });
 
+            $(".topicPosts").on("click", ".tp-delete", function () {
+                var button = $(this);
+                console.log(button);
 
+                bootbox.confirm("Are you sure you wish to delete this post?", function (result) {
+
+                    if (result) {
+                        $.ajax({
+                            url: "/api/topicPosts/deletePost/" + button.attr("data-tp-id"),
+                            method: "DELETE"
+                        }).done(function (response) {
+                            console.log(response);
+                            button.parent().parent().parent().parent().fadeOut();
+                             @*location.reload();*@
+                        }).fail(function (error) {
+                                console.log(error);
+                            });
+                    }
+
+                });
+
+            });
 
         });
     </script>
@@ -224,7 +246,7 @@
         border-radius: var(--border-radius);
         cursor: pointer;
         transition: all 300ms ease;
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 
     .create-post{
@@ -253,6 +275,7 @@
         padding: var(--card-padding);
         margin-bottom: 1rem;
     }
+
         .add-post-form input[type=text] {
             width: 100%;
             display:flex;
@@ -263,18 +286,15 @@
             border-radius: var(--card-border-radius);
         }
 
-        @*.add-post-buttons{
+   
+    @*.add-post-buttons{
            margin-top:0.5rem;
         }*@
-
-        .add-post-form input[type=file] {
-
-        }
-    .add-post-footer{
-        margin-top:0.75rem;
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
+    .add-post-footer {
+        margin-top: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
     .add-post-image i {
         color: var(--color-gray);
@@ -317,7 +337,7 @@
         padding: var(--card-padding);
         border-radius: var(--card-border-radius);
         margin:1rem 0;
-       font-size:0.85rem;
+       font-size:1rem;
        line-height:1.5;
     }
 
@@ -370,16 +390,20 @@
     }
     .wp-delete:hover {
         color: var(--color-danger);
+        text-decoration:none;
     }
     .wp-edit:hover {
         color: var(--color-primary);
+        text-decoration: none;
     }
     .tp-delete:hover {
         color: var(--color-danger);
+        text-decoration: none;
     }
 
     .tp-edit:hover {
         color: var(--color-primary);
+        text-decoration: none;
     }
     .wallpost-text {
         background-color: var(--color-light);
