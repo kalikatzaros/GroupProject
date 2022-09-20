@@ -1,8 +1,397 @@
-﻿
+﻿@model GroupProject.ViewModels.ProfileViewModel
 @{
-    ViewBag.Title = "VisitingProfile";
+    ViewBag.Title = "user Profile";
     Layout = "~/Views/Shared/_KalikatzarosLayout.cshtml";
 }
 
-<h2>VisitingProfile</h2>
+<div class="my-profile">
+    <div class="my-profile-photo">
+        <img src="~/img/@Model.User.Thumbnail" />
+    </div>
+    <div class="my-profile-about">
+        <div class="my-profile-about-header">
+            <h3 class="my-profile-name">
+                @Model.FullName
+            </h3>
+            <small>@Model.Email</small>
+        </div>
+        <p class="my-profile-description">
+            @Model.Description
+        </p>
+    </div>
+    <div class="my-profile-buttons">
 
+        @if (Model.LoggedUserFollowingIds.Contains(Model.User.Id))
+        {
+            <a class="button-default button-following js-toggle-follow" data-user-id="@Model.User.Id">Following</a>
+        }
+        else
+        {
+            <a class="button-default button-follow js-toggle-follow" data-user-id="@Model.User.Id">Follow</a>
+        }
+       
+    </div>
+   
+
+</div>
+
+<div class="wallPosts">
+    @foreach (var item in Model.WallPosts)
+    {
+        <div class="wallpost">
+            <div class="walpost-header">
+
+                <div class="walpost-user">
+                    <div class="wall-post-left">
+                        <div class="profile-photo">
+                            <img class="profile-photo" src="~/img/@item.User.Thumbnail" />
+                        </div>
+                        <div class="user-info">
+                            <h3 class="text-capitalize">
+                                @item.User.FullName
+                                @if (item.User.IsAdmin)
+                                {
+                                    <img src="~/img/crown.svg" id="crown"></img>
+                                }
+                            </h3>
+
+                        </div>
+                    </div>
+                    <small class="text-muted">@item.Post.Datetime</small>
+
+                </div>
+
+                <div class="photo">
+                    @if (item.Post.Thumbnail != null)
+                    {
+                        <img src="~/img/@item.Post.Thumbnail" />
+                    }
+                </div>
+
+                <div class="action-buttons">
+                    <div class="two-buttons">
+                        @if (User.IsInRole("Admin"))
+                        {
+                        <a class="material-icons wp-delete" data-wp-id="@item.Id">delete</a>
+                        }
+                    </div>
+                </div>
+
+                <div class="wallpost-text">
+                    <p>@item.Post.Body</p>
+                </div>
+
+            </div>
+
+
+        </div>
+    }
+@section Scripts{
+    <script>
+
+        $('document').ready(function () {
+            $('#profile').addClass('active');
+
+            $(".wallPosts").on("click", ".wp-delete", function () {
+                var button = $(this);
+                console.log(button);
+
+                bootbox.confirm("Are you sure you wish to delete this post?", function (result) {
+
+                    if (result) {
+                        $.ajax({
+                            url: "/api/wallposts/deleteWallPost/" + button.attr("data-wp-id"),
+                            method: "DELETE"
+                        }).done(function (response) {
+                            console.log(response);
+
+                            button.parent().parent().parent().parent().fadeOut();
+
+                        }).fail(function (error) {
+                            console.log(error);
+                        });
+                    }
+
+                });
+
+            });
+            $('.js-toggle-follow').click(function (e) {
+                var button = e.target;
+                var data = button.getAttribute("data-user-id");
+                console.log(button.getAttribute("data-user-id"));
+
+                if (!button.classList.contains('button-following')) {
+                    $.post(
+                        "/api/followings", { followeeId: data }
+                    ).done(function () {
+
+
+                        button.classList.add("button-following");
+                        button.innerText = "Following";
+                        console.log(data);
+                        console.log(button);
+                        location.reload();
+                    }
+                    )
+                        .fail(function () {
+                            alert("shit!");
+                            console.log(button);
+                        }
+                        );
+                } else {
+                    $.ajax({
+                        url: "/api/followings/" + data,
+                        method: "DELETE"
+                    })
+                        .done(function () {
+                            button.classList.remove('button-following');
+                            button.innerText = "Follow";
+                            location.reload();
+                            console.log(data);
+                            console.log(button);
+                        })
+                        .fail(function () {
+                            alert("shit!");
+                        });
+
+                }
+
+            });
+
+        });
+    </script>
+
+
+}
+
+<style>
+    .my-profile {
+        width: 100%;
+        background-color: var(--color-white);
+        border-radius: var(--card-border-radius);
+        display: grid;
+        grid-template-columns: 10% 70% auto;
+      @*justify-content:center;*@
+      align-items:center;
+        padding: var(--card-padding);
+
+    }
+
+    .my-profile-photo img {
+        border-radius: 50%;
+        height: 5rem;
+        width: 5rem;
+        object-fit: cover;
+        margin-left:1rem;
+    }
+
+
+    .my-profile-about {
+        height:100%;
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+        justify-content:space-between;
+    }
+    .my-profile-description{
+        padding:1rem 2rem;
+    }
+
+    .my-profile-about-header{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:0.1rem;
+    }
+
+
+    my-profile-about small {
+        color: var(--color-gray);
+    }
+
+    .wallpost {
+        background-color: var(--color-white);
+        padding: var(--card-padding);
+        border-radius: var(--card-border-radius);
+        margin: 1rem 0;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .walpost-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .walpost-user {
+        display: flex;
+        justify-content: space-between;
+        @*gap:1rem;
+        *@
+    }
+
+    .wall-post-left {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .user-info h3 {
+        display: flex;
+    }
+
+    .photo img {
+        margin: 1rem 0;
+        border-radius: var(--card-border-radius);
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: flex-end;
+        border-radius: var(--card-border-radius);
+        margin-bottom: 1rem;
+        align-items: center;
+    }
+
+    .two-buttons {
+        background-color: var(--color-light);
+        border-radius: var(--card-border-radius);
+        padding: 0.1rem 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .action-buttons a {
+        color: var(--color-gray);
+        border-radius: var(--card-border-radius);
+        font-size: 1rem;
+        transition: var(--transition);
+        cursor: pointer;
+    }
+
+    .wp-delete:hover {
+        color: var(--color-danger);
+        text-decoration: none;
+    }
+
+    .wp-edit:hover {
+        color: var(--color-primary);
+        text-decoration: none;
+    }
+
+    .tp-delete:hover {
+        color: var(--color-danger);
+        text-decoration: none;
+    }
+
+    .tp-edit:hover {
+        color: var(--color-primary);
+        text-decoration: none;
+    }
+
+    .wallpost-text {
+        background-color: var(--color-light);
+        padding: var(--card-padding);
+        border-radius: var(--card-border-radius);
+    }
+    .edit-post-form {
+        width: 100%;
+        background-color: var(--color-white);
+        border-radius: var(--card-border-radius);
+        padding: var(--card-padding);
+        margin-bottom: 1rem;
+    }
+
+        .edit-post-form input[type=text] {
+            width: 100%;
+            display: flex;
+            padding: var(--card-padding);
+            background-color: var(--color-light);
+            color: var(--color-black);
+            height: 3rem;
+            border-radius: var(--card-border-radius);
+        }
+
+
+    @*.add-post-buttons {
+        margin-top: 0.5rem;
+    }
+
+    *@
+    .add-post-footer {
+        margin-top: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .add-post-image i {
+        color: var(--color-gray);
+    }
+
+        .add-post-image i:hover {
+            color: var(--color-primary);
+            transition: all 300ms ease;
+            cursor: pointer;
+        }
+
+    .get-image-button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--color-light);
+        border-radius: var(--card-border-radius);
+        padding: var(--card-padding);
+        height: 1.8rem;
+        color: var(--color-gray);
+    }
+
+        .get-image-button:hover {
+            color: var(--color-primary);
+            cursor: pointer;
+        }
+
+        .get-image-button span {
+            padding-left: 0.3rem;
+        }
+
+    .hidden {
+        display: none;
+    }
+    .my-profile-buttons{
+        display:flex;
+        flex-direction:column;
+        gap:0.5rem;
+        width:10rem;
+        align-items:center;
+    }
+    .button-follow {
+        color: var(--color-gray);
+        border: 2px solid var(--color-primary);
+    }
+    .button-follow:hover {
+        color:var(--color-primary);
+
+    }
+    .button-default {
+        display: inline-block;
+        padding: var(--button-padding);
+        font-weight: 500;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: all 300ms ease;
+        font-size: 1rem;
+    }
+
+        .button-default:hover {
+            opacity: 0.8;
+            text-decoration:none;
+        }
+
+    .button-following {
+        background-color: var(--color-primary);
+        color: var(--color-white);
+    }
+
+</style>
