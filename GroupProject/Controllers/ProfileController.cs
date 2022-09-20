@@ -70,7 +70,7 @@ namespace GroupProject.Controllers
          
                 var userId = User.Identity.GetUserId();
                 ViewBag.loggedUser = userId;
-            ViewBag.LoggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
+                ViewBag.LoggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
             var user = _context.Users.Include(u => u.WallPosts)
                     .SingleOrDefault(u => u.Id == userId);
 
