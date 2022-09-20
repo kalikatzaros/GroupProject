@@ -3,24 +3,78 @@
     ViewBag.Title = "GetPeople";
     Layout = "~/Views/Shared/_KalikatzarosLayout.cshtml";
 }
-
-<div class="people">
-    @foreach (var item in Model.AllUsers)
+<div class="search">
+    @using (Html.BeginForm("GetPeople", "People", "Get"))
     {
-        <div class="person-card">
+        @Html.AntiForgeryToken()
+        <form>
+            <input type="text" placeholder="Search by Name or Email.." />
+            <button type="submit" class="submit-button button-default button-primary"><a href=@Url.Action("GetPeople", "People")>Search</a></button>
 
-            <img class="profile-pic" src="~/img/@item.Thumbnail" />
+        </form>
+    }
+ </div>
+    <div class="people">
+        @foreach (var item in Model.AllUsers)
+        {
+            <div class="person-card">
 
-            <a class="person-name text-capitalize">@item.FullName</a>
-            <button class="button-default button-follow">Follow </button>
-        </div>
+                <img class="profile-pic" src="~/img/@item.Thumbnail" />
 
+                <a href="@Url.Action("VisitingProfile","Profile",new { id=item.Id})" class="person-name text-capitalize">
+                    <p>@item.Name</p>
+                    <p class="p-lastname">@item.LastName</p>
+                    <small>
+                        @if (item.IsAdmin)
+                        {
+
+                            <img id="crown" src="~/img/crown.svg">
+
+
+                        }
+                    </small>
+                </a>
+                @if (Model.Followees.Contains(item))
+                {
+
+
+                    <button class="button-default button-following">Following </button>
+                }
+                else
+                {
+                    <button class="button-default button-follow">Follow </button>
+                }
+
+            </div>
+
+
+        }
+
+    </div>
+
+    <style>
+
+    .search form{
+        width: 100%;
+        height: 5rem;
+        background-color: var(--color-white);
+        border-radius: var(--card-border-radius);
+        padding: var(--card-padding);
+        margin-bottom: 1rem;
+        display:flex;
+        justify-content:space-between;
 
     }
-
-</div>
-
-<style>
+        .search input{
+            width:100%;
+        }
+        .search input[type="text"] {
+            padding: var(--card-padding);
+            border-radius: var(--card-border-radius);
+            background-color: var(--color-light);
+            color: var(--color-black);
+            font-size: 1rem;
+        }
     .people{
         display:flex;
         flex-wrap:wrap;
@@ -36,8 +90,8 @@
         align-items: center;
         color: var(--var-color-dark);
         font-size: 0.75rem;
-        width: 10rem;
-        height: 15rem;
+        width: 11.3rem;
+        height: 18rem;
         background-color: white;
     }
 
@@ -47,6 +101,26 @@
         aspect-ratio: 1/1;
         object-fit: cover;
         border-radius: 50%;
+    }
+    .person-name {
+        display: flex;
+        flex-direction: column;
+        color: var(--color-dark);
+        align-items:center;
+        justify-content:center;
+    }
+        .person-name:hover {
+            text-decoration: none;
+            cursor: pointer;
+            opacity: 0.5;
+        }
+    @*.person-name .p-lastname{
+        padding-top:-0.5rem;
+    }*@
+    .person-name p{
+        font-size:1rem;
+        line-height:0.7rem;
+
     }
     .button-follow {
         color: var(--color-gray);
@@ -68,7 +142,7 @@
     }
 
         .button-default:hover {
-            opacity: 0.8;
+            opacity: 0.2;
             text-decoration: none;
         }
 
@@ -76,6 +150,16 @@
         background-color: var(--color-primary);
         color: var(--color-white);
     }
+.submit-button a{
+    color:white;
+}
+
+        .submit-button a:hover {
+            text-decoration:none;
+        }
+    #crown{
+    
+    }
 
 
-</style>
+    </style>
