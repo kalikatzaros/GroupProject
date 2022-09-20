@@ -102,45 +102,41 @@ namespace GroupProject.Controllers
         public ActionResult VisitProfile(string id)
         {
             var userId = User.Identity.GetUserId();
-           
 
-            var user = _context.Users.Include(u => u.WallPosts)
-                .SingleOrDefault(u => u.Id == userId);
-            ViewBag.LoggedUser = user;
             var followeesIds = _context.Followings
-                                 .Where(f => f.FollowerId == userId)
-                                 .Select(f => f.FolloweeId)
-                                 .ToList();
+                                  .Where(f => f.FollowerId == userId)
+                                  .Select(f => f.FolloweeId)
+                                  .ToList();
             var otherUserId = id;
-                var user = _context.Users.Include(u => u.WallPosts)
-                        .SingleOrDefault(u => u.Id == otherUserId);
-                var wallPosts = _context.WallPosts
-                    .Include(w => w.Post)
-                    .Where(w => w.UserId == otherUserId)
-                    .OrderByDescending(w => w.Post.Datetime); ;
-                var viewModel = new ProfileViewModel()
-                {
-                    LoggedUserFollowingIds=followeesIds,
-                    LoggedUserId=userId,
-                    User = user,
-                    Email = user.Email,
-                    ProfileImage = user.Thumbnail,
-                    FirstName = user.Name,
-                    LastName = user.LastName,
-                    WallPosts = wallPosts.ToList(),
-                    DateOfBirth = user.DateOfBirth,
-                    //Followings = _followingRepository.GetFollowings(otherUserId).ToLookup(a => a.FolloweeId),
-                    //ShowActions = User.Identity.IsAuthenticated,
-                    Description=user.Description,
-                    IsAdmin=user.IsAdmin
-                };
-                return View(viewModel);           
+            var user = _context.Users.Include(u => u.WallPosts)
+                    .SingleOrDefault(u => u.Id == otherUserId);
+            var wallPosts = _context.WallPosts
+                .Include(w => w.Post)
+                .Where(w => w.UserId == otherUserId)
+                .OrderByDescending(w => w.Post.Datetime); ;
+            var viewModel = new ProfileViewModel()
+            {
+                LoggedUserFollowingIds = followeesIds,
+                LoggedUserId = userId,
+                User = user,
+                Email = user.Email,
+                ProfileImage = user.Thumbnail,
+                FirstName = user.Name,
+                LastName = user.LastName,
+                WallPosts = wallPosts.ToList(),
+                DateOfBirth = user.DateOfBirth,
+                Description = user.Description,
+                IsAdmin = user.IsAdmin
+            };
+            return View(viewModel);
+
         }
 
         public ActionResult VisitingProfile(string id)
         {
             var userId = User.Identity.GetUserId();
-
+            
+            ViewBag.LoggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
             var followeesIds = _context.Followings
                                   .Where(f => f.FollowerId == userId)
                                   .Select(f => f.FolloweeId)
