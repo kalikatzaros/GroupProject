@@ -659,6 +659,7 @@
     <Content Include="Views\Profile\MyProfile.cshtml" />
     <Content Include="Views\Shared\_LayoutPage1.cshtml" />
     <Content Include="Views\Profile\VisitingProfile.cshtml" />
+    <Content Include="Views\People\GetPeople.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
