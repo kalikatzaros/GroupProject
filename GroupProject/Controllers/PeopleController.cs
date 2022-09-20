@@ -91,7 +91,7 @@ namespace GroupProject.Controllers
             }
            
         }
-
+        [HttpGet]
         public ActionResult GetPeople(string search)
         {
             var userId = User.Identity.GetUserId();

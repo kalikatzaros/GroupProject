@@ -4,16 +4,24 @@
     Layout = "~/Views/Shared/_KalikatzarosLayout.cshtml";
 }
 <div class="search">
-    @using (Html.BeginForm("GetPeople", "People", "Get"))
-    {
-        @Html.AntiForgeryToken()
-        <form>
-            <input type="text" placeholder="Search by Name or Email.." />
-            <button type="submit" class="submit-button button-default button-primary"><a href=@Url.Action("GetPeople", "People")>Search</a></button>
+    <form>
+        @using (Html.BeginForm("GetPeople", "People", FormMethod.Get))
+        {
+            @Html.AntiForgeryToken()
 
-        </form>
-    }
- </div>
+            <input type="text" id="name" name="search" placeholder="Search by Name or Email.." />
+            <div class="form-buttons">
+                <button type="reset" class="button-default button-reset"><a href=@Url.Action("GetPeople", "People")>Clear</a></button>
+                <button type="submit" class="submit-button button-default button-primary">Search</button>
+            </div>
+
+        }
+    </form>
+        @if (Model.AllUsers.Count == 0)
+        {
+            <h4>No Results Found</h4>
+        }
+    </div>
     <div class="people">
         @foreach (var item in Model.AllUsers)
         {
@@ -75,11 +83,22 @@
             color: var(--color-black);
             font-size: 1rem;
         }
-    .people{
-        display:flex;
-        flex-wrap:wrap;
-        gap:1rem;
-    }
+
+        .button-reset a{
+            color:var(--color-dark);
+        }
+
+        .button-reset a:hover {
+            color: var(--color-dark);
+            text-decoration:none;
+        }
+
+
+        .people {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
 
     .person-card {
         padding: var(--card-padding);
