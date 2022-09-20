@@ -120,19 +120,25 @@ namespace GroupProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id,string body)
+        public ActionResult Edit(WallPostViewModel viewModel)
         {
             var wallpost = db.WallPosts
                 .Include(wp => wp.Post)
-                .SingleOrDefault(wp => wp.Id == id);
-            wallpost.Post.Body = body;
+                .SingleOrDefault(wp => wp.Id == viewModel.Id);
+            wallpost.Post.Body = viewModel.Body;
             wallpost.Post.Datetime = DateTime.Now;
+            if (viewModel.ImageFile != null)
+            {
+                wallpost.Post.Thumbnail = Path.GetFileName(viewModel.ImageFile.FileName);
+                string fullPath = Path.Combine(Server.MapPath("~/img"), wallpost.Post.Thumbnail);
+                viewModel.ImageFile.SaveAs(fullPath);
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(wallpost).State = EntityState.Modified;
                 
                 db.SaveChanges();
-                return RedirectToAction("Index","Profile");
+                return RedirectToAction("MyProfile","Profile");
             }      
             return View(wallpost);
         }
