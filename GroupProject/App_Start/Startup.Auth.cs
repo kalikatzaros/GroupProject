@@ -54,9 +54,9 @@ namespace GroupProject
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "3178664245716988",
+               appSecret: "3b7656bb4cc99037a92df9184e1ed1d2");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
