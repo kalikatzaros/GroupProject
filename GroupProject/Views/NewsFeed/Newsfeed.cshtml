@@ -62,14 +62,15 @@
                           <img class="profile-photo" src="~/img/@item.User.Thumbnail" />
                       </div>
                       <div class="user-info">
-                          <h3 class="text-capitalize">
-                              @item.User.FullName
-                              @if (item.User.IsAdmin)
-                              {
-                                  <img src="~/img/crown.svg" id="crown"></img>
-                              }
-                          </h3>
-
+                          <a href=@Url.Action("VisitingProfile", "Profile",new {id=item.User.Id }) >
+                              <h3 class="text-capitalize">
+                                  @item.User.FullName
+                                  @if (item.User.IsAdmin)
+                                  {
+                                      <img src="~/img/crown.svg" id="crown"></img>
+                                  }
+                              </h3>
+                          </a>
                       </div>
                   </div>
                   <small class="text-muted">@item.Post.Datetime</small>
@@ -117,6 +118,7 @@
                             </div>
                             <div class="user-info">
                                 <h3 class="text-capitalize">
+                                    <a ></a>
                                     @item.Sender.FullName
                                     @if (item.Sender.IsAdmin)
                                     {

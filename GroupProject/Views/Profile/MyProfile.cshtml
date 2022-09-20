@@ -68,7 +68,7 @@
                         <div class="user-info">
                             <h3 class="text-capitalize">
                                 @item.User.FullName
-                                @if (item.User.IsAdmin)
+                                @if(item.User.IsAdmin)
                                 {
                                     <img src="~/img/crown.svg" id="crown"></img>
                                 }
@@ -186,6 +186,7 @@
         height: 5rem;
         width: 5rem;
         object-fit: cover;
+        margin-left:1rem;
     }
 
     

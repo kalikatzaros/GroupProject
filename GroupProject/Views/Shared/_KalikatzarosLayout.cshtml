@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    @*<title>@ViewBag.Title</title>*@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,9 +11,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
-
-    @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/bootstrap")
+
 </head>
 <body>
     <div>
@@ -40,7 +40,7 @@
         <main>
             <div class="wrapper">
                 <div class="main-left">
-                    <a href=@Url.Action("MyProfile", "Profile") class="profile">
+                    <a class="profile">
 
                         <img class="profile-photo" src="~/img/@ViewBag.LoggedUser.Thumbnail" />
 
@@ -115,7 +115,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-
+    @RenderSection("Styles", false)
     <script>
             $(document).ready(function () {
                 console.log("hey");
