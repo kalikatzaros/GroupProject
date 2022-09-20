@@ -22,14 +22,7 @@
                 </h2>
                 <div class="top-nav-left">
 
-                    <img class="profile-photo" src="~/img/@ViewBag.LoggedUser.Thumbnail" />
-                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <div class="signout">
-                            <a href="javascript:document.getElementById('logoutForm').submit()" class="material-icons">logout</a>
-                        </div>
-                    }
+                  
 
                 </div>
             </div>
