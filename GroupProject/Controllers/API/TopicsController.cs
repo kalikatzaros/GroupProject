@@ -1,4 +1,5 @@
-﻿using GroupProject.Models;
+﻿using GroupProject.Dtos;
+using GroupProject.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,44 @@ namespace GroupProject.Controllers.API
       
             return Ok(topics);
         }
-  
+        [Route("addTopic")]
+        [HttpPost]
+        public IHttpActionResult Follow(TopicDto dto)
+        {
+            var userId = User.Identity.GetUserId();
+
+
+            var topic = new Topic()
+            {
+                Title = dto.Title,
+                Created = DateTime.Now,
+                UserId = userId
+            };
+
+            if (ModelState.IsValid)
+            {
+              _context.Topics.Add(topic);
+                _context.SaveChanges();
+                var post = new Post()
+                {
+                    Body = dto.Body,
+                    Datetime = DateTime.Now
+                };
+               _context.Posts.Add(post);
+               _context.SaveChanges();
+                var topicPost = new TopicPost()
+                {
+                    PostId = post.Id,
+                    SenderId = userId,
+                    TopicId = topic.Id
+                };
+               _context.TopicPosts.Add(topicPost);
+                _context.SaveChanges();
+                return Ok();
+            }
+            return Ok();
+        }
+
         [HttpDelete]
         public IHttpActionResult DeleteTopic(int? id)
         {

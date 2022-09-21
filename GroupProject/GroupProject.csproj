@@ -263,6 +263,7 @@
     <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Controllers\WallPostsController.cs" />
     <Compile Include="Dtos\FollowingDto.cs" />
+    <Compile Include="Dtos\TopicDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
