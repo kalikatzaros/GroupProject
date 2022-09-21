@@ -31,19 +31,29 @@ namespace GroupProject.Controllers
         //}
         public ActionResult GetTopicPosts(int? id)
         {
+            if (id == null)
+            {
+                return View("Error");
+            }
             var userId = User.Identity.GetUserId();
            
             //var roleId = _context.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).SingleOrDefault();
 
-
-            ViewBag.LoggedUser = db.Users.SingleOrDefault(u => u.Id == userId);
-            ViewBag.userId = userId;
+            var loggedUser= db.Users.SingleOrDefault(u => u.Id == userId);
+            ViewBag.LoggedUser = loggedUser;
+            var topic = db.Topics.SingleOrDefault(t => t.Id == id);
             var topicPosts = db.TopicPosts.Include(t => t.Post)
                 .Include(t => t.Sender)
                 .Include(t => t.Topic)
                 .Where(t => t.TopicId == id)
-                .OrderBy(t => t.Post.Datetime);
-            return View(topicPosts.ToList());
+                .OrderBy(t => t.Post.Datetime).ToList();
+            var viewModel = new GetTopicPostsViewModel() { 
+            LoggedInUser=loggedUser,
+            TopicPosts=topicPosts,
+            Topic=topic
+                       };
+
+            return View(viewModel);
         }
 
         // GET: TopicPosts/Details/5

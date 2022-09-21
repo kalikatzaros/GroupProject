@@ -1,23 +1,56 @@
-﻿@model IEnumerable<GroupProject.Models.TopicPost>
+﻿@model GroupProject.ViewModels.GetTopicPostsViewModel
 @{
     ViewBag.Title = "GetTopicPosts";
     Layout = "~/Views/Shared/_KalikatzarosLayout.cshtml";
 }
 
+
+<div class="topics-title">
+    <h3 id="topic-id"data-topic-id="@Model.Topic.Id">@Model.Topic.Title</h3>
+    <button class="button-default button-analogus add-topic">+ Add Post</button>
+</div>
+   
 <div class="form-container">
-    <form class="add-topic-form ">
+    <form class="add-topic-post-form ">
        
         <div class="form-body">
-            <label for="Body">Message: </label>
+            <label for="Body">Post: </label>
             <textarea id="Body" name="Body" rows="2" required></textarea>
         </div>
         <div class="form-buttons">
-            <button type="reset" class="button-default">Clear</button>
-            <button type="submit" class="button-default button-analogus">Create</button>
+            <button type="reset"  class="button-default">Clear</button>
+            <button type="submit" id="submit-button" class="button-default button-analogus">Create</button>
         </div>
     </form>
 </div>
 
+@foreach(var item in Model.TopicPosts)
+            {
+
+            }
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            const id = $('#topic-id').attr('data-topic-id');
+            $.getJSON("/api/topicPosts/getTopicPosts/"+id)
+                .done(function (data) {
+                    console.log(data);
+                })
+                .fail(function () {
+
+
+                });
+
+
+
+
+
+
+        });
+    </script>
+
+    }
 <style>
     .form-container {
         width: 100%;
@@ -41,11 +74,11 @@
             margin-left: 0.65rem;
         }
 
-    .add-topic-form label {
+    .add-topic-post-form label {
         font-size: 1rem;
     }
 
-    .add-topic-form textarea {
+    .add-topic-post-form textarea {
         font-size: 1rem;
         width: 70%;
         background-color: var(--color-light);
@@ -54,7 +87,7 @@
         resize: none;
     }
 
-    .add-topic-form {
+    .add-topic-post-form {
         background-color: var(--color-white);
         border-radius: var(--card-border-radius);
         display: flex;
@@ -95,5 +128,17 @@
     .button-analogus {
         background-color: var(--color-analogus);
         color: var(--color-white);
+    }
+
+    .topics-title {
+        width: 100%;
+        padding: var(--card-padding);
+        background-color: var(--color-analogus-secondary);
+        border-radius: var(--card-border-radius);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        color: var(--color-dark);
     }
 </style>

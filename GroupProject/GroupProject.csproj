@@ -262,8 +262,10 @@
     <Compile Include="Controllers\TopicPostsController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Controllers\WallPostsController.cs" />
+    <Compile Include="Dtos\CreateTopicPostDto.cs" />
     <Compile Include="Dtos\FollowingDto.cs" />
     <Compile Include="Dtos\TopicDto.cs" />
+    <Compile Include="Dtos\TopicPostsDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -362,6 +364,7 @@
     <Compile Include="Repositories\FollowingRepository.cs" />
     <Compile Include="Repositories\MessageRepository.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\GetTopicPostsViewModel.cs" />
     <Compile Include="ViewModels\NewsFeedViewModel.cs" />
     <Compile Include="ViewModels\PeopleViewModel.cs" />
     <Compile Include="ViewModels\ProfileViewModel.cs" />

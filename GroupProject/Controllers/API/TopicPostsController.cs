@@ -1,4 +1,5 @@
-﻿using GroupProject.Models;
+﻿using GroupProject.Dtos;
+using GroupProject.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -21,16 +22,29 @@ namespace GroupProject.Controllers.API
             _context = new ApplicationDbContext();
         }
 
-        [Route("")]
-        public IHttpActionResult GetTopicPosts()
+        [Route("getTopicPosts/{id}")]
+        [HttpGet]
+        public IHttpActionResult GetTopicPosts(int? id)
         {
+            var topic = _context.Topics.SingleOrDefault(t => t.Id == id);
+            if (topic == null)
+            {
+                return NotFound();
+            }
+            var userId = User.Identity.GetUserId();
+            var loggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
             var topicPosts = _context.TopicPosts
                              .Include(tp=>tp.Post)
                              .Include(tp=>tp.Sender)
                              .Include(tp=>tp.Topic)
+                             .Where(tp=>tp.Topic.Id==id)
                              .ToList();
-
-            return Ok(topicPosts);
+            var dto = new TopicPostsDto()
+            {
+                TopicPosts=topicPosts,
+                LoggedUser=loggedUser
+            };
+            return Ok(dto);
         }
 
         [HttpGet]
