@@ -7,6 +7,7 @@ namespace GroupProject.Dtos
 {
     public class CreateTopicPostDto
     {
+        public int TopicId { get; set; }
         public string Body { get; set; }
         public HttpPostedFileBase ImageFile { get; set; }
         public string Thumbnail { get; set; }

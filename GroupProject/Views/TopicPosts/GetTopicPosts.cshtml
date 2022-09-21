@@ -1,45 +1,93 @@
 ﻿@model GroupProject.ViewModels.GetTopicPostsViewModel
 @{
-    ViewBag.Title = "GetTopicPosts";
+    ViewBag.Title ="GetTopicPosts";
     Layout = "~/Views/Shared/_KalikatzarosLayout.cshtml";
 }
 
 
 <div class="topics-title">
-    <h3 id="topic-id"data-topic-id="@Model.Topic.Id">@Model.Topic.Title</h3>
+    <h3 id="topic-id" data-topic-id="@Model.Topic.Id">@Model.Topic.Title</h3>
     <button class="button-default button-analogus add-topic">+ Add Post</button>
 </div>
-   
+
 <div class="form-container">
-    <form class="add-topic-post-form ">
-       
+    <form class="add-topic-post-form">
+
         <div class="form-body">
             <label for="Body">Post: </label>
             <textarea id="Body" name="Body" rows="2" required></textarea>
         </div>
         <div class="form-buttons">
-            <button type="reset"  class="button-default">Clear</button>
+            <button type="reset" class="button-default">Clear</button>
             <button type="submit" id="submit-button" class="button-default button-analogus">Create</button>
         </div>
     </form>
 </div>
 
-@foreach(var item in Model.TopicPosts)
-            {
+@foreach (var item in Model.TopicPosts)
+{
+    <div class="topic-post">
+        <div class="topic-post-header">
 
+            <div class="topic-post-user">
+                <div class="topic-post-left">
+                    <div class="profile-photo">
+                        <img class="profile-photo" src="~/img/@item.Sender.Thumbnail" />
+                    </div>
+                    <div class="user-info">
+                        <a href=@Url.Action("VisitingProfile", "Profile",new {id=item.Sender.Id })>
+                            <h3 class="text-capitalize">
+
+                                @item.Sender.FullName
+                                @if (item.Sender.IsAdmin)
+                                {
+                                    <img src="~/img/crown.svg" id="crown"></img>
+                                }
+                            </h3>
+                        </a>
+                    </div>
+                </div>
+                <small class="text-muted">@item.Post.Datetime</small>
+
+            </div>
+
+            <div class="photo">
+                @if (item.Post.Thumbnail != null)
+                {
+                    <img src="~/img/@item.Post.Thumbnail" />
+                }
+            </div>
+            @if (ViewBag.LoggedUser.IsAdmin || ViewBag.LoggedUser.Id==item.SenderId)
+            {
+                <div class="action-buttons">
+                    <div class="two-buttons">
+                        <a class="material-icons tp-delete" data-tp-id="@item.Id">delete</a>
+                        <a class="material-icons tp-edit"data-wp-id="@item.Id">edit</a>
+                    </div>
+                </div>
             }
+            <div class="topic-post-text">
+                <p>@item.Post.Body</p>
+            </div>
+        </div>
+
+    </div>
+
+}
 
 @section Scripts{
     <script>
         $(document).ready(function () {
             const id = $('#topic-id').attr('data-topic-id');
-            $.getJSON("/api/topicPosts/getTopicPosts/"+id)
+
+
+
+            $.getJSON("/api/topicPosts/getTopicPosts/" + id)
                 .done(function (data) {
                     console.log(data);
                 })
                 .fail(function () {
-
-
+                    console.log('why');
                 });
 
 
@@ -50,7 +98,7 @@
         });
     </script>
 
-    }
+}
 <style>
     .form-container {
         width: 100%;
@@ -141,4 +189,84 @@
         margin-bottom: 1rem;
         color: var(--color-dark);
     }
+
+   @*topic post*@
+
+    .topic-post {
+        background-color: var(--color-white);
+        padding: var(--card-padding);
+        border-radius: var(--card-border-radius);
+        margin: 1rem 0;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .topic-post-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .topic-post-user {
+        display: flex;
+        justify-content: space-between;
+        @*gap:1rem;
+        *@
+    }
+
+    .topic-post-left {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .user-info h3 {
+        display: flex;
+    }
+
+    .photo img {
+        margin: 1rem 0;
+        border-radius: var(--card-border-radius);
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: flex-end;
+        border-radius: var(--card-border-radius);
+        margin-bottom: 1rem;
+        align-items: center;
+    }
+
+    .two-buttons {
+        background-color: var(--color-light);
+        border-radius: var(--card-border-radius);
+        padding: 0.1rem 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .action-buttons a {
+        color: var(--color-gray);
+        border-radius: var(--card-border-radius);
+        font-size: 1rem;
+        transition: var(--transition);
+        cursor: pointer;
+    }
+
+    .tp-delete:hover {
+        color: var(--color-danger);
+        text-decoration: none;
+    }
+
+    .tp-edit:hover {
+        color: var(--color-primary);
+        text-decoration: none;
+    }
+
+    .topic-post-text {
+        background-color: var(--color-light);
+        padding: var(--card-padding);
+        border-radius: var(--card-border-radius);
+    }
+
 </style>
