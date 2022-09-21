@@ -25,10 +25,8 @@ namespace GroupProject.Controllers
         {
             var userId = User.Identity.GetUserId();
             //var roleId = _context.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).SingleOrDefault();
-
-
             ViewBag.LoggedUser = db.Users.SingleOrDefault(u => u.Id == userId);
-            return View(db.Topics.Include(t => t.User).ToList());
+            return View(db.Topics.Include(t => t.User).OrderByDescending(t=> t.Created).ToList());
         }
         // GET: Topics/Details/5
         public ActionResult Details(int? id)

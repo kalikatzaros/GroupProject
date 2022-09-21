@@ -18,15 +18,31 @@ namespace GroupProject.Controllers
 
         // GET: TopicPosts
      
-        public ActionResult Index(int? id)
+        //public ActionResult Index(int? id)
+        //{
+        //    var userId = User.Identity.GetUserId();
+        //    ViewBag.userId = userId;
+        //    var topicPosts = db.TopicPosts.Include(t => t.Post)
+        //        .Include(t => t.Sender)
+        //        .Include(t => t.Topic)
+        //        .Where(t=>t.TopicId==id)
+        //        .OrderBy(t=>t.Post.Datetime);
+        //    return View(topicPosts.ToList());
+        //}
+        public ActionResult GetTopicPosts(int? id)
         {
             var userId = User.Identity.GetUserId();
+           
+            //var roleId = _context.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).SingleOrDefault();
+
+
+            ViewBag.LoggedUser = db.Users.SingleOrDefault(u => u.Id == userId);
             ViewBag.userId = userId;
             var topicPosts = db.TopicPosts.Include(t => t.Post)
                 .Include(t => t.Sender)
                 .Include(t => t.Topic)
-                .Where(t=>t.TopicId==id)
-                .OrderBy(t=>t.Post.Datetime);
+                .Where(t => t.TopicId == id)
+                .OrderBy(t => t.Post.Datetime);
             return View(topicPosts.ToList());
         }
 

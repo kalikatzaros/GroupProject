@@ -29,7 +29,7 @@
     {
     <div class="topic-row">
         <div class="topic-column topic-title">
-            <a><h4 class="text-capitalize">@item.Title</h4></a>
+            <a href="@Url.Action("GetTopicPosts","TopicPosts",new { id=item.Id})"><h4 class="text-capitalize">@item.Title</h4></a>
         </div>
         <div class="topic-column topic-created">
             <h5>created by</h5>
@@ -68,6 +68,7 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
+           
             $('.add-topic').click(function () {
                 const form = $('.add-topic-form');
                 if (form.hasClass('hidden')) {
@@ -76,40 +77,42 @@
                     $(this).html('+ Add Topic');
                 }
                 form.toggleClass('hidden');
-                
+
                 console.log(Body);
                 console.log(Title);
-                form.trigger('reset');
+                @*form.trigger('reset');*@
                 form.submit(function (e) {
                     e.preventDefault();
-                   
+
                     const title = $('#Title').val();
                     const body = $('#Body').val();
-          
+
                     $.ajax({
                         url: '/api/topics/addTopic',
                         data: {Body:body,Title:title},
                         method: "POST"
                     }).done(function (data) {
-                        
-                        form.toggleClass('hidden');
-                        $('add-topic').html('+ Add Topic');
+                        @*$('#Body').val(null);
+                        $('#Title').val(null);*@
+                      
+                        @*form.toggleClass('hidden');*@
                         location.reload();
-                         }).fail(
+                        $('.add-topic').html('+ Add Topic');
+                                             }).fail(
                              function () {
                                  console.log('why?');
                              }
                     );
 
-                   
+
 
                 });
 
             });
 
-
-
-
+           
+                       
+         
         });
 
     </script>

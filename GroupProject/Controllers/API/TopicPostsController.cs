@@ -55,6 +55,7 @@ namespace GroupProject.Controllers.API
                 .Include(t => t.Sender)
                 .Include(t=>t.Topic.User)
                 .Include(t => t.Post)
+                .Include(t=>t.Topic)
                 .Where(t => t.TopicId == topic.Id)
                 .ToList().LastOrDefault();
                 lastTopicPosts.Add(lastTopicPost);
