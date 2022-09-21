@@ -129,6 +129,7 @@ namespace GroupProject.Controllers
                 var users = _context.Users
                          .Where(u => u.Id != userId && (u.Name.ToLower() == search.ToLower()
                          || u.LastName.ToLower() == search.ToLower()
+                         || u.Name.ToLower() + " " + u.LastName.ToLower() == search.ToLower()
                          || u.Email.ToLower() == search.ToLower()) && u.IsDeactivated == false)
                          .ToList();
                 var peopleViewModel = new PeopleViewModel()

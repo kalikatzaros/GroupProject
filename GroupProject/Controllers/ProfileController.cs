@@ -71,7 +71,7 @@ namespace GroupProject.Controllers
                 var userId = User.Identity.GetUserId();
                 ViewBag.loggedUser = userId;
                 ViewBag.LoggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
-            var user = _context.Users.Include(u => u.WallPosts)
+                var user = _context.Users.Include(u => u.WallPosts)
                     .SingleOrDefault(u => u.Id == userId);
 
                 var wallPosts = _context.WallPosts
@@ -95,7 +95,7 @@ namespace GroupProject.Controllers
                     FollowersCount = _followingRepository.GetFollowersCount(userId)
                 };
 
-  return View("MyProfile", viewModel);
+                return View("MyProfile", viewModel);
             }
         
 
@@ -147,7 +147,7 @@ namespace GroupProject.Controllers
             var wallPosts = _context.WallPosts
                 .Include(w => w.Post)
                 .Where(w => w.UserId == otherUserId)
-                .OrderByDescending(w => w.Post.Datetime); ;
+                .OrderByDescending(w => w.Post.Datetime);
             var viewModel = new ProfileViewModel()
             {
                 LoggedUserFollowingIds = followeesIds,
