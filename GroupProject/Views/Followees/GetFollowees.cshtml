@@ -83,10 +83,10 @@
                         method: "DELETE"
                     })
                         .done(function () {
-                            button.toggleClass('button-following');
+                            @*button.toggleClass('button-following');
                             button.toggleClass('button-follow');
-                            button.html("Follow");
-
+                            button.html("Follow");*@
+                            button.parent().fadeOut();
                             console.log(data);
                             console.log(button);
                         })

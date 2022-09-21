@@ -662,6 +662,8 @@
     <Content Include="Views\People\GetPeople.cshtml" />
     <Content Include="Views\Followees\GetFollowees.cshtml" />
     <Content Include="Views\Followers\GetFollowers.cshtml" />
+    <Content Include="Views\Topics\Forum.cshtml" />
+    <Content Include="Views\Topics\GetTopics.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
