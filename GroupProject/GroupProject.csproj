@@ -660,6 +660,8 @@
     <Content Include="Views\Shared\_LayoutPage1.cshtml" />
     <Content Include="Views\Profile\VisitingProfile.cshtml" />
     <Content Include="Views\People\GetPeople.cshtml" />
+    <Content Include="Views\Followees\GetFollowees.cshtml" />
+    <Content Include="Views\Followers\GetFollowers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

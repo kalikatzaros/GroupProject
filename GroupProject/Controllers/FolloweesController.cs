@@ -48,7 +48,39 @@ namespace GroupProject.Controllers
     
         }
 
+        public ActionResult GetFollowees(string search)
+        {
+            var userId = User.Identity.GetUserId();
+            //var roleId = _context.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).SingleOrDefault();
 
+
+            ViewBag.LoggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
+           
+            var viewModel = new SearchPeopleViewModel();
+            if (search == null)
+            {
+                var followees = _context.Followings
+                            .Where(f => f.FollowerId == userId && f.Followee.IsDeactivated == false)
+                            .Select(f => f.Followee)
+                            .ToList();
+
+                viewModel.Followees = followees;
+                return View(viewModel);
+            }
+            else
+            {
+                var followees = _context.Followings
+                                  .Where(f => f.FollowerId == userId && f.Followee.IsDeactivated == false && (f.Followee.Name.ToLower() == search.ToLower()
+                         || f.Followee.LastName.ToLower() == search.ToLower()
+                         || f.Followee.Email.ToLower() == search.ToLower()))
+                                  .Select(f => f.Followee)
+                               .ToList();
+
+                viewModel.Followees = followees;
+                return View(viewModel);
+            }
+
+        }
 
 
 
