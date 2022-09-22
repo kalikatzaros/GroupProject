@@ -2,11 +2,11 @@
 @model LoginViewModel
 @{
     ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 
 @*<h2>@ViewBag.Title.</h2>*@
-<div class="container container-login">
-    <div class="log-in">
+
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
@@ -47,35 +47,30 @@
                     @Html.ActionLink("Register as a new user", "Register")
 
                 </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
-                <p>
-                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                </p>*@
-
+               
             }
         </section>
-        <div class="col-md-4">
+       
             <section id="socialLoginForm">
                 @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-            </section>
-        </div>
-    </div>
+       </section>
+  
 
     
-</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
 <style>
-    body {
+    @*body {
         background: #0264d6;
         background: -moz-radial-gradient(center, ellipse cover, #0264d6 1%, #1c2b5a 100%); /* For FireFox 3.6+ */
         background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(1%,#0264d6), color-stop(100%,#1c2b5a)); /* For Chrome,Safari4+ */
         background: -webkit-radial-gradient(center, ellipse cover, #0264d6 1%,#1c2b5a 100%); /* For Chrome10+,Safari5.1+ */
-    }
+    }*@
 
-    .transparent {
+    @*.transparent {
         background-color: transparent !important;
         box-shadow: inset 0px 1px 0 rgba(0,0,0,.075);
         color:black;
@@ -102,7 +97,16 @@
       display:flex;
       align-items:center;
       justify-content:center;
-  }
-
+  }*@
+    .container-login{
+        width:100%;
+    }
+    .log-in{
+        display:flex;
+        padding:var(--card-padding);
+        border-radius:var(--card-border-radius);
+        background-color:var(--color-white);
+        width:50%;
+    }
 
 </style>

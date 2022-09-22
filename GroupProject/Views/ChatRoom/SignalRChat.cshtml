@@ -1,11 +1,11 @@
 ﻿
 @{
-    ViewBag.Title = "SignalRChat";
-
+    ViewBag.Title = "Chat";
+    Layout = "~/Views/Shared/_KalikatzarosLayout.cshtml";
 }
-
+<h3>Chat</h3>
 <div class="chat-container">
-    <h3>Chat</h3>
+    
     <div id="container">
         <input type="hidden" id="nickname" value="@ViewBag.UserName" />
         <div id="chatlog"></div>
@@ -26,9 +26,7 @@
                 </select>
             </div>
         </div>
-        <ul id="messages" class=".cb__list">
-        </ul>
-
+     
     </div>
 </div>
 @section scripts{
@@ -65,11 +63,7 @@
                 message = message.replace(":D", "<img src=\"/images/laugh.gif\" class=\"smileys\" />");
                 message = message.replace(":o", "<img src=\"/images/cool.gif\" class=\"smileys\" />");
                 messages.push(message);
-                @*$('#messages').chatBubble({
-                    messages: messages,
-                    typingSpeed: 5000
-                });*@
-                //display the message
+               
                 if (message != "") {
                     @*$('#messages').append('<li class="bubble"><span style="color:purple">' + name + '</span>: ' + message + '</li>');*@
                     $('#chatlog').append('<div class="border"><span style="color:purple">' + name + '</span>: ' + message + '</div>');
@@ -114,43 +108,4 @@
         height: 80vh;
     }
 
-    .cb__list {
-        padding: 0;
-        list-style-type: none;
-        font-family: sans-serif;
-        width: 320px;
-        margin: 0 auto;
-        overflow: hidden;
-    }
-
-        .cb__list .bubble {
-            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
-            display: inline-block;
-            line-height: 1.45em;
-            border-radius: 3px;
-            margin: 0 0 1em 0;
-            text-align: left;
-            position: relative;
-            padding: 6px 12px;
-            background: #fff;
-            font-size: 19px;
-            border: none;
-            max-width: 90%;
-            min-width: 44px;
-            min-height: 12px;
-        }
-
-            .cb__list .bubble.typing {
-                animation: cb-font-fade 1.2s ease-in-out infinite;
-            }
-
-    @@keyframes cb-font-fade {
-        50% {
-            color: transparent;
-        }
-
-        100% {
-            color: inherit;
-        }
-    }
 </style>
