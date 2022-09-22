@@ -11,7 +11,7 @@
 </div>
 
 <div class="form-container">
-    <form class="add-topic-post-form hidden">
+    <div class="add-topic-post-form hidden">
         @using (Html.BeginForm("CreateTopicPost", "TopicPosts", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
@@ -32,7 +32,7 @@
 
 
         }
-    </form>
+    </div>
     </div>
 
 @foreach (var item in Model.TopicPosts)
