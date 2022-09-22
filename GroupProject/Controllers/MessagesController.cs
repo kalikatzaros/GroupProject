@@ -29,27 +29,28 @@ namespace GroupProject.Controllers
         {
             var viewModel = new UserMessagesViewModel();
             var userId = User.Identity.GetUserId();
-
+            var loggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
+            ViewBag.LoggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
             viewModel.Users = _context.Users.Where(u => u.Id != userId&&u.IsDeactivated==false);
             return View(viewModel);
         }
-        //[HttpPost]
-        //[Authorize]
-        //public ActionResult CreateMessage(UserMessagesViewModel viewModel)
-        //{
-        //    var userId = User.Identity.GetUserId();
-            
-        //    var message = new Message()
-        //    {
-        //        SenderId = userId,
-        //        ReceiverId = viewModel.Message.ReceiverId,
-        //        Body = viewModel.Message.Body,
-        //        Datetime = DateTime.Now
-        //    };
-        //    _context.Messages.Add(message);
-        //    _context.SaveChanges();
-        //    return RedirectToAction("Index", "NewsFeed");
-        //}
+        [HttpPost]
+        [Authorize]
+        public ActionResult CreateMessage(UserMessagesViewModel viewModel)
+        {
+            var userId = User.Identity.GetUserId();
+            ViewBag.LoggedUser = _context.Users.SingleOrDefault(u => u.Id ==userId);
+            var message = new Message()
+            {
+                SenderId = userId,
+                ReceiverId = viewModel.Message.ReceiverId,
+                Body = viewModel.Message.Body,
+                Datetime = DateTime.Now
+            };
+            _context.Messages.Add(message);
+            _context.SaveChanges();
+            return RedirectToAction("GetIncomingMessages", "Messages");
+        }
 
         [HttpPost]
         [Authorize]

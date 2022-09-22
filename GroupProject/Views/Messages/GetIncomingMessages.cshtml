@@ -14,6 +14,8 @@
     <div class="messages-column messages-left">
         <a class="left-link" href=@Url.Action("GetIncomingMessages", "Messages")><i class="material-icons">mail</i><b>Received</b></a>
         <a class="left-link" href=@Url.Action("ReadSentMessages", "Messages")><i class="material-icons">send</i>Sent</a>
+    <a class="button-default button-primary compose" href=@Url.Action("CreateMessage", "Messages")>Compose</a>
+    
     </div>
 
     <div class="messages-column messages-right">
@@ -23,10 +25,18 @@
                 <img class="profile-photo" src="~/img/@item.Sender.Thumbnail" />
                 <h4>@item.Sender.FullName</h4>
             </div>
-            <div class="message-body">
-                <p>@item.Body</p>
-            </div>
-
+            if (item.IsRead)
+            {
+                <div class="message-body body-bold">
+                    <p>@item.Body</p>
+                </div>
+            }
+            else
+            {
+                <div class="message-body">
+                    <p>@item.Body</p>
+                </div>
+            }
             <div class="message-actions">
                 <a class=".msg-delete"><i class="material-icons">delete</i></a>
             </div>
@@ -86,6 +96,12 @@
             display: flex;
             gap: 1rem;
             border-right: 2px solid var(--color-gray);
+            margin-bottom:1rem;
+        }
+
+        .message-body .body-bold p{
+            font-weight:bold;
+            color:red;
         }
         .inbox-title {
             width: 100%;
@@ -110,12 +126,18 @@
         }
 
             .button-default:hover {
-                opacity: 0.5;
+                opacity: 0.8;
                 text-decoration: none;
             }
 
-        .button-primary {
+        .button-primary  {
             background-color: var(--color-primary);
             color: var(--color-white);
         }
+
+            .button-primary:hover {
+                opacity: 0.8;
+                color: var(--color-gray);
+            }
+            
     </style>

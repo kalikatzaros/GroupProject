@@ -2,48 +2,162 @@
 
 @{
     ViewBag.Title = "CreateMessage";
+    Layout = "~/Views/Shared/_KalikatzarosLayout.cshtml";
 }
 
-<h2>CreateMessage</h2>
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()    
-    <div class="form-horizontal">
-        <h4>Message</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })        
-        <div class="form-group">
-            @Html.LabelFor(model => model.Message.ReceiverId, "ReceiverId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.Message.ReceiverId,new SelectList(Model.Users, "Id", "Email"),"Select Receiver", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Message.ReceiverId, "", new { @class = "text-danger" }, null)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Message.Body, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Message.Body, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Message.Body, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.Message.Datetime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Message.Datetime, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Message.Datetime, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div class="inbox-title">
+    <h3>Inbox</h3>
 </div>
+
+<div class="mesagges-container">
+    <div class="messages-column messages-left">
+        <a class="left-link" href=@Url.Action("GetIncomingMessages", "Messages")><i class="material-icons">mail</i><b>Received</b></a>
+        <a class="left-link" href=@Url.Action("ReadSentMessages", "Messages")><i class="material-icons">send</i>Sent</a>
+        <a class="button-default button-primary compose" href=@Url.Action("CreateMessage", "Messages")>Compose</a>
+
+    </div>
+
+    <div class="messages-column messages-right">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <h4>Message</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="form-control">Receiver:</label>
+                    @*@Html.LabelFor(model => model.Message.ReceiverId, "ReceiverId", htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(m => m.Message.ReceiverId, new SelectList(Model.Users, "Id", "FullName"), "Select Receiver", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Message.ReceiverId, "", new { @class = "text-danger" }, null)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Message.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Message.Body, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Message.Body, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.Message.Datetime, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Message.Datetime, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Message.Datetime, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Send" class="button-default button-primary" />
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+
+
+
+    <style>
+        .mesagges-container {
+            display: grid;
+            width: 100%;
+            background-color: var(--color-white);
+            padding: var(--card-padding);
+            border-radius: var(--card-border-radius);
+            grid-template-columns: 10rem auto;
+        }
+
+        .messages-left {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+            .messages-left a {
+                transition: var(--transition);
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+            }
+
+                .messages-left a:hover {
+                    text-decoration: none;
+                    color: var(--color-primary);
+                }
+
+                .messages-left a i {
+                    color: var(--color-gray);
+                }
+
+                    .messages-left a i:hover {
+                        color: var(--color-primary);
+                    }
+
+
+        .messages-right {
+            padding-left: 2rem;
+            display: grid;
+            column-gap: 1rem;
+            grid-template-columns: 15rem auto 2rem;
+            align-items: center;
+            border-left: 2px solid var(--color-gray);
+        }
+
+        .message-sender {
+            display: flex;
+            gap: 1rem;
+            border-right: 2px solid var(--color-gray);
+            margin-bottom: 1rem;
+        }
+
+        .message-body .body-bold p {
+            font-weight: bold;
+            color: red;
+        }
+
+        .inbox-title {
+            width: 100%;
+            padding: var(--card-padding);
+            background-color: var(--color-secondary);
+            border-radius: var(--card-border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            color: var(--color-dark);
+        }
+
+        .button-default {
+            display: inline-block;
+            padding: var(--button-padding);
+            font-weight: 500;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 300ms ease;
+            font-size: 1rem;
+        }
+
+            .button-default:hover {
+                opacity: 0.8;
+                text-decoration: none;
+            }
+
+        .button-primary {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+
+            .button-primary:hover {
+                opacity: 0.5;
+               
+            }
+    </style>
+
