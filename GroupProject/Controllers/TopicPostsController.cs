@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -86,13 +87,21 @@ namespace GroupProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(TopicPostViewModel viewModel,int id)
+        public ActionResult Create(TopicPostViewModel viewModel,int? id)
         {
             var post = new Post()
             {
                 Body=viewModel.Body,
                 Datetime=DateTime.Now
             };
+
+            if (viewModel.ImageFile != null)
+            {
+                post.Thumbnail = Path.GetFileName(viewModel.ImageFile.FileName);
+                string fullPath = Path.Combine(Server.MapPath("~/img"), post.Thumbnail);
+                viewModel.ImageFile.SaveAs(fullPath);
+            }
+
             db.Posts.Add(post);
             db.SaveChanges();
 
@@ -100,15 +109,16 @@ namespace GroupProject.Controllers
 
                 var topicPost = new TopicPost()
                 {
-                    TopicId = id,
+                    //TopicId = id,
+                    TopicId=viewModel.TopicId,
                     SenderId = userId,
                     PostId = post.Id
                 };
 
                 db.TopicPosts.Add(topicPost);
                 db.SaveChanges();
-            return RedirectToAction("Index", "TopicPosts",new {id=id });
-       
+            return RedirectToAction("GetTopicPosts", "TopicPosts",new {id= viewModel.TopicId });
+            //return RedirectToAction("Index", "TopicPosts", new { id = id });
         }
 
         // GET: TopicPosts/Edit/5

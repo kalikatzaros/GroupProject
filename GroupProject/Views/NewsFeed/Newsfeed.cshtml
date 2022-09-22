@@ -32,7 +32,7 @@
         @using (Html.BeginForm("Create", "WallPosts", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
-        <input class="add-post-form-text"type="text" id="Body" name="Body" />
+        <input class="add-post-form-text"type="text" id="Body" name="Body" required/>
 
         <div class="add-post-footer">
 

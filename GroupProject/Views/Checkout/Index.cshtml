@@ -5,9 +5,15 @@
 
 
 <div class="donate-p">
-    With your donation, you're working together with Kous Kous for the financial survival of its developers...!
-    As you all know getting an entry level Developer job isn't a piece of cake!
-    Show us your love and show yourself some empathy!
+    <h4>Dear @ViewBag.LoggedUser.Name ,</h4>
+    <p>
+        With your donation, you're working together with Kous Kous for the
+        financial survival of its developers...! As you all know getting an entry level Developer job
+        isn't a piece of cake!
+        Show us your love and show yourself some empathy!
+        Sincerely yours,
+    </p>
+    <h4 class="team">The Developers' Team <i class="material-icons">favorite</i></h4>
 </div>
 
    
@@ -18,5 +24,29 @@
 </stripe-pricing-table>
 
 <style>
-   
+    .donate-p{
+        background-color:var(--color-white);
+        border-radius:var(--card-border-radius);
+        padding:var(--card-padding);
+       
+        margin-bottom:3rem;
+       
+    }
+    .donate-p p,h5{
+        font-size:1.2rem;
+        padding: 2rem 2rem;
+    }
+        .donate-p h4 {
+            font-family: 'Pacifico', cursive;
+            padding-left:1rem;
+            font-size:1.5rem;
+        }
+        .team{
+            margin-left:30rem;
+        }
+            .team i {
+               background: -webkit-linear-gradient(var(--color-analogus)3%,var(--color-primary));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
 </style>
