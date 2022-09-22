@@ -17,6 +17,7 @@ namespace GroupProject.ViewModels
         public string SenderId { get; set; }
         public ApplicationUser Sender { get; set; }
         public HttpPostedFileBase ImageFile { get; set; }
+        public string Thumbnail { get; set; }
         [Required]
         [DataType(DataType.MultilineText)]
         public string Body { get; set; }

@@ -6,13 +6,13 @@
 
 
 <div class="topics-title">
-    <h3 id="topic-id" data-topic-id="@Model.Topic.Id">@Model.Topic.Title</h3>
+    <h3 id="topic-id" data-topic-id="@Model.TopicId">@Model.TopicId</h3>
     <button class="button-default button-analogus add-post-button">+ Add Post</button>
 </div>
 
 <div class="form-container">
-    <form class="add-topic-post-form hidden">
-        @using (Html.BeginForm("Create", "TopicPosts", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @*<form class="add-topic-post-form hidden">*@
+        @using (Html.BeginForm("CreateTopicPost", "TopicPosts", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
 
@@ -23,14 +23,16 @@
             </div>
             <a class="get-image-button" onclick="document.getElementById('ImageFile').click()"><i class="material-icons">camera</i><span>Photo</span></a>
             <input type='file' name="ImageFile" id="ImageFile" accept="image/png, image/jpeg, image/jpg, image/gif" style="display:none">
+            <input type="hidden" name="TopicId" id="TopicId" value=@Model.TopicId />
+            @*<input type="hidden" name="SenderId" id="SenderId"value=@Model./>*@
             <div class="form-buttons">
                 <button type="reset" class="button-default">Clear</button>
                 <button type="submit" id="submit-button" class="button-default button-analogus">Create</button>
             </div>
-            <input type="hidden" name="id" id="id" value="@Model.Topic.Id" />
+
 
         }
-    </form>
+    @*</form>*@
     </div>
 
 @foreach (var item in Model.TopicPosts)
@@ -92,6 +94,8 @@
                 $('.add-topic-post-form').toggleClass('hidden');
               
             });
+
+            console.log($('#TopicId').val());
             @*$.getJSON("/api/topicPosts/getTopicPosts/" + id)
                 .done(function (data) {
                     console.log(data);

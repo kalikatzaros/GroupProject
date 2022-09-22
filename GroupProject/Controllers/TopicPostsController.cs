@@ -30,12 +30,12 @@ namespace GroupProject.Controllers
         //        .OrderBy(t=>t.Post.Datetime);
         //    return View(topicPosts.ToList());
         //}
-        public ActionResult GetTopicPosts(int? id)
+        public ActionResult GetTopicPosts(int id)
         {
-            if (id == null)
-            {
-                return View("Error");
-            }
+            //if (id == null)
+            //{
+            //    return View("Error");
+            //}
             var userId = User.Identity.GetUserId();
            
             //var roleId = _context.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).SingleOrDefault();
@@ -51,7 +51,8 @@ namespace GroupProject.Controllers
             var viewModel = new GetTopicPostsViewModel() { 
             LoggedInUser=loggedUser,
             TopicPosts=topicPosts,
-            Topic=topic
+            Topic=topic,
+            TopicId=id
                        };
 
             return View(viewModel);
@@ -85,14 +86,50 @@ namespace GroupProject.Controllers
         // POST: TopicPosts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create(TopicPostViewModel viewModel)
+        //{
+        //    var post = new Post()
+        //    {
+        //        Body=viewModel.Body,
+        //        Datetime=DateTime.Now
+        //    };
+
+        //    if (viewModel.ImageFile != null)
+        //    {
+        //        post.Thumbnail = Path.GetFileName(viewModel.ImageFile.FileName);
+        //        string fullPath = Path.Combine(Server.MapPath("~/img"), post.Thumbnail);
+        //        viewModel.ImageFile.SaveAs(fullPath);
+        //    }
+
+        //    db.Posts.Add(post);
+        //    db.SaveChanges();
+
+        //    var userId = User.Identity.GetUserId();
+
+        //        var topicPost = new TopicPost()
+        //        {
+        //            //TopicId = id,
+        //            TopicId=viewModel.TopicId,
+        //            SenderId = userId,
+        //            PostId = post.Id
+        //        };
+
+        //        db.TopicPosts.Add(topicPost);
+        //        db.SaveChanges();
+        //    return RedirectToAction("GetTopicPosts", "TopicPosts",new {id= viewModel.TopicId });
+        //    //return RedirectToAction("Index", "TopicPosts", new { id = id });
+        //}
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(TopicPostViewModel viewModel,int? id)
+        public ActionResult CreateTopicPost(GetTopicPostsViewModel viewModel)
         {
             var post = new Post()
             {
-                Body=viewModel.Body,
-                Datetime=DateTime.Now
+                Body = viewModel.Body,
+                Datetime = DateTime.Now
             };
 
             if (viewModel.ImageFile != null)
@@ -107,20 +144,22 @@ namespace GroupProject.Controllers
 
             var userId = User.Identity.GetUserId();
 
-                var topicPost = new TopicPost()
-                {
-                    //TopicId = id,
-                    TopicId=viewModel.TopicId,
-                    SenderId = userId,
-                    PostId = post.Id
-                };
 
-                db.TopicPosts.Add(topicPost);
-                db.SaveChanges();
-            return RedirectToAction("GetTopicPosts", "TopicPosts",new {id= viewModel.TopicId });
+          
+            var topicPost = new TopicPost()
+            {
+                //TopicId = id,
+                
+                TopicId = viewModel.TopicId,
+                SenderId = userId,
+                PostId = post.Id
+            };
+
+            db.TopicPosts.Add(topicPost);
+            db.SaveChanges();
+            return RedirectToAction("GetTopicPosts", "TopicPosts", new { id = viewModel.TopicId });
             //return RedirectToAction("Index", "TopicPosts", new { id = id });
         }
-
         // GET: TopicPosts/Edit/5
         public ActionResult Edit(int? id)
         {
