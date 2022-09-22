@@ -19,70 +19,130 @@
 
     </div>
 
-    <div class="messages-column messages-right">
+    <div class="messages-column messages-right" id="messages">
+
         @foreach (var item in Model)
         {
-            <div class="message-sender">
+
+            <a href=@Url.Action("VisitingProfile", "Profile",new {id=item.SenderId }) class="message-sender">
                 <img class="profile-photo" src="~/img/@item.Sender.Thumbnail" />
                 <h4>@item.Sender.FullName</h4>
-            </div>
-            if (item.IsRead)
+            </a>
+            if (!item.IsRead)
             {
-                <div class="message-body body-bold">
-                    <p>@item.Body</p>
+                <div class="message-body">
+                    <p class="date body-bold">@item.Datetime</p>
+                    <p class="message-p body-bold">@item.Body</p>
                 </div>
             }
             else
             {
                 <div class="message-body">
-                    <p>@item.Body</p>
+                    <p class="date">@item.Datetime</p>
+                    <p class="message-p">@item.Body</p>
                 </div>
             }
-            <div class="message-actions">
-                <a class=".msg-delete"><i class="material-icons">delete</i></a>
+            <div class="message-actions" data-message-id="@item.Id">
+                <a class="message-delete" data-message-id="@item.Id"><i class="material-icons">delete</i></a>
             </div>
+
         }
+
     </div>
 
-   
+    @section Scripts{
+        <script>
+            $(document).ready(function () {
+                $("#messages").on("click", ".message-delete", function () {
+                    var button = $(this);
+                    console.log(button);
+
+                    bootbox.confirm("Are you sure to delete this message?", function (result) {
+
+                        if (result) {
+                            $.ajax({
+                                url: "/api/messages/" + button.attr("data-message-id"),
+                                method: "DELETE"
+                            }).done(function (response) {
+
+                                console.log(response);
+                                location.reload();
+                            }).fail(function (error) {
+                                console.log(error);
+                            });
+                        }
+
+                    });
+                });
+
+
+
+            });
+
+        </script>
+    }
 
     <style>
+        .message-delete i {
+            color: var(--color-gray);
+            transition: var(--var-transition);
+            cursor: pointer;
+        }
+
+            .message-delete i:hover {
+                color: var(--color-danger);
+            }
+
+        .body-bold {
+            font-weight: bold;
+        }
+
+        .message-body p {
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .message-body .date {
+            color: var(--color-gray);
+        }
+
         .mesagges-container {
             display: grid;
             width: 100%;
-
             background-color: var(--color-white);
             padding: var(--card-padding);
             border-radius: var(--card-border-radius);
-            grid-template-columns:10rem auto;
-        }
-        .messages-left{
-            display:flex;
-            flex-direction:column;
-            gap:1rem;
-            justify-content:center;
-            font-size:1rem;
-           
+            grid-template-columns: 10rem auto;
         }
 
-        .messages-left a{
-            transition:var(--transition);
-            display:flex;
-            gap:1rem;
-            align-items:center;
+        .messages-left {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            justify-content: center;
+            font-size: 1rem;
+            margin-right: 2rem;
         }
 
-            .messages-left a:hover {
-               text-decoration:none;
-               color:var(--color-primary);
+            .messages-left a {
+                transition: var(--transition);
+                display: flex;
+                gap: 1rem;
+                align-items: center;
             }
-            .messages-left a i {
-                color:var(--color-gray);
-            }
-                .messages-left a i:hover {
-                  color:var(--color-primary);
-                    
+
+                .messages-left a:hover {
+                    text-decoration: none;
+                    color: var(--color-primary);
                 }
+
+                .messages-left a i {
+                    color: var(--color-gray);
+                }
+
+                    .messages-left a i:hover {
+                        color: var(--color-primary);
+                    }
 
 
         .messages-right {
@@ -97,14 +157,14 @@
         .message-sender {
             display: flex;
             gap: 1rem;
-           
-            margin-bottom:1rem;
+            margin-bottom: 1rem;
         }
 
-        .message-body .body-bold p{
-            font-weight:bold;
-            color:red;
+        .message-body .body-bold p {
+            font-weight: bold;
+            color: red;
         }
+
         .inbox-title {
             width: 100%;
             padding: var(--card-padding);
@@ -132,7 +192,7 @@
                 text-decoration: none;
             }
 
-        .button-primary  {
+        .button-primary {
             background-color: var(--color-primary);
             color: var(--color-white);
         }
@@ -141,5 +201,4 @@
                 opacity: 0.8;
                 color: var(--color-gray);
             }
-            
     </style>
