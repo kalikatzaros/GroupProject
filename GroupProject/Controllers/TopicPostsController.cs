@@ -148,9 +148,7 @@ namespace GroupProject.Controllers
           
             var topicPost = new TopicPost()
             {
-                //TopicId = id,
-                
-                TopicId = viewModel.TopicId,
+               TopicId = viewModel.TopicId,
                 SenderId = userId,
                 PostId = post.Id
             };
