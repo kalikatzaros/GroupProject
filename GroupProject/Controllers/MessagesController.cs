@@ -50,7 +50,7 @@ namespace GroupProject.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "NewsFeed");
         }
-        [Authorize]
+        //[Authorize]
         public ActionResult ReadIncomingMessages()
         {
             var id = User.Identity.GetUserId();
@@ -74,10 +74,37 @@ namespace GroupProject.Controllers
                             .Include("Sender")
                             .Include("Receiver")
                             .Where(m => m.SenderId == id);
-                           
+
+            return View(messages);
+        }
+        public ActionResult GetIncomingMessages()
+        {
+            var id = User.Identity.GetUserId();
+            ViewBag.LoggedUser = _context.Users.SingleOrDefault(u => u.Id == id);
+            var loggedUser = _context.Users.SingleOrDefault(u => u.Id == id);
+            ViewBag.Thumbnail = loggedUser.Thumbnail;
+            ViewBag.Email = loggedUser.Email;
+            var messages = _context.Messages
+                            .Include("Sender")
+                            .Include("Receiver")
+                            .Where(m => m.ReceiverId == id);
             return View(messages);
         }
 
+        public ActionResult GetSentMessages()
+        {
+            var id = User.Identity.GetUserId();
+            var loggedUser = _context.Users.SingleOrDefault(u => u.Id == id);
+            ViewBag.Thumbnail = loggedUser.Thumbnail;
+            ViewBag.Email = loggedUser.Email;
+            ViewBag.LoggedUser = loggedUser;
+            var messages = _context.Messages
+                            .Include("Sender")
+                            .Include("Receiver")
+                            .Where(m => m.SenderId == id);
+
+            return View(messages);
+        }
         public ActionResult Details(int? id)
         {
             if(id == null)

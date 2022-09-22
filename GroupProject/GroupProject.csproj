@@ -669,6 +669,7 @@
     <Content Include="Views\Topics\Forum.cshtml" />
     <Content Include="Views\Topics\GetTopics.cshtml" />
     <Content Include="Views\TopicPosts\GetTopicPosts.cshtml" />
+    <Content Include="Views\Messages\GetIncomingMessages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
