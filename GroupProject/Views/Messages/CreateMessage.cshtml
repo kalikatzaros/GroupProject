@@ -13,7 +13,7 @@
     <div class="messages-column messages-left">
         <a class="button-default button-primary compose" href=@Url.Action("CreateMessage", "Messages")>Compose</a>
         <a class="left-link" href=@Url.Action("GetIncomingMessages", "Messages")><i class="material-icons">mail</i><b>Received</b></a>
-        <a class="left-link" href=@Url.Action("ReadSentMessages", "Messages")><i class="material-icons">send</i>Sent</a>
+        <a class="left-link" href=@Url.Action("GetSentMessages", "Messages")><i class="material-icons">send</i>Sent</a>
 
     </div>
 
@@ -22,8 +22,7 @@
         {
             @Html.AntiForgeryToken()
             @*<div class="form-horizontal">*@
-                <h4>Message</h4>
-                <hr />
+                
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @*<div class="form-group">*@
                     @*<label class="form-control">Receiver:</label>*@
@@ -122,13 +121,13 @@
             flex-direction:column;
             align-items: center;
             gap:2rem;
-            border-left: 2px solid var(--color-gray);
+          
         }
 
         .message-sender {
             display: flex;
             gap: 1rem;
-            border-right: 2px solid var(--color-gray);
+          
             margin-bottom: 1rem;
         }
 
@@ -170,8 +169,7 @@
         }
 
             .button-primary:hover {
-                opacity: 0.5;
-               
+                color: var(--color-secondary);
             }
     </style>
 
