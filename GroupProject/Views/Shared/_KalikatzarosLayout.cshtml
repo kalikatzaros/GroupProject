@@ -70,9 +70,9 @@
                             <h3>People</h3>
                         </a>
 
-                        <a class="sidebar-item" id="inbox">
+                        <a href=@Url.Action("GetIncomingMessages", "Messages") class="sidebar-item" id="inbox">
                             <span><i class="material-icons">mail</i></span>
-                            <h3>Inbox</h3>
+                            <h3>Inbox <span class="badge count"></span></h3>
                         </a>
                         <a href=@Url.Action("GetTopics", "Topics") class="sidebar-item" id="forum">
                             <span><i class="material-icons">forum</i></span>
@@ -118,7 +118,12 @@
     @RenderSection("scripts", required: false)
     
     <script>
-            $(document).ready(function () {
+        $(document).ready(function () {
+            $.getJSON("/api/messages/getUnreadMessageCount")
+                .done(function (data) {
+
+                    $(".count").html(data);
+                });
                 console.log("hey");
                 @*$('.sidebar-item').click(function () {
                     const link = $(this);
@@ -361,6 +366,9 @@ padding:1rem 0;
         background: -webkit-linear-gradient(var(--color-analogus)3%,var(--color-primary));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+    }
+    .count{
+        background-color:var(--color-danger);
     }
     
 </style>
