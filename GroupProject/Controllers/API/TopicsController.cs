@@ -30,7 +30,7 @@ namespace GroupProject.Controllers.API
         }
         [Route("addTopic")]
         [HttpPost]
-        public IHttpActionResult Follow(TopicDto dto)
+        public IHttpActionResult AddTopic(TopicDto dto)
         {
             var userId = User.Identity.GetUserId();
 
@@ -67,6 +67,7 @@ namespace GroupProject.Controllers.API
         }
 
         [HttpDelete]
+        [Route("deleteTopic/{id}")]
         public IHttpActionResult DeleteTopic(int? id)
         {
             var topicToBeDeleted = _context.Topics
