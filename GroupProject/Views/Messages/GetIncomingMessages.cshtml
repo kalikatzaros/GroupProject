@@ -12,10 +12,11 @@
 
 <div class="mesagges-container">
     <div class="messages-column messages-left">
+        <a class="button-default button-primary compose" href=@Url.Action("CreateMessage", "Messages")>Compose</a>
         <a class="left-link" href=@Url.Action("GetIncomingMessages", "Messages")><i class="material-icons">mail</i><b>Received</b></a>
         <a class="left-link" href=@Url.Action("GetSentMessages", "Messages")><i class="material-icons">send</i>Sent</a>
-    <a class="button-default button-primary compose" href=@Url.Action("CreateMessage", "Messages")>Compose</a>
-    
+
+
     </div>
 
     <div class="messages-column messages-right">

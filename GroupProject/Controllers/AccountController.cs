@@ -208,7 +208,7 @@ namespace GroupProject.Controllers
                     }
 
 
-                    return RedirectToAction("index", "NewsFeed");
+                    return RedirectToAction("NewsFeed", "NewsFeed");
                 }
 
 
