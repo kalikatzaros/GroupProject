@@ -29,13 +29,14 @@
                 Please enter a user name for this site below and click the Register button to finish
                 logging in.
             </p>
-            @*<div class="input-area">*@
+            <div class="input-area">
                 
                 <div class="text-box-div">
+                    <label class="labelClass">E-mail</label>
                     @Html.TextBoxFor(m => m.Email, new { @class = "emailInput" })
-                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    @*@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })*@
                 </div>
-            @*</div>*@
+            </div>
             
                     <input type="submit" class="button-default button-primary registerBtn" value="Register" />
         }
@@ -53,21 +54,28 @@
     }
 
     .labelClass{
-        height:1.5rem;
+        width:6rem;
+        font-size:1.2rem;
     }
     .ourForm{
         display:flex;
         flex-direction:column;
         align-items:center;
     }
-    .emailInput {
-        height:2rem;
+    .text-box-div input {
+        width: 20rem;
+        height: 2rem;
+        margin-left:-8rem;
         padding: var(--card-padding);
-        font-size:1rem;
+        border-radius: var(--card-border-radius);
+        text-align:center;
+        font-size: 1.2rem;
+        background-color: var(--color-light);
     }
 
     .registerBtn{
         padding-left:8rem;
+        margin-top:3rem;
     }
     .myTitle{
         margin-top:1.5rem;
@@ -115,8 +123,12 @@
 
     }
     .text-box-div{
-        height:3rem;
-        margin-bottom:2rem;
+        
+        width:100%;
+        display:flex;
+        flex-direction:column;
+        gap:1rem;
+        margin-bottom:4rem;
     }
 
 </style>
