@@ -14,6 +14,7 @@
         <a class="button-default button-primary compose" href=@Url.Action("CreateMessage", "Messages")>Compose</a>
         <a class="left-link" href=@Url.Action("GetIncomingMessages", "Messages")><i class="material-icons">mail</i><b>Received</b></a>
         <a class="left-link" href=@Url.Action("ReadSentMessages", "Messages")><i class="material-icons">send</i>Sent</a>
+
     </div>
 
     <div class="messages-column messages-right">
@@ -40,13 +41,7 @@
                     </div>
                 </div>*@
 
-                @*<div class="form-group">
-                    @Html.LabelFor(model => model.Message.Datetime, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Message.Datetime, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Message.Datetime, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
+                
 
                 @*<div class="form-group">*@
                     @*<div class="col-md-offset-2 col-md-10">*@
