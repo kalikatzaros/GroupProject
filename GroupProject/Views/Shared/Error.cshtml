@@ -4,12 +4,24 @@
     ViewBag.Title = "Error";
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
-@*<div class="error-container">
-        <hgroup>
-            <h1 class="text-danger">Oops!</h1>
-            <p class="text-danger">Something went wrong..</p>
-        </hgroup>
+<div class="error-container">
+
+    <div class="eyes">
+
+        <div class="eye">
+            <div class="ball"></div>
+        </div>
+
+        <div class="eye">
+            <div class="ball"></div>
+        </div>
+
     </div>
+    <hgroup>
+        <h1 class="text-danger">Oops!</h1>
+        <p class="text-danger">Something went wrong..</p>
+    </hgroup>
+</div>
 
     <style>
         .text-danger {
@@ -17,26 +29,48 @@
         }
 
         .error-container {
-            width: 100%;
-            height: 100%;
+            width: 80vw;
+            height: 50vh;
             display: flex;
+            flex-direction:column;
             align-items: center;
             justify-content: center;
         }
-    </style>*@
+        .eyes {
+            position: absolute;
+            top:80%;
+            transform: translateY(-50%);
+            width: 100%;
+            text-align: center;
+            left: 70px;
+        }
+
+        .eye {
+            width: 220px;
+            height: 100px;
+            background: #e0e4e8;
+            display: inline-block;
+            margin: 35px;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ball {
+            width: 60px;
+            height: 60px;
+            background: #000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 50%;
+            border: 12px solid#333;
+        }
+    </style>
 
 
-<div class="eyes">
 
-    <div class="eye">
-        <div class="ball"></div>
-    </div>
-
-    <div class="eye">
-        <div class="ball"></div>
-    </div>
-
-</div>
 
 
 
@@ -54,38 +88,6 @@
         }
 </script>
 
-<style>
 
-    .eyes {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 100%;
-        text-align: center;
-        left: 100px;
-    }
+   
 
-    .eye {
-        width: 220px;
-        height: 100px;
-        background: #e0e4e8;
-        display: inline-block;
-        margin: 35px;
-        border-radius: 50%;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .ball {
-        width: 60px;
-        height: 60px;
-        background: #000;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-        border-radius: 50%;
-        border: 12px solid#333;
-    }
-
-</style>
