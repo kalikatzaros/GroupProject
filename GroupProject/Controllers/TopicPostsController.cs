@@ -209,7 +209,7 @@ namespace GroupProject.Controllers
             TopicPost topicPost = db.TopicPosts.Find(id);
             if (topicPost == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             return View(topicPost);
         }
