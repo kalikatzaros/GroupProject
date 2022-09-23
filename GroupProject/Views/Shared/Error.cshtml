@@ -4,23 +4,88 @@
     ViewBag.Title = "Error";
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
-<div class="error-container">
-    <hgroup>
-        <h1 class="text-danger">Oops!</h1>
-        <p class="text-danger">Something went wrong..</p>
-    </hgroup>
+@*<div class="error-container">
+        <hgroup>
+            <h1 class="text-danger">Oops!</h1>
+            <p class="text-danger">Something went wrong..</p>
+        </hgroup>
+    </div>
+
+    <style>
+        .text-danger {
+            color: var(--color-danger);
+        }
+
+        .error-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>*@
+
+
+<div class="eyes">
+
+    <div class="eye">
+        <div class="ball"></div>
+    </div>
+
+    <div class="eye">
+        <div class="ball"></div>
+    </div>
+
 </div>
 
+
+
+<script>
+        var balls = document.getElementsByClassName("ball");
+        document.onmousemove = function () {
+            var x = event.clientX * 100 / window.innerWidth + "%";
+            var y = event.clientY * 100 / window.innerHeight + "%";
+
+            for (var i = 0; i < 2; i++) {
+                balls[i].style.left = x;
+                balls[i].style.top = y;
+                balls[i].style.transform = "translate(-" + x + ",-" + y + ")"
+            }
+        }
+</script>
+
 <style>
-    .text-danger {
-        color: var(--color-danger);
+
+    .eyes {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        text-align: center;
+        left: 100px;
     }
 
-    .error-container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .eye {
+        width: 220px;
+        height: 100px;
+        background: #e0e4e8;
+        display: inline-block;
+        margin: 35px;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
     }
+
+    .ball {
+        width: 60px;
+        height: 60px;
+        background: #000;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        border-radius: 50%;
+        border: 12px solid#333;
+    }
+
 </style>

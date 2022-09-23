@@ -677,6 +677,7 @@
     <Folder Include="Areas\Administrator\Data\" />
     <Folder Include="DLL\" />
     <Folder Include="Views\Donations\" />
+    <Folder Include="Views\Error\" />
     <Folder Include="Views\Posts\" />
   </ItemGroup>
   <ItemGroup>
