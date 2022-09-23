@@ -32,14 +32,14 @@
             {
                 <div class="message-body">
                     <p class="date body-bold">@item.Datetime</p>
-                    <p class="message-p body-bold">@item.Body</p>
+                    <p class="message-p body-bold" data-p-id="@item.Id">@item.Body</p>
                 </div>
             }
             else
             {
                 <div class="message-body">
                     <p class="date">@item.Datetime</p>
-                    <p class="message-p">@item.Body</p>
+                    <p class="message-p" data-p-id="@item.Id">@item.Body</p>
                 </div>
             }
             <div class="message-actions" data-message-id="@item.Id">
@@ -69,10 +69,31 @@
                                 location.reload();
                             }).fail(function (error) {
                                 console.log(error);
+                               
                             });
                         }
 
                     });
+                });
+
+                $("#messages").on("click", ".message-p", function () {
+                    var button = $(this);
+                    console.log(button);
+
+                            $.ajax({
+                                url: "/api/messages/changeStatus/" + button.attr("data-p-id"),
+                                method: "POST",
+                                data: button.attr("data-p-id")
+                            }).done(function (response) {
+
+                                console.log(response);
+                                location.reload();
+                            }).fail(function (error) {
+                                console.log(error);
+                                console.log(button.attr("data-p-id"));
+                            });
+                       
+
                 });
 
 
