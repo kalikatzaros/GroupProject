@@ -45,7 +45,7 @@
             </div>*@
                 <div class="inputs">
 
-                    <input type="submit" value="Log in" class="btn btn-info" />
+                    <input type="submit" value="Log in" class="button-default button-primary" />
 
                 </div>
 
@@ -66,7 +66,7 @@
             <section id="socialLoginForm">
                 @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
             </section>
-            <small><p> * Except racists, sexists, homophobes and transphopes..</p></small>
+            <small><p> * Except for racists, sexists, homophobes and transphopes..</p></small>
         </div>
     </div>
 </div>
@@ -181,5 +181,30 @@
         background-color:var(--color-white);
         width:50%;
     }*@
+
+    .button-default {
+        display: inline-block;
+        padding: var(--button-padding);
+        font-weight: 500;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: all 300ms ease;
+        font-size: 1rem;
+    }
+
+        .button-default:hover {
+            opacity: 0.8;
+            text-decoration: none;
+        }
+
+    .button-primary {
+        background-color: var(--color-primary);
+        color: var(--color-white);
+    }
+
+        .button-primary:hover {
+            opacity: 0.8;
+            color: var(--color-gray);
+        }
 
 </style>
