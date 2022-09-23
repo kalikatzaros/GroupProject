@@ -28,20 +28,20 @@
                 <img class="profile-photo" src="~/img/@item.Sender.Thumbnail" />
                 <h4>@item.Sender.FullName</h4>
             </a>
-            if (!item.IsRead)
+            @*if (!item.IsRead)
             {
             <div class="message-body">
                 <p class="date body-bold">@item.Datetime</p>
                 <p class="message-p body-bold">@item.Body</p>
             </div>
-            }
-            else
-            {
+            }*@
+            
+            
             <div class="message-body">
                 <p class="date">@item.Datetime</p>
                 <p class="message-p">@item.Body</p>
             </div>
-            }
+            
             <div class="message-actions">
                 <a class="message-delete" data-message-id="@item.Id"><i class="material-icons">delete</i></a>
             </div>
