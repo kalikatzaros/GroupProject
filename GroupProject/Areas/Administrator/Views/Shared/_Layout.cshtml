@@ -7,13 +7,14 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
 
 
     <nav class="navBar" id="navBar">
         <div class="navBar-logo">
-            <a class="nav-item-link"> <span class="material-icons link-icon">coffee</span><span class="link-text"><h3>Pes Ta!</h3></span> </a>
+            <a class="nav-item-link logo"> <span class="material-icons link-icon">chat</span><span class="link-text"><h3>Kous Kous</h3></span> </a>
             <a class="nav-item-link" id="toggle-navBar">
                 <svg class="toggle-Chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
@@ -105,6 +106,8 @@
     :root {
         --color-purple: rgb(54,30,64);
         --color-brughtCyan: rgb(45,240,235);
+        --color-analogus: rgb(124, 54, 203);
+        --color-primary: rgb(15,228,212);
     }
 
     .body {
@@ -231,6 +234,14 @@
     }
     .navBar-top-item{
         margin-left:0.5rem;
+    }
+
+    .logo {
+        font-family: 'Pacifico', cursive;
+        @*background: -webkit-linear-gradient(var(--color-primary) 40%, var(--color-analogus));
+        *@ background: -webkit-linear-gradient(var(--color-analogus)3%,var(--color-primary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 </style>
 
