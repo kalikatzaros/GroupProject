@@ -671,6 +671,7 @@
     <Content Include="Views\TopicPosts\GetTopicPosts.cshtml" />
     <Content Include="Views\Messages\GetIncomingMessages.cshtml" />
     <Content Include="Views\Messages\GetSentMessages.cshtml" />
+    <Content Include="Views\Shared\_LayoutPage2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

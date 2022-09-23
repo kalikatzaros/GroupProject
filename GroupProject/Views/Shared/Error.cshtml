@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Error";
-    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
 }
 <div class="error-container">
     
@@ -20,6 +20,7 @@
         <hgroup>
             <h1 class="text-danger">Oops!</h1>
             <p class="text-danger">Something went wrong..</p>
+            <a id="return" href="@Url.Action("NewsFeed","NewsFeed")">Return To Site</a>
         </hgroup>
     </div>
 
@@ -46,6 +47,10 @@
             width: 100%;
             text-align: center;
             left: 70px;
+        }
+        #return{
+            margin-top:1rem;
+            color:var(--color-gray);
         }
 
         .eye {
