@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GroupProject.Models;
+using GroupProject.Repositories;
 using GroupProject.ViewModels;
 using Microsoft.AspNet.Identity;
 
@@ -14,18 +15,29 @@ namespace GroupProject.Controllers
 {
     public class TopicsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext _context ;
+        private readonly TopicRepository _topicRepository;
+        private readonly UserRepository _userRepository;
+
+        public TopicsController(ApplicationDbContext context)
+        {
+            _context = context;
+            _topicRepository = new TopicRepository(_context);
+            _userRepository = new UserRepository(_context);
+
+        }
 
         // GET: Topics
         public ActionResult Index()
         {
-            return View(db.Topics.Include(t=>t.User).ToList());
+            return View(_topicRepository.GetAll().ToList());
         }
         public ActionResult GetTopics()
         {
             var userId = User.Identity.GetUserId();
             //var roleId = _context.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).SingleOrDefault();
-            ViewBag.LoggedUser = db.Users.SingleOrDefault(u => u.Id == userId);
+            var loggedUser = _userRepository.GetById(userId);
+            ViewBag.LoggedUser = loggedUser;
             return View(db.Topics.Include(t => t.User).OrderByDescending(t=> t.Created).ToList());
         }
         // GET: Topics/Details/5

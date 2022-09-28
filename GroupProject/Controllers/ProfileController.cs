@@ -19,6 +19,7 @@ namespace GroupProject.Controllers
         private readonly FollowingRepository _followingRepository;
         private readonly UserRepository _userRepository;
         private readonly WallPostRepository _wallPostRepository;
+      
 
         public ProfileController()
         {
@@ -26,6 +27,7 @@ namespace GroupProject.Controllers
             _followingRepository = new FollowingRepository(_context);
             _userRepository = new UserRepository(_context);
             _wallPostRepository = new WallPostRepository(_context);
+           
         }
 
         // GET: Profile
@@ -89,6 +91,13 @@ namespace GroupProject.Controllers
             return View(viewModel);
         }
 
-
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _userRepository.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

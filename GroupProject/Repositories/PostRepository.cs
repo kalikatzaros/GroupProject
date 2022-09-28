@@ -6,27 +6,31 @@ using System.Web;
 
 namespace GroupProject.Repositories
 {
-   
-    public class UserRepository
+    public class PostRepository
     {
         private readonly ApplicationDbContext _context;
-        public UserRepository(ApplicationDbContext context)
+        public PostRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public ApplicationUser GetById(string id)
+        public void Create(Post post)
         {
-            if (id == null)
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
-            return _context.Users.SingleOrDefault(u => u.Id == id);
+            if (post == null)
+                throw new ArgumentNullException(nameof(post));
+
+            _context.Posts.Add(post);
+
+            Save();
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
         }
         public void Dispose()
         {
             _context.Dispose();
         }
-        
     }
 }

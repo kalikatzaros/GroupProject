@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using System.IO;
+using GroupProject.Repositories;
 
 namespace GroupProject.Controllers.API
 {
@@ -16,20 +17,13 @@ namespace GroupProject.Controllers.API
     public class WallPostsController : ApiController
     {
         private readonly ApplicationDbContext _context;
+        private readonly WallPostRepository _wallPostRepository;
         public WallPostsController()
         {
             _context = new ApplicationDbContext();
+            _wallPostRepository = new WallPostRepository(_context);
         }
-        [Route("")]
-        public IHttpActionResult GetWallPosts()
-        {
-            var wallposts = _context.WallPosts
-                             .Include(wp => wp.Post)
-                             .Include(wp => wp.User)
-                             .ToList();
-
-            return Ok(wallposts);
-        }
+       
 
         [HttpGet]
         [Route("viewWallPost/{id}")]
@@ -41,7 +35,6 @@ namespace GroupProject.Controllers.API
             return Ok(postBody);
         }
 
-
         [HttpDelete]
         [Route("deleteWallPost/{id}")]
         public IHttpActionResult DeleteWallPost(int? id)
@@ -50,14 +43,10 @@ namespace GroupProject.Controllers.API
             {
                 return BadRequest();
             }
-            var wallPostToBeDeleted = _context.WallPosts
-                                              .Include(wp=>wp.Post)
-                                              .SingleOrDefault(wp => wp.Id == id);
+           
+            _wallPostRepository.Delete(id);
 
-            _context.WallPosts.Remove(wallPostToBeDeleted);
-            _context.SaveChanges();
-
-            return Ok(wallPostToBeDeleted);
+            return Ok();
         }
 
         [HttpPost]
@@ -69,16 +58,16 @@ namespace GroupProject.Controllers.API
             post.Body = body;
             post.Datetime = DateTime.Now;
 
-           
             _context.Posts.Add(post);
             _context.SaveChanges();
+
             var wallPost = new WallPost()
             {
                 UserId = userId,
                 PostId = post.Id
             };
-            _context.WallPosts.Add(wallPost);
-            _context.SaveChanges();
+            _wallPostRepository.Create(wallPost);
+           
 
             return Ok(wallPost);
         }

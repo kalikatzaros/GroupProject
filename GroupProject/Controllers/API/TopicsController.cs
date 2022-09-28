@@ -1,5 +1,6 @@
 ﻿using GroupProject.Dtos;
 using GroupProject.Models;
+using GroupProject.Repositories;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -15,16 +16,23 @@ namespace GroupProject.Controllers.API
     public class TopicsController : ApiController
     {
         private readonly ApplicationDbContext _context;
+        private readonly TopicRepository _topicRepository;
+        private readonly TopicPostRepository _topicPostRepository;
+        private readonly PostRepository _postRepository;
         public TopicsController()
         {
             _context = new ApplicationDbContext();
+            _topicRepository = new TopicRepository(_context);
+            _topicPostRepository = new TopicPostRepository(_context);
+            _postRepository = new PostRepository(_context);
         }
         [Route("")]
         public IHttpActionResult GetTopics()
         {
-            var topics = _context.Topics
-                             .Include(t => t.User)
-                             .ToList();
+            var topics = _topicRepository.GetAll();
+            //var topics = _context.Topics
+            //                 .Include(t => t.User)
+            //                 .ToList();
       
             return Ok(topics);
         }
@@ -44,23 +52,26 @@ namespace GroupProject.Controllers.API
 
             if (ModelState.IsValid)
             {
-              _context.Topics.Add(topic);
-                _context.SaveChanges();
+                //_context.Topics.Add(topic);
+                //  _context.SaveChanges();
+                _topicRepository.Create(topic);
+
                 var post = new Post()
                 {
                     Body = dto.Body,
                     Datetime = DateTime.Now
                 };
-               _context.Posts.Add(post);
-               _context.SaveChanges();
+               _postRepository.Create(post);
+             
                 var topicPost = new TopicPost()
                 {
                     PostId = post.Id,
                     SenderId = userId,
                     TopicId = topic.Id
                 };
-               _context.TopicPosts.Add(topicPost);
-                _context.SaveChanges();
+
+              _topicPostRepository.Create(topicPost);
+                
                 return Ok();
             }
             return Ok();
@@ -70,8 +81,9 @@ namespace GroupProject.Controllers.API
         [Route("deleteTopic/{id}")]
         public IHttpActionResult DeleteTopic(int? id)
         {
-            var topicToBeDeleted = _context.Topics
-                                        .SingleOrDefault(t => t.Id == id);
+            var topicToBeDeleted = _topicRepository.GetById(id);
+            //var topicToBeDeleted = _context.Topics
+            //                            .SingleOrDefault(t => t.Id == id);
             _context.Topics.Remove(topicToBeDeleted);
             _context.SaveChanges();
 
@@ -82,7 +94,7 @@ namespace GroupProject.Controllers.API
         {
             if (disposing)
             {
-                _context.Dispose();
+                _postRepository.Dispose();
             }
             base.Dispose(disposing);
         }

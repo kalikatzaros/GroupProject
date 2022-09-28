@@ -16,13 +16,15 @@ namespace GroupProject.Controllers
 {
     public class WallPostsController : Controller
     {
-        private ApplicationDbContext _context;
-        private WallPostRepository _repository;
+        private readonly ApplicationDbContext _context;
+        private readonly WallPostRepository _wallpostRepository;
+        private readonly PostRepository _postRepository;
 
         public WallPostsController()
         {
             _context = new ApplicationDbContext();
-            _repository = new WallPostRepository(_context);
+            _wallpostRepository = new WallPostRepository(_context);
+            _postRepository = new PostRepository(_context);
         }
      
       
@@ -47,8 +49,8 @@ namespace GroupProject.Controllers
             }
             
 
-            _context.Posts.Add(post);
-           _context.SaveChanges();
+            _postRepository.Create(post);
+           
             
             if (ModelState.IsValid)
             {
@@ -59,8 +61,7 @@ namespace GroupProject.Controllers
                     PostId = post.Id
 
                 };
-               _context.WallPosts.Add(wallPost);
-                _context.SaveChanges();
+                _wallpostRepository.Create(wallPost);
                 return RedirectToAction("NewsFeed", "NewsFeed");
             }           
             return View();
@@ -71,11 +72,11 @@ namespace GroupProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(WallPostViewModel viewModel)
         {
-            var wallpost = _context.WallPosts
-                .Include(wp => wp.Post)
-                .SingleOrDefault(wp => wp.Id == viewModel.Id);
+            var wallpost = _wallpostRepository.GetById(viewModel.Id);
+     
             wallpost.Post.Body = viewModel.Body;
             wallpost.Post.Datetime = DateTime.Now;
+
             if (viewModel.ImageFile != null)
             {
                 wallpost.Post.Thumbnail = Path.GetFileName(viewModel.ImageFile.FileName);
@@ -84,34 +85,19 @@ namespace GroupProject.Controllers
             }
             if (ModelState.IsValid)
             {
-               _context.Entry(wallpost).State = EntityState.Modified;
-                
-                _context.SaveChanges();
+                _wallpostRepository.Update(wallpost);
+              
                 return RedirectToAction("MyProfile","Profile");
             }      
             return View(wallpost);
         }
 
-        // GET: WallPosts/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            WallPost wallPost = _context.WallPosts.Find(id);
-            if (wallPost == null)
-            {
-                return HttpNotFound();
-            }
-            return View(wallPost);
-        }
-
+       
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                _context.Dispose();
+                _wallpostRepository.Dispose();
             }
             base.Dispose(disposing);
         }

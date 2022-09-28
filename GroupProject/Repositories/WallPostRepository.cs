@@ -17,6 +17,12 @@ namespace GroupProject.Repositories
             _context = context;
         }
 
+        public IEnumerable<WallPost> GetAll()
+        {
+            return _context.WallPosts
+                .Include(w => w.Post)
+                .Include(w => w.User);
+        }
        public WallPost GetById(int? id)
         {
             if (id == null)
@@ -51,6 +57,8 @@ namespace GroupProject.Repositories
                 throw new ArgumentNullException(nameof(wallpost));
 
             _context.WallPosts.Add(wallpost);
+
+            Save();
         }
 
         public void Update(WallPost wallpost)
@@ -59,6 +67,7 @@ namespace GroupProject.Repositories
                 throw new ArgumentNullException(nameof(wallpost));
 
             _context.Entry(wallpost).State = EntityState.Modified;
+            Save();
         }
 
         public void Delete(int? id)
@@ -74,9 +83,14 @@ namespace GroupProject.Repositories
                 throw new Exception("Not found");
 
             _context.WallPosts.Remove(wallpost);
+            Save();
 
         }
 
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
         public void Dispose()
         {
             _context.Dispose();
