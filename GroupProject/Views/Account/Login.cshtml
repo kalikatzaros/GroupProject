@@ -18,9 +18,9 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                 @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
-        <label class="lbl">Email:</label>
+                <label class="lbl">Email:</label>
                 <div class="inputs">
-                    
+
                     <span class="input-group-addon transparent"><span class="glyphicon glyphicon-user"></span></span>
                     @Html.TextBoxFor(m => m.Email, new { @class = "", @placeholder = "Email Address" })
                     @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
@@ -43,32 +43,35 @@
                 </div>
 
             </div>*@
-                <div class="last">
+        @*<section id="socialLoginList">
+            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+        </section>*@
+                    <div class="last">
 
-                    <input type="submit" value="Log in" class="button-default button-primary" />
+                        <input type="submit" value="Log in" class="button-default button-primary" />
 
+                    </div>
+
+                    <p>
+                        @Html.ActionLink("Register as a new user", "Register")
+
+                    </p>
+
+                    }
+                </section>
+                <div class="right">
+                    <h2 class="welcome">Welcome to <span>Kous Kous</span></h2>
+
+                    <p>
+                        Free And Open for All*
+
+                    </p>
+                    <section id="socialLoginForm">
+                        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                    </section>
+                    <small><p> * Except for racists, sexists, homophobes and transphobes..</p></small>
                 </div>
-
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-
-                </p>
-
-            }
-        </section>
-        <div class="right">
-            <h2 class="welcome">Welcome to <span>Kous Kous</span></h2>
-
-            <p>
-                Free And Open for All*
-               
-            </p>
-            <section id="socialLoginForm">
-                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-            </section>
-            <small><p> * Except for racists, sexists, homophobes and transphopes..</p></small>
-        </div>
-    </div>
+</div>
 </div>
     
 

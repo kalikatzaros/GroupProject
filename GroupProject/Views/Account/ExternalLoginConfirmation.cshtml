@@ -27,12 +27,13 @@
                 
                 <div class="text-box-div">
                     <label class="labelClass">E-mail</label>
-                    @Html.TextBoxFor(m => m.Email, new { @class = "emailInput" })
+                    @*@Html.TextBoxFor(m => m.Email, new { @class = "emailInput" })*@
+                    <input type="text" name="Email" id="Email" />
                     @*@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })*@
                 </div>
             </div>
             
-                    <input type="submit" class="button-default button-primary registerBtn" value="Register" />
+                    <input type="submit" class="button-default button-primary registerBtn" value="Register" <a href="@Url.Action("NewsFeed","NewsFeed")" />
         }
     </div>
 </div>

@@ -91,7 +91,7 @@ namespace GroupProject.Controllers
                 case SignInStatus.Success:
                     //edw
                     if (userManager.GetRoles(user.Id).Contains("Admin")) {
-                        return RedirectToAction("index", "Dashboard",new { area = "Administrator" });
+                        return RedirectToAction("Index", "Dashboard",new { area = "Administrator" });
                     }
                     return RedirectToAction("NewsFeed", "NewsFeed");
                    
@@ -204,7 +204,7 @@ namespace GroupProject.Controllers
                     //edw
                     if (userManager.GetRoles(user.Id).Contains("Admin"))
                     {
-                        return RedirectToAction("index", "Dashboard", new { area = "Administrator" });
+                        return RedirectToAction("Index", "Dashboard", new { area = "Administrator" });
                     }
 
 
@@ -381,7 +381,16 @@ namespace GroupProject.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    //return RedirectToLocal(returnUrl);
+                    //edw
+                    var user = await UserManager.FindAsync(loginInfo.Login);
+                    if (user != null)
+                    {
+                        await StoreClaimsTokens(user);
+                        await SignInAsync(user, isPersistent: false);
+                    }
                     return RedirectToLocal(returnUrl);
+                    //return RedirectToAction("NewsFeed", "NewsFeed");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -395,6 +404,51 @@ namespace GroupProject.Controllers
             }
         }
 
+        //edw
+        private async Task StoreClaimsTokens(ApplicationUser user)
+        {
+            //get the claims identity
+            ClaimsIdentity claimsIdentity =
+                await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
+            if (claimsIdentity != null)
+            {
+                //retrieve existing claims
+                var currentClaims = await UserManager.GetClaimsAsync(user.Id);
+
+                //get list of access token related claims from identity
+
+                var tokenClaims = claimsIdentity.Claims
+                    .Where(c => c.Type.StartsWith("urn:tokens"));
+
+                // save the access token related claims
+                foreach(var tokenClaim in tokenClaims)
+                {
+                    var currentClaim = currentClaims.SingleOrDefault(cc => cc == tokenClaim);
+                    if (!currentClaims.Contains(tokenClaim))
+                    {
+                        await UserManager.AddClaimAsync(user.Id, tokenClaim);
+                    }
+                    else
+                    {
+                        await UserManager.RemoveClaimAsync(user.Id, currentClaim);
+                        await UserManager.AddClaimAsync(user.Id, tokenClaim);
+                    }
+                }
+
+            }
+        }
+
+        //k edw
+
+        private async Task SignInAsync(ApplicationUser user, bool isPersistent)
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            AuthenticationManager.SignIn(new AuthenticationProperties()
+            {
+                IsPersistent = isPersistent
+            },
+            await user.GenerateUserIdentityAsync(UserManager));
+        }
         //
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
@@ -404,7 +458,7 @@ namespace GroupProject.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Manage");
+                return RedirectToAction("NewsFeed", "NewsFeed");
             }
 
             if (ModelState.IsValid)
@@ -423,7 +477,9 @@ namespace GroupProject.Controllers
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        //return RedirectToAction("NewsFeed", "NewsFeed");
                         return RedirectToLocal(returnUrl);
+
                     }
                 }
                 AddErrors(result);

@@ -51,10 +51,8 @@ namespace GroupProject.Controllers
         public ActionResult GetFollowees(string search)
         {
             var userId = User.Identity.GetUserId();
-            //var roleId = _context.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).SingleOrDefault();
-
-
-            ViewBag.LoggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
+          
+           ViewBag.LoggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
            
             var viewModel = new SearchPeopleViewModel();
             if (search == null)

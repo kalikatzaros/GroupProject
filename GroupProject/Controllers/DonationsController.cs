@@ -15,12 +15,6 @@ namespace GroupProject.Controllers
             StripeConfiguration.ApiKey = "sk_test_51LIzfBLnJgNQDNAUt4xP3AxpzNojqjlmfXp4Q7DloVyI3ts3mXrNthL2ujkGIAj8nZcyxZNLhnpeOATsZsDZ4KMC00w0yWxbg1";
         }
 
-
-
-
-
-
-
         [HttpPost]
         public ActionResult CreateCheckoutSession()
         {

@@ -16,20 +16,10 @@ namespace GroupProject.Controllers
     public class TopicPostsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        public TopicPostsController()
+        {
 
-        // GET: TopicPosts
-     
-        //public ActionResult Index(int? id)
-        //{
-        //    var userId = User.Identity.GetUserId();
-        //    ViewBag.userId = userId;
-        //    var topicPosts = db.TopicPosts.Include(t => t.Post)
-        //        .Include(t => t.Sender)
-        //        .Include(t => t.Topic)
-        //        .Where(t=>t.TopicId==id)
-        //        .OrderBy(t=>t.Post.Datetime);
-        //    return View(topicPosts.ToList());
-        //}
+        }
         public ActionResult GetTopicPosts(int id)
         {
             //if (id == null)

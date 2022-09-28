@@ -23,48 +23,10 @@ namespace GroupProject.Controllers
             _context = new ApplicationDbContext();
             _followingRepository = new FollowingRepository(_context);
         }
+
         // GET: Profile
+      
         [Authorize]
-        public ActionResult Index()
-        {
-            
-                var userId = User.Identity.GetUserId();
-                ViewBag.loggedUser = userId;
-
-                var user = _context.Users.Include(u => u.WallPosts)
-                    .SingleOrDefault(u => u.Id == userId);
-
-                var wallPosts = _context.WallPosts
-                    .Include(w => w.Post)
-                    .Where(w => w.UserId == userId)
-                    .OrderByDescending(w => w.Post.Datetime);
-
-            var viewModel = new ProfileViewModel()
-            {
-                User = user,
-                Email = user.Email,
-                ProfileImage = user.Thumbnail,
-                FirstName = user.Name,
-                LastName = user.LastName,
-                WallPosts = wallPosts.ToList(),
-                DateOfBirth = user.DateOfBirth,
-                //Followings = _followingRepository.GetFollowings(userId).ToLookup(a => a.FolloweeId),
-                //ShowActions = User.Identity.IsAuthenticated,
-                Description = user.Description,
-                FolloweesCount = _followingRepository.GetFolloweesCount(userId),
-                FollowersCount= _followingRepository.GetFollowersCount(userId)
-            };
-
-
-            //if (User.Identity.IsAuthenticated)
-            //{
-                
-            //    viewModel.IsFollowing = _followingRepository.GetFollowing(userId, user.Id) != null;
-
-            //}
-            return View("Index", viewModel);
-        }
-
         public ActionResult MyProfile()
         {
          
@@ -88,8 +50,6 @@ namespace GroupProject.Controllers
                     LastName = user.LastName,
                     WallPosts = wallPosts.ToList(),
                     DateOfBirth = user.DateOfBirth,
-                    //Followings = _followingRepository.GetFollowings(userId).ToLookup(a => a.FolloweeId),
-                    //ShowActions = User.Identity.IsAuthenticated,
                     Description = user.Description,
                     FolloweesCount = _followingRepository.GetFolloweesCount(userId),
                     FollowersCount = _followingRepository.GetFollowersCount(userId)
@@ -97,41 +57,7 @@ namespace GroupProject.Controllers
 
                 return View("MyProfile", viewModel);
             }
-        
-
-        public ActionResult VisitProfile(string id)
-        {
-            var userId = User.Identity.GetUserId();
-
-            var followeesIds = _context.Followings
-                                  .Where(f => f.FollowerId == userId)
-                                  .Select(f => f.FolloweeId)
-                                  .ToList();
-            var otherUserId = id;
-            var user = _context.Users.Include(u => u.WallPosts)
-                    .SingleOrDefault(u => u.Id == otherUserId);
-            var wallPosts = _context.WallPosts
-                .Include(w => w.Post)
-                .Where(w => w.UserId == otherUserId)
-                .OrderByDescending(w => w.Post.Datetime); ;
-            var viewModel = new ProfileViewModel()
-            {
-                LoggedUserFollowingIds = followeesIds,
-                LoggedUserId = userId,
-                User = user,
-                Email = user.Email,
-                ProfileImage = user.Thumbnail,
-                FirstName = user.Name,
-                LastName = user.LastName,
-                WallPosts = wallPosts.ToList(),
-                DateOfBirth = user.DateOfBirth,
-                Description = user.Description,
-                IsAdmin = user.IsAdmin
-            };
-            return View(viewModel);
-
-        }
-
+      
         public ActionResult VisitingProfile(string id)
         {
             var userId = User.Identity.GetUserId();

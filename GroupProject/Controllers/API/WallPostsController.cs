@@ -51,6 +51,7 @@ namespace GroupProject.Controllers.API
                 return BadRequest();
             }
             var wallPostToBeDeleted = _context.WallPosts
+                                              .Include(wp=>wp.Post)
                                               .SingleOrDefault(wp => wp.Id == id);
 
             _context.WallPosts.Remove(wallPostToBeDeleted);
