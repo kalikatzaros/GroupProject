@@ -364,6 +364,8 @@
     <Compile Include="Repositories\FollowingRepository.cs" />
     <Compile Include="Repositories\MessageRepository.cs" />
     <Compile Include="Repositories\TopicPostRepository.cs" />
+    <Compile Include="Repositories\TopicRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\WallPostRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\GetTopicPostsViewModel.cs" />
@@ -673,6 +675,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administrator\Data\" />
     <Folder Include="DLL\" />
+    <Folder Include="Interfaces\" />
     <Folder Include="Persistence\" />
     <Folder Include="Style\" />
     <Folder Include="Views\Donations\" />

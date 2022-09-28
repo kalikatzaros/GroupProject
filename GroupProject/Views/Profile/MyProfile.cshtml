@@ -20,8 +20,8 @@
         </p>
     </div>
     <div class="my-profile-buttons">
-       <a href=@Url.Action("GetFollowers", "Followers") class="button-default button-follow">Followers</a>
-       <a href=@Url.Action("GetFollowees", "Followees") class="button-default button-primary">Following</a>
+       <a href=@Url.Action("GetFollowers", "Followers") class="button-default button-follow">Followers <small> (@Model.FolloweesCount)</small></a>
+       <a href=@Url.Action("GetFollowees", "Followees") class="button-default button-primary">Following <small> (@Model.FollowersCount)</small></a>
     </div>
     @*<div class="my-profile-header">
             <div class="my-profile-left">
@@ -67,7 +67,7 @@
                                 @item.User.FullName
                                 @if(item.User.IsAdmin)
                                 {
-                                    <img src="~/img/crown.svg" id="crown"></img>
+                                    <img src="~/img/crown.svg" id="crown" />
                                 }
                             </h3>
 

@@ -18,10 +18,27 @@ namespace GroupProject.Repositories
 
         public IEnumerable<Following> GetFollowings(string userId)
         {
+            if (userId == null)
+            {
+                throw new ArgumentNullException(nameof(userId));
+            }
             return _context.Followings
                 .Where(f => f.FollowerId == userId)
                 .ToList();
         }
+
+        public List<string> GetFolloweesIds(string userId)
+        {
+            if (userId == null)
+            {
+                throw new ArgumentNullException(nameof(userId));
+            }
+            return _context.Followings
+                .Where(f => f.FollowerId == userId)
+                .Select(f => f.FolloweeId)
+                .ToList();
+        }
+
         public int GetFollowersCount(string userId)
         {
             return _context.Followings
@@ -43,7 +60,7 @@ namespace GroupProject.Repositories
                 .SingleOrDefault(f => f.FolloweeId == followeeId && f.FollowerId == followerId);
         }
 
-        public  void Add(Following following)
+        public void Add(Following following)
         {
             _context.Followings.Add(following);
         }

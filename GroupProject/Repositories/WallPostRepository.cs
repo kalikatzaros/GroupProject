@@ -29,7 +29,7 @@ namespace GroupProject.Repositories
                 .SingleOrDefault(wp => wp.Id == id);
         }
 
-        public IEnumerable<WallPost> GetByUser(int? id)
+        public IEnumerable<WallPost> GetByUser(string id)
         {
             if (id == null)
             {
@@ -39,9 +39,9 @@ namespace GroupProject.Repositories
             return _context.WallPosts
                .Include(wp => wp.Post)
                .Include(wp => wp.User)
-               .Where(wp => wp.Id == id)
-               .OrderByDescending(w => w.Post.Datetime)
-               .ToList();
+               .Where(wp => wp.UserId == id)
+               .OrderByDescending(w => w.Post.Datetime);
+               
 
         }
 

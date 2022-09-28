@@ -14,10 +14,8 @@ namespace GroupProject.Repositories
 
         public MessageRepository(ApplicationDbContext context)
         {
-            _context = new ApplicationDbContext();
+            _context = context;
         }
-
-        
 
         public IEnumerable<Message> GetIncomingMessages()
         {

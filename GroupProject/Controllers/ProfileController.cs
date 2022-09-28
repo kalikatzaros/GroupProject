@@ -15,13 +15,17 @@ namespace GroupProject.Controllers
 {
     public class ProfileController : Controller
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly FollowingRepository _followingRepository;
+        private readonly UserRepository _userRepository;
+        private readonly WallPostRepository _wallPostRepository;
 
         public ProfileController()
         {
             _context = new ApplicationDbContext();
             _followingRepository = new FollowingRepository(_context);
+            _userRepository = new UserRepository(_context);
+            _wallPostRepository = new WallPostRepository(_context);
         }
 
         // GET: Profile
@@ -32,14 +36,11 @@ namespace GroupProject.Controllers
          
                 var userId = User.Identity.GetUserId();
                 ViewBag.loggedUser = userId;
-                ViewBag.LoggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
-                var user = _context.Users.Include(u => u.WallPosts)
-                    .SingleOrDefault(u => u.Id == userId);
+                 var user= _userRepository.GetById(userId);
+                 ViewBag.LoggedUser = user;
 
-                var wallPosts = _context.WallPosts
-                    .Include(w => w.Post)
-                    .Where(w => w.UserId == userId)
-                    .OrderByDescending(w => w.Post.Datetime);
+            var wallposts = _wallPostRepository.GetByUser(userId);
+               
 
                 var viewModel = new ProfileViewModel()
                 {
@@ -48,7 +49,7 @@ namespace GroupProject.Controllers
                     ProfileImage = user.Thumbnail,
                     FirstName = user.Name,
                     LastName = user.LastName,
-                    WallPosts = wallPosts.ToList(),
+                    WallPosts = wallposts.ToList(),
                     DateOfBirth = user.DateOfBirth,
                     Description = user.Description,
                     FolloweesCount = _followingRepository.GetFolloweesCount(userId),
@@ -61,19 +62,16 @@ namespace GroupProject.Controllers
         public ActionResult VisitingProfile(string id)
         {
             var userId = User.Identity.GetUserId();
-            
-            ViewBag.LoggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
-            var followeesIds = _context.Followings
-                                  .Where(f => f.FollowerId == userId)
-                                  .Select(f => f.FolloweeId)
-                                  .ToList();
+            var loggedUser = _userRepository.GetById(userId);
+            ViewBag.LoggedUser = loggedUser;
+
+            var followeesIds = _followingRepository.GetFolloweesIds(userId);
+
             var otherUserId = id;
-            var user = _context.Users.Include(u => u.WallPosts)
-                    .SingleOrDefault(u => u.Id == otherUserId);
-            var wallPosts = _context.WallPosts
-                .Include(w => w.Post)
-                .Where(w => w.UserId == otherUserId)
-                .OrderByDescending(w => w.Post.Datetime);
+            var user = _userRepository.GetById(otherUserId);
+
+            var wallposts = _wallPostRepository.GetByUser(otherUserId);
+
             var viewModel = new ProfileViewModel()
             {
                 LoggedUserFollowingIds = followeesIds,
@@ -83,7 +81,7 @@ namespace GroupProject.Controllers
                 ProfileImage = user.Thumbnail,
                 FirstName = user.Name,
                 LastName = user.LastName,
-                WallPosts = wallPosts.ToList(),
+                WallPosts = wallposts.ToList(),
                 DateOfBirth = user.DateOfBirth,
                 Description = user.Description,
                 IsAdmin = user.IsAdmin
