@@ -24,7 +24,7 @@
         </div>
     </form>
 </div>
-<div class="topics">
+<div class="topics" id="topics">
     @foreach (var item in Model)
     {
     <div class="topic-row">
@@ -68,7 +68,38 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
+
+            $.getJSON("/api/topicPosts/getAllLastTopicPosts")
+                .done(function (data) {
+                    $.each(data, function (key, item) {
+                        const username = item.topic.user.isDeactivated ? "DeactivatedAccount" : item.topic.user.fullName;
+                        const link = item.topic.user.isDeactivated ? "" : `/Profile/VisitingProfile/${item.topic.user.id}`;
+                        const senderUsername = item.sender.isDeactivated ? "DeactivatedAccount" : item.sender.fullName;
+                        const senderLink = item.sender.isDeactivated ? "" : `/Profile/VisitingProfile/${item.sender.id}`;
+                        $(`<div class="topic-row"id=${item.id}></div>`).appendTo('#topics');
+
+                        const content = `<div class="topic-column topic-title">
+            <a href="/TopicPosts/GetTopicPosts/${item.topic.id}"><h4 class="text-capitalize">${item.topic.title}</h4></a>
+        </div>
+        <div class="topic-column topic-created">
+            <h5>created by</h5>
            
+            <a href=${link}> <h4 class="text-capitalize">${username}</h4></a>
+            
+        </div>
+
+        <div class="topic-column topic-date">
+            <h5>on</h5>
+            <h4>${item.topic.created.toString().slice(0, 10)}</h4>
+        </div>
+            <div class="topic-column last-post">
+            <h5>last post by</h5>
+            <a href=${senderLink}><h4 class="text-capitalize">${senderUsername}</h4></a>
+                    </div>`;
+                        $(`#${item.id}`).html(content);
+                    });
+                });
+
             $('.add-topic').click(function () {
                 const form = $('.add-topic-form');
                 if (form.hasClass('hidden')) {
@@ -94,7 +125,7 @@
                     }).done(function (data) {
                         @*$('#Body').val(null);
                         $('#Title').val(null);*@
-                      
+
                         @*form.toggleClass('hidden');*@
                         location.reload();
                         @*$('.add-topic').html('+ Add Topic');*@
@@ -110,9 +141,9 @@
 
             });
 
-           
-                       
-         
+
+
+
         });
 
     </script>

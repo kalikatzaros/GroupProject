@@ -80,6 +80,7 @@ namespace GroupProject.Controllers.API
 
             return Ok(lastTopicPosts);
         }
+
         [HttpGet]
         [Route("getLastTopicPost/{id}")]
         public IHttpActionResult GetLastTopicPost(int? id)
