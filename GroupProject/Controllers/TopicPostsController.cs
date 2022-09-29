@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GroupProject.Models;
+using GroupProject.Repositories;
 using GroupProject.ViewModels;
 using Microsoft.AspNet.Identity;
 
@@ -15,32 +16,40 @@ namespace GroupProject.Controllers
 {
     public class TopicPostsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext _context;
+        private readonly TopicRepository _topicRepository;
+        private readonly TopicPostRepository _topicPostRepository;
+        private readonly UserRepository _userRepository;
+        private readonly PostRepository _postRepository;
+
         public TopicPostsController()
         {
-
+            _context = new ApplicationDbContext();
+            _topicRepository = new TopicRepository(_context);
+            _topicPostRepository = new TopicPostRepository(_context);
+            _userRepository = new UserRepository(_context);
+            _postRepository = new PostRepository(_context);
         }
+
+       
         public ActionResult GetTopicPosts(int id)
         {
-            //if (id == null)
-            //{
-            //    return View("Error");
-            //}
+           
             var userId = User.Identity.GetUserId();
            
-            //var roleId = _context.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).SingleOrDefault();
-
-            var loggedUser= db.Users.SingleOrDefault(u => u.Id == userId);
+           
+           var loggedUser=_userRepository.GetById(userId);
             ViewBag.LoggedUser = loggedUser;
-            var topic = db.Topics.SingleOrDefault(t => t.Id == id);
-            var topicPosts = db.TopicPosts.Include(t => t.Post)
-                .Include(t => t.Sender)
-                .Include(t => t.Topic)
-                .Where(t => t.TopicId == id)
-                .OrderBy(t => t.Post.Datetime).ToList();
+
+            var topic = _topicRepository.GetById(id);
+
+            var topicPosts = _topicPostRepository.GetAll(id);
+
+           
+
             var viewModel = new GetTopicPostsViewModel() { 
             LoggedInUser=loggedUser,
-            TopicPosts=topicPosts,
+            TopicPosts=topicPosts.ToList(),
             Topic=topic,
             TopicId=id
                        };
@@ -48,69 +57,7 @@ namespace GroupProject.Controllers
             return View(viewModel);
         }
 
-        // GET: TopicPosts/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TopicPost topicPost = db.TopicPosts.Find(id);
-            if (topicPost == null)
-            {
-                return HttpNotFound();
-            }
-            return View(topicPost);
-        }
-
-        // GET: TopicPosts/Create
-        public ActionResult Create(int id)
-        {
-            var viewModel = new TopicPostViewModel();
-          
-            
-
-            return View(viewModel);
-        }
-
-        // POST: TopicPosts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(TopicPostViewModel viewModel)
-        //{
-        //    var post = new Post()
-        //    {
-        //        Body=viewModel.Body,
-        //        Datetime=DateTime.Now
-        //    };
-
-        //    if (viewModel.ImageFile != null)
-        //    {
-        //        post.Thumbnail = Path.GetFileName(viewModel.ImageFile.FileName);
-        //        string fullPath = Path.Combine(Server.MapPath("~/img"), post.Thumbnail);
-        //        viewModel.ImageFile.SaveAs(fullPath);
-        //    }
-
-        //    db.Posts.Add(post);
-        //    db.SaveChanges();
-
-        //    var userId = User.Identity.GetUserId();
-
-        //        var topicPost = new TopicPost()
-        //        {
-        //            //TopicId = id,
-        //            TopicId=viewModel.TopicId,
-        //            SenderId = userId,
-        //            PostId = post.Id
-        //        };
-
-        //        db.TopicPosts.Add(topicPost);
-        //        db.SaveChanges();
-        //    return RedirectToAction("GetTopicPosts", "TopicPosts",new {id= viewModel.TopicId });
-        //    //return RedirectToAction("Index", "TopicPosts", new { id = id });
-        //}
+       
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -129,8 +76,8 @@ namespace GroupProject.Controllers
                 viewModel.ImageFile.SaveAs(fullPath);
             }
 
-            db.Posts.Add(post);
-            db.SaveChanges();
+            _postRepository.Create(post);
+           
 
             var userId = User.Identity.GetUserId();
 
@@ -138,88 +85,50 @@ namespace GroupProject.Controllers
           
             var topicPost = new TopicPost()
             {
-               TopicId = viewModel.TopicId,
+                TopicId = viewModel.TopicId,
                 SenderId = userId,
                 PostId = post.Id
             };
 
-            db.TopicPosts.Add(topicPost);
-            db.SaveChanges();
+            _topicPostRepository.Create(topicPost);
+          
             return RedirectToAction("GetTopicPosts", "TopicPosts", new { id = viewModel.TopicId });
-            //return RedirectToAction("Index", "TopicPosts", new { id = id });
-        }
-        // GET: TopicPosts/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TopicPost topicPost = db.TopicPosts.Find(id);
-            if (topicPost == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.PostId = new SelectList(db.Posts, "Id", "Body", topicPost.PostId);
-            ViewBag.SenderId = new SelectList(db.Users, "Id", "Name", topicPost.SenderId);
-            ViewBag.TopicId = new SelectList(db.Topics, "Id", "Title", topicPost.TopicId);
-            return View(topicPost);
+           
         }
 
-        // POST: TopicPosts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(string body,int? id)
+        public ActionResult UpdateTopicPost(GetTopicPostsViewModel viewModel)
         {
-            var topicPost = db.TopicPosts
-                .Include(tp=>tp.Post)
-                .Include(tp => tp.Topic)
-                .SingleOrDefault(tp => tp.Id == id);
+            var topicPost = _topicPostRepository.GetById(viewModel.Id);
 
-            topicPost.Post.Body = body;
+            var post = topicPost.Post;
+            topicPost.Post.Body = viewModel.Body;
             topicPost.Post.Datetime = DateTime.Now;
-            if (ModelState.IsValid)
+
+
+            if (viewModel.ImageFile != null)
             {
-                db.Entry(topicPost).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index", "TopicPosts", new { id = topicPost.Topic.Id });
+                topicPost.Post.Thumbnail = Path.GetFileName(viewModel.ImageFile.FileName);
+                string fullPath = Path.Combine(Server.MapPath("~/img"), topicPost.Post.Thumbnail);
+                viewModel.ImageFile.SaveAs(fullPath);
             }
-            return View("Error");
+
+             var userId = User.Identity.GetUserId();
+            _postRepository.Update(topicPost.Post);
+            //_postRepository.Update(post);
+            _topicPostRepository.Update(topicPost);
+
+            return RedirectToAction("GetTopicPosts", "TopicPosts", new { id = viewModel.TopicId });
+
         }
 
-        // GET: TopicPosts/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TopicPost topicPost = db.TopicPosts.Find(id);
-            if (topicPost == null)
-            {
-                return View("Error");
-            }
-            return View(topicPost);
-        }
-
-        // POST: TopicPosts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            TopicPost topicPost = db.TopicPosts.Find(id);
-            db.TopicPosts.Remove(topicPost);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _userRepository.Dispose();
             }
             base.Dispose(disposing);
         }

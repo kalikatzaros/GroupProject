@@ -17,9 +17,24 @@ namespace GroupProject.Repositories
 
         public IEnumerable<TopicPost> GetAll()
         {
+            
             return _context.TopicPosts
+                .Include(tp => tp.Topic)
                 .Include(tp => tp.Post)
                 .Include(tp => tp.Sender);
+        }
+        //get all per topic
+        public IEnumerable<TopicPost> GetAll(int? id)
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+            return _context.TopicPosts
+                .Include(tp=>tp.Topic)
+                .Include(tp => tp.Post)
+                .Include(tp => tp.Sender)
+                .Where(tp => tp.Topic.Id == id);
         }
         public TopicPost GetById(int? id)
         {
@@ -28,9 +43,10 @@ namespace GroupProject.Repositories
                 throw new ArgumentNullException(nameof(id));
             }
             return _context.TopicPosts
-                .Include(wp => wp.Post)
-                .Include(wp => wp.Sender)
-                .SingleOrDefault(wp => wp.Id == id);
+                .Include(tp => tp.Topic)
+                .Include(tp => tp.Post)
+                .Include(tp => tp.Sender)
+                .SingleOrDefault(tp => tp.Id == id);
         }
 
         public IEnumerable<TopicPost> GetByUser(string id)

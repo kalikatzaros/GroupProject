@@ -21,28 +21,23 @@ namespace GroupProject.Controllers
         private readonly UserRepository _userRepository;
         private readonly PostRepository _postRepository;
 
-        public TopicsController(ApplicationDbContext context)
+        public TopicsController()
         {
-            _context = context;
+            _context = new ApplicationDbContext();
             _topicRepository = new TopicRepository(_context);
             _topicPostRepository = new TopicPostRepository(_context);
             _userRepository = new UserRepository(_context);
             _postRepository = new PostRepository(_context);
-
         }
+      
 
-        // GET: Topics
-        public ActionResult Index()
-        {
-            return View(_topicRepository.GetAll().ToList());
-        }
         public ActionResult GetTopics()
         {
             var userId = User.Identity.GetUserId();
             //var roleId = _context.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).SingleOrDefault();
             var loggedUser = _userRepository.GetById(userId);
             ViewBag.LoggedUser = loggedUser;
-            var topics = _topicPostRepository.GetAll().ToList();
+            var topics = _topicRepository.GetAll().ToList();
             return View(topics);
         }
         // GET: Topics/Details/5

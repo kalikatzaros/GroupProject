@@ -1,6 +1,6 @@
 ﻿@model GroupProject.ViewModels.GetTopicPostsViewModel
 @{
-    ViewBag.Title ="GetTopicPosts";
+    ViewBag.Title = "GetTopicPosts";
     Layout = "~/Views/Shared/_KalikatzarosLayout.cshtml";
 }
 
@@ -24,7 +24,7 @@
             <a class="get-image-button" onclick="document.getElementById('ImageFile').click()"><i class="material-icons">camera</i><span>Photo</span></a>
             <input type='file' name="ImageFile" id="ImageFile" accept="image/png, image/jpeg, image/jpg, image/gif" style="display:none">
             <input type="hidden" name="TopicId" id="TopicId" value=@Model.TopicId />
-         
+
             <div class="form-buttons">
                 <button type="reset" class="button-default">Clear</button>
                 <button type="submit" id="submit-button" class="button-default button-analogus">Create</button>
@@ -33,11 +33,11 @@
 
         }
     </div>
-    </div>
+</div>
 
 @foreach (var item in Model.TopicPosts)
 {
-    <div class="topic-post"id="topic-post">
+    <div class="topic-post" id="topic-post">
         <div class="topic-post-header">
 
             <div class="topic-post-user">
@@ -52,7 +52,7 @@
                                 @item.Sender.FullName
                                 @if (item.Sender.IsAdmin)
                                 {
-                                    <img src="~/img/crown.svg" id="crown"/>
+                                    <img src="~/img/crown.svg" id="crown" />
                                 }
                             </h3>
                         </a>
@@ -68,22 +68,49 @@
                     <img src="~/img/@item.Post.Thumbnail" />
                 }
             </div>
-            @if (ViewBag.LoggedUser.IsAdmin || ViewBag.LoggedUser.Id==item.SenderId)
+            @if (ViewBag.LoggedUser.IsAdmin || ViewBag.LoggedUser.Id == item.SenderId)
             {
                 <div class="action-buttons">
                     <div class="two-buttons">
                         <a class="material-icons tp-delete" data-tp-id="@item.Id">delete</a>
-                        <a class="material-icons tp-edit"data-tp-id="@item.Id">edit</a>
+                        <a class="material-icons tp-edit" data-tp-id="@item.Id">edit</a>
                     </div>
                 </div>
+
             }
             <div class="topic-post-text">
                 <p>@item.Post.Body</p>
             </div>
+
+
+
         </div>
-
     </div>
+    <div class="form-container">
+        <div class="edit-topic-post-form hidden" id="@item.Id">
+            @using (Html.BeginForm("UpdateTopicPost", "TopicPosts", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
 
+
+                <div class="form-body">
+                    <label for="Body">Post: </label>
+                    <textarea id="Body" name="Body" rows="2" required>@item.Post.Body</textarea>
+                </div>
+                <a class="get-image-button" onclick="document.getElementById('ImageFile').click()"><i class="material-icons">camera</i><span>Photo</span></a>
+                <input type='file' name="ImageFile" id="ImageFile" accept="image/png, image/jpeg, image/jpg, image/gif" style="display:none">
+                <input type="hidden" name="TopicId" id="TopicId" value=@Model.TopicId />
+                <input type="hidden" name="Id" id="Id" value=@item.Id />
+
+                <div class="form-buttons">
+                    <button type="reset" class="button-default">Clear</button>
+                    <button type="submit" id="submit-button" class="button-default button-analogus">Update</button>
+                </div>
+
+                
+            }
+        </div>
+    </div>
 }
 
 @section Scripts{
@@ -92,18 +119,15 @@
             const id = $('#topic-id').attr('data-topic-id');
             $('.add-post-button').click(function () {
                 $('.add-topic-post-form').toggleClass('hidden');
-              
+
             });
 
             console.log($('#TopicId').val());
 
-            $.getJSON("/api/topicPosts/getTopicPosts/" + id)
-                .done(function (data) {
-                    console.log(data);
-                })
-                .fail(function () {
-                    console.log('why');
-                });
+            $('.tp-edit').click(function () {
+                const button = $(this);
+                $(`#${button.attr('data-tp-id')}`).toggleClass('hidden');
+            });
 
             $(".tp-delete").click(function () {
                 var button = $(this);
@@ -154,11 +178,11 @@
             margin-left: 0.65rem;
         }
 
-    .add-topic-post-form label {
+    .add-topic-post-form label, .edit-topic-post-form label {
         font-size: 1rem;
     }
 
-    .add-topic-post-form textarea {
+    .add-topic-post-form textarea, .edit-topic-post-form textarea {
         font-size: 1rem;
         width: 70%;
         background-color: var(--color-light);
@@ -167,7 +191,7 @@
         resize: none;
     }
 
-    .add-topic-post-form {
+    .add-topic-post-form, .edit-topic-post-form {
         background-color: var(--color-white);
         border-radius: var(--card-border-radius);
         display: flex;
