@@ -677,7 +677,6 @@
     <Folder Include="Areas\Administrator\Data\" />
     <Folder Include="DLL\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="Persistence\" />
     <Folder Include="Style\" />
     <Folder Include="Views\Donations\" />
     <Folder Include="Views\Error\" />
