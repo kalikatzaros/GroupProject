@@ -98,13 +98,13 @@
                     <textarea id="Body" name="Body" rows="2" required>@item.Post.Body</textarea>
                 </div>
                 <a class="get-image-button" onclick="document.getElementById('ImageFile').click()"><i class="material-icons">camera</i><span>Photo</span></a>
-                <input type='file' name="ImageFile" id="ImageFile" accept="image/png, image/jpeg, image/jpg, image/gif" style="display:none">
+                <input type="file" name="ImageFile" id="ImageFile" accept="image/png, image/jpeg, image/jpg, image/gif" style="display:none">
                 <input type="hidden" name="TopicId" id="TopicId" value=@Model.TopicId />
                 <input type="hidden" name="Id" id="Id" value=@item.Id />
 
                 <div class="form-buttons">
                     <button type="reset" class="button-default">Clear</button>
-                    <button type="submit" id="submit-button" class="button-default button-analogus">Update</button>
+                    <button type="submit" id="update-button" class="button-default button-analogus">Update</button>
                 </div>
 
                 
@@ -122,10 +122,10 @@
 
             });
 
-            console.log($('#TopicId').val());
-
+                    
             $('.tp-edit').click(function () {
                 const button = $(this);
+                console.log($('#ImageFile').val())
                 $(`#${button.attr('data-tp-id')}`).toggleClass('hidden');
             });
 

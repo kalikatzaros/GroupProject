@@ -102,10 +102,8 @@ namespace GroupProject.Controllers
         {
             var topicPost = _topicPostRepository.GetById(viewModel.Id);
 
-            var post = topicPost.Post;
             topicPost.Post.Body = viewModel.Body;
             topicPost.Post.Datetime = DateTime.Now;
-
 
             if (viewModel.ImageFile != null)
             {
@@ -114,12 +112,18 @@ namespace GroupProject.Controllers
                 viewModel.ImageFile.SaveAs(fullPath);
             }
 
-             var userId = User.Identity.GetUserId();
-            _postRepository.Update(topicPost.Post);
-            //_postRepository.Update(post);
-            _topicPostRepository.Update(topicPost);
+            
+
+            if (ModelState.IsValid)
+            {
+                _topicPostRepository.Update(topicPost);
+
+                return RedirectToAction("GetTopicPosts", "TopicPosts", new { id = viewModel.TopicId });
+            }
+
 
             return RedirectToAction("GetTopicPosts", "TopicPosts", new { id = viewModel.TopicId });
+
 
         }
 
