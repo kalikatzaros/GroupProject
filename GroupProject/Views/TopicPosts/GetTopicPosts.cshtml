@@ -37,7 +37,7 @@
 
 @foreach (var item in Model.TopicPosts)
 {
-    <div class="topic-post">
+    <div class="topic-post"id="topic-post">
         <div class="topic-post-header">
 
             <div class="topic-post-user">
@@ -96,13 +96,37 @@
             });
 
             console.log($('#TopicId').val());
-            @*$.getJSON("/api/topicPosts/getTopicPosts/" + id)
+
+            $.getJSON("/api/topicPosts/getTopicPosts/" + id)
                 .done(function (data) {
                     console.log(data);
                 })
                 .fail(function () {
                     console.log('why');
-                });*@
+                });
+
+            $(".tp-delete").click(function () {
+                var button = $(this);
+                console.log(button);
+
+                bootbox.confirm("Are you sure to delete this post?", function (result) {
+
+                    if (result) {
+                        $.ajax({
+                            url: "/api/topicPosts/deletePost/" + button.attr("data-tp-id"),
+                            method: "DELETE"
+                        }).done(function (response) {
+                            console.log(response);
+                            button.parent().parent().fadeOut();
+                            location.reload();
+                        }).fail(function (error) {
+                            console.log(error);
+                        });
+                    }
+
+                });
+            });
+
         });
     </script>
 
