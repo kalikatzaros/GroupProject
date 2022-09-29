@@ -2,8 +2,103 @@
 
 @{
     ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
 }
+<div class="error-container">
+    
+        <div class="eyes">
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+            <div class="eye">
+                <div class="ball"></div>
+            </div>
+
+            <div class="eye">
+                <div class="ball"></div>
+            </div>
+
+        </div>
+        <hgroup>
+            <h1 class="text-danger">Oops!</h1>
+            <p class="text-danger">Something went wrong..</p>
+            <a id="return" href="@Url.Action("NewsFeed","NewsFeed")">Return To Site</a>
+        </hgroup>
+    </div>
+
+    <style>
+        .container-eyes{
+            background-color:var(--color-white);
+        }
+        .text-danger {
+            color: var(--color-danger);
+        }
+
+        .error-container {
+            width: 80vw;
+            height: 50vh;
+            display: flex;
+            flex-direction:column;
+            align-items: center;
+            justify-content: center;
+        }
+        .eyes {
+            position: absolute;
+            top:80%;
+            transform: translateY(-50%);
+            width: 100%;
+            text-align: center;
+            left: 70px;
+        }
+        #return{
+            margin-top:1rem;
+            color:var(--color-gray);
+        }
+
+        .eye {
+            width: 220px;
+            height: 100px;
+            background: white;
+            display: inline-block;
+            margin: 35px;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ball {
+            width: 60px;
+            height: 60px;
+            background: #000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 50%;
+            border: 12px solid#333;
+        }
+        .eyes{
+            background-color:var(--color-light);
+        }
+    </style>
+
+
+
+
+
+
+<script>
+        var balls = document.getElementsByClassName("ball");
+        document.onmousemove = function () {
+            var x = event.clientX * 100 / window.innerWidth + "%";
+            var y = event.clientY * 100 / window.innerHeight + "%";
+
+            for (var i = 0; i < 2; i++) {
+                balls[i].style.left = x;
+                balls[i].style.top = y;
+                balls[i].style.transform = "translate(-" + x + ",-" + y + ")"
+            }
+        }
+</script>
+
+
+   
 

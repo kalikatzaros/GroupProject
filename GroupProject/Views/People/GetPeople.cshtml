@@ -1,0 +1,228 @@
+﻿@model GroupProject.ViewModels.PeopleViewModel
+@{
+    ViewBag.Title = "GetPeople";
+    Layout = "~/Views/Shared/_KalikatzarosLayout.cshtml";
+}
+<div class="search">
+    <form>
+        @using (Html.BeginForm("GetPeople", "People", FormMethod.Get))
+        {
+            @Html.AntiForgeryToken()
+
+            <input type="text" id="name" name="search" placeholder="Search by Name or Email.." />
+            
+            <div class="form-buttons">
+                <button type="reset" class="button-default button-reset"><a href=@Url.Action("GetPeople", "People")>Clear</a></button>
+                <button type="submit" class="submit-button button-default button-primary">Search</button>
+            </div>
+
+        }
+    </form>
+        @if (Model.AllUsers.Count == 0)
+        {
+            <h4>No Results Found</h4>
+        }
+    </div>
+    <div class="people" id="people">
+        @foreach (var item in Model.AllUsers)
+        {
+            <div class="person-card">
+
+                <img class="profile-pic" src="~/img/@item.Thumbnail" />
+
+                <a href="@Url.Action("VisitingProfile","Profile",new { id=item.Id})" class="person-name text-capitalize">
+                    <p>@item.Name</p>
+                    <p class="p-lastname">@item.LastName</p>
+                    <p>
+                        @if (item.IsAdmin)
+                        {
+                            <img id="crown" src="~/img/crown.svg">
+                        }
+                    </p>
+                </a>
+                @if (Model.Followees.Contains(item))
+                {
+
+                    <button class="button-default button-following js-toggle-follow" data-user-id="@item.Id">Following </button>
+                }
+                else
+                {
+                    <button class="button-default button-follow js-toggle-follow" data-user-id="@item.Id">Follow </button>
+                }
+
+            </div>
+
+
+        }
+
+    </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#people').addClass('active');
+            $(".js-toggle-follow").click(function () {
+                const button = $(this);
+                const data = button.attr("data-user-id");
+                if (!button.hasClass('button-following')) {
+                    $.post(
+                        "/api/followings", { followeeId: data }
+                    ).done(function () {
+                        button.toggleClass('button-following');
+                        button.toggleClass('button-follow');
+                        button.html("Following");
+                        console.log(data);
+                      
+                    }).fail(function () {
+                        alert("shit!");
+                        console.log(button);
+                    });
+                } else {
+                    $.ajax({
+                        url: "/api/followings/" + data,
+                        method: "DELETE"
+                    })
+                        .done(function () {
+                            button.toggleClass('button-following');
+                            button.toggleClass('button-follow');
+                            button.html("Follow");
+        
+                            console.log(data);
+                            console.log(button);
+                        })
+                        .fail(function () {
+                            alert("shit!");
+                        });
+
+                }
+
+            });
+
+        });
+ 
+    </script>
+
+    }
+    <style>
+
+    .search form{
+        width: 100%;
+        height: 5rem;
+        background-color: var(--color-white);
+        border-radius: var(--card-border-radius);
+        padding: var(--card-padding);
+        margin-bottom: 1rem;
+        display:flex;
+        justify-content:space-between;
+
+    }
+        .search input{
+            width:100%;
+        }
+        .search input[type="text"] {
+            padding: var(--card-padding);
+            border-radius: var(--card-border-radius);
+            background-color: var(--color-light);
+            color: var(--color-black);
+            font-size: 1rem;
+        }
+
+        .button-reset a{
+            color:var(--color-dark);
+        }
+
+        .button-reset a:hover {
+            color: var(--color-dark);
+            text-decoration:none;
+        }
+        .form-buttons{
+            display:flex;
+            gap:1rem;
+        }
+
+        .people {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+    .person-card {
+        padding: var(--card-padding);
+        border-radius: var(--card-border-radius);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--var-color-dark);
+        font-size: 0.75rem;
+        width: 11.3rem;
+        height: 18rem;
+        background-color: white;
+    }
+
+    .profile-pic {
+        width: 7rem;
+        height: 7rem;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+    .person-name {
+        display: flex;
+        flex-direction: column;
+        color: var(--color-dark);
+        align-items:center;
+        justify-content:center;
+    }
+        .person-name:hover {
+            text-decoration: none;
+            cursor: pointer;
+            opacity: 0.5;
+        }
+   
+    .person-name p{
+        font-size:1rem;
+        line-height:0.7rem;
+
+    }
+    .button-follow {
+        color: var(--color-gray);
+        border: 2px solid var(--color-primary);
+    }
+
+        .button-follow:hover {
+            color: var(--color-primary);
+        }
+
+    .button-default {
+        display: inline-block;
+        padding: var(--button-padding);
+        font-weight: 500;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: all 300ms ease;
+        font-size: 1rem;
+    }
+
+        .button-default:hover {
+            opacity: 0.2;
+            text-decoration: none;
+        }
+
+    .button-following {
+        background-color: var(--color-primary);
+        color: var(--color-white);
+    }
+.submit-button a{
+    color:white;
+}
+
+        .submit-button a:hover {
+            text-decoration:none;
+        }
+    #crown{
+    
+    }
+
+
+    </style>

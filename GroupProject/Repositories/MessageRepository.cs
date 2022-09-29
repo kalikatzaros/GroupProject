@@ -12,12 +12,10 @@ namespace GroupProject.Repositories
     {
         private readonly ApplicationDbContext _context;
 
-        public MessageRepository()
+        public MessageRepository(ApplicationDbContext context)
         {
-            _context = new ApplicationDbContext();
+            _context = context;
         }
-
-        
 
         public IEnumerable<Message> GetIncomingMessages()
         {

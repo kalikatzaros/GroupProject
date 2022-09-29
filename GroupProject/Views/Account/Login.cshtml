@@ -2,78 +2,92 @@
 @model LoginViewModel
 @{
     ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 
 @*<h2>@ViewBag.Title.</h2>*@
-<div class="container container-login">
-    <div class="log-in">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<div class="container-login">
+   
+    <div class="section-container">
+        <section class="login-form">
+            <div class="title"><h2>Login</h2></div>
+            @*<section id="loginForm" class="login-form">*@
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login", role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="login-form">
-                <div class="form-group">
-                    @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
-                    <div class="input-group">
-                        <span class="input-group-addon transparent"><span class="glyphicon glyphicon-user"></span></span>
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control left-border-none", @placeholder = "Email Address" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                    </div>
+
+                @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
+                <label class="lbl">Email:</label>
+                <div class="inputs">
+
+                    <span class="input-group-addon transparent"><span class="glyphicon glyphicon-user"></span></span>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "", @placeholder = "Email Address" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                 </div>
-                <div class="form-group">
+
+                <label class="lbl">Password:</label>
+                <div class="inputs">
                     @*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
-                    <div class="input-group">
-                        <span class="input-group-addon transparent"><span class="glyphicon glyphicon-lock"></span></span>
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control left-border-none", @placeholder = "Password" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-info" />
-                    </div>
-                </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
-            <p>
-                @Html.ActionLink("Forgot your password?", "ForgotPassword")
-            </p>*@
 
-            }
-        </section>
-    </div>
+                    <span class="input-group-addon transparent"><span class="glyphicon glyphicon-lock"></span></span>
+                    @Html.PasswordFor(m => m.Password, new { @class = "", @placeholder = "Password" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
 
-    @*<div class="col-md-4">
-            <section id="socialLoginForm">
-                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-            </section>
-        </div>*@
+                </div>
+                @*<div class="inputs">
+
+                <div class="checkbox">
+                    @Html.CheckBoxFor(m => m.RememberMe)
+                    @Html.LabelFor(m => m.RememberMe)
+                </div>
+
+            </div>*@
+        @*<section id="socialLoginList">
+            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+        </section>*@
+                    <div class="last">
+
+                        <input type="submit" value="Log in" class="button-default button-primary" />
+
+                    </div>
+
+                    <p>
+                        @Html.ActionLink("Register as a new user", "Register")
+
+                    </p>
+
+                    }
+                </section>
+                <div class="right">
+                    <h2 class="welcome">Welcome to <span>Kous Kous</span></h2>
+
+                    <p>
+                        Free And Open for All*
+
+                    </p>
+                    <section id="socialLoginForm">
+                        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                    </section>
+                    <small><p> * Except for racists, sexists, homophobes and transphobes..</p></small>
+                </div>
 </div>
+</div>
+    
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
 <style>
-    body {
+    @*body {
         background: #0264d6;
         background: -moz-radial-gradient(center, ellipse cover, #0264d6 1%, #1c2b5a 100%); /* For FireFox 3.6+ */
         background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(1%,#0264d6), color-stop(100%,#1c2b5a)); /* For Chrome,Safari4+ */
         background: -webkit-radial-gradient(center, ellipse cover, #0264d6 1%,#1c2b5a 100%); /* For Chrome10+,Safari5.1+ */
-    }
+    }*@
 
-    .transparent {
+    @*.transparent {
         background-color: transparent !important;
         box-shadow: inset 0px 1px 0 rgba(0,0,0,.075);
         color:black;
@@ -100,7 +114,110 @@
       display:flex;
       align-items:center;
       justify-content:center;
-  }
+  }*@
+    .login-form {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap:1rem;
+    }
+    label{
+       margin-bottom:1rem;
+    }
+    .inputs label{
+        margin-right:1rem;
+        
+    }
+    .inputs input {
+        background-color: var(--color-light);
+        padding: var(--card-padding);
+        border-radius: var(--card-border-radius);
+        margin: 0.5rem 0;
+        width:15rem;
+    }
+    .right{
+        display:flex;
+        flex-direction:column;
+        height:80%;
+        padding:1rem;
+    }
+    .right p{
+        margin-bottom:5rem;
+    }
+   
+    .container-login{
+        width:80vw;
+        height:80vh;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
 
+    .section-container {
+        background-color: var(--color-white);
+        border-radius: var(--card-border-radius);
+        
+        display:grid;
+        grid-template-columns:50% 50%;
+        align-items:center;
+        
+    }
 
+        .section-container .login-form{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+           gap:2rem;
+            height:100%;
+            justify-content:space-evenly;
+        }
+
+    .title{
+        color:var(--color-primary);
+    }
+        .login {
+        }
+    @*.log-in{
+        display:flex;
+        padding:var(--card-padding);
+        border-radius:var(--card-border-radius);
+        background-color:var(--color-white);
+        width:50%;
+    }*@
+
+    .button-default {
+        display: inline-block;
+        padding: var(--button-padding);
+        font-weight: 500;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: all 300ms ease;
+        font-size: 1rem;
+    }
+
+        .button-default:hover {
+            opacity: 0.8;
+            text-decoration: none;
+        }
+
+    .button-primary {
+        background-color: var(--color-primary);
+        color: var(--color-white);
+    }
+
+        .button-primary:hover {
+            opacity: 0.8;
+            color: var(--color-gray);
+        }
+
+        .last input{
+            margin-bottom:0.5rem;
+        }
+    .right h2 span {
+        font-family: 'Pacifico',cursive;
+        background: -webkit-linear-gradient(var(--color-analogus)3%,var(--color-primary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size:1.8rem;
+    }
 </style>

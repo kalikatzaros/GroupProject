@@ -2,9 +2,26 @@
 
 @{
     ViewBag.Title = "Deactivated Account";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 
-<hgroup>
-    <h1 class="text-danger">Deactivated Account</h1>
-    <h2 class="text-danger">This account has been deactivated,if you wish to reactivate please contact admin@yapes.com.</h2>
-</hgroup>
+<div class="error-container">
+    <hgroup>
+        <h1 class="text-danger">Deactivated Account</h1>
+        <p class="text-danger">This account has been deactivated,if you wish to reactivate please contact info@kouskous.com.</p>
+    </hgroup>
+</div>
+
+<style>
+    .text-danger{
+        color:var(--color-danger);
+    }
+
+    .error-container{
+        width:100%;
+        height:100%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+</style>

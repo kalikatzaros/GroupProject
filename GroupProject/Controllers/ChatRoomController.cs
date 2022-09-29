@@ -28,10 +28,19 @@ namespace GroupProject.Controllers
             var userId = User.Identity.GetUserId();
             var user = _context.Users.SingleOrDefault(u => u.Id == userId);
             ViewBag.UserName = user.FullName;
-
+            ViewBag.LoggedUser = user;
             return View();
         }
 
+        public ActionResult ChatRoom()
+        {
+
+            var userId = User.Identity.GetUserId();
+            var user = _context.Users.SingleOrDefault(u => u.Id == userId);
+            ViewBag.UserName = user.FullName;
+            ViewBag.LoggedUser = user;
+            return View();
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

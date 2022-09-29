@@ -17,5 +17,10 @@ namespace GroupProject.ViewModels
         [DataType(DataType.DateTime)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Created { get; set; }
+
+        public TopicViewModel()
+        {
+                
+        }
     }
 }

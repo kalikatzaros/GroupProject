@@ -1,11 +1,14 @@
-﻿using GroupProject.Models;
+﻿using GroupProject.Dtos;
+using GroupProject.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace GroupProject.Controllers.API
@@ -21,16 +24,29 @@ namespace GroupProject.Controllers.API
             _context = new ApplicationDbContext();
         }
 
-        [Route("")]
-        public IHttpActionResult GetTopicPosts()
+        [Route("getTopicPosts/{id}")]
+        [HttpGet]
+        public IHttpActionResult GetTopicPosts(int? id)
         {
+            var topic = _context.Topics.SingleOrDefault(t => t.Id == id);
+            if (topic == null)
+            {
+                return NotFound();
+            }
+            var userId = User.Identity.GetUserId();
+            var loggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
             var topicPosts = _context.TopicPosts
                              .Include(tp=>tp.Post)
                              .Include(tp=>tp.Sender)
                              .Include(tp=>tp.Topic)
+                             .Where(tp=>tp.Topic.Id==id)
                              .ToList();
-
-            return Ok(topicPosts);
+            var dto = new TopicPostsDto()
+            {
+                TopicPosts=topicPosts,
+                LoggedUser=loggedUser
+            };
+            return Ok(dto);
         }
 
         [HttpGet]
@@ -55,6 +71,7 @@ namespace GroupProject.Controllers.API
                 .Include(t => t.Sender)
                 .Include(t=>t.Topic.User)
                 .Include(t => t.Post)
+                .Include(t=>t.Topic)
                 .Where(t => t.TopicId == topic.Id)
                 .ToList().LastOrDefault();
                 lastTopicPosts.Add(lastTopicPost);
@@ -63,6 +80,7 @@ namespace GroupProject.Controllers.API
 
             return Ok(lastTopicPosts);
         }
+
         [HttpGet]
         [Route("getLastTopicPost/{id}")]
         public IHttpActionResult GetLastTopicPost(int? id)
@@ -73,6 +91,45 @@ namespace GroupProject.Controllers.API
                 .Where(t => t.TopicId == id).ToList().LastOrDefault();
 
             return Ok(lastTopicPost);
+        }
+
+        [HttpPost]
+        [Route("createTopicPost")]
+        public IHttpActionResult CreateTopicPost(CreateTopicPostDto dto)
+        {
+            //string path = HttpContext.Current.Server.MapPath("~/Uploads/");
+            var userId = User.Identity.GetUserId();
+            var post = new Post()
+            {
+                Body = dto.Body,
+                Datetime = DateTime.Now
+
+            };
+
+            if (dto.ImageFile != null)
+            {
+                post.Thumbnail = Path.GetFileName(dto.ImageFile.FileName);
+                string fullPath = Path.Combine(HttpContext.Current.Server.MapPath("~/img"), post.Thumbnail);
+                dto.ImageFile.SaveAs(fullPath);
+            }
+
+
+            _context.Posts.Add(post);
+            _context.SaveChanges();
+
+            var topicPost = new TopicPost()
+            {
+                TopicId=dto.TopicId,
+                PostId=post.Id,
+                SenderId=userId
+
+            };
+
+            _context.TopicPosts.Add(topicPost);
+            _context.SaveChanges();
+
+
+            return Ok();
         }
 
         [HttpDelete]

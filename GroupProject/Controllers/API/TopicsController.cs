@@ -1,4 +1,6 @@
-﻿using GroupProject.Models;
+﻿using GroupProject.Dtos;
+using GroupProject.Models;
+using GroupProject.Repositories;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -14,36 +16,83 @@ namespace GroupProject.Controllers.API
     public class TopicsController : ApiController
     {
         private readonly ApplicationDbContext _context;
+        private readonly TopicRepository _topicRepository;
+        private readonly TopicPostRepository _topicPostRepository;
+        private readonly PostRepository _postRepository;
         public TopicsController()
         {
             _context = new ApplicationDbContext();
+            _topicRepository = new TopicRepository(_context);
+            _topicPostRepository = new TopicPostRepository(_context);
+            _postRepository = new PostRepository(_context);
         }
         [Route("")]
         public IHttpActionResult GetTopics()
         {
-            var topics = _context.Topics
-                             .Include(t => t.User)
-                             .ToList();
+            var topics = _topicRepository.GetAll();
+            //var topics = _context.Topics
+            //                 .Include(t => t.User)
+            //                 .ToList();
       
             return Ok(topics);
         }
-  
+        [Route("addTopic")]
+        [HttpPost]
+        public IHttpActionResult AddTopic(TopicDto dto)
+        {
+            var userId = User.Identity.GetUserId();
+
+
+            var topic = new Topic()
+            {
+                Title = dto.Title,
+                Created = DateTime.Now,
+                UserId = userId
+            };
+
+            if (ModelState.IsValid)
+            {
+                //_context.Topics.Add(topic);
+                //  _context.SaveChanges();
+                _topicRepository.Create(topic);
+
+                var post = new Post()
+                {
+                    Body = dto.Body,
+                    Datetime = DateTime.Now
+                };
+               _postRepository.Create(post);
+             
+                var topicPost = new TopicPost()
+                {
+                    PostId = post.Id,
+                    SenderId = userId,
+                    TopicId = topic.Id
+                };
+
+              _topicPostRepository.Create(topicPost);
+                
+                return Ok();
+            }
+            return Ok();
+        }
+
         [HttpDelete]
+        [Route("deleteTopic/{id}")]
         public IHttpActionResult DeleteTopic(int? id)
         {
-            var topicToBeDeleted = _context.Topics
-                                        .SingleOrDefault(t => t.Id == id);
-            _context.Topics.Remove(topicToBeDeleted);
-            _context.SaveChanges();
+           
+            _topicRepository.Delete(id);
+            
 
-            return Ok(topicToBeDeleted);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                _context.Dispose();
+                _postRepository.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -6,6 +6,9 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using GroupProject.Models;
+using System.Configuration;
+using Microsoft.Owin.Security.Facebook;
+using System.Threading.Tasks;
 
 namespace GroupProject
 {
@@ -55,8 +58,34 @@ namespace GroupProject
             //   consumerSecret: "");
 
             //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            //   appId: "3178664245716988",
+            //   appSecret: "3b7656bb4cc99037a92df9184e1ed1d2");
+
+
+            var facebookAuthenticationOptions = new FacebookAuthenticationOptions()
+            {
+                AppId = ConfigurationManager.AppSettings["FacebookId"],
+                AppSecret= ConfigurationManager.AppSettings["FacebookSecret"],
+                Provider= new FacebookAuthenticationProvider()
+                {
+                    OnAuthenticated=context=>
+                    {
+                        context.Identity.AddClaim(new System.Security.Claims.Claim("urn:tokens:facebook", context.AccessToken));
+                        return Task.FromResult(0);
+                    },
+                   
+                },
+                SignInAsAuthenticationType =DefaultAuthenticationTypes.ExternalCookie,
+                SendAppSecretProof=true
+            };
+
+            facebookAuthenticationOptions.Scope.Add("email user_photos");
+
+            app.UseFacebookAuthentication(facebookAuthenticationOptions);
+
+            //app.UseFacebookAuthentication(
+            //   appId: ConfigurationManager.AppSettings["FacebookId"],
+            //   appSecret: ConfigurationManager.AppSettings["FacebookSecret"]);
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

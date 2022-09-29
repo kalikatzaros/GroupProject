@@ -16,11 +16,18 @@ namespace GroupProject.ViewModels
         [Required]
         public string SenderId { get; set; }
         public ApplicationUser Sender { get; set; }
+        public HttpPostedFileBase ImageFile { get; set; }
+        public string Thumbnail { get; set; }
         [Required]
         [DataType(DataType.MultilineText)]
         public string Body { get; set; }
         [DataType(DataType.DateTime)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Datetime { get; set; }
+
+        public TopicPostViewModel()
+        {
+                
+        }
     }
 }

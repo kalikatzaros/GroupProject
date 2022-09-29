@@ -1,0 +1,151 @@
+﻿
+<div class="chat-container">
+    <h3>Chat</h3>
+    <div id="container">
+        <input type="hidden" id="nickname" value="@ViewBag.UserName" />
+        <div id="chatlog"></div>
+        <div id="onlineusers">
+            <b>Online Users</b>
+        </div>
+        <div id="chatarea">
+            <div class="messagelog">
+                <textarea spellcheck="true" id="message" class="messagebox form-control"></textarea>
+            </div>
+            <div class="actionpanel form-group">
+                <input class="btn btn-primary" type="button" id="btnsend" value="Send" />
+            </div>
+            <div class="actionpanel form-group">
+                <select class="form-control" id="users">
+                    <option value="All">All</option>
+
+                </select>
+            </div>
+        </div>
+        <ul id="messages" class=".cb__list">
+        </ul>
+
+    </div>
+</div>
+@section scripts{
+
+    @Scripts.Render("~/Scripts/jquery.chatbubble.js")
+    @Scripts.Render("~/Scripts/jquery.signalR-2.4.3.min.js")
+    @Scripts.Render("/signalr/hubs")
+    @*<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>*@
+    <script type="text/javascript">
+        let messages = [];
+        startChatHub();
+        function startChatHub() {
+            var chat = $.connection.chatHub;
+
+            chat.client.online = function (name) {
+                // Update list of users
+                if (name == $('#nickname').val())
+                    $('#onlineusers').append('<div class="border" style="color:green">You: ' + name + '</div>');
+                else {
+                    $('#onlineusers').append('<div class="border">' + name + '</div>');
+                    $("#users").append('<option value="' + name + '">' + name + '</option>');
+                }
+            };
+
+            chat.client.enters = function (name) {
+                $('#chatlog').append('<div ><i>' + name + ' joins the conversation</i></div>');
+                $("#users").append('<option value="' + name + '">' + name + '</option>');
+                $('#onlineusers').append('<div class="border">' + name + '</div>');
+            };
+            // Create a function that the hub can call to broadcast chat messages.
+            chat.client.broadcastMessage = function (name, message) {
+                //Interpret smileys
+                message = message.replace(":)", "<img src=\"/images/smile.gif\" class=\"smileys\" />");
+                message = message.replace(":D", "<img src=\"/images/laugh.gif\" class=\"smileys\" />");
+                message = message.replace(":o", "<img src=\"/images/cool.gif\" class=\"smileys\" />");
+                messages.push(message);
+                @*$('#messages').chatBubble({
+                    messages: messages,
+                    typingSpeed: 5000
+                });*@
+                //display the message
+                if (message != "") {
+                    @*$('#messages').append('<li class="bubble"><span style="color:purple">' + name + '</span>: ' + message + '</li>');*@
+                    $('#chatlog').append('<div class="border"><span style="color:purple">' + name + '</span>: ' + message + '</div>');
+                    console.log(messages);
+
+                }
+
+            };
+
+            chat.client.disconnected = function (name) {
+                //Calls when someone leaves the page
+                $('#chatlog').append('<div ><i>' + name + ' leaves the conversation</i></div>');
+                $('#onlineusers div').remove(":contains('" + name + "')");
+                $("#users option").remove(":contains('" + name + "')");
+            };
+
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                //Calls the notify method of the server
+                chat.server.notify($('#nickname').val(), $.connection.hub.id);
+
+                $('#btnsend').click(function () {
+                    if ($("#users").val() == "All") {
+                        // Call the Send method on the hub.
+                        chat.server.send($('#nickname').val(), $('#message').val());
+                    }
+                    else {
+                        chat.server.sendToSpecific($('#nickname').val(), $('#message').val(), $("#users").val());
+                    }
+                    // Clear text box and reset focus for next comment.
+                    $('#message').val('').focus();
+                });
+
+            });
+        }
+
+    </script>
+}
+
+<style>
+    .chat-container {
+        height: 80vh;
+    }
+
+    .cb__list {
+        padding: 0;
+        list-style-type: none;
+        font-family: sans-serif;
+        width: 320px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+        .cb__list .bubble {
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+            display: inline-block;
+            line-height: 1.45em;
+            border-radius: 3px;
+            margin: 0 0 1em 0;
+            text-align: left;
+            position: relative;
+            padding: 6px 12px;
+            background: #fff;
+            font-size: 19px;
+            border: none;
+            max-width: 90%;
+            min-width: 44px;
+            min-height: 12px;
+        }
+
+            .cb__list .bubble.typing {
+                animation: cb-font-fade 1.2s ease-in-out infinite;
+            }
+
+    @@keyframes cb-font-fade {
+        50% {
+            color: transparent;
+        }
+
+        100% {
+            color: inherit;
+        }
+    }
+</style>

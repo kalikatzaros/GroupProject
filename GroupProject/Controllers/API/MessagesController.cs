@@ -59,7 +59,7 @@ namespace GroupProject.Controllers.API
             return Ok(count);
         }
         [HttpPost]
-        [Route("changeStatus")]
+        [Route("changeStatus/{id}")]
         public IHttpActionResult ChangeStatus(int? id)
         {
             var message = _context.Messages

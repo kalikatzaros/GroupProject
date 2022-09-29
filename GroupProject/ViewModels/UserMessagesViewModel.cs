@@ -8,6 +8,7 @@ namespace GroupProject.ViewModels
 {
     public class UserMessagesViewModel
     {
+        
         public IEnumerable<ApplicationUser> Users { get; set; }
         public Message Message { get; set; }
     }

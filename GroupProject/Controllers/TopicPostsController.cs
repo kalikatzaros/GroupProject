@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GroupProject.Models;
+using GroupProject.Repositories;
 using GroupProject.ViewModels;
 using Microsoft.AspNet.Identity;
 
@@ -14,149 +16,123 @@ namespace GroupProject.Controllers
 {
     public class TopicPostsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext _context;
+        private readonly TopicRepository _topicRepository;
+        private readonly TopicPostRepository _topicPostRepository;
+        private readonly UserRepository _userRepository;
+        private readonly PostRepository _postRepository;
 
-        // GET: TopicPosts
-     
-        public ActionResult Index(int? id)
+        public TopicPostsController()
         {
+            _context = new ApplicationDbContext();
+            _topicRepository = new TopicRepository(_context);
+            _topicPostRepository = new TopicPostRepository(_context);
+            _userRepository = new UserRepository(_context);
+            _postRepository = new PostRepository(_context);
+        }
+
+       
+        public ActionResult GetTopicPosts(int id)
+        {
+           
             var userId = User.Identity.GetUserId();
-            ViewBag.userId = userId;
-            var topicPosts = db.TopicPosts.Include(t => t.Post)
-                .Include(t => t.Sender)
-                .Include(t => t.Topic)
-                .Where(t=>t.TopicId==id)
-                .OrderBy(t=>t.Post.Datetime);
-            return View(topicPosts.ToList());
-        }
+           
+           
+           var loggedUser=_userRepository.GetById(userId);
+            ViewBag.LoggedUser = loggedUser;
 
-        // GET: TopicPosts/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TopicPost topicPost = db.TopicPosts.Find(id);
-            if (topicPost == null)
-            {
-                return HttpNotFound();
-            }
-            return View(topicPost);
-        }
+            var topic = _topicRepository.GetById(id);
 
-        // GET: TopicPosts/Create
-        public ActionResult Create(int id)
-        {
-            var viewModel = new TopicPostViewModel();
-          
-            
+            var topicPosts = _topicPostRepository.GetAll(id);
+
+           
+
+            var viewModel = new GetTopicPostsViewModel() { 
+            LoggedInUser=loggedUser,
+            TopicPosts=topicPosts.ToList(),
+            Topic=topic,
+            TopicId=id
+                       };
 
             return View(viewModel);
         }
 
-        // POST: TopicPosts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(TopicPostViewModel viewModel,int id)
+        public ActionResult CreateTopicPost(GetTopicPostsViewModel viewModel)
         {
             var post = new Post()
             {
-                Body=viewModel.Body,
-                Datetime=DateTime.Now
+                Body = viewModel.Body,
+                Datetime = DateTime.Now
             };
-            db.Posts.Add(post);
-            db.SaveChanges();
+
+            if (viewModel.ImageFile != null)
+            {
+                post.Thumbnail = Path.GetFileName(viewModel.ImageFile.FileName);
+                string fullPath = Path.Combine(Server.MapPath("~/img"), post.Thumbnail);
+                viewModel.ImageFile.SaveAs(fullPath);
+            }
+
+            _postRepository.Create(post);
+           
 
             var userId = User.Identity.GetUserId();
 
-                var topicPost = new TopicPost()
-                {
-                    TopicId = id,
-                    SenderId = userId,
-                    PostId = post.Id
-                };
 
-                db.TopicPosts.Add(topicPost);
-                db.SaveChanges();
-            return RedirectToAction("Index", "TopicPosts",new {id=id });
-       
+          
+            var topicPost = new TopicPost()
+            {
+                TopicId = viewModel.TopicId,
+                SenderId = userId,
+                PostId = post.Id
+            };
+
+            _topicPostRepository.Create(topicPost);
+          
+            return RedirectToAction("GetTopicPosts", "TopicPosts", new { id = viewModel.TopicId });
+           
         }
 
-        // GET: TopicPosts/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TopicPost topicPost = db.TopicPosts.Find(id);
-            if (topicPost == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.PostId = new SelectList(db.Posts, "Id", "Body", topicPost.PostId);
-            ViewBag.SenderId = new SelectList(db.Users, "Id", "Name", topicPost.SenderId);
-            ViewBag.TopicId = new SelectList(db.Topics, "Id", "Title", topicPost.TopicId);
-            return View(topicPost);
-        }
-
-        // POST: TopicPosts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(string body,int? id)
+        public ActionResult UpdateTopicPost(GetTopicPostsViewModel viewModel)
         {
-            var topicPost = db.TopicPosts
-                .Include(tp=>tp.Post)
-                .Include(tp => tp.Topic)
-                .SingleOrDefault(tp => tp.Id == id);
+            var topicPost = _topicPostRepository.GetById(viewModel.Id);
 
-            topicPost.Post.Body = body;
+            topicPost.Post.Body = viewModel.Body;
             topicPost.Post.Datetime = DateTime.Now;
+
+            if (viewModel.ImageFile != null)
+            {
+                topicPost.Post.Thumbnail = Path.GetFileName(viewModel.ImageFile.FileName);
+                string fullPath = Path.Combine(Server.MapPath("~/img"), topicPost.Post.Thumbnail);
+                viewModel.ImageFile.SaveAs(fullPath);
+            }
+
+            
+
             if (ModelState.IsValid)
             {
-                db.Entry(topicPost).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index", "TopicPosts", new { id = topicPost.Topic.Id });
+                _topicPostRepository.Update(topicPost);
+
+                return RedirectToAction("GetTopicPosts", "TopicPosts", new { id = viewModel.TopicId });
             }
-            return View("Error");
+
+
+            return RedirectToAction("GetTopicPosts", "TopicPosts", new { id = viewModel.TopicId });
+
+
         }
 
-        // GET: TopicPosts/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TopicPost topicPost = db.TopicPosts.Find(id);
-            if (topicPost == null)
-            {
-                return HttpNotFound();
-            }
-            return View(topicPost);
-        }
-
-        // POST: TopicPosts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            TopicPost topicPost = db.TopicPosts.Find(id);
-            db.TopicPosts.Remove(topicPost);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _userRepository.Dispose();
             }
             base.Dispose(disposing);
         }

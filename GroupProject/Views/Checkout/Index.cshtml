@@ -1,21 +1,53 @@
 ﻿@{
     ViewBag.Title = "Donate";
+    Layout = "~/Views/Shared/_KalikatzarosLayout.cshtml";
+    }
 
-}
 
-
-
- 
-<div class="container donate-container">
-    <p><strong>Φιλαράκι μήπως έχεις 1 εύρω?? Για τα τσιγάρα του Αλέξη και την Κρέπα της Αθηνάς...</strong></p>
-    <form action="/Donations/CreateCheckoutSession" method="POST">
-        <button type="submit" class="btn btn-danger">Πάτα όπως είσαι!!!</button>
-    </form>
+<div class="donate-p">
+    <h4>Dear @ViewBag.LoggedUser.Name ,</h4>
+    <p>
+        With your donation, you're working together with Kous Kous for the
+        financial survival of its developers...! As you all know getting an entry level Developer job
+        isn't a piece of cake!
+        Show us your love and show yourself some empathy!
+        Sincerely yours,
+    </p>
+    <h4 class="team">The Developers' Team <i class="material-icons">favorite</i></h4>
 </div>
 
+   
+
+<script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+
+<stripe-pricing-table pricing-table-id="prctbl_1Lk9OwLnJgNQDNAUt0Nj0v1E"
+                      publishable-key="pk_test_51LIzfBLnJgNQDNAUIwhDAPpfDnFBKKVQesMgna4QbtDpID7JxPuhgjHQg3TgRMbAl0pCZpUPo1uC2ww34rK7JTOi00FXDHiSNo">
+</stripe-pricing-table>
+
 <style>
-    .donate-container{
-        height:80vh;
-        padding-top:4rem;
+    .donate-p{
+        background-color:var(--color-white);
+        border-radius:var(--card-border-radius);
+        padding:var(--card-padding);
+       
+        margin-bottom:3rem;
+       
     }
+    .donate-p p,h5{
+        font-size:1.2rem;
+        padding: 2rem 2rem;
+    }
+        .donate-p h4 {
+            font-family: 'Pacifico', cursive;
+            padding-left:1rem;
+            font-size:1.5rem;
+        }
+        .team{
+            margin-left:30rem;
+        }
+            .team i {
+               background: -webkit-linear-gradient(var(--color-analogus)3%,var(--color-primary));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
 </style>

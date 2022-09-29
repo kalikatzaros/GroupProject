@@ -1,0 +1,14 @@
+﻿
+@model GroupProject.ViewModels.PeopleViewModel
+
+@foreach (var item in Model.AllUsers)
+{
+
+    <div class="person-card">
+        <div class="profile-photo">
+            <img src="~/img/@item.Thumbnail" />
+        </div>
+        <p class="person-name">Darth Vader</p>
+    </div>
+
+}

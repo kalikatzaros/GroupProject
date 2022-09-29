@@ -29,7 +29,8 @@ namespace GroupProject.Controllers
         {
             var viewModel = new UserMessagesViewModel();
             var userId = User.Identity.GetUserId();
-
+            var loggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
+            ViewBag.LoggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
             viewModel.Users = _context.Users.Where(u => u.Id != userId&&u.IsDeactivated==false);
             return View(viewModel);
         }
@@ -38,7 +39,25 @@ namespace GroupProject.Controllers
         public ActionResult CreateMessage(UserMessagesViewModel viewModel)
         {
             var userId = User.Identity.GetUserId();
-            
+            ViewBag.LoggedUser = _context.Users.SingleOrDefault(u => u.Id ==userId);
+            var message = new Message()
+            {
+                SenderId = userId,
+                ReceiverId = viewModel.Message.ReceiverId,
+                Body = viewModel.Message.Body,
+                Datetime = DateTime.Now
+            };
+            _context.Messages.Add(message);
+            _context.SaveChanges();
+            return RedirectToAction("GetIncomingMessages", "Messages");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult ComposeMessage(UserMessagesViewModel viewModel)
+        {
+            var userId = User.Identity.GetUserId();
+            var loggedUser = _context.Users.SingleOrDefault(u => u.Id == userId);
             var message = new Message()
             {
                 SenderId = userId,
@@ -50,7 +69,7 @@ namespace GroupProject.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "NewsFeed");
         }
-        [Authorize]
+        //[Authorize]
         public ActionResult ReadIncomingMessages()
         {
             var id = User.Identity.GetUserId();
@@ -74,10 +93,37 @@ namespace GroupProject.Controllers
                             .Include("Sender")
                             .Include("Receiver")
                             .Where(m => m.SenderId == id);
-                           
+
+            return View(messages);
+        }
+        public ActionResult GetIncomingMessages()
+        {
+            var id = User.Identity.GetUserId();
+            ViewBag.LoggedUser = _context.Users.SingleOrDefault(u => u.Id == id);
+            var loggedUser = _context.Users.SingleOrDefault(u => u.Id == id);
+            ViewBag.Thumbnail = loggedUser.Thumbnail;
+            ViewBag.Email = loggedUser.Email;
+            var messages = _context.Messages
+                            .Include("Sender")
+                            .Include("Receiver")
+                            .Where(m => m.ReceiverId == id);
             return View(messages);
         }
 
+        public ActionResult GetSentMessages()
+        {
+            var id = User.Identity.GetUserId();
+            var loggedUser = _context.Users.SingleOrDefault(u => u.Id == id);
+            ViewBag.Thumbnail = loggedUser.Thumbnail;
+            ViewBag.Email = loggedUser.Email;
+            ViewBag.LoggedUser = loggedUser;
+            var messages = _context.Messages
+                            .Include("Sender")
+                            .Include("Receiver")
+                            .Where(m => m.SenderId == id);
+
+            return View(messages);
+        }
         public ActionResult Details(int? id)
         {
             if(id == null)

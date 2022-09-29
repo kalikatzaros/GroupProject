@@ -176,7 +176,7 @@
 
                             if (result) {
                                 $.ajax({
-                                    url: "/api/topics/" + button.attr("data-topicPost-id"),
+                                    url: "/api/topics/deleteTopic/" + button.attr("data-topic-id"),
                                     method: "DELETE"
                                 }).done(function (response) {
                                     console.log(response);

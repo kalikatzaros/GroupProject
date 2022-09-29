@@ -262,7 +262,10 @@
     <Compile Include="Controllers\TopicPostsController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Controllers\WallPostsController.cs" />
+    <Compile Include="Dtos\CreateTopicPostDto.cs" />
     <Compile Include="Dtos\FollowingDto.cs" />
+    <Compile Include="Dtos\TopicDto.cs" />
+    <Compile Include="Dtos\TopicPostsDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -343,6 +346,10 @@
     <Compile Include="Migrations\202209161459121_IsAdminPropertyAtApplicationUserAdded.Designer.cs">
       <DependentUpon>202209161459121_IsAdminPropertyAtApplicationUserAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202209190236245_ImageThumbnailInsPostModelAdded.cs" />
+    <Compile Include="Migrations\202209190236245_ImageThumbnailInsPostModelAdded.Designer.cs">
+      <DependentUpon>202209190236245_ImageThumbnailInsPostModelAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Following.cs" />
@@ -356,7 +363,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FollowingRepository.cs" />
     <Compile Include="Repositories\MessageRepository.cs" />
+    <Compile Include="Repositories\PostRepository.cs" />
+    <Compile Include="Repositories\TopicPostRepository.cs" />
+    <Compile Include="Repositories\TopicRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\WallPostRepository.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\GetTopicPostsViewModel.cs" />
     <Compile Include="ViewModels\NewsFeedViewModel.cs" />
     <Compile Include="ViewModels\PeopleViewModel.cs" />
     <Compile Include="ViewModels\ProfileViewModel.cs" />
@@ -487,6 +500,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="img\blank.png" />
     <Content Include="img\crown.svg" />
+    <Content Include="img\hug2.png" />
     <Content Include="img\img1.jfif" />
     <Content Include="img\Screenshot_4.png" />
     <Content Include="Scripts\bootbox.js" />
@@ -582,7 +596,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Style\StyleSheet.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -628,8 +641,6 @@
     <Content Include="Views\Topics\Create.cshtml" />
     <Content Include="Views\Topics\Details.cshtml" />
     <Content Include="Views\TopicPosts\Create.cshtml" />
-    <Content Include="Views\TopicPosts\Index.cshtml" />
-    <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\WallPosts\Delete.cshtml" />
     <Content Include="Views\WallPosts\Edit.cshtml" />
     <Content Include="Views\Followers\GetPeopleThatFollowMe.cshtml" />
@@ -644,13 +655,31 @@
     <Content Include="Views\Checkout\Success.cshtml" />
     <Content Include="Views\ChatRoom\SignalRChat.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_MessagesModal.cshtml" />
+    <Content Include="Views\Shared\_KalikatzarosLayout.cshtml" />
+    <Content Include="Views\NewsFeed\Newsfeed.cshtml" />
+    <Content Include="Views\Shared\_ChatRoom.cshtml" />
+    <Content Include="Views\Shared\_GetAllPeople.cshtml" />
+    <Content Include="Views\Profile\MyProfile.cshtml" />
+    <Content Include="Views\Shared\_LayoutPage1.cshtml" />
+    <Content Include="Views\Profile\VisitingProfile.cshtml" />
+    <Content Include="Views\People\GetPeople.cshtml" />
+    <Content Include="Views\Followees\GetFollowees.cshtml" />
+    <Content Include="Views\Followers\GetFollowers.cshtml" />
+    <Content Include="Views\Topics\Forum.cshtml" />
+    <Content Include="Views\Topics\GetTopics.cshtml" />
+    <Content Include="Views\TopicPosts\GetTopicPosts.cshtml" />
+    <Content Include="Views\Messages\GetIncomingMessages.cshtml" />
+    <Content Include="Views\Messages\GetSentMessages.cshtml" />
+    <Content Include="Views\Shared\_LayoutPage2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administrator\Data\" />
     <Folder Include="DLL\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Style\" />
     <Folder Include="Views\Donations\" />
+    <Folder Include="Views\Error\" />
     <Folder Include="Views\Posts\" />
   </ItemGroup>
   <ItemGroup>
@@ -723,6 +752,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202209161459121_IsAdminPropertyAtApplicationUserAdded.resx">
       <DependentUpon>202209161459121_IsAdminPropertyAtApplicationUserAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209190236245_ImageThumbnailInsPostModelAdded.resx">
+      <DependentUpon>202209190236245_ImageThumbnailInsPostModelAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

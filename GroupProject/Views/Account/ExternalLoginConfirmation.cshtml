@@ -1,36 +1,129 @@
 ﻿@model GroupProject.Models.ExternalLoginConfirmationViewModel
 @{
     ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>Associate your @ViewBag.LoginProvider account.</h3>
 
-@using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
 
-    <h4>Association Form</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <p class="text-info">
-        You've successfully authenticated with <strong>@ViewBag.LoginProvider</strong>.
-        Please enter a user name for this site below and click the Register button to finish
-        logging in.
-    </p>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-        </div>
+<div class="container-all">
+
+    <div class="register-form">
+        <h2 class="myTitle">@ViewBag.Title</h2>
+        <h3>Associate your @ViewBag.LoginProvider account.</h3>
+        @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "ourForm", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+
+            <h2 class="myH2">Association Form</h2>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <p class="my-paragraph">
+                You've successfully authenticated with <strong>@ViewBag.LoginProvider</strong>.
+                Please enter a user name for this site below and click the Register button to finish
+                logging in.
+            </p>
+            <div class="input-area">
+                
+                <div class="text-box-div">
+                    <label class="labelClass">E-mail</label>
+                    @*@Html.TextBoxFor(m => m.Email, new { @class = "emailInput" })*@
+                    <input type="text" name="Email" id="Email" />
+                    @*@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })*@
+                </div>
+            </div>
+            
+                    <input type="submit" class="button-default button-primary registerBtn" value="Register" <a href="@Url.Action("NewsFeed","NewsFeed")" />
+        }
     </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
-}
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<style>
+    .myH2{
+
+        
+    }
+
+    .labelClass{
+        width:6rem;
+        font-size:1.2rem;
+    }
+    .ourForm{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+    }
+    .text-box-div input {
+        width: 20rem;
+        height: 2rem;
+        margin-left:-8rem;
+        padding: var(--card-padding);
+        border-radius: var(--card-border-radius);
+        text-align:center;
+        font-size: 1.2rem;
+        background-color: var(--color-light);
+    }
+
+    .registerBtn{
+        padding-left:8rem;
+        margin-top:3rem;
+    }
+    .myTitle{
+        margin-top:1.5rem;
+        color: var(--color-primary);
+        font-size:2rem;
+    }
+
+    .container-all {
+        width: 80vw;
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .register-form {
+        width: 33rem;
+        height: 35rem;
+        background-color: var(--color-white);
+        padding: var(--card-padding);
+        border-radius: var(--card-border-radius);
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        align-items: center;
+        font-family: 'Roboto', sans-serif;
+    }
+
+        .my-paragraph {
+            font-family: 'Roboto', sans-serif;
+            font-size:1.5rem;
+            padding:2rem;
+            
+        }
+
+    .input-area {
+        width:4rem;
+        height:3rem;
+    }
+
+    #Email.Valid {
+        border-radius: var(--card-border-radius);
+        height:2rem;
+
+    }
+    .text-box-div{
+        
+        width:100%;
+        display:flex;
+        flex-direction:column;
+        gap:1rem;
+        margin-bottom:4rem;
+    }
+
+</style>
