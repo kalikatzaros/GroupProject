@@ -17,7 +17,8 @@ namespace GroupProject.Repositories
         public IEnumerable<Topic> GetAll()
         {
             return _context.Topics
-                .Include(t => t.User);
+                .Include(t => t.User)
+                .OrderByDescending(t => t.Created);
         }
         public Topic GetById(int? id)
         {

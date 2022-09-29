@@ -53,6 +53,7 @@
     @section Scripts{
         <script>
             $(document).ready(function () {
+                $('#inbox').addClass('active');
                 $("#messages").on("click", ".message-delete", function () {
                     var button = $(this);
                     console.log(button);

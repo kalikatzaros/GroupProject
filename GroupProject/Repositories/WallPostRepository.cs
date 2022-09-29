@@ -45,7 +45,7 @@ namespace GroupProject.Repositories
             return _context.WallPosts
                .Include(wp => wp.Post)
                .Include(wp => wp.User)
-               .Where(wp => wp.UserId == id)
+               .Where(wp => wp.UserId == id && wp.User.IsDeactivated == false)
                .OrderByDescending(w => w.Post.Datetime);
                
 

@@ -41,12 +41,11 @@ namespace GroupProject.Repositories
             }
 
             return _context.TopicPosts
-               .Include(wp => wp.Post)
-               .Include(wp => wp.Sender)
-               .Where(wp => wp.SenderId == id)
-               .OrderByDescending(w => w.Post.Datetime);
-
-
+               .Include(tp => tp.Topic)
+               .Include(tp => tp.Post)
+               .Include(tp => tp.Sender)
+               .Where(tp => tp.SenderId == id && tp.Sender.IsDeactivated == false)
+               .OrderByDescending(tp => tp.Post.Datetime);
         }
 
         public void Create(TopicPost topicPost)

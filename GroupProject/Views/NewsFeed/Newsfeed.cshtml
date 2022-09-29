@@ -104,7 +104,7 @@
            
 
     </div>
-    <div class="title"><h4>Recent Topic posts From the People you follow</h4></div>
+    <div class="title title-topics"><h4>Recent Topic posts From the People you follow</h4></div>
     <div class="topicPosts" id="topicPosts">
         @foreach (var item in Model.TopicPosts)
         {
@@ -149,6 +149,7 @@
                         </div>
                     }
                     <div class="wallpost-text">
+                        <a href="@Url.Action("GetTopicPosts","TopicPosts",new {id=item.Topic.Id })" class="topic-link"><h4>@item.Topic.Title</h4></a>
                         <p>@item.Post.Body</p>
                     </div>
                  </div>
@@ -344,11 +345,23 @@
        line-height:1.5;
     }
 
-    .walpost-header{
-        display:flex;
-        flex-direction:column;
-        justify-content:space-between;
+    .topic-link{
+        color:var(--color-analogus);
+        height:0.5rem;
+        padding-bottom:1rem;
+        transition:var(--transition);
+        
     }
+
+        .topic-link:hover{
+            color:var(--color-analogus-secondary);
+            text-decoration:none;
+        }
+        .walpost-header {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
     .walpost-user{
         display:flex;
         justify-content:space-between;
@@ -413,8 +426,10 @@
         padding: var(--card-padding);
         border-radius: var(--card-border-radius);
     }
-   
-    
+
+    .title-topics{
+        background-color:var(--color-analogus-secondary);
+    }
    
 
 </style>

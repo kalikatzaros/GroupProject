@@ -81,13 +81,11 @@ namespace GroupProject.Controllers.API
         [Route("deleteTopic/{id}")]
         public IHttpActionResult DeleteTopic(int? id)
         {
-            var topicToBeDeleted = _topicRepository.GetById(id);
-            //var topicToBeDeleted = _context.Topics
-            //                            .SingleOrDefault(t => t.Id == id);
-            _context.Topics.Remove(topicToBeDeleted);
-            _context.SaveChanges();
+           
+            _topicRepository.Delete(id);
+            
 
-            return Ok(topicToBeDeleted);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)

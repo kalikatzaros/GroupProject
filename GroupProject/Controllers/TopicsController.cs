@@ -17,13 +17,17 @@ namespace GroupProject.Controllers
     {
         private readonly ApplicationDbContext _context ;
         private readonly TopicRepository _topicRepository;
+        private readonly TopicPostRepository _topicPostRepository;
         private readonly UserRepository _userRepository;
+        private readonly PostRepository _postRepository;
 
         public TopicsController(ApplicationDbContext context)
         {
             _context = context;
             _topicRepository = new TopicRepository(_context);
+            _topicPostRepository = new TopicPostRepository(_context);
             _userRepository = new UserRepository(_context);
+            _postRepository = new PostRepository(_context);
 
         }
 
@@ -38,7 +42,8 @@ namespace GroupProject.Controllers
             //var roleId = _context.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).SingleOrDefault();
             var loggedUser = _userRepository.GetById(userId);
             ViewBag.LoggedUser = loggedUser;
-            return View(db.Topics.Include(t => t.User).OrderByDescending(t=> t.Created).ToList());
+            var topics = _topicPostRepository.GetAll().ToList();
+            return View(topics);
         }
         // GET: Topics/Details/5
         public ActionResult Details(int? id)
@@ -47,7 +52,7 @@ namespace GroupProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Topic topic = db.Topics.Include(t=>t.User).SingleOrDefault(t=>t.Id==id);
+            Topic topic = _topicRepository.GetById(id);
             if (topic == null)
             {
                 return HttpNotFound();
@@ -78,23 +83,23 @@ namespace GroupProject.Controllers
             };
             if (ModelState.IsValid)
             {
-                db.Topics.Add(topic);
-                db.SaveChanges();
+                _topicRepository.Create(topic);
+               
                 var post = new Post()
                 {
                     Body = viewModel.Post.Body,
                     Datetime = DateTime.Now
                 };
-                db.Posts.Add(post);
-                db.SaveChanges();
+                _postRepository.Create(post);
+               
                 var topicPost = new TopicPost()
                 {
                     PostId = post.Id,
                     SenderId = userId,
                     TopicId = topic.Id
                 };
-                db.TopicPosts.Add(topicPost);
-                db.SaveChanges();
+                _topicPostRepository.Create(topicPost);
+               
                 return RedirectToAction("Index");
             }
 
@@ -108,7 +113,7 @@ namespace GroupProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Topic topic = db.Topics.Find(id);
+            Topic topic = _topicRepository.GetById(id);
             if (topic == null)
             {
                 return HttpNotFound();
@@ -116,53 +121,12 @@ namespace GroupProject.Controllers
             return View(topic);
         }
 
-        // POST: Topics/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "Id,Title,Created")] Topic topic)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(topic).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(topic);
-        //}
-
-        // GET: Topics/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Topic topic = db.Topics.Find(id);
-        //    if (topic == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(topic);
-        //}
-
-        //// POST: Topics/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Topic topic = db.Topics.Find(id);
-        //    db.Topics.Remove(topic);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _topicRepository.Dispose();
             }
             base.Dispose(disposing);
         }

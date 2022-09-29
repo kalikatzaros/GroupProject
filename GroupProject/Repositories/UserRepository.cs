@@ -15,6 +15,12 @@ namespace GroupProject.Repositories
             _context = context;
         }
 
+        public IEnumerable<ApplicationUser> GetAll(string id)
+        {
+            return _context.Users
+                   .Where(u => u.Id != id
+                   && u.IsDeactivated == false);
+        }
         public ApplicationUser GetById(string id)
         {
             if (id == null)
